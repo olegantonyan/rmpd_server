@@ -2,7 +2,8 @@
 %html
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
-    %title= content_for?(:title) ? yield(:title) : "Remote Media Player Server"
+    /%title= content_for?(:title) ? yield(:title) : "Remote Media Player Server"
+    %title= "Remote Media Player Server" + (content_for?(:title) ? " | " + yield(:title) : "") 
     %meta{:content => content_for?(:description) ? yield(:description) : "App_Name", :name => "description"}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
@@ -10,6 +11,17 @@
     = yield(:head)
   %body
     #main{:role => "main"}
+      %nav.navbar.navbar-inverse{:role => "navigation"}
+        .container
+          = link_to "Main", devices_path, class: "navbar-brand"
+          .collapse.navbar-collapse
+            %ul.nav.navbar-nav
+              %li.active
+                %a{:href => "#"} 
+                  %strong Link 1
+              %li
+                %a{:href => "#"} Link 2
+            
       .container
         .content
           .row
@@ -17,3 +29,6 @@
               = render 'layouts/messages'
               = yield
           %footer
+            .navbar-fixed-bottom.row
+              .container
+                .col-md-12 Footer status bar

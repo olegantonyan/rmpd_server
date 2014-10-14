@@ -1,11 +1,8 @@
-- content_for :title do 
-  Devices list
+- title "List devices"
   
-- title "Hello"
-  
-%h1 Listing devices
+%h1= yield(:title)
           
-%table.table
+%table.table.table-striped.table-bordered.table-hover.table-responsive
   %tr
     %th Login
     %th Name
@@ -23,4 +20,5 @@
 
 %br
 
-= link_to 'New Device', new_device_path
+= link_to 'New Device', new_device_path, class: "btn btn-warning"
+
