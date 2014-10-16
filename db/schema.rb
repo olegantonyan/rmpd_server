@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006033607) do
+ActiveRecord::Schema.define(version: 20141016033240) do
 
   create_table "devices", force: true do |t|
     t.string   "login"
@@ -19,5 +19,30 @@ ActiveRecord::Schema.define(version: 20141006033607) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "media_deployments", force: true do |t|
+    t.integer  "playlist_id"
+    t.integer  "media_item_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "media_deployments", ["playlist_id", "media_item_id"], name: "index_media_deployments_on_playlist_id_and_media_item_id"
+
+  create_table "media_items", force: true do |t|
+    t.string   "file",                     null: false
+    t.text     "description", default: "", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "playlists", force: true do |t|
+    t.string   "name",                     null: false
+    t.text     "description", default: "", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "playlists", ["name"], name: "index_playlists_on_name"
 
 end
