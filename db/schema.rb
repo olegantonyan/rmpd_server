@@ -11,14 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141016033240) do
+ActiveRecord::Schema.define(version: 20141017030120) do
 
   create_table "devices", force: true do |t|
     t.string   "login"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "playlist_id"
   end
+
+  add_index "devices", ["playlist_id"], name: "index_devices_on_playlist_id"
 
   create_table "media_deployments", force: true do |t|
     t.integer  "playlist_id"

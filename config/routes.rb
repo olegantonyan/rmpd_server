@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+  root 'devices#index'
+
+  resources :media_items
+
   resources :devices
 
   # The priority is based upon order of creation: first created -> highest priority.

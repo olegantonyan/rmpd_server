@@ -13,14 +13,18 @@
     #main{:role => "main"}
       %nav.navbar.navbar-inverse{:role => "navigation"}
         .container
-          = link_to "Main", devices_path, class: "navbar-brand"
+          = link_to "Main", root_path, class: "navbar-brand"
           .collapse.navbar-collapse
             %ul.nav.navbar-nav
-              %li.active
-                %a{:href => "#"} 
-                  %strong Link 1
               %li
-                %a{:href => "#"} Link 2
+                %a{:href => devices_path} 
+                  %strong Devices
+              %li
+                %a{:href => media_items_path}
+                  %strong Media files
+              %li
+                %a{:href => "#"}
+                  %strong Playlists
             
       .container
         .content
