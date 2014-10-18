@@ -1,26 +1,32 @@
 - title "List devices"
   
 %h1= yield(:title)
-          
-%table.table.table-striped.table-bordered.table-hover.table-responsive
-  %tr
-    %th Login
-    %th Name
-    %th Playlist
-    %th Actions
 
-  - @devices.each do |device|
-    %tr
-      %td= device.login
-      %td= device.name
-      %td= device.playlist != nil ? device.playlist.name : "<no playlist>"
-      %td
-        .btn-group
-          = link_to 'Show', device, class: "btn btn-default"
-          = link_to 'Edit', edit_device_path(device), class: "btn btn-default"
-          = link_to 'Destroy', device, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-default"
-
-%br
-
-= link_to 'New Device', new_device_path, class: "btn btn-warning"
+.row
+  .col-md-12  
+    %table.table.table-striped.table-bordered.table-hover.table-responsive
+      %tr
+        %th Login
+        %th Name
+        %th Serial number
+        %th Playlist
+        %th Actions
+    
+      - @devices.each do |device|
+        %tr
+          %td= device.login
+          %td= device.name
+          %td= device.serial_number
+          %td= device.playlist.to_s
+          %td
+            .btn-group
+              %button.btn.btn-default.dropdown-toggle{"type" => "button", "data-toggle" => "dropdown"}
+                %span.glyphicon.glyphicon-tasks
+              %ul.dropdown-menu{:role => "menu"}
+                %li= link_to 'Show', device
+                %li= link_to 'Edit', edit_device_path(device)
+                %li= link_to 'Delete', device, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    
+    
+    = link_to 'Manually add new device', new_device_path, class: "btn btn-danger"
 

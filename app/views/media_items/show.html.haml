@@ -1,2 +1,36 @@
-%h1 MediaItemsController#delete
-%p Find me in app/views/media_items_controller/delete.html.haml
+- title "Media item info"
+  
+%h1= yield(:title)
+
+.row
+  .col-md-12
+    %table.table.table-bordered.table-hover.table-responsive
+      %tr
+        %td 
+          %strong Filename
+        %td= @media_item.file_identifier
+      %tr
+        %td 
+          %strong Description
+        %td= @media_item.description
+      %tr
+        %td
+          %strong Playlists
+        %td
+          %ul
+            - @media_item.playlists.to_a do |p|
+              %li= link_to p.name, p.name
+      %tr
+        %td
+          %strong Added at
+        %td= @media_item.created_at
+      %tr
+        %td
+          %strong Updated at
+        %td= @media_item.updated_at
+        
+.row
+  .col-md-12
+    %h2 Statistics
+            
+  

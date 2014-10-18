@@ -1,4 +1,4 @@
-= form_for @device do |f|
+= form_for @device, :html => {:role => "form"} do |f|
   - if @device.errors.any?
     #error_explanation
       %h2= "#{pluralize(@device.errors.count, "error")} prohibited this device from being saved:"
@@ -6,11 +6,15 @@
         - @device.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :login
-    = f.text_field :login
-  .field
-    = f.label :name
-    = f.text_field :name
-  .actions
-    = f.submit 'Save'
+  .form-group
+    .field
+      = f.label :serial_number
+      = f.text_field :serial_number, :class => "form-control"
+    .field
+      = f.label :login
+      = f.text_field :login, :class => "form-control"
+    .field
+      = f.label :name
+      = f.text_field :name, :class => "form-control"
+    .actions
+      = f.submit 'Save', :class => "btn btn-success btn-lg"

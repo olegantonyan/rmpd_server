@@ -3,9 +3,9 @@
 require 'carrierwave/processing/mime_types'
 
 class MediaItemUploader < CarrierWave::Uploader::Base
-  #include CarrierWave::MimeTypes
+  include CarrierWave::MimeTypes
 
-  #process :set_content_type
+  process :set_content_type
   
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -43,9 +43,9 @@ class MediaItemUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  # def extension_white_list
-  #   %w(jpg jpeg gif png)
-  # end
+  def extension_white_list
+    %w(mp3 mp4 avi wav ogg ogv webm mpeg mpg)
+  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

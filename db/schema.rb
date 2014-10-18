@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141018073727) do
+ActiveRecord::Schema.define(version: 20141018115132) do
 
   create_table "devices", force: true do |t|
     t.string   "login"
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "playlist_id"
+    t.string   "serial_number", default: "", null: false
   end
 
   add_index "devices", ["playlist_id"], name: "index_devices_on_playlist_id"
@@ -26,14 +27,15 @@ ActiveRecord::Schema.define(version: 20141018073727) do
   create_table "media_deployments", force: true do |t|
     t.integer  "playlist_id"
     t.integer  "media_item_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "playlist_position", default: 1000000
   end
 
   add_index "media_deployments", ["playlist_id", "media_item_id"], name: "index_media_deployments_on_playlist_id_and_media_item_id"
 
   create_table "media_items", force: true do |t|
-    t.string   "file"
+    t.string   "file",                     null: false
     t.text     "description", default: "", null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false

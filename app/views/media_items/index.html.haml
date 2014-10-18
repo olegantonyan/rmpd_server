@@ -1,24 +1,30 @@
-- title "List media files"
+- title "List media items"
   
 %h1= yield(:title)
-          
-%table.table.table-striped.table-bordered.table-hover.table-responsive
-  %tr
-    %th Description
-    %th File URL
-    %th Actions
 
-  - @media_items.each do |media_item|
-    %tr
-      %td= media_item.description
-      %td
-        = link_to media_item.file_url, media_item.file_url
-      %td
-        .btn-group
-          = link_to 'Show', media_item, class: "btn btn-default"
-          = link_to 'Edit', edit_media_item_path(media_item), class: "btn btn-default"
-          = link_to 'Destroy', media_item, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-default"
-
-%br
-
-= link_to 'New Media Item', new_media_item_path, class: "btn btn-warning"
+.row
+  .col-md-12      
+    %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
+      %tr
+        %th Filename
+        %th Description
+        %th Playlists
+        %th Actions
+    
+      - @media_items.each do |media_item|
+        %tr
+          %td
+            %span.glyphicon.glyphicon-play
+            = link_to media_item.file_identifier, media_item.file_url
+          %td= media_item.description
+          %td= media_item.playlists.to_a
+          %td
+            .btn-group
+              %button.btn.btn-default.dropdown-toggle{"type" => "button", "data-toggle" => "dropdown"}
+                %span.glyphicon.glyphicon-tasks
+              %ul.dropdown-menu{:role => "menu"}
+                %li= link_to 'Show', media_item
+                %li= link_to 'Edit', edit_media_item_path(media_item)
+                %li= link_to 'Delete', media_item, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    
+    = link_to 'Upload new file', new_media_item_path, class: "btn btn-primary"

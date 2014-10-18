@@ -1,3 +1,7 @@
-%h1 MediaItemsController#new
-
-= render 'form'
+- title "Upload media files"
+  
+%h1= yield(:title)
+          
+.row
+  .col-md-6
+    = render 'form'
