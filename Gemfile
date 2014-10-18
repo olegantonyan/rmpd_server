@@ -37,6 +37,7 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'xmpp4r'
 gem 'carrierwave'
+gem 'local_time'
 
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console

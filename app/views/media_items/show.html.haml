@@ -23,11 +23,11 @@
       %tr
         %td
           %strong Added at
-        %td= @media_item.created_at
+        %td= localtime @media_item.created_at
       %tr
         %td
           %strong Updated at
-        %td= @media_item.updated_at
+        %td= localtime @media_item.updated_at
         
 .row
   .col-md-12
