@@ -1,2 +1,24 @@
-%h1 MediaItemsController#list
-%p Find me in app/views/media_items_controller/list.html.haml
+- title "List media files"
+  
+%h1= yield(:title)
+          
+%table.table.table-striped.table-bordered.table-hover.table-responsive
+  %tr
+    %th Description
+    %th File URL
+    %th Actions
+
+  - @media_items.each do |media_item|
+    %tr
+      %td= media_item.description
+      %td
+        = link_to media_item.file_url, media_item.file_url
+      %td
+        .btn-group
+          = link_to 'Show', media_item, class: "btn btn-default"
+          = link_to 'Edit', edit_media_item_path(media_item), class: "btn btn-default"
+          = link_to 'Destroy', media_item, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-default"
+
+%br
+
+= link_to 'New Media Item', new_media_item_path, class: "btn btn-warning"
