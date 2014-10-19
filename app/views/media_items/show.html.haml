@@ -1,5 +1,5 @@
 - title "Media item info"
-  
+
 %h1= yield(:title)
 
 .row
@@ -27,10 +27,15 @@
       %tr
         %td
           %strong Updated at
-        %td= localtime @media_item.updated_at
-        
+        %td= localtime @media_item.updated_at        
+
 .row
   .col-md-12
     %h2 Statistics
+    
+.row
+  .col-md-12
+    = link_to 'Delete this item', @media_item, :method => :delete, :class => "btn btn-danger pull-right"
+    
             
   

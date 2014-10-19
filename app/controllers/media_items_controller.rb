@@ -21,8 +21,10 @@ class MediaItemsController < ApplicationController
     
     respond_to do |format|
       if @media_item.save
-        format.html { redirect_to @media_item, notice: 'Media item was successfully created.' }
+        flash_success 'Media item was successfully created'
+        format.html { redirect_to @media_item }
       else
+        flash[:error] = 'Media item was successfully created'
         format.html { render :new }
       end
     end
@@ -32,6 +34,12 @@ class MediaItemsController < ApplicationController
   end
   
   def destroy
+    @media_item.remove_file!
+    @media_item.destroy
+    respond_to do |format|
+      flash_success 'Media item was successfully deleted'
+      format.html { redirect_to media_items_url }
+    end
   end
 
   private

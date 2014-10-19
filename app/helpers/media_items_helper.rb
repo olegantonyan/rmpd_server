@@ -1,2 +1,2 @@
-module MediaItemsHelper
+module MediaItemsHelper 
 end
