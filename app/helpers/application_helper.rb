@@ -5,7 +5,11 @@ module ApplicationHelper
   end
   
   def localtime(utc_time)
-    local_time utc_time, "%Y-%m-%d %H:%M:%S"
+    if utc_time != nil
+      local_time utc_time, "%Y-%m-%d %H:%M:%S"
+    else
+      "<nil>"
+    end
   end
   
   def flash_class(level)

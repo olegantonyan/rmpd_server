@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141018115132) do
+ActiveRecord::Schema.define(version: 20141019094921) do
+
+  create_table "device_statuses", force: true do |t|
+    t.boolean  "online",      default: false, null: false
+    t.datetime "last_seen"
+    t.datetime "uptime"
+    t.string   "now_playing"
+    t.integer  "device_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "device_statuses", ["device_id"], name: "index_device_statuses_on_device_id"
 
   create_table "devices", force: true do |t|
     t.string   "login"

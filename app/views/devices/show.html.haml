@@ -1,12 +1,56 @@
-%p#notice= notice
+- title "Device info"
 
-%p
-  %b Login:
-  = @device.login
-%p
-  %b Name:
-  = @device.name
+%h1= yield(:title)
 
-= link_to 'Edit', edit_device_path(@device)
-\|
-= link_to 'Back', devices_path
+.row
+  .col-md-12
+    %table.table.table-bordered.table-hover.table-responsive
+      %tr
+        %td 
+          %strong Serial number
+        %td= @device.serial_number
+      %tr
+        %td 
+          %strong Name
+        %td= @device.name
+      %tr
+        %td
+          %strong Login
+        %td= @device.login
+      %tr
+        %td
+          %strong Added at
+        %td= localtime @device.created_at
+      %tr
+        %td
+          %strong Updated at
+        %td= localtime @device.updated_at        
+
+.row
+  .col-md-12
+    %h2 Status
+    - if @device.device_status != nil
+      %table.table.table-bordered.table-hover.table-responsive
+        %tr
+          %td 
+            %strong Connection
+          - if device_online?(@device)
+            %td.success online
+          - else
+            %td.danger offline
+        %tr
+          %td
+            %strong Last seen
+          %td= localtime @device.device_status.last_seen
+        %tr
+          %td
+            %strong Uptime
+          %td= @device.device_status.uptime
+        %tr
+          %td
+            %strong Now playing
+          %td= @device.device_status.now_playing
+    - else
+      %strong Not available
+            
+          

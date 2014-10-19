@@ -1,7 +1,9 @@
 %h1 Editing device
 
-= render 'form'
+.row
+  .col-md-6
+    = render 'form'
 
-= link_to 'Show', @device
-\|
-= link_to 'Back', devices_path
+.row
+  .col-md-12
+    = link_to 'Delete this device', @device, :method => :delete, :class => "btn btn-danger", :data => { :confirm => 'Are you sure?' }
