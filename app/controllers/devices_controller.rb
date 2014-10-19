@@ -1,15 +1,14 @@
 class DevicesController < ApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
+  before_action :set_active_menu_item
 
   # GET /devices
-  # GET /devices.json
   def index
     @devices = Device.all
     #Xmpp.message "Хелло, ворлд!"
   end
 
   # GET /devices/1
-  # GET /devices/1.json
   def show
   end
 
@@ -29,36 +28,33 @@ class DevicesController < ApplicationController
 
     respond_to do |format|
       if @device.save
-        format.html { redirect_to @device, notice: 'Device was successfully created.' }
-        format.json { render :show, status: :created, location: @device }
+        flash_success 'Device was successfully created'
+        format.html { redirect_to @device }
       else
         format.html { render :new }
-        format.json { render json: @device.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /devices/1
-  # PATCH/PUT /devices/1.json
   def update
     respond_to do |format|
       if @device.update(device_params)
-        format.html { redirect_to @device, notice: 'Device was successfully updated.' }
-        format.json { render :show, status: :ok, location: @device }
+        flash_success 'Device was successfully updated'
+        format.html { redirect_to @device }
       else
+        flash_error 'Error creating device'
         format.html { render :edit }
-        format.json { render json: @device.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /devices/1
-  # DELETE /devices/1.json
   def destroy
     @device.destroy
     respond_to do |format|
-      format.html { redirect_to devices_url, notice: 'Device was successfully destroyed.' }
-      format.json { head :no_content }
+      flash_success  'Device was successfully deleted'
+      format.html { redirect_to devices_url }
     end
   end
 
@@ -71,5 +67,9 @@ class DevicesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
       params.require(:device).permit(:login, :name)
+    end
+    
+    def set_active_menu_item
+      @active_devices = "active"
     end
 end

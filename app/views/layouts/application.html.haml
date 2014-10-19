@@ -13,18 +13,12 @@
     #main{:role => "main"}
       %nav.navbar.navbar-inverse{:role => "navigation"}
         .container
-          = link_to "Main", root_path, class: "navbar-brand"
+          = link_to "RMPD", root_path, class: "navbar-brand"
           .collapse.navbar-collapse
             %ul.nav.navbar-nav
-              %li
-                %a{:href => devices_path} 
-                  %strong Devices
-              %li
-                %a{:href => media_items_path}
-                  %strong Media items
-              %li
-                %a{:href => "#"}
-                  %strong Playlists
+              %li{:class => @active_devices}= link_to 'Devices', devices_path
+              %li{:class => @active_media_items}= link_to 'Media items', media_items_path
+              %li{:class => @active_playlists}= link_to 'Playlists', "$"
             
       .container
         .content

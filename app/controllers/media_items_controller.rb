@@ -1,6 +1,6 @@
 class MediaItemsController < ApplicationController
-  
   before_action :set_media_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_active_menu_item
   
   def index
     @media_items = MediaItem.all
@@ -24,7 +24,7 @@ class MediaItemsController < ApplicationController
         flash_success 'Media item was successfully created'
         format.html { redirect_to @media_item }
       else
-        flash[:error] = 'Media item was successfully created'
+        flash_error = 'Error creating media item'
         format.html { render :new }
       end
     end
@@ -51,5 +51,9 @@ class MediaItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def media_item_params
       params.require(:media_item).permit(:file, :description)
+    end
+    
+    def set_active_menu_item
+      @active_media_items = "active"
     end
 end
