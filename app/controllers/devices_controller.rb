@@ -22,13 +22,11 @@ class DevicesController < ApplicationController
   end
 
   # POST /devices
-  # POST /devices.json
   def create
     @device = Device.new(device_params)
-
     respond_to do |format|
       if @device.save
-        flash_success 'Device was successfully created'
+        flash_success "Device '#{@device.serial_number}' was successfully created"
         format.html { redirect_to @device }
       else
         format.html { render :new }
@@ -40,7 +38,7 @@ class DevicesController < ApplicationController
   def update
     respond_to do |format|
       if @device.update(device_params)
-        flash_success 'Device was successfully updated'
+        flash_success "Device '#{@device.serial_number}' was successfully updated"
         format.html { redirect_to @device }
       else
         flash_error 'Error creating device'
@@ -53,7 +51,7 @@ class DevicesController < ApplicationController
   def destroy
     @device.destroy
     respond_to do |format|
-      flash_success  'Device was successfully deleted'
+      flash_success  "Device '#{@device.serial_number}' was successfully deleted"
       format.html { redirect_to devices_url }
     end
   end

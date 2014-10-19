@@ -18,13 +18,14 @@
             %ul.nav.navbar-nav
               %li{:class => @active_devices}= link_to 'Devices', devices_path
               %li{:class => @active_media_items}= link_to 'Media items', media_items_path
-              %li{:class => @active_playlists}= link_to 'Playlists', "#"
+              %li{:class => @active_playlists}= link_to 'Playlists', playlists_path
             
       .container
         .content
           .row
             .col-md-12
               = render 'layouts/messages'
+            .col-md-12
               = yield
           %footer
             .navbar-fixed-bottom.row

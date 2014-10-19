@@ -1,0 +1,35 @@
+= form_for @playlist, :html => {:multipart => true, :role => "form"} do |f|
+  - if @playlist.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@playlist.errors.count, "error")} prohibited this playlist from being saved:"
+      %ul
+        - @playlist.errors.full_messages.each do |msg|
+          %li= msg
+  
+  .form-group
+    .field
+      = f.label :name
+      = f.text_field :name, :class => "form-control"
+    .field
+      = f.label :description
+      = f.text_field :description, :class => "form-control"
+    .field
+      = f.label "Media items"
+      
+    .input-group
+      %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
+        %tr
+          %th Add?
+          %th Position
+          %th Name
+          %th Description
+        - @media_items.each_with_index do |item, index|
+          %tr
+            %td= check_box_tag "media_items[]", item.id, @playlist.media_items.include?(item), :id => "media_item_#{item.id}"
+            %td= number_field_tag "media_item_#{item.id}_order"
+            %td= label_tag "media_item_#{item.id}", item.file_identifier
+            %td= item.description
+    
+      
+    .actions
+      = f.submit 'Save', :class => "btn btn-primary"
