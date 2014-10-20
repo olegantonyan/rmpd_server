@@ -9,17 +9,21 @@ class PlaylistsController < ApplicationController
 
   # GET /playlists/1
   def show
+    @media_items_in_playlist = MediaItem.joins(:media_deployments)
+          .where(:media_deployments => {:playlist => Playlist.find(params[:id])})
+          .order('media_deployments.playlist_position')
   end
   
   # GET /playlists/new
   def new
     @playlist = Playlist.new
     @media_items = MediaItem.all
-    #@playlist.media_items << @media_items.first
   end
   
   # GET /playlists/1/edit
   def edit
+    #@playlist = Playlist.find(params[:id])
+    @media_items = MediaItem.all
   end
 
   # POST /playlists

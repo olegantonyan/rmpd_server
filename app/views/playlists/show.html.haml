@@ -4,7 +4,49 @@
 
 .row
   .col-md-12
+    %table.table.table-bordered.table-hover.table-responsive
+      %tr
+        %td 
+          %strong Name
+        %td= @playlist.name
+      %tr
+        %td 
+          %strong Description
+        %td= @playlist.description
+      %tr
+        %td
+          %strong Number of items
+        %td= @playlist.media_items.count
+      %tr
+        %td
+          %strong Total size
+        %td= number_to_human_size((@playlist.media_items.inject(0) {|sum, i| sum += i.file.size.to_i}), precision: 2)
+      %tr
+        %td
+          %strong Added at
+        %td= localtime @playlist.created_at
+      %tr
+        %td
+          %strong Updated at
+        %td= localtime @playlist.updated_at
     
+.row
+  .col-md-12
+    %h2 Media items
+    %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
+      %tr
+        %th Position
+        %th Filename
+        %th Description
+        %th File size
     
+      - @media_items_in_playlist.each do |media_item|
+        %tr
+          %td= (media_item.media_deployments.find {|d| d.media_item == media_item }).playlist_position
+          %td
+            %span.glyphicon.glyphicon-play
+            = link_to media_item.file_identifier, media_item.file_url
+          %td= media_item.description
+          %td= number_to_human_size(media_item.file.size, precision: 2)
             
   

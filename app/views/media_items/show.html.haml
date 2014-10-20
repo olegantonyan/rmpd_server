@@ -10,6 +10,10 @@
           %strong Filename
         %td= @media_item.file_identifier
       %tr
+        %td
+          %strong File size
+        %td= number_to_human_size(@media_item.file.size, precision: 2)
+      %tr
         %td 
           %strong Description
         %td= @media_item.description
