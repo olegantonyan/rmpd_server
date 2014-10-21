@@ -9,32 +9,39 @@ class PlaylistsController < ApplicationController
 
   # GET /playlists/1
   def show
-    @media_items_in_playlist = MediaItem.joins(:media_deployments)
-          .where(:media_deployments => {:playlist => Playlist.find(params[:id])})
-          .order('media_deployments.playlist_position')
+    @media_items_in_playlist = MediaItem.in_playlist_ordered(params[:id])
   end
   
   # GET /playlists/new
   def new
     @playlist = Playlist.new
     @media_items = MediaItem.all
+    @media_deployments = MediaDeployment.all
   end
   
   # GET /playlists/1/edit
   def edit
-    #@playlist = Playlist.find(params[:id])
     @media_items = MediaItem.all
   end
 
   # POST /playlists
   def create
     @playlist = Playlist.new(playlist_params)
+    media_items = MediaItem.find(params[:media_items_ids])
+    media_items.each do |i|
+      media_deployment = MediaDeployment.new
+      media_deployment.media_item = i
+      media_deployment.playlist_position = params["media_item_position#{i.id}"]
+      @playlist.media_deployments << media_deployment
+    end
+    
     respond_to do |format|
       if @playlist.save
-        flash_success 'Playlist item was successfully created'
+        flash_success 'Playlist was successfully created'
         format.html { redirect_to @playlist }
       else
         flash_error = 'Error creating playlist'
+        @media_items = MediaItem.all
         format.html { render :new }
       end
     end
@@ -42,6 +49,24 @@ class PlaylistsController < ApplicationController
   
   # PATCH/PUT /playlists/1
   def update
+    media_items = MediaItem.find(params[:media_items_ids])
+    @playlist.media_deployments.clear
+    media_items.each do |i|
+      media_deployment = MediaDeployment.new
+      media_deployment.media_item = i
+      media_deployment.playlist_position = params["media_item_position#{i.id}"]
+      @playlist.media_deployments << media_deployment
+    end
+    
+    respond_to do |format|
+      if @playlist.save
+        flash_success 'Playlist was successfully updated'
+        format.html { redirect_to @playlist }
+      else
+        flash_error = 'Error updating playlist'
+        format.html { render :edit }
+      end
+    end
   end
   
   # DELETE /playlists/1

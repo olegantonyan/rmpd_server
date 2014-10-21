@@ -23,12 +23,12 @@
           %th Position
           %th Name
           %th Description
-        - @media_items.each_with_index do |item, index|
+        - @media_items.each do |item|
           %tr
             - deployment = @playlist.media_deployments.find {|d| d.media_item == item}
-            %td= check_box_tag "media_items[]", item.id, @playlist.media_items.include?(item), :id => "media_item_#{item.id}"
-            %td= number_field_tag "media_item_#{item.id}_order", (deployment == nil ? 0 : deployment.playlist_position)
-            %td= label_tag "media_item_#{item.id}", item.file_identifier
+            %td= check_box_tag "media_items_ids[]", item.id, @playlist.media_items.include?(item)
+            %td= number_field_tag "media_item_position#{item.id}", (deployment == nil ? 0 : deployment.playlist_position)
+            %td= label_tag "media_item#{item.id}", item.file_identifier
             %td= item.description
     
       

@@ -42,11 +42,16 @@
     
       - @media_items_in_playlist.each do |media_item|
         %tr
-          %td= (media_item.media_deployments.find {|d| d.media_item == media_item }).playlist_position
+          %td= (media_item.media_deployments.find {|d| d.playlist == @playlist }).playlist_position
           %td
             %span.glyphicon.glyphicon-play
             = link_to media_item.file_identifier, media_item.file_url
           %td= media_item.description
           %td= number_to_human_size(media_item.file.size, precision: 2)
+          
+.row
+  .col-md-12
+    = link_to 'Edit playlist', edit_playlist_path(@playlist), :class => "btn btn-primary"
+    = link_to 'Delete playlist', @playlist, :method => :delete, :class => "btn btn-danger pull-right"
             
   

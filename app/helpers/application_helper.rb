@@ -19,6 +19,6 @@ module ApplicationHelper
     when :error   then "alert alert-danger"
     when :warning then "alert alert-warning"
     end
-end
+  end
 
 end
