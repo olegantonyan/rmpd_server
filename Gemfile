@@ -38,6 +38,7 @@ gem 'autoprefixer-rails'
 gem 'xmpp4r'
 gem 'carrierwave'
 gem 'local_time'
+gem 'select2-rails'
 
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console

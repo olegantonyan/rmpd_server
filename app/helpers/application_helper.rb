@@ -28,5 +28,9 @@ module ApplicationHelper
       ""
     end
   end
+  
+  def select2js_for_id(id)
+    javascript_tag "$(document).ready(function() { $('##{id.to_s}').select2(); });"
+  end
 
 end
