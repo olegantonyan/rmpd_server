@@ -20,5 +20,13 @@ module ApplicationHelper
     when :warning then "alert alert-warning"
     end
   end
+  
+  def active_class_for(*controller)
+    if controller.include?(params[:controller])
+      "active"
+    else
+      ""
+    end
+  end
 
 end

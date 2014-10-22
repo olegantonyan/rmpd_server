@@ -1,6 +1,5 @@
 class PlaylistsController < ApplicationController
   before_action :set_playlist, only: [:show, :edit, :update, :destroy]
-  before_action :set_active_menu_item
   
   # GET /playlists
   def index
@@ -89,7 +88,4 @@ class PlaylistsController < ApplicationController
       params.require(:playlist).permit(:name, :description)
     end
     
-    def set_active_menu_item
-      @active_playlists = "active"
-    end
 end

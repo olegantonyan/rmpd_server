@@ -1,8 +1,6 @@
 class DevicesController < ApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
   before_action :set_playlists, only: [:edit, :new]
-  before_action :set_active_menu_item
-
   # GET /devices
   def index
     @devices = Device.all
@@ -72,7 +70,4 @@ class DevicesController < ApplicationController
       params.require(:device).permit(:serial_number, :name)
     end
     
-    def set_active_menu_item
-      @active_devices = "active"
-    end
 end

@@ -1,6 +1,5 @@
 class MediaItemsController < ApplicationController
   before_action :set_media_item, only: [:show, :edit, :update, :destroy]
-  before_action :set_active_menu_item
   
   # GET /media_items
   def index
@@ -59,7 +58,4 @@ class MediaItemsController < ApplicationController
       params.require(:media_item).permit(:file, :description)
     end
     
-    def set_active_menu_item
-      @active_media_items = "active"
-    end
 end
