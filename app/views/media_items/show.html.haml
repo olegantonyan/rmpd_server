@@ -21,9 +21,9 @@
         %td
           %strong Playlists
         %td
-          %ul
-            - @media_item.playlists.to_a do |p|
-              %li= link_to p.name, p.name
+          %ul.list-unstyled
+            - @media_item.playlists.each do |p|
+              %li= link_to p.name, p
       %tr
         %td
           %strong Added at

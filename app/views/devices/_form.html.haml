@@ -13,5 +13,8 @@
     .field
       = f.label :name
       = f.text_field :name, :class => "form-control"
+    .field
+      = f.label :playlist
+      = f.select :playlist, @playlists.map{ |p| ["#{p.name} (#{p.description})", p.id] }, {}, :class => "form-control"
     .actions
       = f.submit 'Save', :class => "btn btn-primary"
