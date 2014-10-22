@@ -15,7 +15,7 @@
         %tr{:class => device_online?(device) ? "success" : "danger"}
           %td= device.name
           %td= device.serial_number
-          %td= device.playlist.to_s
+          %td= device.playlist != nil ? device.playlist.name: ""
           %td
             .btn-group
               %button.btn.dropdown-toggle.btn-default{"type" => "button", "data-toggle" => "dropdown"}

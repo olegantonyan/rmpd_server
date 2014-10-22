@@ -23,6 +23,7 @@ class DevicesController < ApplicationController
   # POST /devices
   def create
     @device = Device.new(device_params)
+    
     respond_to do |format|
       if @device.save
         flash_success "Device '#{@device.serial_number}' was successfully created"
@@ -36,7 +37,7 @@ class DevicesController < ApplicationController
   # PATCH/PUT /devices/1
   def update
     respond_to do |format|
-      if @device.update(device_params)
+      if @device.update(device_params) 
         flash_success "Device '#{@device.serial_number}' was successfully updated"
         format.html { redirect_to @device }
       else
@@ -67,7 +68,7 @@ class DevicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:serial_number, :name)
+      params.require(:device).permit(:serial_number, :name, :playlist_id)
     end
     
 end

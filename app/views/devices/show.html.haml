@@ -19,12 +19,19 @@
         %td= @device.login
       %tr
         %td
+          %strong Playlist
+        %td= @device.playlist != nil ? link_to(@device.playlist.name, @device.playlist) : ""
+      %tr
+        %td
           %strong Added at
         %td= localtime @device.created_at
       %tr
         %td
           %strong Updated at
-        %td= localtime @device.updated_at        
+        %td= localtime @device.updated_at
+        
+  .col-md-12
+    = link_to 'Edit device', edit_device_path(@device), class: "btn btn-primary"
 
 .row
   .col-md-12
