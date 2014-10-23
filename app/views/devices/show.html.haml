@@ -29,9 +29,6 @@
         %td
           %strong Updated at
         %td= localtime @device.updated_at
-        
-  .col-md-12
-    = link_to 'Edit device', edit_device_path(@device), class: "btn btn-primary"
 
 .row
   .col-md-12
@@ -59,5 +56,9 @@
           %td= @device.device_status.now_playing
     - else
       %strong Not available
+
+.row
+  .col-md-12
+    = link_to 'Edit device', edit_device_path(@device), class: "btn btn-primary"
             
           

@@ -1,9 +1,8 @@
-%h1 Editing device
+- title "Editing device"
 
-.row
-  .col-md-6
-    = render 'form'
-
+%h1= yield(:title)
+  
 .row
   .col-md-12
+    = render 'form'
     = link_to 'Delete this device', @device, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => 'Are you sure?' }

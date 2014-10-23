@@ -1,6 +1,8 @@
-%h1 New device
+- title "New device"
+
+%h1= yield(:title)
 
 .row
-  .col-md-6
+  .col-md-12
     = render 'form'
 

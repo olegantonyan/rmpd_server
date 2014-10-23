@@ -39,7 +39,7 @@
     
 .row
   .col-md-12
-    = link_to 'Delete this item', @media_item, :method => :delete, :class => "btn btn-danger pull-right"
+    = link_to 'Delete this item', @media_item, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => 'Are you sure?' }
     
             
   

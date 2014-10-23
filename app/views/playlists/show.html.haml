@@ -52,6 +52,6 @@
 .row
   .col-md-12
     = link_to 'Edit playlist', edit_playlist_path(@playlist), :class => "btn btn-primary"
-    = link_to 'Delete playlist', @playlist, :method => :delete, :class => "btn btn-danger pull-right"
+    = link_to 'Delete playlist', @playlist, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => 'Are you sure?' }
             
   
