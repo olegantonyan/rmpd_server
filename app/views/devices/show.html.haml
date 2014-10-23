@@ -20,7 +20,7 @@
       %tr
         %td
           %strong Playlist
-        %td= @device.playlist != nil ? link_to(@device.playlist.name, @device.playlist) : ""
+        %td= link_to(@device.playlist.name, @device.playlist) if @device.playlist
       %tr
         %td
           %strong Added at

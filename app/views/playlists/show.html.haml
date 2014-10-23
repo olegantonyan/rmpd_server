@@ -29,6 +29,12 @@
         %td
           %strong Updated at
         %td= localtime @playlist.updated_at
+      %tr
+        %td
+          %strong Download playlist file
+        %td
+          %span.glyphicon.glyphicon-th-list
+            = link_to @playlist.file_identifier, @playlist.file_url
     
 .row
   .col-md-12

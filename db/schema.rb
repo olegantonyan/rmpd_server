@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141019094921) do
+ActiveRecord::Schema.define(version: 20141023034840) do
 
   create_table "device_statuses", force: true do |t|
     t.boolean  "online",      default: false, null: false
@@ -54,10 +54,11 @@ ActiveRecord::Schema.define(version: 20141019094921) do
   end
 
   create_table "playlists", force: true do |t|
-    t.string   "name",                     null: false
-    t.text     "description", default: "", null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "name",                                 null: false
+    t.text     "description",             default: "", null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "file",        limit: 256, default: "", null: false
   end
 
   add_index "playlists", ["name"], name: "index_playlists_on_name"

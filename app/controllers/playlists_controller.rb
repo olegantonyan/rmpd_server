@@ -39,7 +39,7 @@ class PlaylistsController < ApplicationController
         flash_success 'Playlist was successfully created'
         format.html { redirect_to @playlist }
       else
-        flash_error = 'Error creating playlist'
+        flash_error 'Error creating playlist'
         @media_items = MediaItem.all
         format.html { render :new }
       end
@@ -48,6 +48,8 @@ class PlaylistsController < ApplicationController
   
   # PATCH/PUT /playlists/1
   def update
+    @playlist.name = params[:playlist][:name]
+    @playlist.description = params[:playlist][:description]
     media_items = MediaItem.find(params[:media_items_ids])
     @playlist.media_deployments.clear
     media_items.each do |i|
