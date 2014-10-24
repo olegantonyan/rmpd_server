@@ -1,8 +1,13 @@
 - title "Editing device"
 
-%h1= yield(:title)
+.row
+  .col-md-12
+    %h1= yield(:title)
+    = link_to 'Delete this device', @device, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => 'Are you sure?' }
+
+
+
   
 .row
   .col-md-12
-    = render 'form'
-    = link_to 'Delete this device', @device, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => 'Are you sure?' }
+    = render partial: 'form', locals: {serial_edit_disable: true}

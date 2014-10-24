@@ -5,11 +5,12 @@
       %ul
         - @device.errors.full_messages.each do |msg|
           %li= msg
-
+          
   .form-group
-    .field
-      = f.label :serial_number
-      = f.text_field :serial_number, :class => "form-control"
+    - if !defined?(serial_edit_disable) || serial_edit_disable == false
+      .field
+        = f.label :serial_number
+        = f.text_field :serial_number, :class => "form-control"
     .field
       = f.label :name
       = f.text_field :name, :class => "form-control"
@@ -19,3 +20,4 @@
       = select2js_for_id "select-playlist"
     .actions
       = f.submit 'Save', :class => "btn btn-primary"
+
