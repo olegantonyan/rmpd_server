@@ -90,5 +90,5 @@ class XmppConnector
   end
 
 end
-  
+
 Xmpp = XmppConnector.instance

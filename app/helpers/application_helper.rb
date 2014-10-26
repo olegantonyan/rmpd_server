@@ -33,8 +33,8 @@ module ApplicationHelper
     javascript_tag "$(document).ready(function() { $('##{id.to_s}').select2(); });"
   end
   
-  def broker_status
-    return DeviceRemoteConnector.new.server_online? ? "online" : "offline"
+  def broker_online?
+    return DeviceRemoteConnector.new.server_online?
   end
 
 end

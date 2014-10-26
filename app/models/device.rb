@@ -1,6 +1,6 @@
 class Device < ActiveRecord::Base
   belongs_to :playlist
-  has_one :device_status
+  has_one :device_status, :dependent => :destroy
   
   after_save :device_updated
   before_save :set_login

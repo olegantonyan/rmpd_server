@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  root 'devices#index'
+  root 'home#index'
+  
+  get 'home/index'
 
   resources :media_items
 

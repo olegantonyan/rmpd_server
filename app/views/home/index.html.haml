@@ -1,0 +1,19 @@
+- title "Home"
+  
+%h1= yield(:title)
+
+.row
+  .col-md-12  
+    %table.table.table-striped.table-bordered.table-hover.table-responsive
+      %tr
+        %td
+          %strong Broker status
+        - if broker_online?
+          %td.success online
+        - else
+          %td.danger offline
+      %tr
+        %td
+          %strong Online devices
+        %td
+          = @online_devices_count.to_s
