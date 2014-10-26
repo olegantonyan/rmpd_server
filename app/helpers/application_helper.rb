@@ -32,5 +32,9 @@ module ApplicationHelper
   def select2js_for_id(id)
     javascript_tag "$(document).ready(function() { $('##{id.to_s}').select2(); });"
   end
+  
+  def broker_status
+    return DeviceRemoteConnector.new.server_online? ? "online" : "offline"
+  end
 
 end

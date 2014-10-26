@@ -5,7 +5,7 @@ class DeviceRemoteConnector
   end
   
   def received_message(from, msg)
-    send_message(from, "I've got you #{msg}")
+    send_message(from, "I've got you: #{msg}")
   end
   
   def received_presence(from, online, status_text)
@@ -24,6 +24,10 @@ class DeviceRemoteConnector
       
     end
     
+  end
+  
+  def server_online?
+    return Xmpp.online?
   end
   
 end

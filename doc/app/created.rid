@@ -1,0 +1,19 @@
+Sun, 26 Oct 2014 12:05:09 +0200
+README.rdoc	Sat, 04 Oct 2014 10:41:56 +0300
+app/controllers/application_controller.rb	Wed, 22 Oct 2014 20:28:53 +0300
+app/controllers/devices_controller.rb	Sat, 25 Oct 2014 14:19:35 +0300
+app/controllers/media_items_controller.rb	Wed, 22 Oct 2014 20:28:53 +0300
+app/controllers/playlists_controller.rb	Thu, 23 Oct 2014 21:00:46 +0300
+app/helpers/application_helper.rb	Sun, 26 Oct 2014 12:02:34 +0200
+app/helpers/devices_helper.rb	Sun, 19 Oct 2014 13:19:44 +0300
+app/helpers/media_items_helper.rb	Wed, 22 Oct 2014 06:27:06 +0300
+app/helpers/playlists_helper.rb	Sun, 19 Oct 2014 14:27:46 +0300
+app/models/device.rb	Sat, 25 Oct 2014 14:45:45 +0300
+app/models/device_remote_connector.rb	Sun, 26 Oct 2014 11:55:16 +0200
+app/models/device_remote_protocol.rb	Sun, 26 Oct 2014 11:51:30 +0200
+app/models/device_status.rb	Sun, 19 Oct 2014 13:37:35 +0300
+app/models/media_deployment.rb	Thu, 16 Oct 2014 06:43:07 +0300
+app/models/media_item.rb	Tue, 21 Oct 2014 07:16:10 +0300
+app/models/playlist.rb	Sat, 25 Oct 2014 10:32:26 +0300
+app/uploaders/media_item_uploader.rb	Sat, 18 Oct 2014 14:28:05 +0300
+app/uploaders/playlist_file_uploader.rb	Thu, 23 Oct 2014 21:00:46 +0300

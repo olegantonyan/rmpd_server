@@ -13,7 +13,7 @@
     #main{:role => "main"}
       %nav.navbar.navbar-inverse{:role => "navigation"}
         .container
-          = link_to "RMPD", root_path, class: "navbar-brand"
+          = link_to "RMPD #{broker_status}", root_path, class: "navbar-brand"
           .collapse.navbar-collapse
             %ul.nav.navbar-nav
               %li{:class => active_class_for('devices')}= link_to 'Devices', devices_path
