@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023034840) do
+ActiveRecord::Schema.define(version: 20141026201320) do
 
   create_table "device_statuses", force: true do |t|
     t.boolean  "online",      default: false, null: false
-    t.datetime "last_seen"
     t.datetime "uptime"
     t.string   "now_playing"
     t.integer  "device_id"

@@ -44,8 +44,8 @@
             %td.danger offline
         %tr
           %td
-            %strong Last seen
-          %td= localtime @device.device_status.last_seen
+            %strong Last status update
+          %td= localtime @device.device_status.updated_at
         %tr
           %td
             %strong Uptime

@@ -1,9 +1,11 @@
 #coding: utf-8
 
 require 'xmpp4r'
+require 'xmpp4r/client'
+require 'xmpp4r/roster'
 require 'timers'
 
-Jabber::debug = true if Rails.env.development?
+#Jabber::debug = true if Rails.env.development?
 
 # Low-level connector class for XMPP
 class XmppConnector
@@ -13,10 +15,13 @@ class XmppConnector
     jid = Jabber::JID::new(APP_CONFIG['broker_username'] + '@' + APP_CONFIG['broker_address'])
     jid.resource='rails'
     @client = Jabber::Client::new(jid)
+    connect
     init_presence_callback
     init_message_callback
     init_iq_callback
     init_reconnection_timer
+    init_subscription_requests
+    presence
   end
   
   # Connect a server using credentials from config.yml
@@ -85,10 +90,29 @@ class XmppConnector
     end
   end
   
+  def init_subscription_requests
+    @roster = Jabber::Roster::Helper.new(@client)
+    @roster.add_subscription_request_callback do |item, pres|
+      if pres.from.domain == @jid.domain
+        puts "Subscription request from " + pres.from.to_s
+        @roster.accept_subscription(pres.from)
+      end
+    end
+  end
+  
   def online?
     return @client.is_connected?
   end
 
 end
 
-Xmpp = XmppConnector.instance
+if defined?(Rails::Console) || defined?(Rails::Generators) || File.basename($0) == "rake"
+  class FakeXmpp
+    def message(a, b)
+      puts "FakeXmpp message to #{a}:#{b}"
+    end
+  end
+  Xmpp = FakeXmpp.new
+else
+  Xmpp = XmppConnector.instance
+end

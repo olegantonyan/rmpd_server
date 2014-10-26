@@ -13,11 +13,10 @@ class DeviceRemoteConnector
     d = Device.find_by(:login => from)
     if d != nil
       if d.device_status != nil
-        d.device_status.update_attributes(:online => online, :last_seen => Time.now, :now_playing => status_text)
+        d.device_status.update_attributes(:online => online, :now_playing => status_text)
       else
         d.device_status = DeviceStatus.new
         d.device_status.online = online
-        d.device_status.last_seen = Time.now
         d.device_status.now_playing = status_text
         d.device_status.save
       end
