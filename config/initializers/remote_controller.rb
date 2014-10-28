@@ -12,9 +12,9 @@ class XmppConnector
   include Singleton
   
   def initialize
-    jid = Jabber::JID::new(APP_CONFIG['broker_username'] + '@' + APP_CONFIG['broker_address'])
-    jid.resource='rails'
-    @client = Jabber::Client::new(jid)
+    @jid = Jabber::JID::new(APP_CONFIG['broker_username'] + '@' + APP_CONFIG['broker_address'])
+    @jid.resource='rails'
+    @client = Jabber::Client::new(@jid)
     connect
     init_presence_callback
     init_message_callback
@@ -93,9 +93,10 @@ class XmppConnector
   def init_subscription_requests
     @roster = Jabber::Roster::Helper.new(@client)
     @roster.add_subscription_request_callback do |item, pres|
+      puts "subscription request from " + pres.from.to_s
       if pres.from.domain == @jid.domain
-        puts "Subscription request from " + pres.from.to_s
         @roster.accept_subscription(pres.from)
+        @roster.add(pres.from, pres.from, true)
       end
     end
   end
