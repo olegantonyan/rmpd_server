@@ -22,6 +22,7 @@ class XmppConnector
     init_reconnection_timer
     init_subscription_requests
     presence
+    @protocol_interface = RemoteInterface.new
   end
   
   # Connect a server using credentials from config.yml
@@ -30,32 +31,37 @@ class XmppConnector
     @client.auth(APP_CONFIG['broker_password'])
   end
   
+  # Send a message to the device
   def message(to, text)
     message = Jabber::Message::new(to, text)
     message.set_type(:chat)
     @client.send message
   end
   
+  # Send a presense to all devices
   def presence
     @client.send(Jabber::Presence.new.set_show(nil))
   end
   
+  # Initialize callback on message received
   def init_message_callback
     @client.add_message_callback do |message|
       if message.type != :error
-        d = DeviceRemoteConnector.new
-        d.received_message(message.from.strip.to_s, message.body.to_s)
+        @protocol_interface.received_message(message.from.strip.to_s, message.body.to_s)
       end
     end
   end
   
+  # Initialize callback on presense received
   def init_presence_callback
     @client.add_presence_callback do |presence|
-      d = DeviceRemoteConnector.new
-      d.received_presence(presence.from.strip.to_s, presence.type != :unavailable, presence.status.to_s)
+      unless presence.from == @jid
+        @protocol_interface.received_presence(presence.from.strip.to_s, presence.type != :unavailable, presence.status.to_s)
+      end
     end
   end
   
+  # Initialize callback on ping iq received
   def init_iq_callback
     @client.add_iq_callback do |iq_received|
       if iq_received.type == :get
@@ -70,6 +76,7 @@ class XmppConnector
     end
   end
   
+  # Initialize a reconnection mechanism
   def init_reconnection_timer
     timers = Timers::Group.new
     periodic_timer = timers.every(5) do
@@ -90,6 +97,7 @@ class XmppConnector
     end
   end
   
+  # Initialize a callback for adding new devices to the roster
   def init_subscription_requests
     @roster = Jabber::Roster::Helper.new(@client)
     @roster.add_subscription_request_callback do |item, pres|
@@ -101,6 +109,7 @@ class XmppConnector
     end
   end
   
+  # Returns true if connected to the XMPP server
   def online?
     return @client.is_connected?
   end

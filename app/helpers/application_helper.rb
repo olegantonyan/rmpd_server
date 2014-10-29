@@ -34,7 +34,7 @@ module ApplicationHelper
   end
   
   def broker_online?
-    return DeviceRemoteConnector.new.server_online?
+    return RemoteInterface.new.server_online?
   end
 
 end

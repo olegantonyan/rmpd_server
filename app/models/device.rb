@@ -11,8 +11,8 @@ class Device < ActiveRecord::Base
     end
   
     def device_updated
-      d = DeviceRemoteConnector.new
-      d.send_message self.login, "device updated"
+      #d = DeviceRemoteConnector.new
+      #d.send_message self.login, "device updated"
 
     end
   
