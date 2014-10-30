@@ -40,6 +40,7 @@ gem 'carrierwave'
 gem 'local_time'
 gem 'select2-rails'
 gem 'timers'
+gem 'puma'
 
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console

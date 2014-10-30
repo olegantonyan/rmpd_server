@@ -113,6 +113,8 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
+    puma (2.9.2)
+      rack (>= 1.1, < 2.0)
     rack (1.6.0.beta)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -202,6 +204,7 @@ DEPENDENCIES
   jquery-rails (~> 4.0.0.beta2)
   local_time
   pry-rails
+  puma
   rails (= 4.2.0.beta2)
   sass-rails (~> 5.0.0.beta1)
   sdoc (~> 0.4.0)
