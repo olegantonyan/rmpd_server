@@ -1,9 +1,5 @@
 class RemoteProtocol
   
-  def serial_number_from_login(login)
-    login.split("@")[0]
-  end
-  
   def process_incoming(from, msg, online=true)
     puts "#{from} is #{online ? 'online' : 'offline'} : '#{msg}'"
     
@@ -18,7 +14,6 @@ class RemoteProtocol
         d.device_status.save
       end
     else
-      puts "creating new device"
       d = Device.new
       d.login = from
       d.serial_number = serial_number_from_login d.login
@@ -33,6 +28,12 @@ class RemoteProtocol
   
   def server_online?
     RemoteInterface.new.server_online?
+  end
+  
+  protected
+  
+  def serial_number_from_login(login)
+    login.split("@")[0]
   end
   
 end
