@@ -1,5 +1,5 @@
 class MediaDeployment < ActiveRecord::Base
   
-  belongs_to :media_item
-  belongs_to :playlist
+  belongs_to :media_item, touch: true
+  belongs_to :playlist, touch: true
 end

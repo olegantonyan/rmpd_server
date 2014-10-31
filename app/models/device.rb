@@ -1,5 +1,5 @@
 class Device < ActiveRecord::Base
-  belongs_to :playlist
+  belongs_to :playlist, touch: true
   has_one :device_status, :dependent => :destroy
   
   after_save :device_updated
@@ -11,9 +11,7 @@ class Device < ActiveRecord::Base
     end
   
     def device_updated
-      #d = DeviceRemoteConnector.new
-      #d.send_message self.login, "device updated"
-
+      RemoteProtocol.new.update_playlist self
     end
   
 end

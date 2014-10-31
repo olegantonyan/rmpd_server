@@ -8,6 +8,8 @@ class Playlist < ActiveRecord::Base
   
   validates :name, presence: true
   
+  after_save :playlist_updated
+  after_destroy :playlist_destroyed
   before_save :create_playlist_file
   
   mount_uploader :file, PlaylistFileUploader
@@ -22,6 +24,18 @@ class Playlist < ActiveRecord::Base
         tempfile.close
         self.file = tempfile
         tempfile.unlink
+      end
+    end
+    
+    def playlist_updated
+      self.devices.each do |d|
+        RemoteProtocol.new.update_playlist d
+      end
+    end
+    
+    def playlist_destroyed
+      self.devices.each do |d|
+        RemoteProtocol.new.delete_playlist d
       end
     end
   

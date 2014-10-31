@@ -1,4 +1,17 @@
+require 'json'
+
 class RemoteProtocol
+  
+  def update_playlist(to_device)
+    items = []
+    to_device.playlist.media_items.each {|i| items << i.file_url }
+    items << to_device.playlist.file.url
+    RemoteInterface.new.send_message(to_device.login, json_for_update_playlist(items))
+  end
+  
+  def delete_playlist(to_device)
+    RemoteInterface.new.send_message(to_device.login, json_for_delete_playlist)
+  end
   
   def process_incoming(from, msg, online=true)
     puts "#{from} is #{online ? 'online' : 'offline'} : '#{msg}'"
@@ -34,6 +47,14 @@ class RemoteProtocol
   
   def serial_number_from_login(login)
     login.split("@")[0]
+  end
+  
+  def json_for_update_playlist(items)
+    {'type' => 'playlist', 'status' => 'update', 'items' => items}.to_json
+  end
+  
+  def json_for_delete_playlist
+    {'type' => 'playlist', 'status' => 'delete'}.to_json
   end
   
 end
