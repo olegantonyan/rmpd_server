@@ -17,8 +17,8 @@ class RemoteProtocol
     puts "#{from} is #{online ? 'online' : 'offline'} : '#{msg}'"
     
     d = Device.find_by(:login => from)
-    if d != nil
-      if d.device_status != nil
+    unless d.nil?
+      unless d.device_status.nil?
         d.device_status.update_attributes(:online => online, :now_playing => msg)
       else
         d.device_status = DeviceStatus.new
