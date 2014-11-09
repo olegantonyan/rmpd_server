@@ -48,8 +48,8 @@
           %td= localtime @device.device_status.updated_at
         %tr
           %td
-            %strong Uptime
-          %td= @device.device_status.uptime
+            %strong Powered on at
+          %td= @device.device_status.poweredon_at
         %tr
           %td
             %strong Now playing

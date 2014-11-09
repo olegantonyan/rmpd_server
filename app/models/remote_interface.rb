@@ -5,7 +5,7 @@ class RemoteInterface
   end
   
   def received_message(from, msg)
-    RemoteProtocol.new.process_incoming(from, msg)
+    RemoteProtocol.new.process_incoming(from, msg, true)
   end
   
   def received_presence(from, online, status_text)

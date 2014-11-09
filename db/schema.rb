@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141026201320) do
+ActiveRecord::Schema.define(version: 20141109133004) do
 
   create_table "device_statuses", force: true do |t|
-    t.boolean  "online",      default: false, null: false
-    t.datetime "uptime"
+    t.boolean  "online",       default: false, null: false
+    t.datetime "poweredon_at"
     t.string   "now_playing"
     t.integer  "device_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "device_statuses", ["device_id"], name: "index_device_statuses_on_device_id"

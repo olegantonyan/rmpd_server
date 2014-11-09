@@ -13,23 +13,24 @@ class RemoteProtocol
     RemoteInterface.new.send_message(to_device.login, json_for_delete_playlist)
   end
   
-  def process_incoming(from, msg, online=true)
+  def process_incoming(from, msg, online)
     puts "#{from} is #{online ? 'online' : 'offline'} : '#{msg}'"
     
-    if msg.start_with?("{")
+    now_playing = if msg.start_with?("{")
       data = JSON.parse(msg)
       case data["type"]
         when "power" 
-          update_device(from, online, "power_on")
-        when "playback" 
-          update_device(from, online, data["now_playing"])
+          "power_on"
+        when "playback"
+          data["status"] == "play" ? data["now_playing"] : "stopped"
         else 
-          update_device(from, online, "unknown")
+          "unknown"
       end
     else
-      update_device(from, online, msg)
+      msg
     end
-           
+    
+    update_device(from, online, now_playing)      
   end
   
   def server_online?
@@ -59,19 +60,12 @@ class RemoteProtocol
       unless d.device_status.nil?
         d.device_status.update_attributes(:online => online, :now_playing => now_playing)
       else
-        d.device_status = DeviceStatus.new
-        d.device_status.online = online
-        d.device_status.now_playing = now_playing
+        d.device_status = DeviceStatus.new(:online => online, :now_playing => now_playing)
         d.device_status.save
       end
     else
-      d = Device.new
-      d.login = login
-      d.serial_number = serial_number_from_login d.login
-      d.name = "auto added device #{d.serial_number}"
-      d.device_status = DeviceStatus.new
-      d.device_status.online = online
-      d.device_status.now_playing = now_playing
+      d = Device.new(:login => login, :serial_number => serial_number_from_login(login), :name => "auto added device #{login}")
+      d.device_status = DeviceStatus.new(:online => online, :now_playing => now_playing)
       d.save
     end
   end
