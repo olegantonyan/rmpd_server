@@ -5,7 +5,8 @@ class RemoteProtocol
   def update_playlist(to_device)
     items = []
     to_device.playlist.media_items.each {|i| items << i.file_url }
-    items << to_device.playlist.file.url
+    p = Playlist.find(to_device.playlist.id) #note: http://stackoverflow.com/questions/26923249/rails-carrierwave-manual-file-upload-wrong-url
+    items << p.file_url
     RemoteInterface.new.send_message(to_device.login, json_for_update_playlist(items))
   end
   

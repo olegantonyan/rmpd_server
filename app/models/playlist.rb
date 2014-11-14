@@ -29,6 +29,12 @@ class Playlist < ActiveRecord::Base
     
     def playlist_updated
       self.devices.each do |d|
+        puts "******************\n\n"
+        puts "playlist by device: " + d.playlist.inspect + " url " + d.playlist.file_url + " new_record?" + d.playlist.new_record?.to_s
+        pp = Playlist.where("device_id" == d.id).first
+        puts "playlist found: " + pp.inspect + " url " + pp.file_url + " new_record?" + pp.new_record?.to_s
+        puts "******************\n\n"
+         
         RemoteProtocol.new.update_playlist d
       end
     end
