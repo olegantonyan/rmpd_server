@@ -2,7 +2,7 @@ require 'tempfile'
 
 class Playlist < ActiveRecord::Base
   
-  has_many :media_deployments 
+  has_many :media_deployments, :dependent => :destroy
   has_many :media_items, :through => :media_deployments
   has_many :devices
   
@@ -16,7 +16,7 @@ class Playlist < ActiveRecord::Base
   
   private
     def create_playlist_file
-      self.media_deployments.each { |d| d.save }
+      self.media_deployments.each { |d| d.save } # saving them before saving playlist in required to create a file
       tempfile = Tempfile.new(['playlist', '.m3u'])
       self.media_deployments.order(:playlist_position).each do |deployment|
         tempfile.puts deployment.media_item.file_identifier
