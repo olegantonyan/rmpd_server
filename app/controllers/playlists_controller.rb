@@ -32,6 +32,9 @@ class PlaylistsController < ApplicationController
       media_deployment.media_item = i
       media_deployment.playlist_position = params["media_item_position#{i.id}"]
       @playlist.media_deployments << media_deployment
+      puts "#########"
+      puts @playlist.media_deployments.inspect
+      puts "#########"
     end
     
     respond_to do |format|
