@@ -16,16 +16,13 @@ class Playlist < ActiveRecord::Base
   
   private
     def create_playlist_file
+      self.media_deployments.each { |d| d.save }
       tempfile = Tempfile.new(['playlist', '.m3u'])
       self.media_deployments.order(:playlist_position).each do |deployment|
         tempfile.puts deployment.media_item.file_identifier
-        puts "*****************************************"
-        puts deployment.media_item.file_identifier
-        puts "*****************************************"
       end
       tempfile.close
       self.file = tempfile
-      self.file.store!
       tempfile.unlink
     end
     
