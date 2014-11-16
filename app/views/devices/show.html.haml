@@ -49,7 +49,7 @@
         %tr
           %td
             %strong Powered on at
-          %td= @device.device_status.poweredon_at
+          %td= localtime @device.device_status.poweredon_at
         %tr
           %td
             %strong Now playing

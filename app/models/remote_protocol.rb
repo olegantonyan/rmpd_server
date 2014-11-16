@@ -17,21 +17,24 @@ class RemoteProtocol
   def process_incoming(from, msg, online)
     puts "#{from} is #{online ? 'online' : 'offline'} : '#{msg}'"
     
-    now_playing = if msg.start_with?("{")
+    device = obtain_device from
+    device.device_status.online = online
+    
+    if msg.start_with?("{")
       data = JSON.parse(msg)
       case data["type"]
-        when "power" 
-          "power_on"
+        when "power"
+          if data["status"] == "on"
+            device.device_status.poweredon_at = Time.now
+          end
         when "playback"
-          data["status"] == "play" ? data["now_playing"] : "stopped"
-        else 
-          "unknown"
+          device.device_status.now_playing = data["status"] == "play" ? data["now_playing"] : "stopped"
       end
     else
-      msg
+      device.device_status.now_playing = msg
     end
     
-    update_device(from, online, now_playing)      
+    save_device device
   end
   
   def server_online?
@@ -54,21 +57,22 @@ class RemoteProtocol
   
   private
   
-  def update_device(login, online, now_playing)
-    
+  def obtain_device(login)
     d = Device.find_by(:login => login)
-    unless d.nil?
-      unless d.device_status.nil?
-        d.device_status.update_attributes(:online => online, :now_playing => now_playing)
-      else
-        d.device_status = DeviceStatus.new(:online => online, :now_playing => now_playing)
-        d.device_status.save
-      end
-    else
+    if d.nil?
       d = Device.new(:login => login, :serial_number => serial_number_from_login(login), :name => "auto added device #{login}")
-      d.device_status = DeviceStatus.new(:online => online, :now_playing => now_playing)
-      d.save
+      d.device_status = DeviceStatus.new
+    else
+      if d.device_status.nil?
+        d.device_status = DeviceStatus.new
+      end
     end
+    return d
+  end
+  
+  def save_device(device)
+    device.save if device.new_record? or device.changed?
+    device.device_status.save if device.device_status.new_record? or device.device_status.changed?   
   end
   
 end

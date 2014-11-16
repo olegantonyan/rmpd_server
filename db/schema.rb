@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141109133004) do
+ActiveRecord::Schema.define(version: 20141116213109) do
 
   create_table "device_statuses", force: true do |t|
     t.boolean  "online",       default: false, null: false
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20141109133004) do
     t.string   "serial_number", default: "", null: false
   end
 
+  add_index "devices", ["login"], name: "index_devices_on_login"
   add_index "devices", ["playlist_id"], name: "index_devices_on_playlist_id"
 
   create_table "media_deployments", force: true do |t|
