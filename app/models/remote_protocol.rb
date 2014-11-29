@@ -61,6 +61,7 @@ class RemoteProtocol
     d = Device.find_by(:login => login)
     if d.nil?
       d = Device.new(:login => login, :serial_number => serial_number_from_login(login), :name => "auto added device #{login}")
+      d.playlist = Playlist.first
       d.device_status = DeviceStatus.new
     else
       if d.device_status.nil?

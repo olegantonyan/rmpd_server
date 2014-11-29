@@ -21,5 +21,12 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  #<<: *default
+  #database: db/production.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  database: rmpd_server
+  username: rmpd_server
+  password: <tpgfhjkz
+  host: localhost
+  port: 3306

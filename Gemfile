@@ -62,3 +62,9 @@ group :development, :test do
   gem 'erb2haml'
   gem 'pry-rails'
 end
+
+group :production do
+  gem 'mysql2'
+end
+
+
