@@ -43,6 +43,12 @@ gem 'timers'
 gem 'puma'
 gem 'time_difference'
 
+gem 'capistrano',         require: false
+gem 'capistrano-rvm',     require: false
+gem 'capistrano-rails',   require: false
+gem 'capistrano-bundler', require: false
+gem 'capistrano3-puma',   require: false
+
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -56,4 +62,3 @@ group :development, :test do
   gem 'erb2haml'
   gem 'pry-rails'
 end
-
