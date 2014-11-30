@@ -21,7 +21,7 @@ class XmppConnector
     init_iq_callback
     init_reconnection_timer
     init_subscription_requests
-    init_update_callback
+    #init_update_callback
     presence
     @protocol_interface = RemoteInterface.new
   end
