@@ -11,4 +11,6 @@ test:
   <<: *default
 
 production:
-  <<: *default
+  broker_address: "server.slon-ds.ru"
+  broker_username: "server"
+  broker_password: "db6cd4e8eb4afff3443baf2381adc7b6"
