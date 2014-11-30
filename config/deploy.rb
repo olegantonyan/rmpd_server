@@ -1,5 +1,5 @@
 # Change these
-server 'server.slon-ds.ru', port: 80, roles: [:web, :app, :db], primary: true
+server 'server.slon-ds.ru', port: 80, roles: [:app], primary: true
 
 set :repo_url,        'git@bitbucket.org:antlabs_dev/rmpd_server.git'
 set :application,     'rmpd_server'
