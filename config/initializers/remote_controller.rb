@@ -111,7 +111,7 @@ class XmppConnector
   end
   
   def init_update_callback
-    @client.add_update_callback do |presence|
+    @roster.add_update_callback do |presence|
       if presence.from.domain == @jid.domain && presence.ask == :subscribe
         @client.send(presence.from, "added")
       end
