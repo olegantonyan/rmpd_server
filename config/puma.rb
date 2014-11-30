@@ -51,7 +51,7 @@ threads 0, 16
 # accepted protocols.
 # The default is “tcp://0.0.0.0:9292”.
 
-bind '/srv/www/rmpd_server/tmp/sockets/rmpd_server-puma.sock'
+bind 'unix:///srv/www/rmpd_server/tmp/sockets/rmpd_server-puma.sock'
 
 # Listens on port 7001
 # The default is 9292
