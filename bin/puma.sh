@@ -5,10 +5,14 @@
 
 # The script will start with config set by $PUMA_CONFIG_FILE by default
 
+cd $(dirname $(readlink -f $0))
+cd ..
+
 PUMA_CONFIG_FILE=config/puma.rb
 PUMA_PID_FILE=tmp/pids/puma.pid
 PUMA_SOCKET=tmp/sockets/puma.sock
 MODE=production
+export SECRET_KEY_BASE="b240b6a3c727ea326d16ca583416bbf313c0a48a9fbcc2d1b88bcbf9918df42ddf327ac606d782e9adea57fe75315045741727695c93a1095675f2abc6c7a000"
 
 # check if puma process is running
 puma_is_running() {
@@ -34,9 +38,9 @@ case "$1" in
     echo "Starting puma..."
     rm -f $PUMA_SOCKET
     if [ -e $PUMA_CONFIG_FILE ] ; then
-      RAILS_ENV=$MODE bundle exec puma --config $PUMA_CONFIG_FILE -e $MODE
+      bundle exec puma --config $PUMA_CONFIG_FILE -e $MODE
     else
-      RAILS_ENV=$MODE bundle exec puma --daemon --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE -e $MODE
+      bundle exec puma --daemon --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE -e $MODE
     fi
 
     echo "done"
