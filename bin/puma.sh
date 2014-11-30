@@ -8,6 +8,7 @@
 PUMA_CONFIG_FILE=config/puma.rb
 PUMA_PID_FILE=tmp/pids/puma.pid
 PUMA_SOCKET=tmp/sockets/puma.sock
+MODE=production
 
 # check if puma process is running
 puma_is_running() {
@@ -33,9 +34,9 @@ case "$1" in
     echo "Starting puma..."
     rm -f $PUMA_SOCKET
     if [ -e $PUMA_CONFIG_FILE ] ; then
-      bundle exec puma --config $PUMA_CONFIG_FILE
+      RAILS_ENV=$MODE bundle exec puma --config $PUMA_CONFIG_FILE
     else
-      bundle exec puma --daemon --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE
+      RAILS_ENV=$MODE bundle exec puma --daemon --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE
     fi
 
     echo "done"
@@ -66,10 +67,10 @@ case "$1" in
     fi
 
     echo "Trying cold reboot"
-    script/puma.sh start
+    bin/puma.sh start
     ;;
 
   *)
-    echo "Usage: script/puma.sh {start|stop|restart}" >&2
+    echo "Usage: bin/puma.sh {start|stop|restart}" >&2
     ;;
 esac
