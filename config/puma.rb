@@ -1,7 +1,7 @@
 # The directory to operate out of.
 # The default is the current directory.
 
-directory '/srv/www/rmpd_server/tmp/sockets/rmpd_server'
+directory '/srv/www/rmpd_server/'
 
 # Load “path” as a rackup file.
 # The default is “config.ru”.
@@ -22,12 +22,12 @@ daemonize false
 
 # Store the pid of the server in the file at “path”.
 
-pidfile '/srv/www/rmpd_server/tmp/sockets/rmpd_server/tmp/pids/puma.pid'
+pidfile '/srv/www/rmpd_server/tmp/pids/puma.pid'
 
 # Use “path” as the file to store the server info state. This is
 # used by “pumactl” to query and control the server.
 
-state_path '/srv/www/rmpd_server/tmp/sockets/rmpd_server/tmp/pids/puma.state'
+state_path '/srv/www/rmpd_server/tmp/sockets/puma.state'
 
 # Redirect STDOUT and STDERR to files specified. The 3rd parameter
 # (“append”) specifies whether the output is appended, the default is
@@ -51,7 +51,7 @@ threads 0, 16
 # accepted protocols.
 # The default is “tcp://0.0.0.0:9292”.
 
-bind 'unix:///srv/www/rmpd_server/tmp/sockets/rmpd_server-puma.sock'
+bind '/srv/www/rmpd_server/tmp/sockets/rmpd_server-puma.sock'
 
 # Listens on port 7001
 # The default is 9292
