@@ -34,9 +34,9 @@ case "$1" in
     echo "Starting puma..."
     rm -f $PUMA_SOCKET
     if [ -e $PUMA_CONFIG_FILE ] ; then
-      RAILS_ENV=$MODE bundle exec puma --config $PUMA_CONFIG_FILE
+      RAILS_ENV=$MODE bundle exec puma --config $PUMA_CONFIG_FILE -e $MODE
     else
-      RAILS_ENV=$MODE bundle exec puma --daemon --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE
+      RAILS_ENV=$MODE bundle exec puma --daemon --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE -e $MODE
     fi
 
     echo "done"
