@@ -40,7 +40,7 @@ case "$1" in
     if [ -e $PUMA_CONFIG_FILE ] ; then
       bundle exec puma --config $PUMA_CONFIG_FILE -e $MODE
     else
-      bundle exec puma --daemon --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE -e $MODE
+      bundle exec puma --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE -e $MODE
     fi
 
     echo "done"
