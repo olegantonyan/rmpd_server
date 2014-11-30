@@ -21,6 +21,7 @@ class XmppConnector
     init_iq_callback
     init_reconnection_timer
     init_subscription_requests
+    init_update_callback
     presence
     @protocol_interface = RemoteInterface.new
   end
@@ -105,6 +106,14 @@ class XmppConnector
       if pres.from.domain == @jid.domain
         @roster.accept_subscription(pres.from)
         @roster.add(pres.from, pres.from, true)
+      end
+    end
+  end
+  
+  def init_update_callback
+    @client.add_update_callback do |presence|
+      if presence.from.domain == @jid.domain && presence.ask == :subscribe
+        @client.send(presence.from, "added")
       end
     end
   end
