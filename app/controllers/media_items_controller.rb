@@ -21,14 +21,23 @@ class MediaItemsController < ApplicationController
 
   # POST /media_items
   def create
-    @media_item = MediaItem.new(media_item_params)
+    items = []
+    items = params[:media_item][:file].map { |f| MediaItem.new(:description => params[:media_item][:description], :file => f) }
+    err = false
+    items.each do |i|
+      if not i.save
+        err = true
+        break
+      end
+    end
     respond_to do |format|
-      if @media_item.save
-        flash_success "Media item '#{@media_item.file_identifier}' was successfully created"
-        format.html { redirect_to @media_item }
+      if not err
+        str_items = (items.map { |i| i.file_identifier }).join(", ")
+        flash_success "Media items '#{str_items}' were successfully created"
+        format.html { redirect_to :media_items }
       else
-        flash_error = 'Error creating media item'
-        format.html { render :new }
+        flash_error = 'Error uploading some media items'
+        format.html { render :media_items }
       end
     end
   end
@@ -51,11 +60,6 @@ class MediaItemsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_media_item
       @media_item = MediaItem.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def media_item_params
-      params.require(:media_item).permit(:file, :description)
     end
     
 end

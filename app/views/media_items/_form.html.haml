@@ -12,6 +12,6 @@
       = f.text_field :description, :class => "form-control"
     .field
       = f.label :file
-      = f.file_field :file
+      = f.file_field :file, multiple: true
     .actions
       = f.submit 'Upload', :class => "btn btn-primary"
