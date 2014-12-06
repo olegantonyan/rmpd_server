@@ -17,4 +17,5 @@
 
 .project
 public/uploads
+public/assets
 .~lock*

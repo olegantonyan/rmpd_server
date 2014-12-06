@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141116213109) do
+ActiveRecord::Schema.define(version: 20141206101941) do
+
+  create_table "device_logs", force: true do |t|
+    t.string   "module",     null: false
+    t.string   "class",      null: false
+    t.string   "type",       null: false
+    t.datetime "localtime",  null: false
+    t.string   "details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "device_logs", ["details"], name: "index_device_logs_on_details"
+  add_index "device_logs", ["module"], name: "index_device_logs_on_module"
 
   create_table "device_statuses", force: true do |t|
     t.boolean  "online",       default: false, null: false
