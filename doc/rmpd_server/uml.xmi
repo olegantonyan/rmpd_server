@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMI verified="false" xmi.version="1.2" timestamp="2014-12-06T12:11:00" xmlns:UML="http://schema.omg.org/spec/UML/1.3">
+<XMI verified="false" xmi.version="1.2" timestamp="2014-12-07T11:57:23" xmlns:UML="http://schema.omg.org/spec/UML/1.3">
  <XMI.header>
   <XMI.documentation>
    <XMI.exporter>umbrello uml modeller http://uml.sf.net</XMI.exporter>
@@ -122,9 +122,9 @@
       <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="OYteMEIeRetD" name="DeviceLog">
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="OYteMEIeRetD" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="JiGmVwZ9DbGR" type="" dbindex_type="1100" initialValue="" name="device_id"/>
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="OYteMEIeRetD" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="yIH4hpvJ9Abl" type="" dbindex_type="1100" initialValue="" name="localtime"/>
-       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="OYteMEIeRetD" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="Rc7eCL5AcMFH" type="" dbindex_type="1100" initialValue="" name="event_type"/>
-       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="OYteMEIeRetD" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="9AaJIB2qOhbM" type="" dbindex_type="1100" initialValue="" name="event_class"/>
-       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="OYteMEIeRetD" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="UudxReuqFzUR" type="" dbindex_type="1100" initialValue="" name="event_module"/>
+       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="OYteMEIeRetD" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="Rc7eCL5AcMFH" type="" dbindex_type="1100" initialValue="" name="type"/>
+       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="OYteMEIeRetD" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="9AaJIB2qOhbM" type="" dbindex_type="1100" initialValue="" name="level"/>
+       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="OYteMEIeRetD" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="UudxReuqFzUR" type="" dbindex_type="1100" initialValue="" name="module"/>
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="OYteMEIeRetD" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="JZbvwoA5xiMD" type="" dbindex_type="1100" initialValue="" name="details"/>
       </UML:Entity>
       <UML:Association visibility="public" isSpecification="false" namespace="Entity Relationship Model" xmi.id="tN3F4eaWWBTv" name="">
@@ -143,7 +143,7 @@
          <entitywidget width="193" showstereotype="1" x="588" y="80" usesdiagramusefillcolor="0" usesdiagramfillcolor="0" isinstance="0" fillcolor="#ffff00" height="100" linecolor="#ff0000" xmi.id="iLj02hvJqVmz" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
          <entitywidget width="138" showstereotype="1" x="880" y="295" usesdiagramusefillcolor="0" usesdiagramfillcolor="0" isinstance="0" fillcolor="#ffff00" height="149" linecolor="#ff0000" xmi.id="twpghWVEr3qZ" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
          <entitywidget width="209" showstereotype="1" x="1175" y="294" usesdiagramusefillcolor="0" usesdiagramfillcolor="0" isinstance="0" fillcolor="#ffff00" height="184" linecolor="#ff0000" xmi.id="WWI2xsg5DjaV" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
-         <entitywidget width="147" showstereotype="1" x="596" y="299" usesdiagramusefillcolor="0" usesdiagramfillcolor="0" isinstance="0" fillcolor="#ffff00" height="144" linecolor="#ff0000" xmi.id="OYteMEIeRetD" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,75,0,0,0,0,0"/>
+         <entitywidget width="147" showstereotype="1" x="596" y="299" usesdiagramusefillcolor="0" usesdiagramfillcolor="0" isinstance="0" fillcolor="#ffff00" height="144" linecolor="#ff0000" xmi.id="OYteMEIeRetD" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,75,1,0,0,0,0"/>
         </widgets>
         <messages/>
         <associations>

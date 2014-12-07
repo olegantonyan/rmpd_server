@@ -14,9 +14,10 @@
 ActiveRecord::Schema.define(version: 20141206101941) do
 
   create_table "device_logs", force: true do |t|
+    t.integer  "device_id"
     t.string   "module",     null: false
-    t.string   "class",      null: false
-    t.string   "type",       null: false
+    t.string   "level",      null: false
+    t.string   "etype",      null: false
     t.datetime "localtime",  null: false
     t.string   "details"
     t.datetime "created_at", null: false
@@ -24,6 +25,7 @@ ActiveRecord::Schema.define(version: 20141206101941) do
   end
 
   add_index "device_logs", ["details"], name: "index_device_logs_on_details"
+  add_index "device_logs", ["level"], name: "index_device_logs_on_level"
   add_index "device_logs", ["module"], name: "index_device_logs_on_module"
 
   create_table "device_statuses", force: true do |t|

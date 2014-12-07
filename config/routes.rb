@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   resources :media_items
 
-  resources :devices
+  resources :devices do
+    resources :device_logs, only: [:show, :index]
+  end
   
   resources :playlists
 

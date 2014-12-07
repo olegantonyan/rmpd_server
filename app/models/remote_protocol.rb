@@ -22,13 +22,12 @@ class RemoteProtocol
     
     if msg.start_with?("{")
       data = JSON.parse(msg)
+      write_device_log device, data
       case data["type"]
         when "power"
           if data["status"] == "on"
             device.device_status.poweredon_at = Time.now
           end
-        when "playback"
-          device.device_status.now_playing = data["status"] == "play" ? data["now_playing"] : "stopped"
       end
     else
       device.device_status.now_playing = msg
@@ -41,39 +40,70 @@ class RemoteProtocol
     RemoteInterface.new.server_online?
   end
   
-  protected
-  
-  def serial_number_from_login(login)
-    login.split("@")[0]
-  end
-  
-  def json_for_update_playlist(items)
-    {'type' => 'playlist', 'status' => 'update', 'items' => items}.to_json
-  end
-  
-  def json_for_delete_playlist
-    {'type' => 'playlist', 'status' => 'delete'}.to_json
-  end
-  
   private
   
-  def obtain_device(login)
-    d = Device.find_by(:login => login)
-    if d.nil?
-      d = Device.new(:login => login, :serial_number => serial_number_from_login(login), :name => "auto added device #{login}")
-      d.playlist = Playlist.first
-      d.device_status = DeviceStatus.new
-    else
-      if d.device_status.nil?
+    def serial_number_from_login(login)
+      login.split("@")[0]
+    end
+    
+    def json_for_update_playlist(items)
+      {'type' => 'playlist', 'status' => 'update', 'items' => items}.to_json
+    end
+    
+    def json_for_delete_playlist
+      {'type' => 'playlist', 'status' => 'delete'}.to_json
+    end
+    
+    def obtain_device(login)
+      d = Device.find_by(:login => login)
+      if d.nil?
+        d = Device.new(:login => login, :serial_number => serial_number_from_login(login), :name => "auto added device #{login}")
+        d.playlist = Playlist.first
         d.device_status = DeviceStatus.new
+      else
+        if d.device_status.nil?
+          d.device_status = DeviceStatus.new
+        end
+      end
+      return d
+    end
+    
+    def save_device(device)
+      device.save if device.new_record? or device.changed?
+      device.device_status.save if device.device_status.new_record? or device.device_status.changed?   
+    end
+    
+    def write_device_log(device, logdata)
+      begin
+        log = DeviceLog.new
+        log.device = device
+        log.localtime = logdata["localtime"]
+        case logdata["type"]
+        when "power"
+          log.module = "system"
+          log.level = "info"
+          log.etype = logdata["status"]
+        when "playback"
+          log.module = "player"
+          log.level = "info"
+          case logdata["status"]
+          when "begin"
+            log.etype = "begin"
+          when "end"
+            log.etype = "end"
+          else
+            log.etype = "unkwown"
+          end
+          log.details = logdata["track"]
+        else
+          log.module = "unknown"
+          log.level = "error"
+          log.etype = "unkwown"
+        end
+        log.save
+      rescue => err
+        logger.error(err.to_s)
       end
     end
-    return d
-  end
-  
-  def save_device(device)
-    device.save if device.new_record? or device.changed?
-    device.device_status.save if device.device_status.new_record? or device.device_status.changed?   
-  end
   
 end

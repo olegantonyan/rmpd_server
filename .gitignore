@@ -16,6 +16,6 @@
 /tmp
 
 .project
-public/uploads
-public/assets
+public/uploads/
+public/assets/
 .~lock*

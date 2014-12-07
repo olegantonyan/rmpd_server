@@ -1,0 +1,23 @@
+- title "Log for '#{@device.name}'"
+
+%h1= yield(:title)
+
+.row
+  .col-md-12
+    %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
+      %tr
+        %th Module
+        %th Level
+        %th Type
+        %th Device time
+        %th Server time
+        %th Details
+    
+      - @device.device_log.each do |log_item|
+        %tr
+          %td= log_item.module
+          %td= log_item.level
+          %td= log_item.etype
+          %td= log_item.localtime
+          %td= log_item.created_at
+          %td= log_item.details

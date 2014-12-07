@@ -1,0 +1,2 @@
+module DeviceLogHelper
+end

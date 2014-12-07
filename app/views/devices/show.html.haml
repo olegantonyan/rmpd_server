@@ -56,6 +56,10 @@
           %td= @device.device_status.now_playing
     - else
       %strong Not available
+      
+.row
+  .col-md-12
+    %h2= link_to("Logs", device_device_logs_path(@device)) if @device.device_log
 
 .row
   .col-md-12
