@@ -1,4 +1,5 @@
 require 'json'
+require 'time'
 
 class RemoteProtocol
   
@@ -77,7 +78,7 @@ class RemoteProtocol
       begin
         log = DeviceLog.new
         log.device = device
-        log.localtime = logdata["localtime"]
+        log.localtime = Time.parse logdata["localtime"]
         case logdata["type"]
         when "power"
           log.module = "system"
