@@ -38,9 +38,9 @@ case "$1" in
     echo "Starting puma..."
     rm -f $PUMA_SOCKET
     if [ -e $PUMA_CONFIG_FILE ] ; then
-      bundle exec puma --config $PUMA_CONFIG_FILE -e $MODE
+      nohup bundle exec puma --config $PUMA_CONFIG_FILE -e $MODE > /dev/null 2>&1 &
     else
-      bundle exec puma --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE -e $MODE
+      nohup bundle exec puma --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE -e $MODE > /dev/null 2>&1 &
     fi
 
     echo "done"
