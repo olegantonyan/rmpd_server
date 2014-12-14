@@ -23,7 +23,7 @@ class XmppConnector
     init_subscription_requests
     presence
     @protocol_interface = RemoteInterface.new
-    Rails.logger.info "XmppConnector ##### initialized"
+    Rails.logger.debug "XmppConnector ##### initialized"
   end
   
   # Connect a server using credentials from config.yml
@@ -47,7 +47,7 @@ class XmppConnector
   # Initialize callback on message received
   def init_message_callback
     @client.add_message_callback do |message|
-      Rails.logger.info "XmppConnector ##### message received " + message.inspect
+      Rails.logger.debug "XmppConnector ##### message received " + message.inspect
       if message.type != :error
         @protocol_interface.received_message(message.from.strip.to_s, message.body.to_s)
       end
@@ -57,7 +57,7 @@ class XmppConnector
   # Initialize callback on presense received
   def init_presence_callback
     @client.add_presence_callback do |presence|
-      Rails.logger.info "XmppConnector ##### presence received " + presence.inspect
+      Rails.logger.debug "XmppConnector ##### presence received " + presence.inspect
       unless presence.from == @jid
         @protocol_interface.received_presence(presence.from.strip.to_s, presence.type != :unavailable, presence.status.to_s)
       end
@@ -67,7 +67,7 @@ class XmppConnector
   # Initialize callback on ping iq received
   def init_iq_callback
     @client.add_iq_callback do |iq_received|
-      Rails.logger.info "XmppConnector ##### iq received " + iq_received.inspect
+      Rails.logger.debug "XmppConnector ##### iq received " + iq_received.inspect
       if iq_received.type == :get
         if iq_received.queryns.to_s != 'http://jabber.org/protocol/disco#info'
           iq = Jabber::Iq.new(:result, @client.jid.node)
@@ -87,13 +87,13 @@ class XmppConnector
       if @client.is_disconnected?
         begin
           puts "reconnecting to #{APP_CONFIG['broker_address']} ..."
-          Rails.logger.info "XmppConnector ##### reconnecting to #{APP_CONFIG['broker_address']} ..."
+          Rails.logger.warning "XmppConnector ##### reconnecting to #{APP_CONFIG['broker_address']} ..."
           connect
           puts "connected!"
           Rails.logger.info "XmppConnector ##### connected!"
           presence
         rescue StandartError
-          Rails.logger.info "XmppConnector ##### connect error"
+          Rails.logger.error "XmppConnector ##### connect error"
         end
       end
     end

@@ -1,4 +1,4 @@
-- title "Log for '#{@device.name}'"
+- title "Log for #{@device.name}"
 
 %h1= yield(:title)
 
@@ -13,7 +13,7 @@
         %th Device time
         %th Server time
     
-      - @device.device_log.each do |log_item|
+      - @device.device_log.reverse_each do |log_item|
         %tr
           %td= log_item.module
           %td= log_item.level
