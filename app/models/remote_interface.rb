@@ -8,7 +8,7 @@ class RemoteInterface
     begin
       RemoteProtocol.new.process_incoming(from, msg, true)
     rescue => err
-      logger.error("RemoteInterface.received_message #####\n" + err.to_s)
+      logger.error("Error processing message '#{msg}' from '#{from}' " + err.to_s)
     end 
   end
   
@@ -16,7 +16,7 @@ class RemoteInterface
     begin
       RemoteProtocol.new.process_incoming(from, status_text, online)
     rescue => err
-      logger.error("RemoteInterface.received_presence #####\n" + err.to_s)
+      logger.error("Error processing presense '#{online.to_s}'|'#{status_text}' from '#{from}' " + err.to_s)
     end   
   end
   

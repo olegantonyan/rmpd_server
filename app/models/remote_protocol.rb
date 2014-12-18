@@ -103,7 +103,7 @@ class RemoteProtocol
         end
         log.save
       rescue => err
-        logger.error(err.to_s)
+        logger.error("Error writing device log " + err.to_s)
       end
     end
   
