@@ -33,13 +33,13 @@ class Playlist < ActiveRecord::Base
         #pp = Playlist.where("device_id" == d.id).first
         #puts "playlist found: " + pp.inspect + " url " + pp.file_url + " new_record?" + pp.new_record?.to_s
         #puts "******************\n\n"
-        RemoteProtocol.new.update_playlist d
+        Deviceapi::Protocol.new.update_playlist d
       end
     end
     
     def playlist_destroyed
       self.devices.each do |d|
-        RemoteProtocol.new.delete_playlist d
+        Deviceapi::Protocol.new.delete_playlist d
       end
     end
   

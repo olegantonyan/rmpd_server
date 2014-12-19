@@ -7,13 +7,6 @@
     %table.table.table-striped.table-bordered.table-hover.table-responsive
       %tr
         %td
-          %strong Broker status
-        - if broker_online?
-          %td.success online
-        - else
-          %td.danger offline
-      %tr
-        %td
           %strong Online devices
         %td
           = @online_devices_count.to_s

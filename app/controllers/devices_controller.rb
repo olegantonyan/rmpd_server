@@ -26,7 +26,7 @@ class DevicesController < ApplicationController
     
     respond_to do |format|
       if @device.save
-        flash_success "Device '#{@device.serial_number}' was successfully created"
+        flash_success "Device '#{@device.login}' was successfully created"
         format.html { redirect_to @device }
       else
         format.html { render :new }
@@ -38,7 +38,7 @@ class DevicesController < ApplicationController
   def update
     respond_to do |format|
       if @device.update(device_params) 
-        flash_success "Device '#{@device.serial_number}' was successfully updated"
+        flash_success "Device '#{@device.login}' was successfully updated"
         format.html { redirect_to @device }
       else
         flash_error 'Error creating device'
@@ -51,7 +51,7 @@ class DevicesController < ApplicationController
   def destroy
     @device.destroy
     respond_to do |format|
-      flash_success  "Device '#{@device.serial_number}' was successfully deleted"
+      flash_success  "Device '#{@device.login}' was successfully deleted"
       format.html { redirect_to devices_url }
     end
   end
@@ -68,7 +68,7 @@ class DevicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:serial_number, :name, :playlist_id)
+      params.require(:device).permit(:login, :name, :password, :playlist_id)
     end
     
 end

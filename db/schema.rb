@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141206101941) do
+ActiveRecord::Schema.define(version: 20141219032343) do
 
   create_table "device_logs", force: true do |t|
     t.integer  "device_id"
@@ -42,10 +42,10 @@ ActiveRecord::Schema.define(version: 20141206101941) do
   create_table "devices", force: true do |t|
     t.string   "login"
     t.string   "name"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "playlist_id"
-    t.string   "serial_number", default: "", null: false
+    t.string   "password_digest"
   end
 
   add_index "devices", ["login"], name: "index_devices_on_login"

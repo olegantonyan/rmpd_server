@@ -1,18 +1,20 @@
 require 'json'
 require 'time'
 
-class RemoteProtocol
+class Deviceapi::Protocol
   
   def update_playlist(to_device)
     items = []
     to_device.playlist.media_items.each {|i| items << i.file_url }
     p = Playlist.find(to_device.playlist.id) #note: http://stackoverflow.com/questions/26923249/rails-carrierwave-manual-file-upload-wrong-url
     items << p.file_url
-    RemoteInterface.new.send_message(to_device.login, json_for_update_playlist(items))
+    #RemoteInterface.new.send_message(to_device.login, json_for_update_playlist(items))
+    #TODO
   end
   
   def delete_playlist(to_device)
-    RemoteInterface.new.send_message(to_device.login, json_for_delete_playlist)
+    #RemoteInterface.new.send_message(to_device.login, json_for_delete_playlist)
+    #TODO
   end
   
   def process_incoming(from, msg, online)
@@ -35,10 +37,6 @@ class RemoteProtocol
     end
     
     save_device device
-  end
-  
-  def server_online?
-    RemoteInterface.new.server_online?
   end
   
   private

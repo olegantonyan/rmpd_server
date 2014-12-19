@@ -7,10 +7,14 @@
           %li= msg
           
   .form-group
-    - if !defined?(serial_edit_disable) || serial_edit_disable == false
+    - if !defined?(login_edit_disable) || login_edit_disable == false
       .field
-        = f.label :serial_number
-        = f.text_field :serial_number, :class => "form-control"
+        = f.label :login
+        = f.text_field :login, :class => "form-control"
+      .field
+        = f.label :password
+        = f.password_field :password, :class => "form-control"
+        = f.password_field :password_confirmation, :class => "form-control"
     .field
       = f.label :name
       = f.text_field :name, :class => "form-control"

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   end
   
   resources :playlists
+  
+  namespace :deviceapi, :defaults => {:format => :json} do
+    resources :status
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

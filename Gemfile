@@ -35,13 +35,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
-gem 'xmpp4r'
 gem 'carrierwave'
 gem 'local_time'
 gem 'select2-rails'
 gem 'timers'
 gem 'puma'
 gem 'time_difference'
+gem 'bcrypt'
 
 gem 'capistrano',         require: false
 gem 'capistrano-rvm',     require: false
