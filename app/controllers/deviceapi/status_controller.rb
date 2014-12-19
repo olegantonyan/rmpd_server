@@ -1,28 +1,21 @@
-class Deviceapi::StatusController < ApplicationController
-  before_filter :authenticate
+class Deviceapi::StatusController < Deviceapi::DeviceapiController
 
   def index
-    render json: { :ok => true }
+    render json: { :ok => device.inspect}
   end
   
   def create
-    RemoteInterface.new.received_message(credentials[:login], request.body)
+    queued_messsage_to_client = {}
+    begin
+      Deviceapi::Protocol.new.process_incoming(device.login, request.body)
+      queued_messsage_to_client = DeviceApi::MessageQueue.new.deque(device.login)
+    rescue => err
+      logger.error("Error processing message from device #{device.login} " + err.to_s)
+    ensure
+      render json: queued_messsage_to_client
+    end
   end
-
+  
   private
-
-    def authenticate
-      authenticate_or_request_with_http_basic do |username, password|
-        puts "#{username} : #{password}"
-        #TODO check auth
-        return true
-      end
-    end
-    
-    def credentials
-      username, password = ActionController::HttpAuthentication::Basic::user_name_and_password(request)
-      {:login => username, :pass => password}
-    end
-    
   
 end

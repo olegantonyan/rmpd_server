@@ -18,32 +18,30 @@ class Deviceapi::Protocol
   end
   
   def process_incoming(from, msg, online)
+    return if from.nil? or msg.nil? or online.nil?
     puts "#{from} is #{online ? 'online' : 'offline'} : '#{msg}'"
     
-    device = obtain_device from
+    device = obtain_device(from)
+    return if device.nil?
     device.device_status.online = online
     
-    if msg.start_with?("{")
-      data = JSON.parse(msg)
-      write_device_log device, data
-      case data["type"]
-        when "power"
-          if data["status"] == "on"
-            device.device_status.poweredon_at = Time.now
-          end
-      end
-    else
-      device.device_status.now_playing = msg
+    data = JSON.parse(msg)
+    write_device_log(device, data)
+    case data["type"]
+      when "power"
+        if data["status"] == "on"
+          device.device_status.poweredon_at = Time.now
+        end
+      when "playback"
+        if data["status"] == "now_playing"
+          device.device_status.now_playing = data["track"]
+        end
     end
     
-    save_device device
+    save_device(device)
   end
   
   private
-  
-    def serial_number_from_login(login)
-      login.split("@")[0]
-    end
     
     def json_for_update_playlist(items)
       {'type' => 'playlist', 'status' => 'update', 'items' => items}.to_json
@@ -56,15 +54,13 @@ class Deviceapi::Protocol
     def obtain_device(login)
       d = Device.find_by(:login => login)
       if d.nil?
-        d = Device.new(:login => login, :serial_number => serial_number_from_login(login), :name => "auto added device #{login}")
-        d.playlist = Playlist.first
-        d.device_status = DeviceStatus.new
+        nil
       else
         if d.device_status.nil?
           d.device_status = DeviceStatus.new
         end
       end
-      return d
+      d
     end
     
     def save_device(device)
