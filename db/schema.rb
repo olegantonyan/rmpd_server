@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141219032343) do
+ActiveRecord::Schema.define(version: 20141219044728) do
 
   create_table "device_logs", force: true do |t|
     t.integer  "device_id"
@@ -67,6 +67,16 @@ ActiveRecord::Schema.define(version: 20141219032343) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
+
+  create_table "message_queues", force: true do |t|
+    t.string   "key"
+    t.string   "data"
+    t.boolean  "dequeued"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "message_queues", ["key"], name: "index_message_queues_on_key"
 
   create_table "playlists", force: true do |t|
     t.string   "name",                                 null: false

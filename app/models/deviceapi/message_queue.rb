@@ -1,15 +1,36 @@
-class Deviceapi::MessageQueue
+class Deviceapi::MessageQueue < ActiveRecord::Base
   
-  def enqueue(key)
-    
+  def self.enqueue(key, data)
+    d = Deviceapi::MessageQueue.new(:key => key, :data => data, :dequeued => false)
+    d.save
   end
 
-  def dequeue(key)
-    {:type => "ok"}
+  def self.dequeue(key)
+    d = Deviceapi::MessageQueue.where(:key => key, :dequeued => false).order(:created_at).first
+    unless d.nil?
+      d.dequeued = true
+      d.save
+      [d.data, d.id]
+    else
+      ["", 0]
+    end
   end
   
-  def remove(sequence_number)
-    
+  def self.remove(sequence_number)
+    return if sequence_number.nil? 
+    d = Deviceapi::MessageQueue.find_by(:id => sequence_number)
+    unless d.nil?
+      d.destroy
+    end
+  end
+  
+  def self.reenqueue(sequence_number)
+    return if sequence_number.nil?
+    d = Deviceapi::MessageQueue.find_by(:id => sequence_number)
+    unless d.nil?
+      d.dequeued = false
+      d.save
+    end
   end
   
 end

@@ -42,6 +42,7 @@ gem 'timers'
 gem 'puma'
 gem 'time_difference'
 gem 'bcrypt'
+gem 'rufus-scheduler'
 
 gem 'capistrano',         require: false
 gem 'capistrano-rvm',     require: false

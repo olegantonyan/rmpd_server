@@ -3,8 +3,10 @@ class AddMessageQueue < ActiveRecord::Migration
     create_table :message_queues do |t|
       t.string :key
       t.string :data
+      t.boolean :dequeued
 
       t.timestamps null: false
     end
+    add_index :message_queues, :key
   end
 end

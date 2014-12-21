@@ -8,24 +8,19 @@ class Deviceapi::Protocol
     to_device.playlist.media_items.each {|i| items << i.file_url }
     p = Playlist.find(to_device.playlist.id) #note: http://stackoverflow.com/questions/26923249/rails-carrierwave-manual-file-upload-wrong-url
     items << p.file_url
-    #RemoteInterface.new.send_message(to_device.login, json_for_update_playlist(items))
-    #TODO
+    Deviceapi::MessageQueue.enqueue(to_device.login, json_for_update_playlist(items))
   end
   
   def delete_playlist(to_device)
-    #RemoteInterface.new.send_message(to_device.login, json_for_delete_playlist)
-    #TODO
+    Deviceapi::MessageQueue.enqueue(to_device.login, json_for_delete_playlist)
   end
   
-  def process_incoming(from, msg, online)
-    return if from.nil? or msg.nil? or online.nil?
-    puts "#{from} is #{online ? 'online' : 'offline'} : '#{msg}'"
-    
+  def process_incoming(from, data)
     device = obtain_device(from)
     return if device.nil?
-    device.device_status.online = online
+    device.device_status.online = true
+    device.device_status.touch
     
-    data = JSON.parse(msg)
     write_device_log(device, data)
     case data["type"]
       when "power"
@@ -35,6 +30,10 @@ class Deviceapi::Protocol
       when "playback"
         if data["status"] == "now_playing"
           device.device_status.now_playing = data["track"]
+          if data["track"] == "none"
+            device.touch # 'none' migth be in case the device has none files to play, force update it to re-downoad files
+            device.save
+          end
         end
     end
     
@@ -86,6 +85,8 @@ class Deviceapi::Protocol
             log.etype = "begin"
           when "end"
             log.etype = "end"
+          when "now_playing"
+            return
           else
             log.etype = "unkwown"
           end
@@ -97,7 +98,7 @@ class Deviceapi::Protocol
         end
         log.save
       rescue => err
-        logger.error("Error writing device log " + err.to_s)
+        Rails.logger.error("Error writing device log : " + err.to_s)
       end
     end
   

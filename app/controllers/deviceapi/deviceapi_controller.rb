@@ -1,5 +1,6 @@
 class Deviceapi::DeviceapiController < ApplicationController
   before_filter :authenticate_and_set_device
+  skip_before_filter :verify_authenticity_token
   
   protected
   
