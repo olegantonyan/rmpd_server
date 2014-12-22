@@ -31,8 +31,7 @@ class Deviceapi::Protocol
         if data["status"] == "now_playing"
           device.device_status.now_playing = data["track"]
           if data["track"] == "none"
-            device.touch # 'none' migth be in case the device has none files to play, force update it to re-downoad files
-            device.save
+            update_playlist(device)
           end
         end
     end
