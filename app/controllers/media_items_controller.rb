@@ -1,4 +1,4 @@
-class MediaItemsController < ApplicationController
+class MediaItemsController < UsersApplicationController
   before_action :set_media_item, only: [:show, :edit, :update, :destroy]
   
   # GET /media_items

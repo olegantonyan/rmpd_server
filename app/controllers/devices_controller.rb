@@ -1,4 +1,4 @@
-class DevicesController < ApplicationController
+class DevicesController < UsersApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
   before_action :set_playlists, only: [:edit, :new]
   
