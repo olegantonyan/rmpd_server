@@ -2,7 +2,7 @@ class AddMessageQueue < ActiveRecord::Migration
   def change
     create_table :message_queues do |t|
       t.string :key
-      t.string :data
+      t.text :data
       t.boolean :dequeued
 
       t.timestamps null: false
