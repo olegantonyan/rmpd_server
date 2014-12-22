@@ -32,6 +32,8 @@ class Deviceapi::Protocol
           device.device_status.now_playing = data["track"]
           if data["track"] == "none"
             update_playlist(device)
+          elsif data["track"] == "updating_now"
+            #nothing to do
           end
         end
     end
