@@ -1,17 +1,4 @@
-= form_for @media_item, :html => {:multipart => true, :role => "form"} do |f|
-  - if @media_item.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@media_item.errors.count, "error")} prohibited this media_item from being saved:"
-      %ul
-        - @media_item.errors.full_messages.each do |msg|
-          %li= msg
-  
-  .form-group
-    .field
-      = f.label :description
-      = f.text_field :description, :class => "form-control"
-    .field
-      = f.label :file
-      = f.file_field :file, multiple: true
-    .actions
-      = f.submit 'Upload', :class => "btn btn-primary"
+= bootstrap_form_for @media_item, :html => {:multipart => true} do |f|
+  = f.text_field :description
+  = f.file_field :file, multiple: true
+  = f.primary 'Upload'
