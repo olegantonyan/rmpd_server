@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
 
   root 'home#index'
-  
-  get 'home/index'
 
   resources :media_items
 
   resources :devices do
-    resources :device_logs, only: [:show, :index]
+    resources :device_logs, only: [:index]
   end
   
   resources :playlists

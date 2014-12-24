@@ -4,6 +4,7 @@
 
 .row
   .col-md-12
+    .text-center= will_paginate(@device_logs, :renderer => BootstrapPagination::Rails, :previous_label => "&larr; "+"Newer", :next_label => "Older"+" &rarr;")
     %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
       %tr
         %th Module
@@ -13,7 +14,7 @@
         %th Device time
         %th Server time
     
-      - @device.device_log.reverse_each do |log_item|
+      - @device_logs.each do |log_item|
         %tr
           %td= log_item.module
           %td= log_item.level
@@ -21,3 +22,7 @@
           %td= log_item.details
           %td= localtime log_item.localtime
           %td= localtime log_item.created_at
+          
+.row
+  .col-md-12
+    .text-center= page_entries_info(@device_logs)

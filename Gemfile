@@ -43,6 +43,8 @@ gem 'puma'
 gem 'time_difference'
 gem 'bcrypt'
 gem 'rufus-scheduler'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 
 gem 'capistrano',         require: false
 gem 'capistrano-rvm',     require: false
