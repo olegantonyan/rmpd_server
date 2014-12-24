@@ -19,7 +19,7 @@ class Deviceapi::StatusController < Deviceapi::DeviceapiController
         end
       end
       user_agent = request.headers["User-Agent"]
-      Deviceapi::Protocol.new.process_incoming(device.login, data)
+      Deviceapi::Protocol.new.process_incoming(device.login, data, user_agent)
       queued_messsage, sequence_number = Deviceapi::MessageQueue.dequeue(device.login)
     rescue => err
       logger.error("Error processing message from device '#{device.login}' : " + err.to_s)

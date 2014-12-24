@@ -15,13 +15,13 @@ class Deviceapi::Protocol
     Deviceapi::MessageQueue.enqueue(to_device.login, json_for_delete_playlist)
   end
   
-  def process_incoming(from, data)
+  def process_incoming(from, data, user_agent)
     device = obtain_device(from)
     return if device.nil?
     device.device_status.online = true
     device.device_status.touch
     
-    write_device_log(device, data)
+    write_device_log(device, data, user_agent)
     case data["type"]
       when "power"
         if data["status"] == "on"
@@ -68,11 +68,12 @@ class Deviceapi::Protocol
       device.device_status.save if device.device_status.new_record? or device.device_status.changed?   
     end
     
-    def write_device_log(device, logdata)
+    def write_device_log(device, logdata, user_agent)
       begin
         log = DeviceLog.new
         log.device = device
         log.localtime = Time.parse logdata["localtime"]
+        log.user_agent = user_agent
         case logdata["type"]
         when "power"
           log.module = "system"

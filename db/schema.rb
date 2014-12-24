@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141219044728) do
+ActiveRecord::Schema.define(version: 20141224183750) do
 
-  create_table "device_logs", force: true do |t|
+  create_table "device_logs", force: :cascade do |t|
     t.integer  "device_id"
     t.string   "module",     null: false
     t.string   "level",      null: false
@@ -22,13 +22,14 @@ ActiveRecord::Schema.define(version: 20141219044728) do
     t.string   "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "user_agent"
   end
 
   add_index "device_logs", ["details"], name: "index_device_logs_on_details"
   add_index "device_logs", ["level"], name: "index_device_logs_on_level"
   add_index "device_logs", ["module"], name: "index_device_logs_on_module"
 
-  create_table "device_statuses", force: true do |t|
+  create_table "device_statuses", force: :cascade do |t|
     t.boolean  "online",       default: false, null: false
     t.datetime "poweredon_at"
     t.string   "now_playing"
@@ -39,7 +40,7 @@ ActiveRecord::Schema.define(version: 20141219044728) do
 
   add_index "device_statuses", ["device_id"], name: "index_device_statuses_on_device_id"
 
-  create_table "devices", force: true do |t|
+  create_table "devices", force: :cascade do |t|
     t.string   "login"
     t.string   "name"
     t.datetime "created_at",      null: false
@@ -51,7 +52,7 @@ ActiveRecord::Schema.define(version: 20141219044728) do
   add_index "devices", ["login"], name: "index_devices_on_login"
   add_index "devices", ["playlist_id"], name: "index_devices_on_playlist_id"
 
-  create_table "media_deployments", force: true do |t|
+  create_table "media_deployments", force: :cascade do |t|
     t.integer  "playlist_id"
     t.integer  "media_item_id"
     t.datetime "created_at",                          null: false
@@ -61,14 +62,14 @@ ActiveRecord::Schema.define(version: 20141219044728) do
 
   add_index "media_deployments", ["playlist_id", "media_item_id"], name: "index_media_deployments_on_playlist_id_and_media_item_id"
 
-  create_table "media_items", force: true do |t|
+  create_table "media_items", force: :cascade do |t|
     t.string   "file",                     null: false
     t.text     "description", default: "", null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
 
-  create_table "message_queues", force: true do |t|
+  create_table "message_queues", force: :cascade do |t|
     t.string   "key"
     t.string   "data"
     t.boolean  "dequeued"
@@ -78,7 +79,7 @@ ActiveRecord::Schema.define(version: 20141219044728) do
 
   add_index "message_queues", ["key"], name: "index_message_queues_on_key"
 
-  create_table "playlists", force: true do |t|
+  create_table "playlists", force: :cascade do |t|
     t.string   "name",                                 null: false
     t.text     "description",             default: "", null: false
     t.datetime "created_at",                           null: false
