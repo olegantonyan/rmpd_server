@@ -33,4 +33,8 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
     end
   end
   
+  def self.destroy_all_messages(key)
+    destroy_all(:key => key)
+  end
+  
 end
