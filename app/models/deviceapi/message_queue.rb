@@ -39,12 +39,12 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
   
   def self.reenqueue_all(key)
     return if key.nil?
-    logger.debug("Reenqueue all dequed messages for '#{d.key}'")
+    logger.debug("Reenqueue all dequed messages for '#{key}'")
     Deviceapi::MessageQueue.where(:key => key, :dequeued => true).update_all(:dequeued => false)
   end
   
   def self.destroy_all_messages(key)
-    logger.debug("Destroy all messages for '#{d.key}'")
+    logger.debug("Destroy all messages for '#{key}'")
     destroy_all(:key => key)
   end
   
