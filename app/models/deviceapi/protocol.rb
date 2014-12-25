@@ -5,10 +5,12 @@ class Deviceapi::Protocol
   
   def update_playlist(to_device)
     items = []
-    to_device.playlist.media_items.each {|i| items << i.file_url }
-    p = Playlist.find(to_device.playlist.id) #note: http://stackoverflow.com/questions/26923249/rails-carrierwave-manual-file-upload-wrong-url
-    items << p.file_url
-    Deviceapi::MessageQueue.enqueue(to_device.login, json_for_update_playlist(items))
+    unless to_device.playlist.nil?
+      to_device.playlist.media_items.each {|i| items << i.file_url }
+      p = Playlist.find(to_device.playlist.id) #note: http://stackoverflow.com/questions/26923249/rails-carrierwave-manual-file-upload-wrong-url
+      items << p.file_url
+      Deviceapi::MessageQueue.enqueue(to_device.login, json_for_update_playlist(items))
+    end
   end
   
   def delete_playlist(to_device)
