@@ -26,12 +26,14 @@ class PlaylistsController < UsersApplicationController
   # POST /playlists
   def create
     @playlist = Playlist.new(playlist_params)
-    media_items = MediaItem.find(params[:media_items_ids])
-    media_items.each do |i|
-      media_deployment = MediaDeployment.new
-      media_deployment.media_item = i
-      media_deployment.playlist_position = params["media_item_position#{i.id}"]
-      @playlist.media_deployments << media_deployment
+    media_items = MediaItem.find_by(:id => params[:media_items_ids])
+    unless media_items.nil?
+      media_items.each do |i|
+        media_deployment = MediaDeployment.new
+        media_deployment.media_item = i
+        media_deployment.playlist_position = params["media_item_position#{i.id}"]
+        @playlist.media_deployments << media_deployment
+      end
     end
     
     respond_to do |format|
