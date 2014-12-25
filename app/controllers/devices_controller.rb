@@ -1,6 +1,6 @@
 class DevicesController < UsersApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
-  before_action :set_playlists, only: [:edit, :new, :create]
+  before_action :set_playlists, only: [:edit, :new, :create, :update]
   
   # GET /devices
   def index
@@ -29,6 +29,7 @@ class DevicesController < UsersApplicationController
         flash_success "Device '#{@device.login}' was successfully created"
         format.html { redirect_to @device }
       else
+        flash_error 'Error creating device'
         format.html { render :new }
       end
     end
@@ -41,7 +42,7 @@ class DevicesController < UsersApplicationController
         flash_success "Device '#{@device.login}' was successfully updated"
         format.html { redirect_to @device }
       else
-        flash_error 'Error creating device'
+        flash_error 'Error updating device'
         format.html { render :edit }
       end
     end

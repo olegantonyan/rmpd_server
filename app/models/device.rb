@@ -8,8 +8,7 @@ class Device < ActiveRecord::Base
   validates_uniqueness_of :login
   validates_length_of :login, :maximum => 130
   validates_length_of :name, :maximum => 130
-  validates :password, confirmation: true
-  validates_length_of :password, :in => 8..60
+  validates :password, length: {:in => 8..60}, :presence => true, :confirmation => true, :if => -> { new_record? || !password.nil? }
   
   after_save :device_updated
   after_destroy :device_destroyed
