@@ -12,7 +12,6 @@ class Playlist < ActiveRecord::Base
   mount_uploader :file, PlaylistFileUploader
   
   validates_presence_of :name
-  validates_uniqueness_of :name
   validates_length_of :name, :maximum => 130
   validates_length_of :description, :maximum => 250
   validates_presence_of :media_items
