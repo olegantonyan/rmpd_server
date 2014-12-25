@@ -5,10 +5,11 @@ class Device < ActiveRecord::Base
   has_many :device_log
   
   validates_presence_of :login
+  validates_uniqueness_of :login
   validates_length_of :login, :maximum => 130
   validates_length_of :name, :maximum => 130
-  validates_length_of :description, :maximum => 250
   validates :password, confirmation: true
+  validates_length_of :password, :in => 8..60
   
   after_save :device_updated
   
