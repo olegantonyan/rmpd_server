@@ -23,10 +23,9 @@ test:
 production:
   #<<: *default
   #database: db/production.sqlite3
-  adapter: mysql2
-  encoding: utf8
-  database: rmpd_server
+  adapter: postgresql
+  encoding: unicode
+  database: rmpd_server_production
   username: rmpd_server
-  password: <tpgfhjkz
-  host: localhost
-  port: 3306
+  password: 0b3a8bf73099b82aa28e824b99ed8f0d
+  pool: 5

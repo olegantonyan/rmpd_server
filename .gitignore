@@ -19,3 +19,4 @@
 public/uploads/
 public/assets/
 .~lock*
+config/database.yml
