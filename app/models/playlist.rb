@@ -1,18 +1,19 @@
 require 'tempfile'
 
 class Playlist < ActiveRecord::Base
-  
   has_many :media_deployments, :dependent => :destroy
   has_many :media_items, :through => :media_deployments
   has_many :devices
-  
-  validates :name, presence: true
   
   after_save :playlist_updated
   after_destroy :playlist_destroyed
   before_save :create_playlist_file
   
   mount_uploader :file, PlaylistFileUploader
+  
+  validates_presence_of :name
+  validates_length_of :name, :maximum => 130
+  validates_length_of :description, :maximum => 250
   
   private
     def create_playlist_file
@@ -28,11 +29,6 @@ class Playlist < ActiveRecord::Base
     
     def playlist_updated
       self.devices.each do |d|
-        #puts "******************\n\n"
-        #puts "playlist by device: " + d.playlist.inspect + " url " + d.playlist.file_url + " new_record?" + d.playlist.new_record?.to_s
-        #pp = Playlist.where("device_id" == d.id).first
-        #puts "playlist found: " + pp.inspect + " url " + pp.file_url + " new_record?" + pp.new_record?.to_s
-        #puts "******************\n\n"
         Deviceapi::Protocol.new.update_playlist d
       end
     end

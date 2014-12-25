@@ -21,12 +21,18 @@ class MediaItemsController < UsersApplicationController
 
   # POST /media_items
   def create
-    items = []
-    items = params[:media_item][:file].map { |f| MediaItem.new(:description => params[:media_item][:description], :file => f) }
+    unless params[:media_item][:file].nil?
+      items = params[:media_item][:file].map { |f| MediaItem.new(:description => params[:media_item][:description], :file => f) }
+    else
+      items = []
+      items << MediaItem.new(:description => params[:media_item][:description], :file => params[:media_item][:file])
+    end
+    
     err = false
     items.each do |i|
       if not i.save
         err = true
+        @media_item = i
         break
       end
     end
@@ -37,7 +43,7 @@ class MediaItemsController < UsersApplicationController
         format.html { redirect_to :media_items }
       else
         flash_error = 'Error uploading some media items'
-        format.html { render :media_items }
+        format.html { render :new }
       end
     end
   end
