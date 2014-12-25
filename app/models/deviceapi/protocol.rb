@@ -32,7 +32,7 @@ class Deviceapi::Protocol
       when "power"
         if data["status"] == "on"
           device.device_status.poweredon_at = Time.now
-          #Deviceapi::MessageQueue.reenqueue_all(device.login)
+          Deviceapi::MessageQueue.reenqueue_all(device.login)
         end
       when "playback"
         if data["status"] == "now_playing"
