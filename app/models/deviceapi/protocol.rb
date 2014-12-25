@@ -15,6 +15,10 @@ class Deviceapi::Protocol
     Deviceapi::MessageQueue.enqueue(to_device.login, json_for_delete_playlist)
   end
   
+  def clear_queue(for_device)
+    Deviceapi::MessageQueue.destroy_all_messages for_device.login
+  end
+  
   def process_incoming(from, data, user_agent)
     device = obtain_device(from)
     return if device.nil?
