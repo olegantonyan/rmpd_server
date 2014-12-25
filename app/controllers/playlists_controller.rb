@@ -26,15 +26,7 @@ class PlaylistsController < UsersApplicationController
   # POST /playlists
   def create
     @playlist = Playlist.new(playlist_params)
-    media_items = MediaItem.find_by(:id => params[:media_items_ids])
-    unless media_items.nil?
-      media_items.each do |i|
-        media_deployment = MediaDeployment.new
-        media_deployment.media_item = i
-        media_deployment.playlist_position = params["media_item_position#{i.id}"]
-        @playlist.media_deployments << media_deployment
-      end
-    end
+    set_media_deployments_in_playlist(params[:media_items_ids])
     
     respond_to do |format|
       if @playlist.save
@@ -52,14 +44,8 @@ class PlaylistsController < UsersApplicationController
   def update
     @playlist.name = params[:playlist][:name]
     @playlist.description = params[:playlist][:description]
-    media_items = MediaItem.find(params[:media_items_ids])
     @playlist.media_deployments.clear
-    media_items.each do |i|
-      media_deployment = MediaDeployment.new
-      media_deployment.media_item = i
-      media_deployment.playlist_position = params["media_item_position#{i.id}"]
-      @playlist.media_deployments << media_deployment
-    end
+    set_media_deployments_in_playlist(params[:media_items_ids])
     
     respond_to do |format|
       if @playlist.save
@@ -90,6 +76,17 @@ class PlaylistsController < UsersApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def playlist_params
       params.require(:playlist).permit(:name, :description)
+    end
+    
+    def set_media_deployments_in_playlist(media_items_ids)
+      media_items = MediaItem.where(:id => media_items_ids)
+      media_deployment = []
+      media_items.each do |i|
+        m = MediaDeployment.new
+        m.media_item = i
+        m.playlist_position = params["media_item_position#{i.id}"]
+        @playlist.media_deployments << m
+      end
     end
     
 end

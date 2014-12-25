@@ -14,7 +14,7 @@ class Playlist < ActiveRecord::Base
   validates_presence_of :name
   validates_length_of :name, :maximum => 130
   validates_length_of :description, :maximum => 250
-  validates_presence_of :media_items
+  validates_presence_of :media_deployments
   
   private
     def create_playlist_file
