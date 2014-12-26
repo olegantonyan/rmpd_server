@@ -96,6 +96,9 @@ class Deviceapi::Protocol
             log.etype = "end"
           when "now_playing"
             return
+          when "error"
+            log.level = "warning"
+            log.etype = "error"
           else
             log.etype = "unkwown"
           end
