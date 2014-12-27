@@ -10,7 +10,7 @@ class Deviceapi::StatusController < Deviceapi::DeviceapiController
     response_status = :ok
     begin
       user_agent = request.headers["User-Agent"]
-      incomming_sequence_number = response.headers["X-Sequence-Number"]
+      incomming_sequence_number = request.headers["X-Sequence-Number"]
       data = request.body.read
       queued_messsage_to_device, outgoing_sequence_number = Deviceapi::Protocol.new.process(device, data, user_agent, incomming_sequence_number)
     rescue => err

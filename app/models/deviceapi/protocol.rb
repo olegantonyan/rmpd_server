@@ -1,5 +1,4 @@
 require 'json'
-require 'time'
 
 class Deviceapi::Protocol
   
@@ -34,31 +33,31 @@ class Deviceapi::Protocol
     data = JSON.parse(raw_data)
     
     write_device_log(from_device, data, user_agent)
+    
     case data["type"]
-      when "power"
-        if data["status"] == "on" 
-          from_device.device_status.poweredon_at = Time.now
-          Deviceapi::MessageQueue.reenqueue_all(from_device.login)
+    when "ack"
+      if data["status"] == "ok"
+        Deviceapi::MessageQueue.remove(incomming_sequence_number)
+      else
+        Deviceapi::MessageQueue.reenqueue(incomming_sequence_number)
+      end
+    when "power"
+      if data["status"] == "on" 
+        from_device.device_status.poweredon_at = Time.now
+        Deviceapi::MessageQueue.reenqueue_all(from_device.login)
+      end
+    when "playback"
+      if data["status"] == "now_playing"
+        from_device.device_status.now_playing = data["track"]
+        if data["track"] == "none"
+          update_playlist(from_device)
+        elsif data["track"] == "updating_now"
+          #nothing to do
         end
-      when "playback"
-        if data["status"] == "now_playing"
-          from_device.device_status.now_playing = data["track"]
-          if data["track"] == "none"
-            update_playlist(from_device)
-          elsif data["track"] == "updating_now"
-            #nothing to do
-          end
-        end
-       when "ack"
-        if data["status"] == "ok"
-          Deviceapi::MessageQueue.remove(incomming_sequence_number)
-        else
-          Deviceapi::MessageQueue.reenqueue(incomming_sequence_number)
-        end
-
+      end
     end
     
-    save_device(from_device)
+    from_device.device_status.save if from_device.device_status.new_record? or from_device.device_status.changed?   
     
     Deviceapi::MessageQueue.dequeue(from_device.login)
   end
@@ -73,49 +72,10 @@ class Deviceapi::Protocol
       {'type' => 'playlist', 'status' => 'delete'}.to_json
     end
     
-    def save_device(device)
-      device.save if device.new_record? or device.changed?
-      device.device_status.save if device.device_status.new_record? or device.device_status.changed?   
-    end
-    
     def write_device_log(device, logdata, user_agent)
-      begin
-        log = DeviceLog.new
-        log.device = device
-        log.localtime = Time.parse logdata["localtime"]
-        log.user_agent = user_agent
-        case logdata["type"]
-        when "power"
-          log.module = "system"
-          log.level = "info"
-          log.etype = logdata["status"]
-        when "playback"
-          log.module = "player"
-          log.level = "info"
-          case logdata["status"]
-          when "begin"
-            log.etype = "begin"
-          when "end"
-            log.etype = "end"
-          when "now_playing"
-            return
-          when "error"
-            log.level = "warning"
-            log.etype = "error"
-          else
-            log.etype = "unkwown"
-          end
-          log.details = logdata["track"]
-        else
-          log.module = "unknown"
-          log.level = "error"
-          log.etype = "unkwown"
-        end
-        log.save
-      rescue => err
-        Rails.logger.error("Error writing device log : " + err.to_s)
+      if logdata["type"] != "ack"
+        DeviceLog.write(device, logdata, user_agent)
       end
     end
-  
   
 end
