@@ -21,31 +21,46 @@ class Deviceapi::Protocol
     Deviceapi::MessageQueue.destroy_all_messages for_device.login
   end
   
-  def process_incoming(from, data, user_agent)
-    device = obtain_device(from)
-    return if device.nil?
-    device.device_status.online = true
-    device.device_status.touch
+  def process(from_device, raw_data, user_agent, incomming_sequence_number)
+    return if from_device.nil?
     
-    write_device_log(device, data, user_agent)
+    if from_device.device_status.nil?
+      from_device.device_status = DeviceStatus.new
+    end
+    
+    from_device.device_status.online = true
+    from_device.device_status.touch
+    
+    data = JSON.parse(raw_data)
+    
+    write_device_log(from_device, data, user_agent)
     case data["type"]
       when "power"
-        if data["status"] == "on"
-          device.device_status.poweredon_at = Time.now
-          Deviceapi::MessageQueue.reenqueue_all(device.login)
+        if data["status"] == "on" 
+          from_device.device_status.poweredon_at = Time.now
+          Deviceapi::MessageQueue.reenqueue_all(from_device.login)
         end
       when "playback"
         if data["status"] == "now_playing"
-          device.device_status.now_playing = data["track"]
+          from_device.device_status.now_playing = data["track"]
           if data["track"] == "none"
-            update_playlist(device)
+            update_playlist(from_device)
           elsif data["track"] == "updating_now"
             #nothing to do
           end
         end
+       when "ack"
+        if data["status"] == "ok"
+          Deviceapi::MessageQueue.remove(incomming_sequence_number)
+        else
+          Deviceapi::MessageQueue.reenqueue(incomming_sequence_number)
+        end
+
     end
     
-    save_device(device)
+    save_device(from_device)
+    
+    Deviceapi::MessageQueue.dequeue(from_device.login)
   end
   
   private
@@ -56,18 +71,6 @@ class Deviceapi::Protocol
     
     def json_for_delete_playlist
       {'type' => 'playlist', 'status' => 'delete'}.to_json
-    end
-    
-    def obtain_device(login)
-      d = Device.find_by(:login => login)
-      if d.nil?
-        nil
-      else
-        if d.device_status.nil?
-          d.device_status = DeviceStatus.new
-        end
-      end
-      d
     end
     
     def save_device(device)
