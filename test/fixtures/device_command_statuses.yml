@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  device_id: 1
+  command: MyString
+  status: MyString
+  message: MyString
+
+two:
+  device_id: 1
+  command: MyString
+  status: MyString
+  message: MyString
