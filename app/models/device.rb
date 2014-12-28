@@ -3,6 +3,7 @@ class Device < ActiveRecord::Base
   belongs_to :playlist, touch: true
   has_one :device_status, :dependent => :destroy
   has_many :device_log
+  has_many :device_command_status, :dependent => :destroy
   
   validates_presence_of :login
   validates_uniqueness_of :login
