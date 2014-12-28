@@ -27,17 +27,25 @@ class DeviceLog < ActiveRecord::Base
         case logdata["status"]
         when "begin"
           log.etype = "begin"
+          log.details = logdata["track"].to_s
         when "end"
           log.etype = "end"
+          log.details = logdata["track"].to_s
         when "now_playing"
           return
         when "error"
           log.level = "warning"
           log.etype = "error"
+          log.details = logdata["track"].to_s
+        when "update_playlist"
+          log.etype = "start update playlist"
+          log.details = logdata["track"].join(", ")
+        when "begin_playlist"
+          log.etype = "begin playlist"
+          log.details = logdata["track"].join(", ")
         else
-          log.etype = "unkwown"
+          log.etype = "unknown"
         end
-        log.details = logdata["track"]
       else
         log.module = "unknown"
         log.level = "error"
