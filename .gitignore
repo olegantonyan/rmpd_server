@@ -12,7 +12,7 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
+/log
 /tmp
 
 .project
@@ -20,3 +20,4 @@ public/uploads/
 public/assets/
 .~lock*
 config/database.yml
+secret_key
