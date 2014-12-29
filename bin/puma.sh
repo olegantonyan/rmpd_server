@@ -12,7 +12,16 @@ PUMA_CONFIG_FILE=config/puma.rb
 PUMA_PID_FILE=tmp/pids/puma.pid
 PUMA_SOCKET=tmp/sockets/puma.sock
 MODE=production
-export SECRET_KEY_BASE="b240b6a3c727ea326d16ca583416bbf313c0a48a9fbcc2d1b88bcbf9918df42ddf327ac606d782e9adea57fe75315045741727695c93a1095675f2abc6c7a000"
+SECRET_KEY_BASE_FILE=secret_key
+
+if [ $MODE = "production" ] ; then
+    if [ -e $SECRET_KEY_BASE_FILE ] ; then
+        export SECRET_KEY_BASE=\"`cat $SECRET_KEY_BASE_FILE`\"
+    else
+        echo "No secret key file $SECRET_KEY_BASE_FILE. Please, create it and put there result of 'rake secret'"
+        exit 1
+    fi
+fi
 
 # check if puma process is running
 puma_is_running() {
@@ -33,8 +42,7 @@ puma_is_running() {
   return 1
 }
 
-case "$1" in
-  start)
+puma_start() {
     echo "Starting puma..."
     rm -f $PUMA_SOCKET
     if [ -e $PUMA_CONFIG_FILE ] ; then
@@ -44,15 +52,24 @@ case "$1" in
     fi
 
     echo "done"
+}
+
+puma_stop() {
+    echo "Stopping puma..."
+    kill -s SIGTERM `cat $PUMA_PID_FILE`
+    rm -f $PUMA_PID_FILE
+    rm -f $PUMA_SOCKET
+
+    echo "done"
+}
+
+case "$1" in
+  start)
+    puma_start
     ;;
 
   stop)
-    echo "Stopping puma..."
-      kill -s SIGTERM `cat $PUMA_PID_FILE`
-      rm -f $PUMA_PID_FILE
-      rm -f $PUMA_SOCKET
-
-    echo "done"
+    puma_stop
     ;;
 
   restart)
@@ -71,7 +88,9 @@ case "$1" in
     fi
 
     echo "Trying cold reboot"
-    bin/puma.sh start
+    puma_stop
+    sleep 2
+    puma_start
     ;;
 
   *)
