@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141224183750) do
+ActiveRecord::Schema.define(version: 20141229123749) do
 
   create_table "device_logs", force: :cascade do |t|
     t.integer  "device_id"
@@ -73,8 +73,9 @@ ActiveRecord::Schema.define(version: 20141224183750) do
     t.string   "key"
     t.string   "data"
     t.boolean  "dequeued"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "reenqueue_retries"
   end
 
   add_index "message_queues", ["key"], name: "index_message_queues_on_key"

@@ -17,6 +17,11 @@ class DeviceLog < ActiveRecord::Base
     begin
       log = new(:device => device, :localtime => Time.parse(logdata["localtime"]), :user_agent => user_agent)
       case logdata["type"]
+      when "ack"
+        log.module = "system"
+        log.etype = logdata["status"]
+        log.level = log.etype == "ok" ? "info" : "error"
+        log.details = logdata["message"]
       when "power"
         log.module = "system"
         log.level = "info"

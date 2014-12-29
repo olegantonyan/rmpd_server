@@ -39,7 +39,11 @@ class Deviceapi::Protocol
       if data["status"] == "ok"
         Deviceapi::MessageQueue.remove(incomming_sequence_number)
       else
-        Deviceapi::MessageQueue.reenqueue(incomming_sequence_number)
+        if Deviceapi::MessageQueue.retries(incomming_sequence_number) < 3
+          Deviceapi::MessageQueue.reenqueue(incomming_sequence_number)
+        else
+          Rails.logger.warn("Maximum retries reached for device '#{from_device.login}'")
+        end
       end
     when "power"
       if data["status"] == "on" 
@@ -73,9 +77,7 @@ class Deviceapi::Protocol
     end
     
     def write_device_log(device, logdata, user_agent)
-      if logdata["type"] != "ack"
-        DeviceLog.write(device, logdata, user_agent)
-      end
+      DeviceLog.write(device, logdata, user_agent)
     end
   
 end
