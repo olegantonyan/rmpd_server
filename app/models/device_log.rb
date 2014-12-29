@@ -19,7 +19,7 @@ class DeviceLog < ActiveRecord::Base
       case logdata["type"]
       when "ack"
         log.module = "system"
-        log.etype = logdata["status"]
+        log.etype = logdata["status"] == "ok" ? "ack_ok" : "ack_error"
         log.level = log.etype == "ok" ? "info" : "error"
         log.details = logdata["message"]
       when "power"
