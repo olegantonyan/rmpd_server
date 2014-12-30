@@ -3,17 +3,20 @@ require 'json'
 class Deviceapi::Protocol
   
   def update_playlist(to_device)
-    items = []
     unless to_device.playlist.nil?
+      items = []
       to_device.playlist.media_items.each {|i| items << i.file_url }
       p = Playlist.find(to_device.playlist.id) #note: http://stackoverflow.com/questions/26923249/rails-carrierwave-manual-file-upload-wrong-url
       items << p.file_url
-      Deviceapi::MessageQueue.enqueue(to_device.login, json_for_update_playlist(items))
+        
+      clean_previous_commands(to_device.login, type_for_update_playlist)
+      Deviceapi::MessageQueue.enqueue(to_device.login, json_for_update_playlist(items), type_for_update_playlist)
     end
   end
   
   def delete_playlist(to_device)
-    Deviceapi::MessageQueue.enqueue(to_device.login, json_for_delete_playlist)
+    clean_previous_commands(to_device.login, type_for_delete_playlist)
+    Deviceapi::MessageQueue.enqueue(to_device.login, json_for_delete_playlist, type_for_delete_playlist)
   end
   
   def clear_queue(for_device)
@@ -72,12 +75,32 @@ class Deviceapi::Protocol
       {'type' => 'playlist', 'status' => 'update', 'items' => items}.to_json
     end
     
+    def type_for_update_playlist
+      "update_playlist"
+    end
+    
+    def json_for_abort(sequence_number)
+      {'type' => 'abort_command', 'sequence_number' => sequence_number}
+    end
+    
+    def type_for_abort
+      "abort_command"
+    end
+    
     def json_for_delete_playlist
       {'type' => 'playlist', 'status' => 'delete'}.to_json
     end
     
+    def type_for_delete_playlist
+      "delete_playlist"
+    end
+    
     def write_device_log(device, logdata, user_agent)
       DeviceLog.write(device, logdata, user_agent)
+    end
+    
+    def clean_previous_commands(device_login, command_type)
+      Deviceapi::MessageQueue.destroy_messages_with_type(device_login, command_type)
     end
   
 end

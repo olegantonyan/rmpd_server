@@ -5,9 +5,9 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
   
   before_save :default_values
   
-  def self.enqueue(key, data)
+  def self.enqueue(key, data, message_type)
     logger.debug("Enqueue message to '#{key}': '#{data}'")
-    d = new(:key => key, :data => data, :dequeued => false)
+    d = new(:key => key, :data => data, :dequeued => false, :message_type => message_type)
     d.save
   end
 
@@ -61,6 +61,10 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
   def self.destroy_all_messages(key)
     logger.debug("Destroy all messages for '#{key}'")
     destroy_all(:key => key)
+  end
+  
+  def self.destroy_messages_with_type(key, message_type)
+    destroy_all(:key => key, :message_type => message_type)
   end
   
   private
