@@ -60,5 +60,11 @@
 .row
   .col-md-12
     = link_to 'Edit device', edit_device_path(@device), class: "btn btn-primary"
-            
+    
+.row
+  .col-md-12
+    %h2 Admin area
+    = link_to 'Request SSH tunnel', device_ssh_tunnels_path(@device)
+    
+          
           

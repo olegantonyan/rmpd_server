@@ -19,6 +19,11 @@ class Deviceapi::Protocol
     Deviceapi::MessageQueue.enqueue(to_device.login, json_for_delete_playlist, type_for_delete_playlist)
   end
   
+  def request_ssh_tunnel(tunnel)
+    clean_previous_commands(tunnel.device.login, type_for_request_ssh_tunnel)
+    Deviceapi::MessageQueue.enqueue(tunnel.device.login, json_for_request_ssh_tunnel(tunnel), type_for_request_ssh_tunnel)
+  end
+  
   def clear_queue(for_device)
     Deviceapi::MessageQueue.destroy_all_messages for_device.login
   end
@@ -93,6 +98,16 @@ class Deviceapi::Protocol
     
     def type_for_delete_playlist
       "delete_playlist"
+    end
+    
+    def json_for_request_ssh_tunnel(tunnel)
+      {'type' => 'ssh_tunnel', 'status' => 'open', 'server' => tunnel.server, 'server_port' => tunnel.server_port, \
+        'external_port' => tunnel.external_port, 'internal_port' => tunnel.internal_port, 'duration' => tunnel.open_duration, \
+        'username' => tunnel.username}.to_json
+    end
+    
+    def type_for_request_ssh_tunnel
+      "request_ssh_tunnel"
     end
     
     def write_device_log(device, logdata, user_agent)

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :devices do
     resources :device_logs, only: [:index]
+    resources :ssh_tunnels, only: [:index, :create]
   end
   
   resources :playlists
