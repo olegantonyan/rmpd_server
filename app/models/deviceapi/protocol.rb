@@ -47,7 +47,7 @@ class Deviceapi::Protocol
       if data["status"] == "ok"
         Deviceapi::MessageQueue.remove(incomming_sequence_number)
       else
-        if Deviceapi::MessageQueue.retries(incomming_sequence_number) < 3
+        if Deviceapi::MessageQueue.retries(incomming_sequence_number) < 15
           Deviceapi::MessageQueue.reenqueue(incomming_sequence_number)
         else
           Rails.logger.warn("Maximum retries reached for device '#{from_device.login}'")
