@@ -51,6 +51,7 @@ class Deviceapi::Protocol
           Deviceapi::MessageQueue.reenqueue(incomming_sequence_number)
         else
           Rails.logger.warn("Maximum retries reached for device '#{from_device.login}'")
+          Deviceapi::MessageQueue.remove(incomming_sequence_number)
         end
       end
     when "power"
@@ -66,6 +67,8 @@ class Deviceapi::Protocol
         elsif data["track"] == "updating_now"
           #nothing to do
         end
+      elsif data["status"] == "resync"
+        update_playlist(from_device)
       end
     end
     
