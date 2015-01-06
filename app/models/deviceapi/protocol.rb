@@ -67,8 +67,6 @@ class Deviceapi::Protocol
         elsif data["track"] == "updating_now"
           #nothing to do
         end
-      elsif data["status"] == "resync"
-        update_playlist(from_device)
       end
     end
     

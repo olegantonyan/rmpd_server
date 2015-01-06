@@ -48,9 +48,6 @@ class DeviceLog < ActiveRecord::Base
         when "begin_playlist"
           log.etype = "begin playlist"
           log.details = logdata["track"].join(", ")
-        when "resync"
-          log.etype = "request sync playlist"
-          log.details = "device requested playlist sync"
         else
           log.etype = "unknown"
         end
