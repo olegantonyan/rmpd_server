@@ -64,7 +64,6 @@ class Deviceapi::Protocol
       if data["status"] == "now_playing"
         from_device.device_status.now_playing = data["track"]
         from_device.device_status.devicetime = Time.parse(data["localtime"])
-        from_device.device_status.touch
         if data["track"] == "none"
           update_playlist(from_device)
         elsif data["track"] == "updating_now"
