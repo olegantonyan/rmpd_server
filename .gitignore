@@ -21,3 +21,4 @@ public/assets/
 .~lock*
 config/database.yml
 secret_key
+config/config.yml
