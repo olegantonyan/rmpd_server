@@ -61,6 +61,7 @@ class DevicesController < UsersApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_device
       @device = Device.find(params[:id])
+      @enable_admin_area = APP_CONFIG['username'] == 'admin'
     end
     
     def set_playlists
