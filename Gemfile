@@ -65,6 +65,7 @@ group :development, :test do
   
   gem 'erb2haml'
   gem 'pry-rails'
+  gem "bullet"
 end
 
 group :production do

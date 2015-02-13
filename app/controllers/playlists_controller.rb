@@ -3,19 +3,19 @@ class PlaylistsController < UsersApplicationController
   
   # GET /playlists
   def index
-    @playlists = Playlist.all
+    @playlists = Playlist.includes(:media_items, :media_deployments).all
   end
 
   # GET /playlists/1
   def show
-    @media_items_in_playlist = MediaItem.in_playlist_ordered(params[:id])
+    @media_items_in_playlist = MediaItem.includes(:media_deployments).in_playlist_ordered(params[:id])
   end
   
   # GET /playlists/new
   def new
     @playlist = Playlist.new
     @media_items = MediaItem.all
-    @media_deployments = MediaDeployment.all
+    @media_deployments = MediaDeployment.includes(:playlist).all
   end
   
   # GET /playlists/1/edit
@@ -70,7 +70,7 @@ class PlaylistsController < UsersApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_playlist
-      @playlist = Playlist.find(params[:id])
+      @playlist = Playlist.includes(:media_items, :media_deployments).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
