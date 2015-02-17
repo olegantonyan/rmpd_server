@@ -20,7 +20,7 @@ class Playlist < ActiveRecord::Base
     def create_playlist_file
       self.media_deployments.each { |d| d.save } # saving them before saving playlist in required to create a file
       tempfile = Tempfile.new(['playlist', '.m3u'])
-      self.media_deployments.order(:playlist_position).each do |deployment|
+      self.media_deployments.includes(:media_item).order(:playlist_position).each do |deployment|
         tempfile.puts deployment.media_item.file_identifier
       end
       tempfile.close
