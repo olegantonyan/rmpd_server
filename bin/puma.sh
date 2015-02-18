@@ -14,6 +14,13 @@ PUMA_SOCKET=tmp/sockets/puma.sock
 MODE=production
 SECRET_KEY_BASE_FILE=secret_key
 
+if [ -z "$2" ]; then
+    echo "Using default mode $MODE"
+else
+    MODE=$2
+    echo "Using mode $MODE"
+fi
+
 if [ $MODE = "production" ] ; then
     if [ -e $SECRET_KEY_BASE_FILE ] ; then
         export SECRET_KEY_BASE=\"`cat $SECRET_KEY_BASE_FILE`\"
@@ -46,9 +53,9 @@ puma_start() {
     echo "Starting puma..."
     rm -f $PUMA_SOCKET
     if [ -e $PUMA_CONFIG_FILE ] ; then
-      nohup bundle exec puma --config $PUMA_CONFIG_FILE -e $MODE > /dev/null 2>&1 &
+      bundle exec puma --config $PUMA_CONFIG_FILE -e $MODE -d
     else
-      nohup bundle exec puma --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE -e $MODE > /dev/null 2>&1 &
+      bundle exec puma --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE -e $MODE -d
     fi
 
     echo "done"
