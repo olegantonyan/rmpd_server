@@ -7,7 +7,6 @@ class Playlist < ActiveRecord::Base
   
   after_save :playlist_updated
   after_destroy :playlist_destroyed
-  before_save :create_playlist_file
   
   mount_uploader :file, PlaylistFileUploader
   
@@ -18,7 +17,6 @@ class Playlist < ActiveRecord::Base
   
   private
     def create_playlist_file
-      self.media_deployments.each { |d| d.save } # saving them before saving playlist in required to create a file
       tempfile = Tempfile.new(['playlist', '.m3u'])
       self.media_deployments.includes(:media_item).order(:playlist_position).each do |deployment|
         tempfile.puts deployment.media_item.file_identifier
@@ -29,6 +27,11 @@ class Playlist < ActiveRecord::Base
     end
     
     def playlist_updated
+      create_playlist_file
+      Playlist.skip_callback(:save, :after, :playlist_updated) # skipping callback is required to prevent recursion 
+      save  # save newly created file in db
+      Playlist.set_callback(:save, :after, :playlist_updated) 
+      
       self.devices.each do |d|
         Deviceapi::Protocol.new.update_playlist d
       end
