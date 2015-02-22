@@ -7,5 +7,4 @@
   = f.text_field :name
   = f.select :playlist_id, @playlists.map{ |p| ["#{p.name} (#{p.description})", p.id] }, {}, :id => "select-playlist"
   = select2js_for_id "select-playlist"
-  = f.primary 'Save'
-
+  = f.submit :value => t(:save_button_text), :class => "btn btn-primary"

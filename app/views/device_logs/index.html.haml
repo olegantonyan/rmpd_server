@@ -1,18 +1,18 @@
-- title "Log for #{@device.name}"
+- title t(:log_for_device_title) + " #{@device.name}"
 
 %h1= yield(:title)
 
 .row
   .col-md-12
-    .text-center= will_paginate(@device_logs, :renderer => BootstrapPagination::Rails, :previous_label => "&larr; "+"Newer", :next_label => "Older"+" &rarr;")
+    .text-center= will_paginate(@device_logs, :renderer => BootstrapPagination::Rails, :previous_label => "&larr; "+t(:newer), :next_label => t(:older)+" &rarr;")
     %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
       %tr
-        %th Module
-        %th Level
-        %th Type
-        %th Details
-        %th Device time
-        %th Server time
+        %th= t(:module_th)
+        %th= t(:level_th)
+        %th= t(:type_th)
+        %th= t(:details_th)
+        %th= t(:device_time_th)
+        %th= t(:server_time_th)
     
       - @device_logs.each do |log_item|
         %tr
