@@ -1,4 +1,4 @@
-- title "Playlist info"
+- title t(:playlist_info_title)
 
 %h1= yield(:title)
 
@@ -7,44 +7,44 @@
     %table.table.table-bordered.table-hover.table-responsive
       %tr
         %td 
-          %strong Name
+          %strong= t(:playlist_name_th)
         %td= @playlist.name
       %tr
         %td 
-          %strong Description
+          %strong= t(:description_th)
         %td= @playlist.description
       %tr
         %td
-          %strong Number of items
+          %strong= t(:number_of_items_th)
         %td= @playlist.media_items.count
       %tr
         %td
-          %strong Total size
+          %strong= t(:total_size_th)
         %td= number_to_human_size((@playlist.media_items.inject(0) {|sum, i| sum += i.file.size.to_i}), precision: 2)
       %tr
         %td
-          %strong Added at
+          %strong= t(:created_at_th)
         %td= localtime @playlist.created_at
       %tr
         %td
-          %strong Updated at
+          %strong= t(:updated_at_th)
         %td= localtime @playlist.updated_at
       %tr
         %td
-          %strong Download playlist file
+          %strong= t(:download_playlist_file_th)
         %td
           %span.glyphicon.glyphicon-th-list
             = link_to @playlist.file_identifier, @playlist.file_url
     
 .row
   .col-md-12
-    %h2 Media items
+    %h2= t(:media_items_title)
     %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
       %tr
-        %th Position
-        %th Filename
-        %th Description
-        %th File size
+        %th= t(:position_th)
+        %th= t(:filename_th)
+        %th= t(:description_th)
+        %th= t(:size_th)
     
       - @media_items_in_playlist.each do |media_item|
         %tr
@@ -57,7 +57,7 @@
           
 .row
   .col-md-12
-    = link_to 'Edit playlist', edit_playlist_path(@playlist), :class => "btn btn-primary"
-    = link_to 'Delete playlist', @playlist, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => 'Are you sure?' }
+    = link_to t(:edit_playlist_title), edit_playlist_path(@playlist), :class => "btn btn-primary"
+    = link_to t(:delete_playlist_text), @playlist, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => 'Are you sure?' }
             
   

@@ -2,3 +2,23 @@ en:
   save_button_text: Save
   edit_device_title: Edit device
   delete_this_device: Delete this device
+  devices_title: Devices
+  name_th: Name
+  login_th: Login
+  playlist_th: Playlist
+  more_th: More
+  add_new_device: Add new device
+  new_device_title: New device
+  device_info_title: Device info
+  added_at_th: Added at
+  updated_at_th: Updated at
+  connection_th: Connection
+  online: Online
+  offline: Offline
+  status_header: Status
+  last_status_update_th: Last status update
+  powered_on_at_th: Powered on at
+  now_playing_th: Now playing
+  logs_th: Logs
+  full_log_text: full
+  not_available: Not available

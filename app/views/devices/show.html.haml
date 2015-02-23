@@ -1,4 +1,4 @@
-- title "Device info"
+- title t(:device_info_title)
 
 %h1= yield(:title)
 
@@ -7,59 +7,59 @@
     %table.table.table-bordered.table-hover.table-responsive
       %tr
         %td 
-          %strong Name
+          %strong= t(:name_th)
         %td= @device.name
       %tr
         %td
-          %strong Login
+          %strong= t(:login_th)
         %td= @device.login
       %tr
         %td
-          %strong Playlist
+          %strong= t(:playlist_th)
         %td= link_to(@device.playlist.name, @device.playlist) if @device.playlist
       %tr
         %td
-          %strong Added at
+          %strong= t(:added_at_th)
         %td= localtime @device.created_at
       %tr
         %td
-          %strong Updated at
+          %strong= t(:updated_at_th)
         %td= localtime @device.updated_at
 
 .row
   .col-md-12
-    %h2 Status
+    %h2= t(:status_header)
     - if @device.device_status != nil
       %table.table.table-bordered.table-hover.table-responsive
         %tr
           %td 
-            %strong Connection
+            %strong= t(:connection_th)
           - if device_online?(@device)
-            %td.success online
+            %td.success= t(:online)
           - else
-            %td.danger offline
+            %td.danger= t(:offline)
         %tr
           %td
-            %strong Last status update
+            %strong= t(:last_status_update_th)
           %td= localtime @device.device_status.updated_at
         %tr
           %td
-            %strong Powered on at
+            %strong= t(:powered_on_at_th)
           %td= localtime @device.device_status.poweredon_at
         %tr
           %td
-            %strong Now playing
+            %strong= t(:now_playing_th)
           %td= @device.device_status.now_playing
         %tr
           %td
-            %strong Logs
-          %td= link_to("full", device_device_logs_path(@device)) if @device.device_log
+            %strong= t(:logs_th)
+          %td= link_to(t(:full_log_text), device_device_logs_path(@device)) if @device.device_log
     - else
-      %strong Not available
+      %strong= t(:not_available)
 
 .row
   .col-md-12
-    = link_to 'Edit device', edit_device_path(@device), class: "btn btn-primary"
+    = link_to t(:edit_device_title), edit_device_path(@device), class: "btn btn-primary"
 
 - if @enable_admin_area    
   .row

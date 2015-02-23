@@ -1,4 +1,4 @@
-- title "Devices"
+- title t(:devices_title)
   
 %h1= yield(:title)
 
@@ -6,10 +6,10 @@
   .col-md-12  
     %table.table.table-striped.table-bordered.table-hover.table-responsive
       %tr
-        %th Name
-        %th Login
-        %th Playlist
-        %th More
+        %th= t(:name_th)
+        %th= t(:login_th) 
+        %th= t(:playlist_th)
+        %th= t(:more_th)
     
       - @devices.each do |device|
         %tr{:class => device_online?(device) ? "success" : "danger"}
@@ -19,5 +19,5 @@
           %td
             = link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), device, :class => "btn btn-default"
     
-    = link_to 'Add new device', new_device_path, class: "btn btn-primary"
+    = link_to t(:add_new_device), new_device_path, class: "btn btn-primary"
 

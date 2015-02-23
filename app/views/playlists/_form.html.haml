@@ -1,14 +1,14 @@
 = bootstrap_form_for @playlist, :html => {:multipart => true} do |f|
   = f.text_field :name
   = f.text_field :description
-  = f.label "Media items"
+  = f.label t(:media_items_title)
   .input-group
     %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
       %tr
-        %th Add
-        %th Position
-        %th Name
-        %th Description
+        %th= t(:add_th)
+        %th= t(:position_th)
+        %th= t(:filename_th)
+        %th= t(:description_th)
       - @media_items.each do |item|
         %tr
           - deployment = @playlist.media_deployments.find {|d| d.media_item == item}
@@ -17,4 +17,4 @@
           %td= label_tag "media_item#{item.id}", item.file_identifier
           %td= item.description
     
-  = f.primary 'Save'
+  = f.submit :value => t(:save_button_text), :class => "btn btn-primary"

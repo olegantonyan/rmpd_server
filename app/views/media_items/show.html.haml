@@ -1,4 +1,4 @@
-- title "Media item info"
+- title t(:media_item_info_title)
 
 %h1= yield(:title)
 
@@ -7,39 +7,39 @@
     %table.table.table-bordered.table-hover.table-responsive
       %tr
         %td 
-          %strong Filename
+          %strong= t(:filename_th)
         %td= @media_item.file_identifier
       %tr
         %td
-          %strong File size
+          %strong= t(:size_th)
         %td= number_to_human_size(@media_item.file.size, precision: 2)
       %tr
         %td 
-          %strong Description
+          %strong= t(:description_th)
         %td= @media_item.description
       %tr
         %td
-          %strong Playlists
+          %strong= t(:playlists_th)
         %td
           %ul.list-unstyled
             - @media_item.playlists.each do |p|
               %li= link_to p.name, p
       %tr
         %td
-          %strong Added at
+          %strong= t(:uploaded_at_th)
         %td= localtime @media_item.created_at
       %tr
         %td
-          %strong Updated at
+          %strong= t(:updated_at_th)
         %td= localtime @media_item.updated_at        
 
 .row
   .col-md-12
-    %h2 Statistics
+    %h2= t(:statistics_title)
     
 .row
   .col-md-12
-    = link_to 'Delete this item', @media_item, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => 'Are you sure?' }
+    = link_to t(:delete_media_item_text), @media_item, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => t(:are_you_sure) }
     
             
   
