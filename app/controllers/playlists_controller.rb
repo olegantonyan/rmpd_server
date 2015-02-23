@@ -30,10 +30,10 @@ class PlaylistsController < UsersApplicationController
     
     respond_to do |format|
       if @playlist.save
-        flash_success 'Playlist was successfully created'
+        flash_success t(:playlist_successfully_created, :name => @playlist.name)
         format.html { redirect_to @playlist }
       else
-        flash_error 'Error creating playlist'
+        flash_error t(:error_creating_playlist)
         @media_items = MediaItem.all
         format.html { render :new }
       end
@@ -49,10 +49,10 @@ class PlaylistsController < UsersApplicationController
     
     respond_to do |format|
       if @playlist.save
-        flash_success 'Playlist was successfully updated'
+        flash_success t(:playlist_successfully_updated, :name => @playlist.name)
         format.html { redirect_to @playlist }
       else
-        flash_error = 'Error updating playlist'
+        flash_error t(:error_updating_playlist)
         format.html { render :edit }
       end
     end
@@ -62,7 +62,7 @@ class PlaylistsController < UsersApplicationController
   def destroy
     @playlist.destroy
     respond_to do |format|
-      flash_success 'Playlist was successfully deleted'
+      flash_success t(:playlist_successfully_deleted, :name => @playlist.name)
       format.html { redirect_to playlists_url }
     end
   end

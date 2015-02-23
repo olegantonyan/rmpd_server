@@ -1,2 +1,6 @@
 en:
-
+  device_successfully_created: Device '%{name}' was successfully created
+  error_creating_device: Error creating device
+  device_successfully_updated: Device '%{name}' was successfully updated
+  error_updating_device: Error updating device
+  device_successfully_deleted: Device '%{name}' was successfully deleted

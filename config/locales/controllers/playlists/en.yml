@@ -1,0 +1,6 @@
+en:
+  playlist_successfully_created: Playlist '%{name}' was successfully created
+  error_creating_playlist: Error creating playlist
+  playlist_successfully_updated: Playlist '%{name}' was successfully updated
+  error_updating_playlist: Error updating playlist
+  playlist_successfully_deleted: Playlist '%{name}' was successfully deleted

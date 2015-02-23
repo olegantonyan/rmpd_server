@@ -1,0 +1,4 @@
+ru:
+  media_items_successfully_created: Медиафайл(ы) '%{names}' успешно загружены
+  media_items_create_error: Ошибка загрузки медиафайлов
+  media_item_successfully_deleted: Медиафайл '%{name}' успешно удалён

@@ -1,1 +1,6 @@
 ru:
+  device_successfully_created: Устройство '%{name}' успешно создано
+  error_creating_device: Ошибка создания устройтсва
+  device_successfully_updated: Устройство '%{name}' успешно обновлено
+  error_updating_device: Ошибка обновления устройства
+  device_successfully_deleted: Устройтсво '%{name}' усешно удалено

@@ -1,0 +1,6 @@
+ru:
+  playlist_successfully_created: Плейлист '%{name}' успешно создан
+  error_creating_playlist: Ошибка создания плейлиста
+  playlist_successfully_updated: Плейлист '%{name}' успешно обновлён
+  error_updating_playlist: Ошибка обновления плейлиста
+  playlist_successfully_deleted: Плейлист '%{name}' успешно удалён

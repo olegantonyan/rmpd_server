@@ -26,10 +26,10 @@ class DevicesController < UsersApplicationController
     
     respond_to do |format|
       if @device.save
-        flash_success "Device '#{@device.login}' was successfully created"
+        flash_success t(:device_successfully_created, :name => @device.login)
         format.html { redirect_to @device }
       else
-        flash_error 'Error creating device'
+        flash_error t(:error_creating_device)
         format.html { render :new }
       end
     end
@@ -39,10 +39,10 @@ class DevicesController < UsersApplicationController
   def update
     respond_to do |format|
       if @device.update(device_params) 
-        flash_success "Device '#{@device.login}' was successfully updated"
+        flash_success t(:device_successfully_updated, :name => @device.login)
         format.html { redirect_to @device }
       else
-        flash_error 'Error updating device'
+        flash_error t(:error_updating_device)
         format.html { render :edit }
       end
     end
@@ -52,7 +52,7 @@ class DevicesController < UsersApplicationController
   def destroy
     @device.destroy
     respond_to do |format|
-      flash_success  "Device '#{@device.login}' was successfully deleted"
+      flash_success  t(:device_successfully_deleted, :name => @device.login)
       format.html { redirect_to devices_url }
     end
   end
