@@ -1,0 +1,28 @@
+ru:    
+  activerecord:
+    models:
+      device: 
+        one: Устройство
+        other: Устройтсва
+    
+    errors:
+      models:
+        device:
+          attributes:
+            login:
+              blank: Не может быть пустым
+              taken: Уже используется
+              too_long: Слишком длинный
+            password:
+              blank: Не может быть пустым
+              too_short: Слишком короткий (минимум %{count} символов)
+            password_confirmation:
+              confirmation: Подтверждение пароля должно совпадать
+    
+    attributes:
+      device:
+        login: Логин
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+        name: Имя
+        playlist_id: Плейлист

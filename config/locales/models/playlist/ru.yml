@@ -1,0 +1,20 @@
+ru:    
+  activerecord:
+    models:
+      playlist: 
+        one: Плейлист
+        other: Плейлисты
+    
+    errors:
+      models:
+        playlist:
+          attributes:
+            name:
+              blank: Не может быть пустым
+              too_long: Слишком длинное
+    
+    attributes:
+      playlist:
+        name: Имя
+        description: Описание
+        file: Файл-плейлист

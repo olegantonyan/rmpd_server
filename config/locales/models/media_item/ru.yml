@@ -1,0 +1,18 @@
+ru:    
+  activerecord:
+    models:
+      media_item: 
+        one: Медиафайл
+        other: Медиафайлы
+    
+    errors:
+      models:
+        media_item:
+          attributes:
+            file:
+              blank: Не может отсутствовать
+    
+    attributes:
+      media_item:
+        file: Файл
+        description: Описание
