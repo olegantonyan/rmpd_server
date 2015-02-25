@@ -1,4 +1,4 @@
-= bootstrap_form_for @media_item, :html => {:multipart => true} do |f|
+= bootstrap_form_for(@media_item, :html => {:multipart => true}, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
   = f.text_field :description
   = f.file_field :file, multiple: true
   = f.submit :value => t(:upload_button_text), :class => "btn btn-primary"

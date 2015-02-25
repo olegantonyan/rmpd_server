@@ -1,4 +1,4 @@
-= bootstrap_form_for @playlist, :html => {:multipart => true} do |f|
+= bootstrap_form_for(@playlist, :html => {:multipart => true}, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
   = f.text_field :name
   = f.text_field :description
   = f.label t(:media_items_title)

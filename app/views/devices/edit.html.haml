@@ -3,10 +3,6 @@
 .row
   .col-md-12
     %h1= yield(:title)
-    = link_to t(:delete_this_device), @device, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => t(:are_you_sure) }
-
-
-
   
 .row
   .col-md-12

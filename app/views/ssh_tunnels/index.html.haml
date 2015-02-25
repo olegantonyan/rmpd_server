@@ -4,7 +4,7 @@
 
 .row
   .col-md-12
-    =bootstrap_form_for([@device, @ssh_tunnel]) do |f|
+    =bootstrap_form_for([@device, @ssh_tunnel], layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
       =f.text_field :server, :value => @ssh_tunnel.server
       =f.text_field :username, :value => @ssh_tunnel.username
       =f.number_field :server_port, :value => @ssh_tunnel.server_port
