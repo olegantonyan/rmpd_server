@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
-    %title= "SLON-DS Server" + (content_for?(:title) ? " | " + yield(:title) : "") 
+    %title= "SLON-DS Cloud" + (content_for?(:title) ? " | " + yield(:title) : "") 
     %meta{:content => content_for?(:description) ? yield(:description) : "App_Name", :name => "description"}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
@@ -14,7 +14,7 @@
       %nav.navbar.navbar-inverse{:role => "navigation"}
         .container
           = image_tag "logo.png", alt: "logo", class: "navbar-brand img-responsive"
-          = link_to "SLON-DS server", root_path, class: "navbar-brand"
+          = link_to "SLON-DS Cloud", root_path, class: "navbar-brand"
           .collapse.navbar-collapse
             %ul.nav.navbar-nav
               %li{:class => active_class_for('devices')}= link_to t(:devices_title), devices_path
