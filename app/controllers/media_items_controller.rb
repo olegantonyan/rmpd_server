@@ -39,7 +39,7 @@ class MediaItemsController < UsersApplicationController
     respond_to do |format|
       if not err
         str_items = (items.map { |i| i.file_identifier }).join(", ")
-        flash_success t(:media_items_successfully_created, :items => str_items)
+        flash_success t(:media_items_successfully_created, :names => str_items)
         format.html { redirect_to :media_items }
       else
         flash_error t(:media_items_create_error)
