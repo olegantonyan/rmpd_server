@@ -55,7 +55,7 @@ puma_start() {
     if [ -e $PUMA_CONFIG_FILE ] ; then
       bundle exec puma --config $PUMA_CONFIG_FILE -e $MODE -d
     else
-      RACK_MULTIPART_LIMIT=0 bundle exec puma --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE -e $MODE -d 
+      RACK_MULTIPART_LIMIT=0 bundle exec puma --bind unix://$PUMA_SOCKET --pidfile $PUMA_PID_FILE -e $MODE -d
     fi
 
     echo "done"
