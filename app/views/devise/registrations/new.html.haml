@@ -1,0 +1,13 @@
+.panel.panel-default
+  .panel-heading
+    %h4= t('.sign_up', :default => "Sign up")
+  .panel-body
+    = bootstrap_form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { role: "form" }) do |f|
+      .form-group
+        = f.email_field :email, autofocus: true, class: "form-control"
+      .form-group
+        = f.password_field :password, class: "form-control"
+      .form-group
+        = f.password_field :password_confirmation, class: "form-control"
+      = f.submit t('.sign_up', :default => "Sign up"), class: "btn btn-primary"
+= render "devise/shared/links"

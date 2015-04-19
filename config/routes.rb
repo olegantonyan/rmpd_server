@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'home#index'
+  devise_for :users
 
   resources :media_items
 
@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   namespace :deviceapi, :defaults => {:format => :json} do
     resources :status, only: [:index, :create]
   end
+  
+  root 'home#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

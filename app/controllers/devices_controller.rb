@@ -26,11 +26,9 @@ class DevicesController < UsersApplicationController
     
     respond_to do |format|
       if @device.save
-        flash_success t(:device_successfully_created, :name => @device.login)
-        format.html { redirect_to @device }
+        format.html { redirect_to @device, notice: t(:device_successfully_created, :name => @device.login) }
       else
-        flash_error t(:error_creating_device)
-        format.html { render :new }
+        format.html { render :new, flash: {alert: t(:error_creating_device)} }
       end
     end
   end
@@ -39,11 +37,9 @@ class DevicesController < UsersApplicationController
   def update
     respond_to do |format|
       if @device.update(device_params) 
-        flash_success t(:device_successfully_updated, :name => @device.login)
-        format.html { redirect_to @device }
+        format.html { redirect_to @device, notice: t(:device_successfully_updated, :name => @device.login) }
       else
-        flash_error t(:error_updating_device)
-        format.html { render :edit }
+        format.html { render :edit, flash: {alert: t(:error_updating_device)} }
       end
     end
   end
@@ -52,8 +48,7 @@ class DevicesController < UsersApplicationController
   def destroy
     @device.destroy
     respond_to do |format|
-      flash_success  t(:device_successfully_deleted, :name => @device.login)
-      format.html { redirect_to devices_url }
+      format.html { redirect_to devices_path, notice: t(:device_successfully_deleted, :name => @device.login)}
     end
   end
 
@@ -61,7 +56,7 @@ class DevicesController < UsersApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_device
       @device = Device.find(params[:id])
-      @enable_admin_area = APP_CONFIG['username'] == 'admin'
+      @enable_admin_area = true#APP_CONFIG['username'] == 'admin'
     end
     
     def set_playlists

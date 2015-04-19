@@ -23,6 +23,23 @@ module PlayerRemote
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     
+    # Load locales from config/locales and all subdirectories
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    
+    # Use generators for rspec and factory_girl
+    config.generators do |g|
+      g.test_framework :rspec,
+        fixtures: true,
+        view_specs: false,
+        helper_specs: true,
+        routing_specs: true,
+        controller_specs: true,
+        request_specs: false
+      g.fixture_replacement :factory_girl, dir: "spec/factories"
+    end
+    
+    config.autoload_paths += Dir["#{config.root}/lib", "#{config.root}/lib/**/"]
+    config.active_job.queue_adapter = :delayed_job
+    
   end
 end

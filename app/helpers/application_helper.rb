@@ -5,10 +5,10 @@ module ApplicationHelper
   end
   
   def localtime(utc_time)
-    if utc_time != nil
+    unless utc_time.nil?
       local_time utc_time, "%Y-%m-%d %H:%M:%S"
     else
-      "<nil>"
+      ""
     end
   end
   
@@ -16,6 +16,8 @@ module ApplicationHelper
     case level.to_sym
     when :info    then "alert alert-info"
     when :success then "alert alert-success"
+    when :notice  then "alert alert-success"
+    when :alert   then "alert alert-danger"
     when :error   then "alert alert-danger"
     when :warning then "alert alert-warning"
     end
@@ -31,10 +33,6 @@ module ApplicationHelper
   
   def select2js_for_id(id)
     javascript_tag "$(document).ready(function() { $('##{id.to_s}').select2(); });"
-  end
-  
-  def broker_online?
-    return RemoteInterface.new.server_online?
   end
 
 end
