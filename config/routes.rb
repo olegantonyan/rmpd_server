@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :media_items
 
   resources :devices do
-    resources :device_logs, only: [:index]
+    resources :device_log_messages, only: [:index]
     resources :ssh_tunnels, only: [:index, :create]
   end
   

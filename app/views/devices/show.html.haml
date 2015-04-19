@@ -53,7 +53,7 @@
         %tr
           %td
             %strong= t(:logs_th)
-          %td= link_to(t(:full_log_text), device_device_logs_path(@device)) if @device.device_log
+          %td= link_to(t(:full_log_text), device_device_log_messages_path(@device))
     - else
       %strong= t(:not_available)
 

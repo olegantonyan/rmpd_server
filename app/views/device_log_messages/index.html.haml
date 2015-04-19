@@ -4,7 +4,7 @@
 
 .row
   .col-md-12
-    .text-center= will_paginate(@device_logs, :renderer => BootstrapPagination::Rails, :previous_label => "&larr; "+t(:newer), :next_label => t(:older)+" &rarr;")
+    .text-center= will_paginate(@device_log_messages, :renderer => BootstrapPagination::Rails, :previous_label => "&larr; "+t(:newer), :next_label => t(:older)+" &rarr;")
     %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
       %tr
         %th= t(:module_th)
@@ -14,7 +14,7 @@
         %th= t(:device_time_th)
         %th= t(:server_time_th)
     
-      - @device_logs.each do |log_item|
+      - @device_log_messages.each do |log_item|
         %tr
           %td= log_item.module
           %td= log_item.level
@@ -25,4 +25,4 @@
           
 .row
   .col-md-12
-    .text-center= page_entries_info(@device_logs)
+    .text-center= page_entries_info(@device_log_messages)

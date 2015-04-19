@@ -1,6 +1,6 @@
 require 'time'
 
-class DeviceLog < ActiveRecord::Base
+class DeviceLogMessage < ActiveRecord::Base
   belongs_to :device 
     
   validates_presence_of :module

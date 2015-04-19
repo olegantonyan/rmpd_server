@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419121932) do
+ActiveRecord::Schema.define(version: 20150419134443) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20150419121932) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
-  create_table "device_logs", force: :cascade do |t|
+  create_table "device_log_messages", force: :cascade do |t|
     t.integer  "device_id"
     t.string   "module",     null: false
     t.string   "level",      null: false
@@ -41,9 +41,9 @@ ActiveRecord::Schema.define(version: 20150419121932) do
     t.string   "user_agent"
   end
 
-  add_index "device_logs", ["details"], name: "index_device_logs_on_details"
-  add_index "device_logs", ["level"], name: "index_device_logs_on_level"
-  add_index "device_logs", ["module"], name: "index_device_logs_on_module"
+  add_index "device_log_messages", ["details"], name: "index_device_log_messages_on_details"
+  add_index "device_log_messages", ["level"], name: "index_device_log_messages_on_level"
+  add_index "device_log_messages", ["module"], name: "index_device_log_messages_on_module"
 
   create_table "device_statuses", force: :cascade do |t|
     t.boolean  "online",       default: false, null: false
