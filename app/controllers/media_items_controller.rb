@@ -39,11 +39,9 @@ class MediaItemsController < UsersApplicationController
     respond_to do |format|
       if not err
         str_items = (items.map { |i| i.file_identifier }).join(", ")
-        flash_success t(:media_items_successfully_created, :names => str_items)
-        format.html { redirect_to :media_items }
+        format.html { redirect_to :media_items, flash_success(t(:media_items_successfully_created, :names => str_items)) }
       else
-        flash_error t(:media_items_create_error)
-        format.html { render :new }
+        format.html { render :new, flash_error(t(:media_items_create_error)) }
       end
     end
   end
@@ -57,8 +55,7 @@ class MediaItemsController < UsersApplicationController
     @media_item.remove_file!
     @media_item.destroy
     respond_to do |format|
-      flash_success t(:media_item_successfully_deleted, :name => @media_item.file_identifier)
-      format.html { redirect_to media_items_url }
+      format.html { redirect_to media_items_url, flash_success(t(:media_item_successfully_deleted, :name => @media_item.file_identifier)) }
     end
   end
 

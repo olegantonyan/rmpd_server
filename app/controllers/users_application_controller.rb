@@ -27,6 +27,20 @@ class UsersApplicationController < ApplicationController
     I18n.available_locales.map(&:to_s).include?(parsed_locale) ? parsed_locale : nil
   end
   
+  protected
+  
+    def flash_success msg
+      {:flash => {:notice => truncate_message(msg)}}
+    end
+    
+    def flash_error msg
+      {:flash => {:alert => truncate_message(msg)}}
+    end
+    
+    def flash_warning msg
+      {:flash => {:warning => truncate_message(msg)}}
+    end
+  
   private 
   
     def truncate_message msg

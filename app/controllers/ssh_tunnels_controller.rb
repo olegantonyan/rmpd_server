@@ -6,7 +6,7 @@ class SshTunnelsController < UsersApplicationController
   end
   
   def create
-    @ssh_tunnel.server = params[:ssh_tunnel][:server].to_s
+    @ssh_tunnel.server = params[:ssh_tunnel][:server].to_s #TODO strong params
     @ssh_tunnel.username = params[:ssh_tunnel][:username].to_s
     @ssh_tunnel.server_port = params[:ssh_tunnel][:server_port].to_i
     @ssh_tunnel.external_port = params[:ssh_tunnel][:external_port].to_i
@@ -15,11 +15,9 @@ class SshTunnelsController < UsersApplicationController
     @ssh_tunnel.device = @device
     respond_to do |format|
       if @ssh_tunnel.save
-        flash_success "SSH tunnel requested for '#{@device.login}'"
-        format.html { redirect_to @device }
+        format.html { redirect_to @device, flash_success("SSH tunnel requested for '#{@device.login}'") }
       else
-        flash_error 'Error SSH tunnel'
-        format.html { render :index }
+        format.html { render :index, flash_error('Error creating SSH tunnel') }
       end
     end
   end
@@ -31,7 +29,7 @@ class SshTunnelsController < UsersApplicationController
   end
   
   def set_tunnel
-    @ssh_tunnel = SshTunnel.new
+    @ssh_tunnel = SshTunnel.new #TODO default values in model
     @ssh_tunnel.server = request.host
     @ssh_tunnel.username = "sshtunnel"
     @ssh_tunnel.server_port = 10022
