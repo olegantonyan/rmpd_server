@@ -17,9 +17,11 @@
           = link_to "SLON-DS Cloud", root_path, class: "navbar-brand"
           .collapse.navbar-collapse
             %ul.nav.navbar-nav
-              %li{:class => active_class_for('devices')}= link_to t(:devices_title), devices_path
               %li{:class => active_class_for('media_items')}= link_to t(:media_items_title), media_items_path
               %li{:class => active_class_for('playlists')}= link_to t(:playlists_title), playlists_path
+              %li{:class => active_class_for('devices')}= link_to t(:devices_title), devices_path
+              %li{:class => active_class_for('device_groups')}= link_to t('.device_groups'), device_groups_path
+              %li{:class => active_class_for('reports')}= link_to t('.reports'), "#"
             %ul.pull-right.nav.navbar-text
               %li
               - if user_signed_in?

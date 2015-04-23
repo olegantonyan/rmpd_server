@@ -1,5 +1,7 @@
-%h1 New device_group
+- title t('.new_device_group') 
 
-= render 'form'
+%h1.page-header= yield(:title)
 
-= link_to 'Back', device_groups_path
+.row
+  .col-md-12
+    = render partial: 'form', locals: {delete_disabled: true}

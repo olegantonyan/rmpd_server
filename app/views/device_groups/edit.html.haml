@@ -1,7 +1,7 @@
-%h1 Editing device_group
+- title t('.edit_device_group')
 
-= render 'form'
-
-= link_to 'Show', @device_group
-\|
-= link_to 'Back', device_groups_path
+%h1.page-header= yield(:title)
+  
+.row
+  .col-md-12
+    = render partial: 'form'

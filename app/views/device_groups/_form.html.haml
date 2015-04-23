@@ -1,10 +1,5 @@
-= form_for @device_group do |f|
-  - if @device_group.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@device_group.errors.count, "error")} prohibited this device_group from being saved:"
-      %ul
-        - @device_group.errors.full_messages.each do |msg|
-          %li= msg
-
-  .actions
-    = f.submit 'Save'
+= bootstrap_form_for(@device_group, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
+  = f.text_field :title
+  = f.submit :value => t(:save_button_text), :class => "btn btn-primary"
+  - if not defined?(delete_disabled) or not delete_disabled
+    = link_to t(:delete_this_device_group), @device_group, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => t(:are_you_sure) }
