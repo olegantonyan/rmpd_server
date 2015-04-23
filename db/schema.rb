@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419134443) do
+ActiveRecord::Schema.define(version: 20150423042658) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -28,6 +28,23 @@ ActiveRecord::Schema.define(version: 20150419134443) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+
+  create_table "device_group_memberships", force: :cascade do |t|
+    t.string   "description",     limit: 1024, default: "", null: false
+    t.integer  "device_id"
+    t.integer  "device_group_id"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
+
+  add_index "device_group_memberships", ["device_group_id"], name: "index_device_group_memberships_on_device_group_id"
+  add_index "device_group_memberships", ["device_id"], name: "index_device_group_memberships_on_device_id"
+
+  create_table "device_groups", force: :cascade do |t|
+    t.string   "title",      limit: 256, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "device_log_messages", force: :cascade do |t|
     t.integer  "device_id"

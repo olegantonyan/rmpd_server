@@ -1,0 +1,19 @@
+%h1 Listing device_groups
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @device_groups.each do |device_group|
+      %tr
+        %td= link_to 'Show', device_group
+        %td= link_to 'Edit', edit_device_group_path(device_group)
+        %td= link_to 'Destroy', device_group, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Device group', new_device_group_path

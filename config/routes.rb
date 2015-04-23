@@ -3,12 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :media_items
-
+  resources :device_groups
   resources :devices do
     resources :device_log_messages, only: [:index]
     resources :ssh_tunnels, only: [:index, :create]
   end
-  
   resources :playlists
   
   namespace :deviceapi, :defaults => {:format => :json} do
