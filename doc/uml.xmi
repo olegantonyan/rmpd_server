@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMI verified="false" xmi.version="1.2" timestamp="2015-04-19T15:47:32" xmlns:UML="http://schema.omg.org/spec/UML/1.3">
+<XMI verified="false" xmi.version="1.2" timestamp="2015-04-23T06:51:18" xmlns:UML="http://schema.omg.org/spec/UML/1.3">
  <XMI.header>
   <XMI.documentation>
    <XMI.exporter>umbrello uml modeller http://uml.sf.net</XMI.exporter>
@@ -149,6 +149,26 @@
        </UML:Association.connection>
       </UML:Association>
       <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="c7AEsF3Dh3Xn" name="User"/>
+      <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="n7w3Sp6yj4q5" name="DeviceGroup">
+       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="n7w3Sp6yj4q5" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="IJBaksw7DMLg" type="zsK6y63zagFf" dbindex_type="1100" initialValue="" name="title"/>
+      </UML:Entity>
+      <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="nSoBV7Wl3Irw" name="DeviceGroupMembership">
+       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="nSoBV7Wl3Irw" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="7DTvwE1tIRgO" type="zsK6y63zagFf" dbindex_type="1100" initialValue="" name="description"/>
+       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="nSoBV7Wl3Irw" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="PNSFSEgGN9Mt" type="ktRCuKLw5Wif" dbindex_type="1102" initialValue="" name="device_id"/>
+       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="nSoBV7Wl3Irw" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="uN9lHAcPO3IK" type="ktRCuKLw5Wif" dbindex_type="1102" initialValue="" name="device_group_id"/>
+      </UML:Entity>
+      <UML:Association visibility="public" isSpecification="false" namespace="Entity Relationship Model" xmi.id="Y1uwAGn5bxot" name="">
+       <UML:Association.connection>
+        <UML:AssociationEnd changeability="changeable" visibility="public" isNavigable="true" isSpecification="false" xmi.id="7PGTSWokqzIY" type="twpghWVEr3qZ" name="" aggregation="none"/>
+        <UML:AssociationEnd changeability="changeable" visibility="public" isNavigable="true" isSpecification="false" relationship="true" xmi.id="pEe3Zzh7yb38" type="nSoBV7Wl3Irw" name="" aggregation="none"/>
+       </UML:Association.connection>
+      </UML:Association>
+      <UML:Association visibility="public" isSpecification="false" namespace="Entity Relationship Model" xmi.id="qrBRm0IrPYLp" name="">
+       <UML:Association.connection>
+        <UML:AssociationEnd changeability="changeable" visibility="public" isNavigable="true" isSpecification="false" xmi.id="37ar6sPu51ve" type="n7w3Sp6yj4q5" name="" aggregation="none"/>
+        <UML:AssociationEnd changeability="changeable" visibility="public" isNavigable="true" isSpecification="false" relationship="true" xmi.id="0alyBp5zeGPO" type="nSoBV7Wl3Irw" name="" aggregation="none"/>
+       </UML:Association.connection>
+      </UML:Association>
      </UML:Namespace.ownedElement>
      <XMI.extension xmi.extender="umbrello">
       <diagrams>
@@ -161,6 +181,8 @@
          <entitywidget width="209" showstereotype="1" x="1175" y="294" usesdiagramusefillcolor="0" usesdiagramfillcolor="0" isinstance="0" fillcolor="#ffff00" height="184" linecolor="#ff0000" xmi.id="WWI2xsg5DjaV" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
          <entitywidget width="147" showstereotype="1" x="596" y="299" usesdiagramusefillcolor="0" usesdiagramfillcolor="0" isinstance="0" fillcolor="#ffff00" height="144" linecolor="#ff0000" xmi.id="OYteMEIeRetD" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
          <entitywidget width="100" showstereotype="1" x="386" y="352" usesdiagramusefillcolor="1" usesdiagramfillcolor="1" isinstance="0" fillcolor="none" height="30" linecolor="none" xmi.id="c7AEsF3Dh3Xn" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
+         <entitywidget width="120" showstereotype="1" x="891" y="697" usesdiagramusefillcolor="0" usesdiagramfillcolor="0" isinstance="0" fillcolor="#ffff00" height="46" linecolor="#ff0000" xmi.id="n7w3Sp6yj4q5" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,75,1,0,0,0,0"/>
+         <entitywidget width="208" showstereotype="1" x="860" y="543" usesdiagramusefillcolor="0" usesdiagramfillcolor="0" isinstance="0" fillcolor="#ffff00" height="69" linecolor="#ff0000" xmi.id="nSoBV7Wl3Irw" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,75,1,0,0,0,0"/>
         </widgets>
         <messages/>
         <associations>
@@ -194,6 +216,18 @@
            <endpoint endx="743" endy="378"/>
           </linepath>
          </assocwidget>
+         <assocwidget indexa="1" indexb="1" widgetaid="twpghWVEr3qZ" linecolor="none" totalcounta="2" xmi.id="Y1uwAGn5bxot" widgetbid="nSoBV7Wl3Irw" totalcountb="2" type="519" linewidth="none">
+          <linepath>
+           <startpoint startx="953" starty="444"/>
+           <endpoint endx="953" endy="543"/>
+          </linepath>
+         </assocwidget>
+         <assocwidget indexa="1" indexb="1" widgetaid="n7w3Sp6yj4q5" linecolor="none" totalcounta="2" xmi.id="qrBRm0IrPYLp" widgetbid="nSoBV7Wl3Irw" totalcountb="2" type="519" linewidth="none">
+          <linepath>
+           <startpoint startx="953" starty="697"/>
+           <endpoint endx="953" endy="612"/>
+          </linepath>
+         </assocwidget>
         </associations>
        </diagram>
       </diagrams>
@@ -203,7 +237,7 @@
   </UML:Model>
  </XMI.content>
  <XMI.extensions xmi.extender="umbrello">
-  <docsettings viewid="pX20uyHMfOMK" uniqueid="c7AEsF3Dh3Xn" documentation=""/>
+  <docsettings viewid="pX20uyHMfOMK" uniqueid="0alyBp5zeGPO" documentation=""/>
   <listview>
    <listitem open="1" type="800" id="Views">
     <listitem open="1" type="801" id="Logical View">
@@ -232,6 +266,14 @@
      </listitem>
      <listitem open="1" type="832" id="4LA3g6bRuP60">
       <listitem open="0" type="833" id="IajVhBSLBBz3"/>
+     </listitem>
+     <listitem open="1" type="832" id="n7w3Sp6yj4q5">
+      <listitem open="0" type="833" id="IJBaksw7DMLg"/>
+     </listitem>
+     <listitem open="1" type="832" id="nSoBV7Wl3Irw">
+      <listitem open="0" type="833" id="7DTvwE1tIRgO"/>
+      <listitem open="0" type="833" id="PNSFSEgGN9Mt"/>
+      <listitem open="0" type="833" id="uN9lHAcPO3IK"/>
      </listitem>
      <listitem open="1" type="832" id="OYteMEIeRetD">
       <listitem open="0" type="833" id="JiGmVwZ9DbGR"/>
