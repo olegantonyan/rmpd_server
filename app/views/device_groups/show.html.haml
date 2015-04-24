@@ -1,6 +1,12 @@
-%p#notice= notice
+- title t('.device_group')
 
+%h1.page-header= yield(:title)
 
-= link_to 'Edit', edit_device_group_path(@device_group)
-\|
-= link_to 'Back', device_groups_path
+.row
+  .col-md-12
+    %table.table.table-bordered.table-hover.table-responsive
+      = row_info t('title'), @device_group.title
+      = row_info t('.devices'), list_with_links(@device_group.devices, 'name')
+   
+  .col-md-12
+    = link_to t('.edit_device_group'), edit_device_group_path(@device_group), class: "btn btn-primary"

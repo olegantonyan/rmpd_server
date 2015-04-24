@@ -1,6 +1,7 @@
 class DevicesController < UsersApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
   before_action :set_playlists, only: [:edit, :new, :create, :update]
+  before_action :set_device_groups, only: [:edit, :create, :update, :new]
   
   # GET /devices
   def index
@@ -55,17 +56,21 @@ class DevicesController < UsersApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_device
-      @device = Device.find(params[:id])
+      @device = Device.includes(:device_groups).find(params[:id])
       @enable_admin_area = true#APP_CONFIG['username'] == 'admin'
     end
     
     def set_playlists
-      @playlists = Playlist.all
+      @playlists = Playlist.order(:name => :asc)
+    end
+    
+    def set_device_groups
+      @device_groups = DeviceGroup.order(:title => :asc)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:login, :name, :password, :password_confirmation, :playlist_id)
+      params.require(:device).permit(:login, :name, :password, :password_confirmation, :playlist_id, :device_group_ids => [])
     end
     
 end

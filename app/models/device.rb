@@ -3,7 +3,8 @@ class Device < ActiveRecord::Base
   belongs_to :playlist, touch: true
   has_one :device_status, :dependent => :destroy
   has_many :device_log_messages
-  has_many :device_groups, through: :device_group_membership
+  has_many :device_group_memberships
+  has_many :device_groups, through: :device_group_memberships
   
   validates_presence_of :login
   validates_uniqueness_of :login
@@ -13,6 +14,10 @@ class Device < ActiveRecord::Base
   
   after_save :device_updated
   after_destroy :device_destroyed
+  
+  def online?
+    self.device_status != nil && self.device_status.online
+  end
   
   private
   

@@ -5,55 +5,25 @@
 .row
   .col-md-12
     %table.table.table-bordered.table-hover.table-responsive
-      %tr
-        %td 
-          %strong= t(:name_th)
-        %td= @device.name
-      %tr
-        %td
-          %strong= t(:login_th)
-        %td= @device.login
-      %tr
-        %td
-          %strong= t(:playlist_th)
-        %td= link_to(@device.playlist.name, @device.playlist) if @device.playlist
-      %tr
-        %td
-          %strong= t(:added_at_th)
-        %td= localtime @device.created_at
-      %tr
-        %td
-          %strong= t(:updated_at_th)
-        %td= localtime @device.updated_at
-
+      = row_info t(:name_th), @device.name
+      = row_info t(:login_th), @device.login
+      = row_info t(:playlist_th), @device.playlist ? link_to(@device.playlist.name, @device.playlist) : ""
+      = row_info t('.groups'), list_with_links(@device.device_groups, 'title')
+      = row_info t(:added_at_th), @device.created_at
+      = row_info t(:updated_at_th), @device.updated_at
 .row
   .col-md-12
     %h2= t(:status_header)
-    - if @device.device_status != nil
+    - unless @device.device_status.nil?
       %table.table.table-bordered.table-hover.table-responsive
-        %tr
-          %td 
-            %strong= t(:connection_th)
-          - if device_online?(@device)
-            %td.success= t(:online)
-          - else
-            %td.danger= t(:offline)
-        %tr
-          %td
-            %strong= t(:last_status_update_th)
-          %td= localtime @device.device_status.updated_at
-        %tr
-          %td
-            %strong= t(:powered_on_at_th)
-          %td= localtime @device.device_status.poweredon_at
-        %tr
-          %td
-            %strong= t(:now_playing_th)
-          %td= @device.device_status.now_playing
-        %tr
-          %td
-            %strong= t(:logs_th)
-          %td= link_to(t(:full_log_text), device_device_log_messages_path(@device))
+        - if @device.online?
+          = row_info t(:connection_th), t(:online), 'success'
+        - else
+          = row_info t(:connection_th), t(:offline), 'danger'
+        = row_info t(:last_status_update_th), localtime(@device.device_status.updated_at)
+        = row_info t(:powered_on_at_th), localtime(@device.device_status.poweredon_at)
+        = row_info t(:now_playing_th), @device.device_status.now_playing
+        = row_info t(:logs_th), link_to(t(:full_log_text), device_device_log_messages_path(@device))
     - else
       %strong= t(:not_available)
 

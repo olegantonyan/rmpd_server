@@ -1,19 +1,18 @@
-%h1 Listing device_groups
+- title t('.device_groups')
+  
+%h1.page-header= yield(:title)
 
-%table
-  %thead
-    %tr
-      %th
-      %th
-      %th
-
-  %tbody
-    - @device_groups.each do |device_group|
+.row
+  .col-md-12  
+    %table.table.table-striped.table-bordered.table-hover.table-responsive
       %tr
-        %td= link_to 'Show', device_group
-        %td= link_to 'Edit', edit_device_group_path(device_group)
-        %td= link_to 'Destroy', device_group, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Device group', new_device_group_path
+        %th= t('.title')
+        %th= t('.more')
+    
+      - @device_groups.each do |group|
+        %tr
+          %td= group.title
+          %td
+            = link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), group, :class => "btn btn-default"
+    
+    = link_to t('.add_new_device_group'), new_device_group_path, class: "btn btn-primary"

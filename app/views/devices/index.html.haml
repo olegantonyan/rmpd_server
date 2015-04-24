@@ -12,7 +12,7 @@
         %th= t(:more_th)
     
       - @devices.each do |device|
-        %tr{:class => device_online?(device) ? "success" : "danger"}
+        %tr{:class => device.online? ? "success" : "danger"}
           %td= device.name
           %td= device.login
           %td= device.playlist.name if device.playlist

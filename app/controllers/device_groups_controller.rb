@@ -1,5 +1,6 @@
 class DeviceGroupsController < ApplicationController
   before_action :set_device_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_devices, only: [:edit, :new, :create, :update]
 
   # GET /device_groups
   # GET /device_groups.json
@@ -66,9 +67,13 @@ class DeviceGroupsController < ApplicationController
     def set_device_group
       @device_group = DeviceGroup.find(params[:id])
     end
+    
+    def set_devices
+      @devices = Device.order(:name => :asc)
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_group_params
-      params.require(:device_group).permit(:title)
+      params.require(:device_group).permit(:title, :device_ids => [])
     end
 end
