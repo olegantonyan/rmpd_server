@@ -5,7 +5,7 @@ class DevicesController < UsersApplicationController
   
   # GET /devices
   def index
-    @devices = Device.all.includes(:device_status, :playlist).order(:name => :asc)
+    @devices = Device.includes(:device_status, :playlist, :device_groups).order(:name => :asc)
   end
 
   # GET /devices/1
