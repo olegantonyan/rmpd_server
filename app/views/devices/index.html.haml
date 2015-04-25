@@ -7,6 +7,7 @@
     %table.table.table-striped.table-bordered.table-hover.table-responsive
       %tr
         %th= t(:name_th)
+        %th= t('.group')
         %th= t(:login_th) 
         %th= t(:playlist_th)
         %th= t(:more_th)
@@ -14,8 +15,9 @@
       - @devices.each do |device|
         %tr{:class => device.online? ? "success" : "danger"}
           %td= device.name
+          %td= list_with_links(device.device_groups, 'title')
           %td= device.login
-          %td= device.playlist.name if device.playlist
+          %td= link_to(device.playlist.name, device.playlist) if device.playlist
           %td
             = link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), device, :class => "btn btn-default"
     
