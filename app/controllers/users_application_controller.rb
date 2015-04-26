@@ -1,5 +1,6 @@
 class UsersApplicationController < ApplicationController
   include ActionView::Helpers::TextHelper
+  include Pundit
   
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -44,7 +45,7 @@ class UsersApplicationController < ApplicationController
   private 
   
     def truncate_message msg
-      truncate msg.to_s, length: 256
+      truncate(msg.to_s, length: 256, escape: false)
     end
     
 end

@@ -48,6 +48,8 @@ gem 'will_paginate-bootstrap'
 gem 'bootstrap_form'
 gem 'devise'
 gem 'delayed_job_active_record'
+gem 'pundit'
+gem 'rolify'
 
 gem 'capistrano',         require: false
 gem 'capistrano-rvm',     require: false

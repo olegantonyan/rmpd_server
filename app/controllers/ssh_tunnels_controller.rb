@@ -3,6 +3,7 @@ class SshTunnelsController < UsersApplicationController
   before_action :set_tunnel
   
   def index
+    #authorize
   end
   
   def create
@@ -26,6 +27,10 @@ class SshTunnelsController < UsersApplicationController
   
   def set_device
     @device = Device.find(params[:device_id])
+  end
+  
+  def ssh_tunnel_params
+    params.require(:ssh_tunnel).permit(:server, :username, :server_port, :external_port, :internal_port, :open_duration, :device_id)
   end
   
   def set_tunnel
