@@ -31,7 +31,7 @@
   .col-md-12
     = link_to t(:edit_device_title), edit_device_path(@device), class: "btn btn-primary"
 
-- if @enable_admin_area    
+- if policy(:ssh_tunnel).index?
   .row
     .col-md-12
       %h2 Admin area

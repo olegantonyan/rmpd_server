@@ -7,6 +7,8 @@ class UsersApplicationController < ApplicationController
   protect_from_forgery with: :exception
   before_action :set_locale
   before_action :authenticate_user!
+  
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def set_locale
     #I18n.locale = params[:lang] || I18n.default_locale
@@ -46,6 +48,10 @@ class UsersApplicationController < ApplicationController
   
     def truncate_message msg
       truncate(msg.to_s, length: 256, escape: false)
+    end
+    
+    def user_not_authorized
+      redirect_to(request.referrer || root_path, flash_error(t(".user_no_authorized")))
     end
     
 end

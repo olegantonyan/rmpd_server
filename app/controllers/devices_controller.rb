@@ -57,7 +57,6 @@ class DevicesController < UsersApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_device
       @device = Device.includes(:device_groups).find(params[:id])
-      @enable_admin_area = current_user.has_role? :root
     end
     
     def set_playlists
