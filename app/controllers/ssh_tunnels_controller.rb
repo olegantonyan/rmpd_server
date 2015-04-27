@@ -5,10 +5,11 @@ class SshTunnelsController < UsersApplicationController
   after_action :verify_authorized
   
   def index
-    authorize SshTunnel
+    authorize :ssh_tunnel
   end
   
   def create
+    authorize @ssh_tunnel
     @ssh_tunnel.server = params[:ssh_tunnel][:server].to_s #TODO strong params
     @ssh_tunnel.username = params[:ssh_tunnel][:username].to_s
     @ssh_tunnel.server_port = params[:ssh_tunnel][:server_port].to_i
@@ -16,7 +17,6 @@ class SshTunnelsController < UsersApplicationController
     @ssh_tunnel.internal_port = params[:ssh_tunnel][:internal_port].to_i
     @ssh_tunnel.open_duration = params[:ssh_tunnel][:open_duration].to_i
     @ssh_tunnel.device = @device
-    authorize @ssh_tunnel
     respond_to do |format|
       if @ssh_tunnel.save
         format.html { redirect_to @device, flash_success("SSH tunnel requested for '#{@device.login}'") }
