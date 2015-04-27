@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426085610) do
+ActiveRecord::Schema.define(version: 20150427043014) do
+
+  create_table "companies", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -81,8 +87,11 @@ ActiveRecord::Schema.define(version: 20150426085610) do
     t.datetime "updated_at",      null: false
     t.integer  "playlist_id"
     t.string   "password_digest"
+    t.integer  "devices_id"
+    t.integer  "companies_id"
   end
 
+  add_index "devices", ["devices_id"], name: "index_devices_on_devices_id"
   add_index "devices", ["login"], name: "index_devices_on_login"
   add_index "devices", ["playlist_id"], name: "index_devices_on_playlist_id"
 
@@ -136,6 +145,17 @@ ActiveRecord::Schema.define(version: 20150426085610) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
+
+  create_table "user_company_memberships", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "user_id"
+    t.integer  "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_company_memberships", ["company_id"], name: "index_user_company_memberships_on_company_id"
+  add_index "user_company_memberships", ["user_id"], name: "index_user_company_memberships_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

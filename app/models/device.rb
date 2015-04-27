@@ -5,6 +5,7 @@ class Device < ActiveRecord::Base
   has_many :device_log_messages
   has_many :device_group_memberships
   has_many :device_groups, through: :device_group_memberships
+  belongs_to :company
   
   validates_presence_of :login
   validates_uniqueness_of :login
