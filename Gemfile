@@ -51,6 +51,7 @@ gem 'delayed_job_active_record'
 gem 'pundit'
 gem 'rolify'
 gem 'rails_admin'
+gem 'paper_trail', '~> 4.0.0.beta'
 
 gem 'capistrano',         require: false
 gem 'capistrano-rvm',     require: false

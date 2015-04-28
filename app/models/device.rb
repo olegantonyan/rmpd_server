@@ -1,5 +1,6 @@
 class Device < ActiveRecord::Base
   has_secure_password
+  has_paper_trail
   belongs_to :playlist, touch: true
   has_one :device_status, :dependent => :destroy
   has_many :device_log_messages

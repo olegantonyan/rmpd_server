@@ -1,5 +1,5 @@
 class MediaItem < ActiveRecord::Base
-  
+  has_paper_trail
   has_many :media_deployments
   has_many :playlists, :through => :media_deployments
   

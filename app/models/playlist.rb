@@ -1,6 +1,7 @@
 require 'tempfile'
 
 class Playlist < ActiveRecord::Base
+  has_paper_trail
   has_many :media_deployments, :dependent => :destroy
   has_many :media_items, :through => :media_deployments
   has_many :devices
