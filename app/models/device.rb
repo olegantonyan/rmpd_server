@@ -2,15 +2,13 @@ class Device < ActiveRecord::Base
   has_secure_password
   has_paper_trail
   belongs_to :playlist, touch: true
-  has_one :device_status, :dependent => :destroy
+  has_one :device_status, dependent: :destroy
   has_many :device_log_messages
-  has_many :device_group_memberships
+  has_many :device_group_memberships, dependent: :destroy
   has_many :device_groups, through: :device_group_memberships
   belongs_to :company
   
-  validates_presence_of :login
-  validates_uniqueness_of :login
-  validates_length_of :login, :maximum => 130
+  validates :login, presence: true, uniqueness: true, length: {:in => 4..100}
   validates_length_of :name, :maximum => 130
   validates :password, length: {:in => 8..60}, :presence => true, :confirmation => true, :if => -> { new_record? || !password.nil? }
   

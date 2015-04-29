@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428044157) do
+ActiveRecord::Schema.define(version: 20150429045826) do
 
   create_table "companies", force: :cascade do |t|
-    t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "title",      limit: 1024, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20150428044157) do
     t.integer  "playlist_id"
     t.string   "password_digest"
     t.integer  "devices_id"
-    t.integer  "companies_id"
+    t.integer  "company_id"
   end
 
   add_index "devices", ["devices_id"], name: "index_devices_on_devices_id"

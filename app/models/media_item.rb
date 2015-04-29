@@ -21,7 +21,7 @@ class MediaItem < ActiveRecord::Base
   private
   
     def custom_label_method
-      self.file_identifier
+      file_identifier
     end
   
 end

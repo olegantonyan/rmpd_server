@@ -9,4 +9,16 @@ class User < ActiveRecord::Base
   has_many :user_company_memberships
   has_many :companies, through: :user_company_memberships
   
+  rails_admin do 
+    object_label_method do
+      :custom_label_method
+    end
+  end
+  
+  private
+  
+    def custom_label_method
+      email
+    end
+  
 end
