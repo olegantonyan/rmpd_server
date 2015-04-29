@@ -3,8 +3,7 @@ def setup_email config
   ActionMailer::Base.smtp_settings = email_settings_env
   ActionMailer::Base.default :from => email_settings_env[:sender]
   ActionMailer::Base.default_url_options = { host: email_settings_env[:host_for_url], port: email_settings_env[:port_for_url] }
-  puts email_settings_env.inspect
-  puts config.inspect
+  puts "Config loaded: #{config.inspect}"
 end
 
 InitializerHelpers::skip_console_rake do
