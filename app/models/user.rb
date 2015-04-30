@@ -13,6 +13,22 @@ class User < ActiveRecord::Base
     object_label_method do
       :custom_label_method
     end
+    list do
+      field :email
+      field :created_at
+      field :updated_at
+      field :users
+    end
+    show do
+      exclude_fields :versions
+    end
+    edit do
+      field :email
+      field :password
+      field :password_confirmation
+      field :companies
+      field :roles
+    end
   end
   
   private

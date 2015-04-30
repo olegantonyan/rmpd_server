@@ -87,11 +87,10 @@ ActiveRecord::Schema.define(version: 20150429045826) do
     t.datetime "updated_at",      null: false
     t.integer  "playlist_id"
     t.string   "password_digest"
-    t.integer  "devices_id"
     t.integer  "company_id"
   end
 
-  add_index "devices", ["devices_id"], name: "index_devices_on_devices_id"
+  add_index "devices", ["company_id"], name: "index_devices_on_company_id"
   add_index "devices", ["login"], name: "index_devices_on_login"
   add_index "devices", ["playlist_id"], name: "index_devices_on_playlist_id"
 

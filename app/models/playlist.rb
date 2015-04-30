@@ -16,6 +16,21 @@ class Playlist < ActiveRecord::Base
   validates_length_of :description, :maximum => 250
   validates_presence_of :media_deployments
   
+  rails_admin do 
+    list do
+      field :name
+      field :description
+      field :created_at
+      field :updated_at
+    end
+    show do
+      exclude_fields :media_deployments, :versions
+    end
+    edit do
+      exclude_fields :media_deployments, :versions, :file
+    end
+  end
+  
   private
     def create_playlist_file
       tempfile = Tempfile.new(['playlist', '.m3u'])

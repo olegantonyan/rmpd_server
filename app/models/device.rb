@@ -19,6 +19,36 @@ class Device < ActiveRecord::Base
     self.device_status != nil && self.device_status.online
   end
   
+  rails_admin do 
+    list do
+      field :name
+      field :login
+      field :playlist
+      field :company
+      field :device_groups
+    end
+    show do
+      exclude_fields :password_digest, :device_log_messages, :device_group_memberships, :device_status
+    end
+    edit do
+      configure :versions do 
+        hide
+      end
+      configure :device_group_memberships do 
+        hide
+      end
+      configure :password_digest do
+        hide
+      end
+      configure :device_status do
+        hide
+      end
+      configure :device_log_messages do
+        hide
+      end
+    end
+  end
+  
   private
   
     def device_updated

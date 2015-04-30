@@ -16,6 +16,17 @@ class MediaItem < ActiveRecord::Base
     object_label_method do
       :custom_label_method
     end
+    list do
+      field :file
+      field :description
+      field :playlists
+    end
+    show do
+      exclude_fields :media_deployments, :versions
+    end
+    edit do
+      exclude_fields :media_deployments, :versions
+    end
   end
   
   private

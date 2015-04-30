@@ -61,5 +61,9 @@ class DeviceLogMessage < ActiveRecord::Base
       logger.error("Error writing device log : " + err.to_s)
     end
   end
+  
+  rails_admin do
+    visible false
+  end
     
 end
