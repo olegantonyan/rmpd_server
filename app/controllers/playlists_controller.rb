@@ -1,26 +1,25 @@
 class PlaylistsController < UsersApplicationController
   before_action :set_playlist, only: [:show, :edit, :update, :destroy]
+  before_action :set_media_items, only: [:edit, :new]
   
   # GET /playlists
   def index
-    @playlists = Playlist.includes(:media_items, :media_deployments).all
+    @playlists = policy_scope(Playlist).includes(:media_items, :media_deployments).order(:updated_at => :desc)
   end
 
   # GET /playlists/1
   def show
-    @media_items_in_playlist = MediaItem.includes(:media_deployments).in_playlist_ordered(params[:id])
+    @media_items_in_playlist = policy_scope(MediaItem).includes(:media_deployments).in_playlist_ordered(params[:id])
   end
   
   # GET /playlists/new
   def new
     @playlist = Playlist.new
-    @media_items = MediaItem.all
     @media_deployments = MediaDeployment.includes(:playlist).all
   end
   
   # GET /playlists/1/edit
   def edit
-    @media_items = MediaItem.all
   end
 
   # POST /playlists
@@ -32,7 +31,6 @@ class PlaylistsController < UsersApplicationController
       if @playlist.save
         format.html { redirect_to @playlist, flash_success(t(:playlist_successfully_created, :name => @playlist.name)) }
       else
-        @media_items = MediaItem.all
         format.html { render :new, flash_error(t(:error_creating_playlist)) }
       end
     end
@@ -42,6 +40,7 @@ class PlaylistsController < UsersApplicationController
   def update
     @playlist.name = params[:playlist][:name]
     @playlist.description = params[:playlist][:description]
+    @playlist.company_id = params[:playlist][:company_id]
     @playlist.media_deployments.clear
     set_media_deployments_in_playlist(params[:media_items_ids])
     
@@ -65,12 +64,16 @@ class PlaylistsController < UsersApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_playlist
-      @playlist = Playlist.includes(:media_items, :media_deployments).find(params[:id])
+      @playlist = policy_scope(Playlist).includes(:media_items, :media_deployments).find(params[:id])
+    end
+    
+    def set_media_items
+      @media_items = policy_scope(MediaItem).all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def playlist_params
-      params.require(:playlist).permit(:name, :description)
+      params.require(:playlist).permit(:name, :description, :company_id)
     end
     
     def set_media_deployments_in_playlist(media_items_ids)

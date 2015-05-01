@@ -5,6 +5,7 @@ class Playlist < ActiveRecord::Base
   has_many :media_deployments, :dependent => :destroy
   has_many :media_items, :through => :media_deployments
   has_many :devices
+  belongs_to :company
   
   after_save :playlist_updated
   after_destroy :playlist_destroyed

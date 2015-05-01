@@ -5,7 +5,7 @@ class DevicesController < UsersApplicationController
   
   # GET /devices
   def index
-    @devices = Device.includes(:device_status, :playlist, :device_groups).order(:name => :asc)
+    @devices = policy_scope(Device).includes(:device_status, :playlist, :device_groups).order(:name => :asc)
   end
 
   # GET /devices/1
@@ -56,7 +56,7 @@ class DevicesController < UsersApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_device
-      @device = Device.includes(:device_groups).find(params[:id])
+      @device = policy_scope(Device).includes(:device_groups).find(params[:id])
     end
     
     def set_playlists
@@ -69,7 +69,7 @@ class DevicesController < UsersApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:login, :name, :password, :password_confirmation, :playlist_id, :device_group_ids => [])
+      params.require(:device).permit(:login, :name, :password, :password_confirmation, :playlist_id, :company_id, :device_group_ids => [])
     end
     
 end

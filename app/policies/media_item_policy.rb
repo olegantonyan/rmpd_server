@@ -1,0 +1,2 @@
+class MediaItemPolicy < ApplicationPolicy
+end

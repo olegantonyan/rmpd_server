@@ -47,7 +47,7 @@ class ApplicationPolicy
     end
 
     def resolve
-      scope
+      scope.where(:company => @user.companies)
     end
   end
 end

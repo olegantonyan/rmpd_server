@@ -31,21 +31,7 @@ class Device < ActiveRecord::Base
       exclude_fields :password_digest, :device_log_messages, :device_group_memberships, :device_status
     end
     edit do
-      configure :versions do 
-        hide
-      end
-      configure :device_group_memberships do 
-        hide
-      end
-      configure :password_digest do
-        hide
-      end
-      configure :device_status do
-        hide
-      end
-      configure :device_log_messages do
-        hide
-      end
+      exclude_fields :versions, :device_group_memberships, :password_digest, :device_status, :device_log_messages
     end
   end
   

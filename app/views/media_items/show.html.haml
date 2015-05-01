@@ -5,33 +5,13 @@
 .row
   .col-md-12
     %table.table.table-bordered.table-hover.table-responsive
-      %tr
-        %td 
-          %strong= t(:filename_th)
-        %td= @media_item.file_identifier
-      %tr
-        %td
-          %strong= t(:size_th)
-        %td= number_to_human_size(@media_item.file.size, precision: 2)
-      %tr
-        %td 
-          %strong= t(:description_th)
-        %td= @media_item.description
-      %tr
-        %td
-          %strong= t(:playlists_th)
-        %td
-          %ul.list-unstyled
-            - @media_item.playlists.each do |p|
-              %li= link_to p.name, p
-      %tr
-        %td
-          %strong= t(:uploaded_at_th)
-        %td= localtime @media_item.created_at
-      %tr
-        %td
-          %strong= t(:updated_at_th)
-        %td= localtime @media_item.updated_at        
+      = row_info t(:filename_th), @media_item.file_identifier
+      = row_info t(:size_th), number_to_human_size(@media_item.file.size, precision: 2)
+      = row_info t(:description_th), @media_item.description
+      = row_info t('.company'), @media_item.company.title
+      = row_info t(:playlists_th), list_with_links(@media_item.playlists, 'name')
+      = row_info t(:uploaded_at_th), localtime(@media_item.created_at)
+      = row_info t(:updated_at_th), localtime(@media_item.updated_at)
 
 .row
   .col-md-12

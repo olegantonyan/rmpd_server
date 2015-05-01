@@ -5,36 +5,14 @@
 .row
   .col-md-12
     %table.table.table-bordered.table-hover.table-responsive
-      %tr
-        %td 
-          %strong= t(:playlist_name_th)
-        %td= @playlist.name
-      %tr
-        %td 
-          %strong= t(:description_th)
-        %td= @playlist.description
-      %tr
-        %td
-          %strong= t(:number_of_items_th)
-        %td= @playlist.media_items.count
-      %tr
-        %td
-          %strong= t(:total_size_th)
-        %td= number_to_human_size((@playlist.media_items.inject(0) {|sum, i| sum += i.file.size.to_i}), precision: 2)
-      %tr
-        %td
-          %strong= t(:created_at_th)
-        %td= localtime @playlist.created_at
-      %tr
-        %td
-          %strong= t(:updated_at_th)
-        %td= localtime @playlist.updated_at
-      %tr
-        %td
-          %strong= t(:download_playlist_file_th)
-        %td
-          %span.glyphicon.glyphicon-th-list
-            = link_to @playlist.file_identifier, @playlist.file_url
+      = row_info t(:playlist_name_th), @playlist.name
+      = row_info t(:description_th), @playlist.description
+      = row_info t('.company'), @playlist.company.title
+      = row_info t(:number_of_items_th), @playlist.media_items.count
+      = row_info t(:total_size_th), number_to_human_size((@playlist.media_items.inject(0) {|sum, i| sum += i.file.size.to_i}), precision: 2)
+      = row_info t(:created_at_th), localtime(@playlist.created_at)
+      = row_info t(:updated_at_th), localtime(@playlist.updated_at)
+      = row_info t(:download_playlist_file_th), link_to(@playlist.file_identifier, @playlist.file_url)
     
 .row
   .col-md-12

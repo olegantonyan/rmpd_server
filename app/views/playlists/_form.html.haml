@@ -1,6 +1,7 @@
 = bootstrap_form_for(@playlist, :html => {:multipart => true}, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
   = f.text_field :name
   = f.text_field :description
+  = render partial: 'shared/select_company_form', locals: {:f => f}
   = f.label t(:media_items_title)
   .input-group
     %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed

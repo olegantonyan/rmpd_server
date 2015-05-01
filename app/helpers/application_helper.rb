@@ -36,7 +36,7 @@ module ApplicationHelper
   end
   
   def row_info title, value, value_class="", title_class=""
-    render partial: 'shared/row_info', locals: {title: title, value: value, value_class: value_class, title_class: title_class}
+    render partial: 'shared/row_info', locals: {title: title, value: value || "", value_class: value_class, title_class: title_class}
   end
   
   def list_with_links collection, attr_title

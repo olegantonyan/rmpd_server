@@ -3,7 +3,7 @@ class MediaItemsController < UsersApplicationController
   
   # GET /media_items
   def index
-    @media_items = MediaItem.all
+    @media_items = policy_scope(MediaItem).order(:created_at => :desc)
   end
 
   # GET /media_items/1
@@ -22,10 +22,10 @@ class MediaItemsController < UsersApplicationController
   # POST /media_items
   def create
     unless params[:media_item][:file].nil?
-      items = params[:media_item][:file].map { |f| MediaItem.new(:description => params[:media_item][:description], :file => f) }
+      items = params[:media_item][:file].map { |f| MediaItem.new(:description => params[:media_item][:description], :file => f, :company_id => params[:media_item][:company_id]) }
     else
       items = []
-      items << MediaItem.new(:description => params[:media_item][:description], :file => params[:media_item][:file])
+      items << MediaItem.new(:description => params[:media_item][:description], :file => params[:media_item][:file], :company_id => params[:media_item][:company_id])
     end
     
     err = false
@@ -62,7 +62,7 @@ class MediaItemsController < UsersApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_media_item
-      @media_item = MediaItem.find(params[:id])
+      @media_item = policy_scope(MediaItem).find(params[:id])
     end
     
 end
