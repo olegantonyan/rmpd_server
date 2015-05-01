@@ -1,4 +1,4 @@
-class DeviceGroupsController < ApplicationController
+class DeviceGroupsController < UsersApplicationController
   before_action :set_device_group, only: [:show, :edit, :update, :destroy]
   before_action :set_devices, only: [:edit, :new, :create, :update]
 

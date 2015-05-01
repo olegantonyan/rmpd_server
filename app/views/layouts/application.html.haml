@@ -26,7 +26,7 @@
               %li
               - if user_signed_in?
                 = succeed "." do
-                  = image_tag current_user.gravatar_url, size: "28x28", alt: "gravatar", class: "img-rounded"
+                  = image_tag current_user.gravatar_url, size: "32x32", alt: "gravatar", class: "img-rounded"
                 - if current_user.has_role? :root
                   = link_to t('.admin_area'), rails_admin_path, :class => "btn btn-danger navbar-btn"
                 = link_to current_user.email, edit_user_registration_path, :class => "btn btn-success navbar-btn"
