@@ -53,6 +53,7 @@ gem 'rolify'
 gem 'rails_admin'
 gem 'paper_trail', '~> 4.0.0.beta2'
 gem 'gravtastic'
+gem 'gaffe'
 
 gem 'capistrano',         require: false
 gem 'capistrano-rvm',     require: false

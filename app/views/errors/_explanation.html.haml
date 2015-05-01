@@ -1,0 +1,4 @@
+%pre{class: "bg-danger"}= @exception.to_s
+= tag :hr
+%h3 Backtrace
+%pre= @exception.backtrace.join("\n")
