@@ -1,7 +1,7 @@
 class Role < ActiveRecord::Base
   has_paper_trail
   scopify
-  has_and_belongs_to_many :users, :join_table => :users_roles
+  has_and_belongs_to_many :user_company_memberships, :join_table => :user_company_memberships_roles
   belongs_to :resource, :polymorphic => true
 
   validates :resource_type, :inclusion => { :in => Rolify.resource_types }, :allow_nil => true
@@ -12,7 +12,7 @@ class Role < ActiveRecord::Base
       field :name
       field :created_at
       field :updated_at
-      field :users
+      field :user_company_memberships
     end
     show do
       exclude_fields :versions

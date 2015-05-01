@@ -22,19 +22,18 @@
               %li{:class => active_class_for('devices')}= link_to t(:devices_title), devices_path
               %li{:class => active_class_for('device_groups')}= link_to t('.device_groups'), device_groups_path
               %li{:class => active_class_for('reports')}= link_to t('.reports'), "#"
-            %ul.pull-right.nav.navbar-text
+            %ul.navbar-right.nav
               %li
               - if user_signed_in?
                 = succeed "." do
-                  %strong= current_user.email
-                  /= image_tag current_user.gravatar_url, size: "24x24", alt: "gravatar", class: "img-rounded"
-                = link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'
-                |
-                = link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'
+                  = image_tag current_user.gravatar_url, size: "28x28", alt: "gravatar", class: "img-rounded"
+                - if current_user.has_role? :root
+                  = link_to t('.admin_area'), rails_admin_path, :class => "btn btn-danger navbar-btn"
+                = link_to current_user.email, edit_user_registration_path, :class => "btn btn-success navbar-btn"
+                = link_to "Logout", destroy_user_session_path, method: :delete, :class => "btn btn-warning navbar-btn"
               - else
-                = link_to "Sign up", new_user_registration_path, :class => 'navbar-link'
-                |
-                = link_to "Login", new_user_session_path, :class => 'navbar-link'
+                = link_to "Sign up", new_user_registration_path, :class => "btn btn-default navbar-btn"
+                = link_to "Login", new_user_session_path, :class => "btn btn-success navbar-btn"
             
       .container
         .content

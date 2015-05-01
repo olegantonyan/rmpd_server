@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-  rolify
+  include Gravtastic
+  gravtastic
+  
   has_paper_trail
   
   # Include default devise modules. Others available are:
@@ -9,6 +11,10 @@ class User < ActiveRecord::Base
   has_many :user_company_memberships
   has_many :companies, through: :user_company_memberships
   
+  def has_role? role
+    user_company_memberships.find{|c| c.has_role? role } ? true : false
+  end
+  
   rails_admin do 
     object_label_method do
       :custom_label_method
@@ -17,7 +23,7 @@ class User < ActiveRecord::Base
       field :email
       field :created_at
       field :updated_at
-      field :users
+      field :user_company_memberships
     end
     show do
       exclude_fields :versions
@@ -27,7 +33,6 @@ class User < ActiveRecord::Base
       field :password
       field :password_confirmation
       field :companies
-      field :roles
     end
   end
   
