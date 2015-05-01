@@ -42,7 +42,10 @@
               = render 'layouts/messages'
             .col-md-12
               = yield
-          /%footer
-          /  .navbar-fixed-bottom.row
-          /    .container
-          /      .col-md-12
+            .footer{:style => "clear:both;margin-top:5px"}
+              = tag :hr
+              = link_to t(".help"), "http://slon-ds.ru", :target => "_blank"
+              |
+              = link_to t(".contact_us"), "http://slon-ds.ru", :target => "_blank"
+              |
+              = link_to t(".privacy policy"), "http://slon-ds.ru", :target => "_blank"
