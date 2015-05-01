@@ -6,13 +6,11 @@ def setup_email config
   puts "Config loaded: #{config.inspect}"
 end
 
-InitializerHelpers::skip_console_rake do
-  config_file_path = "#{Rails.root}/config/config.yml"
-  unless File.exists?(config_file_path)
-    STDERR.puts "Config file '#{config_file_path}' does not exists"
-  else
-    APP_CONFIG = YAML.load_file(config_file_path)[Rails.env].deep_symbolize_keys
-    setup_email APP_CONFIG
-  end
+config_file_path = "#{Rails.root}/config/config.yml"
+unless File.exists?(config_file_path)
+  STDERR.puts "Config file '#{config_file_path}' does not exists"
+else
+  APP_CONFIG = YAML.load_file(config_file_path)[Rails.env].deep_symbolize_keys
+  setup_email APP_CONFIG
 end
 
