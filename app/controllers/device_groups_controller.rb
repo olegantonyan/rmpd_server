@@ -5,7 +5,7 @@ class DeviceGroupsController < UsersApplicationController
   # GET /device_groups
   # GET /device_groups.json
   def index
-    @device_groups = DeviceGroup.all
+    @device_groups = policy_scope(DeviceGroup).order(:created_at => :asc)
   end
 
   # GET /device_groups/1
@@ -65,11 +65,11 @@ class DeviceGroupsController < UsersApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_device_group
-      @device_group = DeviceGroup.find(params[:id])
+      @device_group = policy_scope(DeviceGroup).find(params[:id])
     end
     
     def set_devices
-      @devices = Device.order(:name => :asc)
+      @devices = policy_scope(Device).order(:name => :asc)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
