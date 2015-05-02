@@ -16,7 +16,7 @@
         %tr
           %td= playlist.name
           %td= playlist.description
-          %td= playlist.media_items.count.to_s + " / " + number_to_human_size((playlist.media_items.inject(0) {|sum, i| sum += i.file.size.to_i}), precision: 2)
+          %td= playlist.media_items.to_a.count.to_s + " / " + number_to_human_size((playlist.media_items.inject(0) {|sum, i| sum += i.file.size.to_i}), precision: 2)
           %td= playlist.devices.count
           %td= link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), playlist, :class => "btn btn-default"
     

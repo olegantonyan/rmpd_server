@@ -8,10 +8,6 @@ class MediaItem < ActiveRecord::Base
   
   validates_presence_of :file
   validates_length_of :description, :maximum => 130
-  
-  scope :in_playlist_ordered, ->(playlist_id) { joins(:media_deployments).
-    where(:media_deployments => {:playlist => playlist_id}).order('media_deployments.playlist_position') }
-    
     
   rails_admin do 
     object_label_method do

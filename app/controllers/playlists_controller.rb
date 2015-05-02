@@ -9,7 +9,6 @@ class PlaylistsController < UsersApplicationController
 
   # GET /playlists/1
   def show
-    @media_items_in_playlist = policy_scope(MediaItem).includes(:media_deployments).in_playlist_ordered(params[:id])
   end
   
   # GET /playlists/new

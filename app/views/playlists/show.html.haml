@@ -8,7 +8,7 @@
       = row_info t(:playlist_name_th), @playlist.name
       = row_info t(:description_th), @playlist.description
       = row_info t(:company), @playlist.company.title
-      = row_info t(:number_of_items_th), @playlist.media_items.count
+      = row_info t(:number_of_items_th), @playlist.media_items.to_a.count
       = row_info t(:total_size_th), number_to_human_size((@playlist.media_items.inject(0) {|sum, i| sum += i.file.size.to_i}), precision: 2)
       = row_info t(:created_at_th), localtime(@playlist.created_at)
       = row_info t(:updated_at_th), localtime(@playlist.updated_at)
@@ -19,14 +19,12 @@
     %h2= t(:media_items_title)
     %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
       %tr
-        %th= t(:position_th)
         %th= t(:filename_th)
         %th= t(:description_th)
         %th= t(:size_th)
     
-      - @media_items_in_playlist.each do |media_item|
+      - @playlist.media_items.each do |media_item|
         %tr
-          %td= (media_item.media_deployments.find {|d| d.playlist == @playlist }).playlist_position
           %td
             %span.glyphicon.glyphicon-play
             = link_to media_item.file_identifier, media_item.file_url
