@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   
-  resources :media_items
+  resources :media_items, except: [:edit, :update] do
+    post :bulk_create, on: :collection
+  end
   resources :device_groups
   resources :devices do
     resources :device_log_messages, only: [:index]

@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>Upload file</h2>
+  <h2>Upload files</h2>
   <%= form_for object, :html => { :multipart => true, :id => "fileupload"  } do |f| %>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
     <div class="row fileupload-buttonbar">
@@ -8,7 +8,7 @@
         <span class="btn btn-success fileinput-button">
           <i class="icon-plus icon-white"></i>
           <span>Add files...</span>
-          <%= f.file_field :upload %>
+          <%= f.file_field :file, multiple: true %>
         </span>
         <button type="submit" class="btn btn-primary start">
           <i class="icon-upload icon-white"></i>
@@ -116,18 +116,16 @@
   $(function () {
       // Initialize the jQuery File Upload widget:
       $('#fileupload').fileupload();
-      // 
+      console.log("initialize")
       // Load existing files:
       $.getJSON($('#fileupload').prop('action'), function (files) {
-        var fu = $('#fileupload').data('blueimpFileupload'), 
-          template;
+        var fu = $('#fileupload').data('blueimpFileupload'), template;
         fu._adjustMaxNumberOfFiles(-files.length);
         console.log(files);
-        template = fu._renderDownload(files)
-          .appendTo($('#fileupload .files'));
+        template = fu._renderDownload(files).appendTo($('#fileupload .files'));
+        
         // Force reflow:
-        fu._reflow = fu._transition && template.length &&
-          template[0].offsetWidth;
+        fu._reflow = fu._transition && template.length && template[0].offsetWidth;
         template.addClass('in');
         $('#loading').remove();
       });
