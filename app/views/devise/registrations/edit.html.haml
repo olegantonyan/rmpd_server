@@ -6,6 +6,8 @@
       .form-group
         = f.email_field :email, autofocus: true, class: "form-control"
       .form-group
+        = f.text_field :displayed_name, class: "form-control"
+      .form-group
         %i
           (#{t('.leave_blank_if_you_don_t_want_to_change_it', :default => "leave blank if you don't want to change it")})
         %br/

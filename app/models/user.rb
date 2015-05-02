@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :user_company_memberships
   has_many :companies, through: :user_company_memberships
   
+  validates :displayed_name, length: {maximum: 130}
+  
   def has_role? role
     user_company_memberships.find{|c| c.has_role? role } ? true : false
   end
@@ -20,6 +22,7 @@ class User < ActiveRecord::Base
       :custom_label_method
     end
     list do
+      field :displayed_name
       field :email
       field :created_at
       field :updated_at
@@ -38,7 +41,7 @@ class User < ActiveRecord::Base
   private
   
     def custom_label_method
-      email
+      displayed_name.blank? ? email : "#{displayed_name} (#{email})"
     end
   
 end

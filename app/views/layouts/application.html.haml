@@ -17,10 +17,10 @@
           = link_to "SLON-DS Cloud", root_path, class: "navbar-brand"
           .collapse.navbar-collapse
             %ul.nav.navbar-nav
-              %li{:class => active_class_for('media_items')}= link_to t(:media_items_title), media_items_path
-              %li{:class => active_class_for('playlists')}= link_to t(:playlists_title), playlists_path
-              %li{:class => active_class_for('devices')}= link_to t(:devices_title), devices_path
-              %li{:class => active_class_for('device_groups')}= link_to t(:device_groups_title), device_groups_path
+              %li{:class => active_class_for('media_items')}= link_to icon_link_to('glyphicon-play', t(:media_items_title)), media_items_path
+              %li{:class => active_class_for('playlists')}= link_to icon_link_to('glyphicon-list', t(:playlists_title)), playlists_path
+              %li{:class => active_class_for('devices')}= link_to icon_link_to('glyphicon glyphicon-hdd', t(:devices_title)), devices_path
+              %li{:class => active_class_for('device_groups')}= link_to icon_link_to('glyphicon-tags', t(:device_groups_title)), device_groups_path
               /%li{:class => active_class_for('reports')}= link_to t(:reports_title), "#"
             %ul.navbar-right.nav
               %li
@@ -28,12 +28,12 @@
                 = succeed "." do
                   = image_tag current_user.gravatar_url, size: "32x32", alt: "gravatar", class: "img-rounded"
                 - if current_user.has_role? :root
-                  = link_to t('.admin_area'), rails_admin_path, :class => "btn btn-danger navbar-btn"
-                = link_to current_user.email, edit_user_registration_path, :class => "btn btn-success navbar-btn"
-                = link_to t(:logout), destroy_user_session_path, method: :delete, :class => "btn btn-warning navbar-btn"
-              - else
-                = link_to t(:sign_up), new_user_registration_path, :class => "btn btn-default navbar-btn"
-                = link_to t(:login), new_user_session_path, :class => "btn btn-success navbar-btn"
+                  = link_to icon_link_to('glyphicon-fire', t('.admin_area')), rails_admin_path, :class => "btn btn-danger navbar-btn"
+                = link_to icon_link_to('glyphicon-user', current_user_displayed_name), edit_user_registration_path, :class => "btn btn-success navbar-btn"
+                = link_to icon_link_to('glyphicon-off', t(:logout)), destroy_user_session_path, method: :delete, :class => "btn btn-warning navbar-btn"
+              - else 
+                = link_to icon_link_to('glyphicon glyphicon-user', t(:sign_up)), new_user_registration_path, :class => "btn btn-default navbar-btn"
+                = link_to icon_link_to('glyphicon glyphicon-log-in', t(:login)), new_user_session_path, :class => "btn btn-success navbar-btn"
             
       .container
         .content

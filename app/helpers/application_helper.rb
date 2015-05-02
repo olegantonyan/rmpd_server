@@ -44,5 +44,13 @@ module ApplicationHelper
     collection.map{|g| "<li class='list-group-item'>" + link_to(sanitize(eval("g.#{attr_title}")), g) + "</li>"}.join('') + 
     "</ul>").html_safe
   end
+  
+  def current_user_displayed_name
+    current_user.displayed_name.blank? ? current_user.email : current_user.displayed_name
+  end
+  
+  def icon_link_to(icon, text)
+    raw("<i class='glyphicon #{icon}'></i> #{text}")
+  end
 
 end
