@@ -54,6 +54,8 @@ gem 'rails_admin'
 gem 'paper_trail', '~> 4.0.0.beta2'
 gem 'gravtastic'
 gem 'gaffe'
+gem 'nested_form_fields'
+gem 'jquery-fileupload-rails'
 
 gem 'capistrano',         require: false
 gem 'capistrano-rvm',     require: false

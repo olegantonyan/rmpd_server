@@ -1,4 +1,4 @@
-= bootstrap_form_for(@media_item, :html => {:multipart => true}, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
+= bootstrap_form_for(@media_item, :html => {:multipart => true, :id => 'fileupload-form'}, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
   = f.text_field :description
   = f.file_field :file, multiple: true
   = render partial: 'shared/select_company_form', locals: {:f => f}
