@@ -31,6 +31,7 @@ class MediaItemsController < UsersApplicationController
   def bulk_create
     respond_to do |format|
       if bulk_create_media_items
+        create_playlist # don't care if it's failed
         items_names = (@media_items.map { |i| i.file_identifier }).join(", ")
         format.html { redirect_to :media_items, flash_success(t(:media_items_successfully_created, :names => items_names)) }
       else
@@ -75,6 +76,16 @@ class MediaItemsController < UsersApplicationController
         end
       end
       true
+    end
+    
+    def create_playlist
+      return unless params[:create_playlist] == 'true'
+      name = params[:playlist_name]
+      desc = params[:playlist_description]
+      company_id = params[:media_item][:company_id]
+      playlist = Playlist.new(:name => name, :description => desc, :company_id => company_id)
+      playlist.deploy_media_items!(@media_items, @media_items.map.with_index{|item,index| [item.id, index * 10]})
+      playlist.save
     end
     
 end

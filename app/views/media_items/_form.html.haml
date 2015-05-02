@@ -4,6 +4,26 @@
   = f.text_field :description
   = f.file_field :file, multiple: bulk, label: (bulk ? t(:files) : t(:file))
   = render partial: 'shared/select_company_form', locals: {:f => f}
+  
+  .row.form-group
+    .control-label.col-sm-2
+      = label_tag "Create playlist"
+    .col-sm-10
+      = check_box_tag :create_playlist, true, false, id: "create-playlist-checkbox"
+    
+  .row#playlist-form
+    .col-sm-10.col-sm-offset-2
+      .row.form-group
+        .control-label.col-sm-2
+          = label_tag "Name"
+        .col-sm-10
+          = text_field_tag :playlist_name, "Auto-created playlist on #{Time.now.strftime('%B %d, %Y %A')}", :class => 'form-control'
+      .row.form-group
+        .control-label.col-sm-2
+          = label_tag "Description"
+        .col-sm-10
+          = text_field_tag :playlist_description, "Bulk upload", :class => 'form-control'
+
   = f.submit :value => t(:upload_button_text), :class => "btn btn-primary"
   
 /= render partial: 'jquery_upload_form', locals: {object: @media_item}
