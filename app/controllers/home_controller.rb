@@ -1,6 +1,5 @@
 class HomeController < UsersApplicationController
   def index
-    d = DeviceStatus.online
-    @online_devices_count = d.nil? ? 0 : d.count
+    @online_devices = policy_scope(DeviceStatus).online.to_a
   end
 end

@@ -1,2 +1,9 @@
 en:
   device_groups_title: Device groups
+  device_group: Device group
+  add_new_device_group: Add new device group
+  title: Title
+  more: More
+  devices: Devices
+  edit_device_group: Edit device group
+  delete_this_device_group: Delete this device group

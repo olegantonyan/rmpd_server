@@ -1,2 +1,9 @@
 ru:
   device_groups_title: Группы устройств
+  device_group: Группа устройств
+  add_new_device_group: Добавить новую группу устройств
+  title: Название
+  more: Подробнее
+  devices: Устройства
+  edit_device_group: Редактировать группу устройств
+  delete_this_device_group: Удалить эту группу устройств
