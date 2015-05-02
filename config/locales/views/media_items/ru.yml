@@ -12,3 +12,6 @@ ru:
   delete_media_item_text: Удалить этот файл
   files: Файлы
   file: Файл
+  name: Название
+  description: Описание
+  create_playlist: Создать плейлист

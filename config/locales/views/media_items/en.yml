@@ -12,3 +12,6 @@ en:
   delete_media_item_text: Delete this item
   files: Files
   file: File
+  name: Name
+  description: Description
+  create_playlist: Create playlist
