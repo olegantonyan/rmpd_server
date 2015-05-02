@@ -14,7 +14,7 @@
         %tr
           - deployment = @playlist.media_deployments.find {|d| d.media_item == item}
           %td= check_box_tag "media_items_ids[]", item.id, @playlist.media_items.include?(item)
-          %td= number_field_tag "media_item_position#{item.id}", (deployment == nil ? 0 : deployment.playlist_position)
+          %td= number_field_tag "media_items_positions[#{item.id}]", (deployment.nil? ? 0 : deployment.playlist_position)
           %td= label_tag "media_item#{item.id}", item.file_identifier
           %td= item.description
     

@@ -17,6 +17,14 @@ class Playlist < ActiveRecord::Base
   validates_length_of :description, :maximum => 250
   validates_presence_of :media_deployments
   
+  def deploy_media_items!(media_items, media_items_positions)
+    media_deployments.clear
+    media_items.each do |i|
+      playlist_position = media_items_positions.find{ |e| e.first.to_i == i.id}.second 
+      media_deployments << MediaDeployment.new(:media_item => i, :playlist_position => playlist_position)
+    end
+  end
+  
   rails_admin do 
     list do
       field :name

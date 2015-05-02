@@ -25,8 +25,7 @@ class PlaylistsController < UsersApplicationController
   # POST /playlists
   def create
     @playlist = Playlist.new(playlist_params)
-    set_media_deployments_in_playlist(params[:media_items_ids])
-    
+    @playlist.deploy_media_items!(media_items_scoped, media_items_positions)
     respond_to do |format|
       if @playlist.save
         format.html { redirect_to @playlist, flash_success(t(:playlist_successfully_created, :name => @playlist.name)) }
@@ -38,12 +37,8 @@ class PlaylistsController < UsersApplicationController
   
   # PATCH/PUT /playlists/1
   def update
-    @playlist.name = params[:playlist][:name]
-    @playlist.description = params[:playlist][:description]
-    @playlist.company_id = params[:playlist][:company_id]
-    @playlist.media_deployments.clear
-    set_media_deployments_in_playlist(params[:media_items_ids])
-    
+    @playlist.attributes = playlist_params
+    @playlist.deploy_media_items!(media_items_scoped, media_items_positions)
     respond_to do |format|
       if @playlist.save
         format.html { redirect_to @playlist, flash_success(t(:playlist_successfully_updated, :name => @playlist.name)) }
@@ -68,23 +63,20 @@ class PlaylistsController < UsersApplicationController
     end
     
     def set_media_items
-      @media_items = policy_scope(MediaItem).all
+      @media_items = policy_scope(MediaItem).order(:created_at => :desc)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def playlist_params
-      params.require(:playlist).permit(:name, :description, :company_id)
+      params.require(:playlist).permit(:name, :description, :company_id, :media_items_ids => [], :media_items_positions => [])
     end
     
-    def set_media_deployments_in_playlist(media_items_ids)
-      media_items = MediaItem.where(:id => media_items_ids)
-      media_deployment = []
-      media_items.each do |i|
-        m = MediaDeployment.new
-        m.media_item = i
-        m.playlist_position = params["media_item_position#{i.id}"]
-        @playlist.media_deployments << m
-      end
+    def media_items_scoped
+      policy_scope(MediaItem).where(:id => params[:media_items_ids])
+    end
+    
+    def media_items_positions
+      params[:media_items_positions]
     end
     
 end
