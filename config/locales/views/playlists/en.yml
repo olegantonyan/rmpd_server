@@ -16,3 +16,5 @@ en:
   delete_playlist_text: Delete playlist
   company: Company
   search: Search
+  sort_by_filename: Sort by filename
+  sort_by_description: Sort by description
