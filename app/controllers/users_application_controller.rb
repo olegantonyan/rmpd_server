@@ -7,6 +7,7 @@ class UsersApplicationController < ApplicationController
   protect_from_forgery with: :exception
   before_action :set_locale
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
   
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -42,6 +43,11 @@ class UsersApplicationController < ApplicationController
     
     def flash_warning msg
       {:flash => {:warning => truncate_message(msg)}}
+    end
+    
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.for(:account_update) << :displayed_name
+      devise_parameter_sanitizer.for(:sign_up) << :displayed_name
     end
   
   private 
