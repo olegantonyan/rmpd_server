@@ -8,6 +8,10 @@ ready = ->
     'description'
   ]
   userList = new List('media_items', options)
+  
+  $('#select-all-checkbox').click ->
+    console.log("clicked select all")
+    $('.media-item-checkbox').prop('checked', @checked)
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

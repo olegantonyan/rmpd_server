@@ -2,6 +2,8 @@
   .row
     .col-sm-12
       %input.search.form-control{:placeholder => t(:search)}
+      = check_box_tag :select_all, "1", false, :id => 'select-all-checkbox'
+      = label_tag t(:select_all)
       %button.sort.btn.btn-default{'data-sort' => "filename", :type => 'button'}= t(:sort_by_filename)
       %button.sort.btn.btn-default{'data-sort' => "description", :type => 'button'}= t(:sort_by_description)
   .row
@@ -16,7 +18,7 @@
           - media_items.each do |item|
             %tr
               - deployment = playlist.media_deployments.find {|d| d.media_item == item}
-              %td= check_box_tag "media_items_ids[]", item.id, playlist.media_items.include?(item)
+              %td= check_box_tag "media_items_ids[]", item.id, playlist.media_items.include?(item), :class => 'media-item-checkbox'
               %td= number_field_tag "media_items_positions[#{item.id}]", (deployment.nil? ? 0 : deployment.playlist_position)
               %td.filename= label_tag "media_item#{item.id}", item.file_identifier
               %td.description= item.description
