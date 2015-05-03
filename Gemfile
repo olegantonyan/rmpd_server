@@ -56,6 +56,8 @@ gem 'gravtastic'
 gem 'gaffe'
 gem 'nested_form_fields'
 gem 'jquery-fileupload-rails'
+gem 'filterrific'
+gem 'listjs-rails'
 
 gem 'capistrano',         require: false
 gem 'capistrano-rvm',     require: false

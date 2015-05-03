@@ -1,3 +1,13 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+
+ready = ->
+  options = valueNames: [
+    'filename'
+    'description'
+  ]
+  userList = new List('media_items', options)
+
+$(document).ready(ready)
+$(document).on('page:load', ready)

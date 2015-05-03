@@ -9,12 +9,18 @@ class PlaylistsController < UsersApplicationController
 
   # GET /playlists/1
   def show
+    respond_to do |format|
+      format.html
+    end
   end
   
   # GET /playlists/new
   def new
     @playlist = Playlist.new
     @media_deployments = MediaDeployment.includes(:playlist).all
+    respond_to do |format|
+      format.html
+    end
   end
   
   # GET /playlists/1/edit

@@ -19,4 +19,6 @@
 //= require select2_locale_ru
 //= require nested_form_fields
 //= require jquery-fileupload
+//= require filterrific/filterrific-jquery
+//= require list
 //= require_tree .
