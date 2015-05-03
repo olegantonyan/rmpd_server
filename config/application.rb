@@ -40,6 +40,7 @@ module PlayerRemote
     
     config.autoload_paths += Dir["#{config.root}/lib", "#{config.root}/lib/**/"]
     config.active_job.queue_adapter = :delayed_job
+    #config.i18n.default_locale = :ru
     
   end
 end

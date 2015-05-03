@@ -61,3 +61,9 @@ ru:
         few: "%{resource}: сохранение не удалось из-за %{count} ошибок"
         many: "%{resource}: сохранение не удалось из-за %{count} ошибок"
         other: "%{resource}: сохранение не удалось из-за %{count} ошибки"
+        
+  sign_in: Вход
+  sign_up: Регистрация
+  forgot_your_password: Забыли пароль?
+  didn_t_receive_confirmation_instructions: Не получили письмо с инструкцией для подтверждения?
+  didn_t_receive_unlock_instructions: Не получили письмо с инструкцией для разблокировки?
