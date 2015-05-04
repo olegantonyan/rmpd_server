@@ -65,7 +65,7 @@ class DevicesController < UsersApplicationController
     end
     
     def set_playlists
-      @playlists = Playlist.order(:name => :asc)
+      @playlists = policy_scope(Playlist).order(:name => :asc)
     end
     
     def set_device_groups
