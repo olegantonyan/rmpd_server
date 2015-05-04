@@ -30,6 +30,7 @@ class Playlist < ActiveRecord::Base
     list do
       field :name
       field :description
+      field :company
       field :created_at
       field :updated_at
     end

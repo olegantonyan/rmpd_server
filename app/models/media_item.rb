@@ -16,6 +16,7 @@ class MediaItem < ActiveRecord::Base
     list do
       field :file
       field :description
+      field :company
       field :playlists
     end
     show do
