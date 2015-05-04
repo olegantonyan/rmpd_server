@@ -1,5 +1,5 @@
 class Role < ActiveRecord::Base
-  has_paper_trail
+  # has_paper_trail # causes problems https://github.com/RolifyCommunity/rolify/issues/334
   scopify
   has_and_belongs_to_many :user_company_memberships, :join_table => :user_company_memberships_roles
   belongs_to :resource, :polymorphic => true

@@ -43,7 +43,9 @@ class User < ActiveRecord::Base
   private
     
     def set_defaults
-      self.company ||= Company.where("lower(title) = ?", 'demo').first
+      if self.companies.empty?
+        self.companies << Company.where("lower(title) = ?", 'demo').first
+      end
     end
   
     def custom_label_method
