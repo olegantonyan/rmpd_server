@@ -6,6 +6,8 @@ class UserCompanyMembership < ActiveRecord::Base
   
   validates :title, length: {maximum: 130}
   
+  before_save :set_defaults
+  
   rails_admin do 
     object_label_method do
       :custom_label_method
@@ -25,6 +27,10 @@ class UserCompanyMembership < ActiveRecord::Base
   end
   
   private
+  
+    def set_defaults
+      self.role ||= Role.where("lower(name) = ?", 'guest').first
+    end
     
     def custom_label_method
       title.blank? ? "#{user.email} (#{company.title})" : title

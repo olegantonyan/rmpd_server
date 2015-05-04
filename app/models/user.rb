@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   
   validates :displayed_name, length: {maximum: 130}
   
+  before_save :set_defaults
+  
   def has_role? role
     user_company_memberships.find{|c| c.has_role? role } ? true : false
   end
@@ -39,6 +41,10 @@ class User < ActiveRecord::Base
   end
   
   private
+    
+    def set_defaults
+      self.company ||= Company.where("lower(title) = ?", 'demo').first
+    end
   
     def custom_label_method
       displayed_name.blank? ? email : "#{displayed_name} (#{email})"
