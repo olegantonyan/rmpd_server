@@ -1,5 +1,6 @@
 class HomeController < UsersApplicationController
+  skip_before_filter :authenticate_user!
+  
   def index
-    @online_devices = policy_scope(DeviceStatus).online.to_a
   end
 end

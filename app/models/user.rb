@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   
   before_save :set_defaults
   
+  #DEMO_EMAIL = 'demo@slon-ds.ru'
+  #DEMO_PASSWORD = 'demodemo'
+  
   def has_role? role
     user_company_memberships.find{|c| c.has_role? role } ? true : false
   end

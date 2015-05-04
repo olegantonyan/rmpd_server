@@ -20,5 +20,5 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  home_page_title: "Home page"
+  home_page_title: "Welcome"
   online_devices: "Online devices"

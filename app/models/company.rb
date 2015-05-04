@@ -7,6 +7,8 @@ class Company < ActiveRecord::Base
   has_many :users, through: :user_company_memberships
   
   validates :title, presence: true, length: {in: 4..100}, uniqueness: true
+  
+  DEMO_TITLE = 'Demo'
    
   rails_admin do 
     list do

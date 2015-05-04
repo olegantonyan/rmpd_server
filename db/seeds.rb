@@ -6,6 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Company.create(title: 'Demo')
+Company.create(title: Company::DEMO_TITLE)
 Role.create(name: 'root')
 Role.create(name: 'guest')
+
+#demouser = User.create(email: User::DEMO_EMAIL, password: User::DEMO_PASSWORD, displayed_name: 'Демо')
+#demouser.skip_confirmation!
+#demouser.save
