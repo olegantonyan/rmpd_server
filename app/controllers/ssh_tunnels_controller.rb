@@ -19,9 +19,11 @@ class SshTunnelsController < UsersApplicationController
     @ssh_tunnel.device = @device
     respond_to do |format|
       if @ssh_tunnel.save
-        format.html { redirect_to @device, flash_success("SSH tunnel requested for '#{@device.login}'") }
+        flash_success("SSH tunnel requested for '#{@device.login}'")
+        format.html { redirect_to @device }
       else
-        format.html { render :index, flash_error('Error creating SSH tunnel') }
+        flash_error('Error creating SSH tunnel')
+        format.html { render :index }
       end
     end
   end

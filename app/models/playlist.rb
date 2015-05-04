@@ -3,8 +3,7 @@ require 'tempfile'
 class Playlist < ActiveRecord::Base
   has_paper_trail
   has_many :media_deployments, :dependent => :destroy
-  has_many :media_items, -> { joins(:media_deployments).order('media_deployments.playlist_position').group('media_items.id') }, 
-           :through => :media_deployments
+  has_many :media_items, -> { joins(:media_deployments).order('media_deployments.playlist_position').group('media_items.id') }, :through => :media_deployments
   has_many :devices
   belongs_to :company
   
@@ -17,6 +16,7 @@ class Playlist < ActiveRecord::Base
   validates_length_of :name, :maximum => 130
   validates_length_of :description, :maximum => 250
   validates_presence_of :media_deployments
+  #validates_presence_of :media_items
   
   def deploy_media_items!(media_items, media_items_positions)
     media_deployments.clear

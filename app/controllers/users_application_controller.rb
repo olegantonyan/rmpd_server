@@ -1,7 +1,7 @@
 class UsersApplicationController < ApplicationController
   include ActionView::Helpers::TextHelper
   include Pundit
-  
+ 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -34,15 +34,15 @@ class UsersApplicationController < ApplicationController
   protected
   
     def flash_success msg
-      {:flash => {:notice => truncate_message(msg)}}
+      flash[:notice] = truncate_message(msg)
     end
     
     def flash_error msg
-      {:flash => {:alert => truncate_message(msg)}}
+      flash[:alert] = truncate_message(msg)
     end
     
     def flash_warning msg
-      {:flash => {:warning => truncate_message(msg)}}
+      flash[:warning] = truncate_message(msg)
     end
     
     def configure_permitted_parameters

@@ -1,6 +1,6 @@
 class PlaylistsController < UsersApplicationController
   before_action :set_playlist, only: [:show, :edit, :update, :destroy]
-  before_action :set_media_items, only: [:edit, :new]
+  before_action :set_media_items, only: [:edit, :new, :create, :update]
   
   # GET /playlists
   def index
@@ -33,9 +33,11 @@ class PlaylistsController < UsersApplicationController
     @playlist.deploy_media_items!(media_items_scoped, media_items_positions)
     respond_to do |format|
       if @playlist.save
-        format.html { redirect_to @playlist, flash_success(t(:playlist_successfully_created, :name => @playlist.name)) }
+        flash_success(t(:playlist_successfully_created, :name => @playlist.name))
+        format.html { redirect_to @playlist }
       else
-        format.html { render :new, flash_error(t(:error_creating_playlist)) }
+        flash_error("#{t(:error_creating_playlist)}: #{@playlist.errors.full_messages.join(', ')}")
+        format.html { render :new }
       end
     end
   end
@@ -46,9 +48,11 @@ class PlaylistsController < UsersApplicationController
     @playlist.deploy_media_items!(media_items_scoped, media_items_positions)
     respond_to do |format|
       if @playlist.save
-        format.html { redirect_to @playlist, flash_success(t(:playlist_successfully_updated, :name => @playlist.name)) }
+        flash_success(t(:playlist_successfully_updated, :name => @playlist.name))
+        format.html { redirect_to @playlist }
       else
-        format.html { render :edit, flash_error(t(:error_updating_playlist)) }
+        flash_error("#{t(:error_updating_playlist)}: #{@playlist.errors.full_messages.join(', ')}")
+        format.html { render :edit }
       end
     end
   end
@@ -57,7 +61,8 @@ class PlaylistsController < UsersApplicationController
   def destroy
     @playlist.destroy
     respond_to do |format|
-      format.html { redirect_to playlists_url, flash_success(t(:playlist_successfully_deleted, :name => @playlist.name)) }
+      flash_success(t(:playlist_successfully_deleted, :name => @playlist.name))
+      format.html { redirect_to playlists_url }
     end
   end
   
@@ -68,7 +73,7 @@ class PlaylistsController < UsersApplicationController
     end
     
     def set_media_items
-      @media_items = policy_scope(MediaItem).order(:created_at => :desc)
+      @media_items = policy_scope(MediaItem).joins(:media_deployments).order('media_deployments.playlist_position').group('media_items.id')
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

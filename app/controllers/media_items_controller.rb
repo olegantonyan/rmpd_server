@@ -20,9 +20,11 @@ class MediaItemsController < UsersApplicationController
     @media_item = MediaItem.new(media_item_params)
     respond_to do |format|
       if @media_item.save
-        format.html { redirect_to :media_items, flash_success(t(:media_item_successfully_created, :name => @media_item.file_identifier)) }
+        flash_success(t(:media_item_successfully_created, :name => @media_item.file_identifier))
+        format.html { redirect_to :media_items }
       else
-        format.html { render :new, flash_error(t(:media_items_create_error)) }
+        flash_error(t(:media_items_create_error))
+        format.html { render :new }
       end
     end
   end
@@ -32,10 +34,11 @@ class MediaItemsController < UsersApplicationController
     respond_to do |format|
       if bulk_create_media_items
         create_playlist # don't care if it's failed
-        items_names = (@media_items.map { |i| i.file_identifier }).join(", ")
-        format.html { redirect_to :media_items, flash_success(t(:media_items_successfully_created, :names => items_names)) }
+        flash_success(t(:media_items_successfully_created, :names => (@media_items.map { |i| i.file_identifier }).join(", ")))
+        format.html { redirect_to :media_items }
       else
-        format.html { render :new, flash_error(t(:media_items_create_error)) }
+        flash_error(t(:media_items_create_error))
+        format.html { render :new }
       end
     end
   end
@@ -45,7 +48,8 @@ class MediaItemsController < UsersApplicationController
     @media_item.remove_file!
     @media_item.destroy
     respond_to do |format|
-      format.html { redirect_to media_items_url, flash_success(t(:media_item_successfully_deleted, :name => @media_item.file_identifier)) }
+      flash_success(t(:media_item_successfully_deleted, :name => @media_item.file_identifier))
+      format.html { redirect_to media_items_url }
     end
   end
 

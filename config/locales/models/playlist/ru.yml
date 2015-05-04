@@ -10,11 +10,17 @@ ru:
         playlist:
           attributes:
             name:
-              blank: Не может быть пустым
-              too_long: Слишком длинное
+              blank: не может быть пустым
+              too_long: слишком длинное
+            media_items:
+              blank: должны присутствовать
+            media_deployments:
+              blank: должны присутствовать
     
     attributes:
       playlist:
         name: Имя
         description: Описание
         file: Файл-плейлист
+        media_items: Медиафайлы
+        media_deployments: Связки медиафайлов

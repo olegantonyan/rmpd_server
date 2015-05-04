@@ -2,7 +2,7 @@
   = f.text_field :name
   = f.text_field :description
   = render partial: 'shared/select_company_form', locals: {:f => f}
-  = f.label t(:media_items_title)
+  = f.label :media_items
               
   .input-group
     = render partial: 'media_items_list', locals: { playlist: @playlist, media_items: @media_items }

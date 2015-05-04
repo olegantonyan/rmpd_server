@@ -3,7 +3,7 @@ class MediaDeployment < ActiveRecord::Base
   belongs_to :media_item
   belongs_to :playlist
   
-  validates_presence_of :playlist_position
+  validates :playlist_position, :media_item, :playlist, presence: true
   validates_inclusion_of :playlist_position, :in => -1000000..1000000
   
   rails_admin do
