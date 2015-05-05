@@ -73,7 +73,7 @@ class PlaylistsController < UsersApplicationController
     end
     
     def set_media_items
-      @media_items = policy_scope(MediaItem).joins(:media_deployments).order('media_deployments.playlist_position').group('media_items.id')
+      @media_items = policy_scope(MediaItem).joins(:media_deployments).order('media_deployments.playlist_position').group('media_items.id, media_deployments.playlist_position')
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
