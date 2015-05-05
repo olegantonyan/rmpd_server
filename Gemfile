@@ -59,6 +59,7 @@ gem 'jquery-fileupload-rails'
 gem 'filterrific'
 gem 'listjs-rails'
 
+gem 'pry-rails'
 gem 'capistrano',         require: false
 gem 'capistrano-rvm',     require: false
 gem 'capistrano-rails',   require: false
@@ -76,7 +77,6 @@ group :development, :test do
   #gem 'spring'
   
   gem 'erb2haml'
-  gem 'pry-rails'
   gem 'bullet'
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
