@@ -114,7 +114,7 @@ class Deviceapi::Protocol
     end
     
     def write_device_log(device, logdata, user_agent)
-      DeviceLog.write(device, logdata, user_agent)
+      DeviceLogMessage.write(device, logdata, user_agent)
     end
     
     def clean_previous_commands(device_login, command_type)
