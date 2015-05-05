@@ -3,7 +3,7 @@ require 'tempfile'
 class Playlist < ActiveRecord::Base
   has_paper_trail
   has_many :media_deployments, :dependent => :destroy
-  has_many :media_items, -> { joins(:media_deployments).order('media_deployments.playlist_position').group('media_items.id') }, :through => :media_deployments
+  has_many :media_items, -> { joins(:media_deployments).order('media_deployments.playlist_position').group('media_items.id, media_deployments.playlist_position') }, :through => :media_deployments
   has_many :devices
   belongs_to :company
   
