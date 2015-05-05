@@ -8,7 +8,7 @@
       = row_info t(:filename_th), @media_item.file_identifier
       = row_info t(:size_th), number_to_human_size(@media_item.file.size, precision: 2)
       = row_info t(:description_th), @media_item.description
-      = row_info t(:company), @media_item.company.title
+      = row_info t(:company), @media_item.company.nil? ? "" : @media_item.company.title
       = row_info t(:playlists_th), list_with_links(@media_item.playlists, 'name')
       = row_info t(:uploaded_at_th), localtime(@media_item.created_at)
       = row_info t(:updated_at_th), localtime(@media_item.updated_at)

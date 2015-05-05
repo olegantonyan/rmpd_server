@@ -9,7 +9,7 @@
       = row_info t(:login_th), @device.login
       = row_info t(:playlist_th), @device.playlist_id ? link_to(@device.playlist.name, @device.playlist) : ""
       = row_info t(:groups), list_with_links(@device.device_groups, 'title')
-      = row_info t(:company), @device.company.title
+      = row_info t(:company), @device.company.nil? ? "" : @device.company.title
       = row_info t(:added_at_th), @device.created_at
       = row_info t(:updated_at_th), @device.updated_at
 .row

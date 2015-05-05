@@ -7,7 +7,7 @@
     %table.table.table-bordered.table-hover.table-responsive
       = row_info t(:playlist_name_th), @playlist.name
       = row_info t(:description_th), @playlist.description
-      = row_info t(:company), @playlist.company.title
+      = row_info t(:company), @playlist.company.nil? ? "" : @playlist.company.title
       = row_info t(:number_of_items_th), @playlist.media_items.to_a.count
       = row_info t(:total_size_th), number_to_human_size((@playlist.media_items.inject(0) {|sum, i| sum += i.file.size.to_i}), precision: 2)
       = row_info t(:created_at_th), localtime(@playlist.created_at)
