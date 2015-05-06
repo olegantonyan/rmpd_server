@@ -23,7 +23,7 @@
               %li{:class => active_class_for('device_groups')}= link_to icon_link_to('glyphicon-tags', t(:device_groups_title)), device_groups_path
               /%li{:class => active_class_for('reports')}= link_to t(:reports_title), "#"
             %ul.navbar-right.nav
-              %li
+              %li  
               - if user_signed_in?
                 = succeed "." do
                   = image_tag current_user.gravatar_url, size: "32x32", alt: "gravatar", class: "img-rounded"

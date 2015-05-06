@@ -22,6 +22,6 @@
           /%td= media_item.playlists.count
           %td
             = link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), media_item, :class => "btn btn-default"
-    .text-center= will_paginate(@media_items, :renderer => BootstrapPagination::Rails, :previous_label => "&larr; "+t(:newer), :next_label => t(:older)+" &rarr;")
+    .text-center= will_paginate(@media_items, :renderer => BootstrapPagination::Rails, :previous_label => "&larr; ", :next_label => " &rarr;")
     
-    = link_to t(:upload_new_files_text), new_media_item_path, class: "btn btn-primary"
+    = link_to icon_link_to('glyphicon-cloud-upload', t(:upload_new_files_text)), new_media_item_path, class: "btn btn-primary"
