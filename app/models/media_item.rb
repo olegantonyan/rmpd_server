@@ -8,6 +8,14 @@ class MediaItem < ActiveRecord::Base
   
   validates_presence_of :file
   validates_length_of :description, :maximum => 130
+  
+  filterrific(
+    available_filters: [ :search_query ]
+  )
+  
+  scope :search_query, ->(query) {
+    where('LOWER(file) LIKE ? OR LOWER(description) LIKE ?', query.downcase, query.downcase)
+  }
     
   rails_admin do 
     object_label_method do

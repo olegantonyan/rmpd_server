@@ -3,7 +3,12 @@ class MediaItemsController < UsersApplicationController
   
   # GET /media_items
   def index
-    @media_items = policy_scope(MediaItem).order(:created_at => :desc).paginate(:page => params[:page], :per_page => params[:per_page] || 20)
+    @filterrific = initialize_filterrific(
+      MediaItem,
+      params[:filterrific]
+    ) or return
+    filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 20)
+    @media_items = policy_scope(filtered).order(:created_at => :desc)
   end
 
   # GET /media_items/1
