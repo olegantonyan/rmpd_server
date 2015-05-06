@@ -1,0 +1,10 @@
+ru:    
+  activerecord:
+    models:
+      company: 
+        one: Компания
+        other: Компании
+    
+    attributes:
+      company:
+        name: Название

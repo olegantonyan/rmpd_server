@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
   
   has_many :user_company_memberships
-  has_many :companies, through: :user_company_memberships
+  has_many :companies, -> { group('companies.id')}, through: :user_company_memberships
   
   validates :displayed_name, length: {maximum: 130}
   

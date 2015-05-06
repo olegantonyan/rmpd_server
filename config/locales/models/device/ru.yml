@@ -26,3 +26,4 @@ ru:
         password_confirmation: Подтверждение пароля
         name: Имя
         playlist_id: Плейлист
+        company_id: Компания

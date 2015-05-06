@@ -3,7 +3,7 @@ class MediaItemsController < UsersApplicationController
   
   # GET /media_items
   def index
-    @media_items = policy_scope(MediaItem).order(:created_at => :desc)
+    @media_items = policy_scope(MediaItem).order(:created_at => :desc).paginate(:page => params[:page], :per_page => params[:per_page] || 20)
   end
 
   # GET /media_items/1

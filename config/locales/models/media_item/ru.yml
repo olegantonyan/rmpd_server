@@ -16,3 +16,4 @@ ru:
       media_item:
         file: Файл
         description: Описание
+        company_id: Компания
