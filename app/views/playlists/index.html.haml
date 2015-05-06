@@ -20,5 +20,5 @@
           %td= playlist.devices.count
           %td= link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), playlist, :class => "btn btn-default"
     
-    = link_to t(:create_playlist_text), new_playlist_path, class: "btn btn-primary"
+    = link_to icon_link_to('glyphicon-plus', t(:create_playlist_text)), new_playlist_path, class: "btn btn-primary"
     
