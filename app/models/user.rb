@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def to_s
+    "#{email} (#{displayed_name})"
+  end
+  
   private
     
     def set_defaults
@@ -52,7 +56,7 @@ class User < ActiveRecord::Base
     end
   
     def custom_label_method
-      displayed_name.blank? ? email : "#{displayed_name} (#{email})"
+      displayed_name.blank? ? email : to_s
     end
   
 end

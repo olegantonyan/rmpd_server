@@ -42,6 +42,10 @@ class Playlist < ActiveRecord::Base
     end
   end
   
+  def to_s
+    (description.blank? ? "#{name}" : "#{name} (#{description})") + " in #{company.to_s}"
+  end
+  
   private
     def create_playlist_file
       tempfile = Tempfile.new(['playlist', '.m3u'])

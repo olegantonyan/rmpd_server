@@ -9,4 +9,8 @@ class DeviceStatus < ActiveRecord::Base
     visible false
   end
   
+  def to_s
+    "#{device.to_s} #{online ? 'online' : 'offline'}"
+  end
+  
 end

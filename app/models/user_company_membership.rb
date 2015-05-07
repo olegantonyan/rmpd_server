@@ -26,6 +26,10 @@ class UserCompanyMembership < ActiveRecord::Base
     end
   end
   
+  def to_s
+    "#{user.to_s} in #{company.to_s}"
+  end
+  
   private
   
     def set_defaults
@@ -35,7 +39,7 @@ class UserCompanyMembership < ActiveRecord::Base
     end
     
     def custom_label_method
-      title.blank? ? "#{user.email} (#{company.title})" : title
+      title.blank? ? to_s : title
     end
   
 end

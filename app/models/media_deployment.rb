@@ -10,4 +10,8 @@ class MediaDeployment < ActiveRecord::Base
     visible false
   end
   
+  def to_s
+    "#{media_item.to_s} @ #{playlist.to_s}"
+  end
+  
 end
