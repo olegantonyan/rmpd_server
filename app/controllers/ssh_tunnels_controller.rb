@@ -19,7 +19,7 @@ class SshTunnelsController < UsersApplicationController
     @ssh_tunnel.device = @device
     respond_to do |format|
       if @ssh_tunnel.save
-        flash_success("SSH tunnel requested for '#{@device.login}'")
+        flash_success("SSH tunnel requested for '#{@device.login}'. Example use for device user 'rmpd': ssh rmpd@#{@ssh_tunnel.server} -p #{@ssh_tunnel.external_port}")
         format.html { redirect_to @device }
       else
         flash_error('Error creating SSH tunnel')
