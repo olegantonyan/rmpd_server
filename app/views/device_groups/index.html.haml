@@ -2,17 +2,20 @@
   
 %h1.page-header= yield(:title)
 
-.row
-  .col-md-12  
-    %table.table.table-striped.table-bordered.table-hover.table-responsive
-      %tr
-        %th= t(:title)
-        %th= t(:more)
-    
-      - @device_groups.each do |group|
+%p
+  = link_to icon_link_to('glyphicon-plus', t(:add_new_device_group)), new_device_group_path, class: "btn btn-success"
+
+%p
+  .row
+    .col-md-12  
+      %table.table.table-striped.table-bordered.table-hover.table-responsive
         %tr
-          %td= group.title
-          %td
-            = link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), group, :class => "btn btn-default"
+          %th= t(:title)
+          %th= t(:more)
+      
+        - @device_groups.each do |group|
+          %tr
+            %td= group.title
+            %td
+              = link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), group, :class => "btn btn-default"
     
-    = link_to t(:add_new_device_group), new_device_group_path, class: "btn btn-primary"
