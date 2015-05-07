@@ -35,6 +35,10 @@ class MediaItem < ActiveRecord::Base
     end
   end
   
+  def to_s
+    "#{file_identifier} in #{company.to_s}"
+  end
+  
   private
   
     def custom_label_method

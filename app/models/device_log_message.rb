@@ -65,5 +65,9 @@ class DeviceLogMessage < ActiveRecord::Base
   rails_admin do
     visible false
   end
+  
+  def to_s
+    "#{device.to_s} | #{self.module} | #{etype} | #{localtime} | #{details}"
+  end
     
 end

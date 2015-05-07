@@ -35,6 +35,10 @@ class Device < ActiveRecord::Base
     end
   end
   
+  def to_s
+    "#{name} (#{login} in #{company.to_s})"
+  end
+  
   private
   
     def device_updated
