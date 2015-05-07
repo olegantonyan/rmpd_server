@@ -10,15 +10,13 @@
     .col-md-12
       %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
         %tr
-          %th= '#'
           %th= t(:add_th)
           %th= t(:position_th)
           %th= t(:filename_th)
           %th= t(:description_th)
         %tbody.list
-          - media_items.each_with_index do |item,i|
+          - media_items.each do |item|
             %tr
-              %td= i
               - deployment = playlist.media_deployments.find {|d| d.media_item == item}
               %td= check_box_tag "media_items_ids[]", item.id, playlist.media_items.include?(item), :class => 'media-item-checkbox'
               %td= number_field_tag "media_items_positions[#{item.id}]", (deployment.nil? ? 0 : deployment.playlist_position)
