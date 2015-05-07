@@ -9,6 +9,11 @@ class MediaItemsController < UsersApplicationController
     ) or return
     filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 20)
     @media_items = policy_scope(filtered).order(:created_at => :desc)
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /media_items/1

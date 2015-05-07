@@ -4,29 +4,11 @@
 
 
 = form_for_filterrific @filterrific, class: 'form-horizontal' do |f|
-  = f.text_field :search_query, :class => 'filterrific-periodically-observed form-control'
+  = f.text_field :search_query, :class => 'filterrific-periodically-observed form-control', :placeholder => t(:search)
+= render_filterrific_spinner
+= link_to t(:reset_filter), reset_filterrific_url
 
-.row
-  .col-md-12      
-    %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
-      %tr
-        %th= t(:filename_th)
-        %th= t(:description_th)
-        %th= t(:size_th)
-        /%th= t(:playlists_th)
-        %th= t(:more_th)
+= render partial: 'list', locals: {media_items: @media_items}
     
-      - @media_items.each do |media_item|
-        %tr
-          %td
-            %span.glyphicon.glyphicon-play
-            = link_to media_item.file_identifier, media_item.file_url
-          %td= media_item.description
-          %td= number_to_human_size(media_item.file.size, precision: 2)
-          /%td= media_item.playlists.count
-          %td
-            = link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), media_item, :class => "btn btn-default"
-    .text-center= will_paginate(@media_items, :renderer => BootstrapPagination::Rails, :previous_label => "&larr; ", :next_label => " &rarr;")
-    
-    = link_to icon_link_to('glyphicon-cloud-upload', t(:upload_new_files_text)), new_media_item_path, class: "btn btn-primary"
+= link_to icon_link_to('glyphicon-cloud-upload', t(:upload_new_files_text)), new_media_item_path, class: "btn btn-primary"
     
