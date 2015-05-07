@@ -3,10 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready = ->
-  options = valueNames: [
+  options = {
     valueNames: ['filename', 'description']
     page: 1000
-  ]
+  }
   userList = new List('media_items', options)
   
   $('#select-all-checkbox').click ->
