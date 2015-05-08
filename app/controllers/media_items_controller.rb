@@ -7,7 +7,7 @@ class MediaItemsController < UsersApplicationController
       MediaItem,
       params[:filterrific]
     ) or return
-    filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 20)
+    filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 30)
     @media_items = policy_scope(filtered).order(:created_at => :desc)
     
     respond_to do |format|
@@ -39,8 +39,8 @@ class MediaItemsController < UsersApplicationController
     end
   end
   
-  # POST /media_items/bulk_create
-  def bulk_create
+  # POST /media_items/create_multiple
+  def create_multiple
     respond_to do |format|
       if bulk_create_media_items
         create_playlist # don't care if it's failed
@@ -59,8 +59,24 @@ class MediaItemsController < UsersApplicationController
     @media_item.destroy
     respond_to do |format|
       flash_success(t(:media_item_successfully_deleted, :name => @media_item.file_identifier))
-      format.html { redirect_to media_items_url }
+      format.html { redirect_to media_items_path }
     end
+  end
+  
+  # DELETE /media_items/1
+  def destroy_multiple
+    media_items = params[:media_items]
+    respond_to do |format|
+      if media_items.nil? || media_items.empty?
+        flash_error(t(:media_items_not_selected))
+        format.html { redirect_to media_items_path }
+      else
+        MediaItem.destroy(media_items)  
+        flash_success(t(:media_items_successfully_deleted))
+        format.html { redirect_to media_items_path }
+      end
+    end
+    
   end
 
   private

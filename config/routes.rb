@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   devise_for :users
   
   resources :media_items, except: [:edit, :update] do
-    post :bulk_create, on: :collection
+    collection do
+      post :create_multiple
+      delete :destroy_multiple
+    end
   end
   resources :device_groups
   resources :devices do

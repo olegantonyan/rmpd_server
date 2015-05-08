@@ -2,3 +2,5 @@ en:
   media_items_successfully_created: Media items '%{names}' were successfully created
   media_items_create_error: Error uploading some media items
   media_item_successfully_deleted: Media item '%{name}' was successfully deleted
+  media_items_successfully_deleted: Media items were successfully deleted
+  media_items_not_selected: No media items selected

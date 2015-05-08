@@ -12,6 +12,11 @@ ready = ->
   toggle_playlist_form()
   $('#create-playlist-checkbox').click ->
     toggle_playlist_form()
+  
+  $('#select-all-media_items-checkbox').click ->
+    console.log("clicked select all")
+    $('.media_item-checkbox').prop('checked', @checked)
+
     
 $(document).ready(ready)
 $(document).on('page:load', ready)
