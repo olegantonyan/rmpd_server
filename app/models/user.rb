@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
     user_company_memberships.find{|c| c.has_role? role } ? true : false
   end
   
+  def root?
+    has_role? :root
+  end
+  
   rails_admin do 
     object_label_method do
       :custom_label_method

@@ -47,11 +47,9 @@ class ApplicationPolicy
     end
 
     def resolve
-      if user.has_role? :root
-        scope # no limits for root
-      else
-        scope.where(:company => user.companies)
-      end
+      return scope.all if user.root?
+      scope.where(:company => user.companies)
     end
+    
   end
 end
