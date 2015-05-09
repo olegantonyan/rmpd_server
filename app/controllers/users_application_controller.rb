@@ -46,8 +46,8 @@ class UsersApplicationController < ApplicationController
     end
     
     def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:account_update) << :displayed_name
-      devise_parameter_sanitizer.for(:sign_up) << :displayed_name
+      devise_parameter_sanitizer.for(:account_update) << [:displayed_name, :allow_notifications]
+      devise_parameter_sanitizer.for(:sign_up) << [:displayed_name, :allow_notifications]
     end
   
   private 

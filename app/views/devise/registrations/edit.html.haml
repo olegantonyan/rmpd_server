@@ -6,6 +6,8 @@
       .form-group
         = f.email_field :email, autofocus: true, class: "form-control"
       .form-group
+        = f.check_box :allow_notifications
+      .form-group
         = f.text_field :displayed_name, class: "form-control"
       .form-group
         %i

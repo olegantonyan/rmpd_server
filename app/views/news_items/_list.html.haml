@@ -1,0 +1,5 @@
+- news_items.each do |i|
+  = render partial: 'news_items/single', locals: {news_item: i}
+  = tag :hr
+
+/.text-center= will_paginate(news_items, :renderer => BootstrapPagination::Rails, :previous_label => "&larr; "+t(:newer), :next_label => t(:older)+" &rarr;")

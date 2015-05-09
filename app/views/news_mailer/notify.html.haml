@@ -1,1 +1,8 @@
-%p= "News notification from #{@url}"
+%p
+  = @greetings
+%p
+  = sanitize(@news_item.body)
+%p
+  = @signature
+%p
+  = link_to t(:unsibscribe), @unsibscribe_url

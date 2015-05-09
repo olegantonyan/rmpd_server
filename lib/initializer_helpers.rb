@@ -9,6 +9,10 @@ module InitializerHelpers
     self.skip(defined?(Rails::Generators) || File.basename($0) == "rake", &block) 
   end
   
+  def self.skip_generators &block
+    self.skip(defined?(Rails::Generators), &block) 
+  end
+  
   private
   
     def self.skip(condition, &block)

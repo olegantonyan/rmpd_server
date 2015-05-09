@@ -21,3 +21,4 @@ ru:
         displayed_name: Отображаемое имя
         password: Пароль
         password_confirmation: Подтверждение пароля
+        allow_notifications: Получать новости (обычно не чаще раза в неделю)

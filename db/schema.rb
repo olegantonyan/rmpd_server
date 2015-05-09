@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150502173511) do
+ActiveRecord::Schema.define(version: 20150509123829) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "title",      limit: 1024, null: false
@@ -127,6 +127,13 @@ ActiveRecord::Schema.define(version: 20150502173511) do
   add_index "message_queues", ["key"], name: "index_message_queues_on_key"
   add_index "message_queues", ["message_type"], name: "index_message_queues_on_message_type"
 
+  create_table "news_items", force: :cascade do |t|
+    t.text     "body",       limit: 6000,              null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "title",      limit: 128,  default: "", null: false
+  end
+
   create_table "playlists", force: :cascade do |t|
     t.string   "name",                                 null: false
     t.text     "description",             default: "", null: false
@@ -169,12 +176,12 @@ ActiveRecord::Schema.define(version: 20150502173511) do
   add_index "user_company_memberships_roles", ["user_company_membership_id", "role_id"], name: "__ids_index__"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -185,7 +192,8 @@ ActiveRecord::Schema.define(version: 20150502173511) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "displayed_name",         default: "", null: false
+    t.string   "displayed_name",         default: "",    null: false
+    t.boolean  "allow_notifications",    default: false, null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

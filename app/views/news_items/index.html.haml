@@ -1,0 +1,5 @@
+- title t(:all_news)
+
+%h1.page-header= yield(:title)
+  
+= render partial: 'list', locals: {news_items: @news_items}

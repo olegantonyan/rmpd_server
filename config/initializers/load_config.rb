@@ -6,7 +6,7 @@ def setup_email config
   puts "##### Config loaded: #{config.inspect}"
 end
 
-InitializerHelpers::skip_rake_generators do
+InitializerHelpers::skip_generators do
   config_file_path = "#{Rails.root}/config/config.yml"
   unless File.exists?(config_file_path)
     warn "##### Config file '#{config_file_path}' does not exists"

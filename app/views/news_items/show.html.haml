@@ -1,0 +1,5 @@
+- title "#{t(:news_item)}: #{sanitize @news_item.title}"
+
+%h1.page-header= yield(:title)
+
+= render partial: 'single', locals: {news_item: @news_item}

@@ -1,2 +1,7 @@
 ru:
-  subject: "Новости %{app_title} %{date}"
+  subject: "Новости %{app_title}: %{title}, %{date}"
+  unsibscribe: "Не хотите больше получать подобных писем? Перейдите в настройки учётной записи и снимите соотвествующий флажок"
+  signature: "Команда %{app_title}"
+  dear_customer: "уважаемый клиент"
+  greetings: "Добрый день"
+  news_title: "у нас есть для Вас новости"

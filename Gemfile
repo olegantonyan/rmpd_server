@@ -58,6 +58,7 @@ gem 'nested_form_fields'
 gem 'jquery-fileupload-rails'
 gem 'filterrific'
 gem 'listjs-rails'
+gem 'daemons'
 
 gem 'pry-rails'
 gem 'capistrano',         require: false
