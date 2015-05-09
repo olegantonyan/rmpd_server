@@ -16,12 +16,12 @@
             - if current_user.has_role? :root
               %span{:title => 'Admin area'}
                 = link_to icon_link_to('glyphicon-fire', ''), rails_admin_path, :class => "btn btn-danger navbar-btn"
-              %span{:title => 'Gravatar'}
-                = image_tag current_user.gravatar_url, size: "32x32", alt: "gravatar", class: "img-rounded"
-              %span{:title => t(:my_account)}
-                = link_to icon_link_to('glyphicon-user', current_user_displayed_name), edit_user_registration_path, :class => "btn btn-success navbar-btn"
-          %span{:title => t(:logout)}
-            = link_to icon_link_to('glyphicon-log-out', ''), destroy_user_session_path, method: :delete, :class => "btn btn-warning navbar-btn"
+            %span{:title => 'Gravatar'}
+              = image_tag current_user.gravatar_url, size: "32x32", alt: "gravatar", class: "img-rounded"
+            %span{:title => t(:my_account)}
+              = link_to icon_link_to('glyphicon-user', current_user_displayed_name), edit_user_registration_path, :class => "btn btn-success navbar-btn"
+            %span{:title => t(:logout)}
+              = link_to icon_link_to('glyphicon-log-out', ''), destroy_user_session_path, method: :delete, :class => "btn btn-warning navbar-btn"
         - else 
           = link_to icon_link_to('glyphicon glyphicon-user', t(:sign_up)), new_user_registration_path, :class => "btn btn-default navbar-btn"
           = link_to icon_link_to('glyphicon glyphicon-log-in', t(:login)), new_user_session_path, :class => "btn btn-success navbar-btn"
