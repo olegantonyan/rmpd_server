@@ -6,4 +6,4 @@ ru:
   login: Вход
   logout: Выход
   sign_up: Регистрация
-  demo_user_not_allowed_to_change_itself: Извините, demo-пользователю нелья изменять свой аккаунт
+  my_account: Моя учётная запись
