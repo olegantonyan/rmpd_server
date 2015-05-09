@@ -1,7 +1,7 @@
 %nav.navbar.navbar-inverse{:role => "navigation"}
   .container-fluid
     = image_tag "logo.png", alt: "logo", class: "navbar-brand img-responsive"
-    = link_to "SLON-DS Cloud", root_path, class: "navbar-brand"
+    = link_to app_title, root_path, class: "navbar-brand"
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
         %li{:class => active_class_for('media_items')}= link_to icon_link_to('glyphicon-play', t(:media_items_title)), media_items_path

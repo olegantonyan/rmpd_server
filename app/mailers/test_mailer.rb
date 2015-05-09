@@ -1,6 +1,4 @@
 class TestMailer < ApplicationMailer
-  #default from: 'notifications@localhost'
-
   def test_email(user)
     @user = user
     @url = root_url

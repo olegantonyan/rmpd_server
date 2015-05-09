@@ -4,6 +4,10 @@ module ApplicationHelper
     content_for :title, page_title.to_s
   end
   
+  def app_title
+    APP_CONFIG[:app_title] || "set app_title in config/config.yml"
+  end
+  
   def localtime(utc_time)
     unless utc_time.nil?
       local_time utc_time, "%Y-%m-%d %H:%M:%S"
