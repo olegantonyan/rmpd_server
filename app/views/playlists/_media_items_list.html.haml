@@ -6,6 +6,8 @@
       = label_tag t(:select_all)
       %button.sort.btn.btn-default{'data-sort' => "filename", :type => 'button'}= t(:sort_by_filename)
       %button.sort.btn.btn-default{'data-sort' => "description", :type => 'button'}= t(:sort_by_description)
+      - if current_user.companies.size > 1
+        %button.sort.btn.btn-default{'data-sort' => "company", :type => 'button'}= t(:sort_by_company)
   .row
     .col-md-12
       %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
@@ -14,6 +16,8 @@
           %th= t(:position_th)
           %th= t(:filename_th)
           %th= t(:description_th)
+          - if current_user.companies.size > 1
+            %th= t(:company)
         %tbody.list
           - media_items.each do |item|
             %tr
@@ -22,3 +26,5 @@
               %td= number_field_tag "media_items_positions[#{item.id}]", (deployment.nil? ? 0 : deployment.playlist_position)
               %td.filename= label_tag "media_item#{item.id}", item.file_identifier
               %td.description= item.description
+              - if current_user.companies.size > 1
+                %td.company= item.company.nil? ? "" : item.company.title

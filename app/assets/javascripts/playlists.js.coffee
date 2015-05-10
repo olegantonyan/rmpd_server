@@ -4,7 +4,7 @@
 
 ready = ->
   options = {
-    valueNames: ['filename', 'description']
+    valueNames: ['filename', 'description', 'company']
     page: 1000
   }
   userList = new List('media_items', options)
