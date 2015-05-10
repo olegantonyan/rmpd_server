@@ -5,7 +5,10 @@ class MediaItemsController < UsersApplicationController
   def index
     @filterrific = initialize_filterrific(
       MediaItem,
-      params[:filterrific]
+      params[:filterrific],
+      select_options: {
+         with_company_id: policy_scope(Company).all.map { |e| [e.title, e.id] }
+      }
     ) or return
     filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 30)
     @media_items = policy_scope(filtered).includes(:company).order(:created_at => :desc)

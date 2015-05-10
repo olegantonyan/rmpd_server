@@ -10,12 +10,16 @@ class MediaItem < ActiveRecord::Base
   validates_length_of :description, :maximum => 130
   
   filterrific(
-    available_filters: [ :search_query ]
+    available_filters: [ :search_query, :with_company_id ]
   )
   
   scope :search_query, ->(query) {
-    q = "%#{UnicodeUtils.downcase query}%"
-    joins(:company).where('LOWER(media_items.file) LIKE ? OR LOWER(media_items.description) LIKE ? OR LOWER(companies.title) LIKE ?', q, q, q)
+    q = "%#{UnicodeUtils.downcase query.to_s}%"
+    where('LOWER(file) LIKE ? OR LOWER(description) LIKE ?', q, q)
+  }
+  
+  scope :with_company_id, ->(companies_ids) {
+    where(:company_id => [*companies_ids])
   }
     
   rails_admin do 

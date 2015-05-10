@@ -36,7 +36,7 @@ module ApplicationHelper
   end
   
   def select2js_for_id(id)
-    javascript_tag "$(document).ready(function() { $('##{id.to_s}').select2(); });"
+    javascript_tag "$(document).ready(function() { $('##{id.to_s}').select2({ width: '100%' }); });"
   end
   
   def row_info title, value, value_class="", title_class=""
