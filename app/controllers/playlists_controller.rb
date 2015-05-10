@@ -4,7 +4,7 @@ class PlaylistsController < UsersApplicationController
   
   # GET /playlists
   def index
-    @playlists = policy_scope(Playlist).includes(:media_items, :media_deployments).order(:updated_at => :desc)
+    @playlists = policy_scope(Playlist).includes(:media_items, :media_deployments, :company).order(:updated_at => :desc)
   end
 
   # GET /playlists/1

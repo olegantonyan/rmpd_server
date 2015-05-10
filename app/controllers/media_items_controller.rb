@@ -8,7 +8,7 @@ class MediaItemsController < UsersApplicationController
       params[:filterrific]
     ) or return
     filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 30)
-    @media_items = policy_scope(filtered).order(:created_at => :desc)
+    @media_items = policy_scope(filtered).includes(:company).order(:created_at => :desc)
     
     respond_to do |format|
       format.html

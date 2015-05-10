@@ -5,7 +5,7 @@ class DevicesController < UsersApplicationController
   
   # GET /devices
   def index
-    @devices = policy_scope(Device).includes(:device_status, :playlist, :device_groups).order(:name => :asc)
+    @devices = policy_scope(Device).includes(:device_status, :playlist, :device_groups, :company).order(:name => :asc)
   end
 
   # GET /devices/1

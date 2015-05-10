@@ -15,7 +15,7 @@ class MediaItem < ActiveRecord::Base
   
   scope :search_query, ->(query) {
     q = "%#{UnicodeUtils.downcase query}%"
-    where('LOWER(file) LIKE ? OR LOWER(description) LIKE ?', q, q)
+    joins(:company).where('LOWER(media_items.file) LIKE ? OR LOWER(media_items.description) LIKE ? OR LOWER(companies.title) LIKE ?', q, q, q)
   }
     
   rails_admin do 
