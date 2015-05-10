@@ -59,6 +59,7 @@ gem 'jquery-fileupload-rails'
 gem 'filterrific'
 gem 'listjs-rails'
 gem 'daemons'
+gem 'unicode_utils'
 
 gem 'pry-rails'
 gem 'capistrano',         require: false

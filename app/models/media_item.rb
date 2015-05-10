@@ -14,7 +14,7 @@ class MediaItem < ActiveRecord::Base
   )
   
   scope :search_query, ->(query) {
-    q = "%#{query.downcase}%"
+    q = "%#{UnicodeUtils.downcase query}%"
     where('LOWER(file) LIKE ? OR LOWER(description) LIKE ?', q, q)
   }
     
