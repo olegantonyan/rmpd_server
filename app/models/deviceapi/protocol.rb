@@ -1,4 +1,3 @@
-require 'json'
 require 'time'
 
 class Deviceapi::Protocol
@@ -29,7 +28,7 @@ class Deviceapi::Protocol
     Deviceapi::MessageQueue.destroy_all_messages for_device.login
   end
   
-  def process(from_device, raw_data, user_agent, incomming_sequence_number)
+  def process(from_device, data, user_agent, incomming_sequence_number)
     return if from_device.nil?
     
     if from_device.device_status.nil?
@@ -38,8 +37,6 @@ class Deviceapi::Protocol
     
     from_device.device_status.online = true
     from_device.device_status.touch
-    
-    data = JSON.parse(raw_data)
     
     write_device_log(from_device, data, user_agent)
     
