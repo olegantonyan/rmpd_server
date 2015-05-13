@@ -1,11 +1,12 @@
 # encoding: utf-8
 
-require 'carrierwave/processing/mime_types'
-
 class MediaItemUploader < CarrierWave::Uploader::Base
-  include CarrierWave::MimeTypes
-
-  process :set_content_type
+  include ::CarrierWave::Backgrounder::Delay
+  
+  version :video_for_device, if: :video? do
+    process :encode_video_for_device
+    
+  end
   
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -52,5 +53,27 @@ class MediaItemUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+  
+  private
+    
+    def video? file
+      if file.path.ends_with?('avi') || file.path.ends_with?('mp4') || file.path.ends_with?('mpeg') || file.path.ends_with?('mpg') \
+        || file.path.ends_with?('ogv') || file.path.ends_with?('webm')
+        true
+      else
+        false
+      end
+    end
+    
+    def encode_video_for_device
+      puts "*********"
+      puts "#{video_for_device_file.path}"
+      puts "encoding video"
+      #system("ffmpeg -i #{file.path} -vcodec libx264 -acodec aac -strict -2 ~/Desktop/output.mp4")
+      # ffmpeg -i /mnt/video/video/Other/SDFF_Jason_Krause_Demo.mpg -vcodec libx264 -acodec aac -strict -2 ~/Desktop/output.mp4
+      
+      puts "finish encoding"
+      puts "*********"
+    end
 
 end

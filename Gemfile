@@ -60,6 +60,7 @@ gem 'filterrific'
 gem 'listjs-rails'
 gem 'daemons'
 gem 'unicode_utils'
+gem 'carrierwave_backgrounder'
 
 gem 'pry-rails'
 gem 'capistrano',         require: false

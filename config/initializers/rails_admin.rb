@@ -16,7 +16,7 @@ RailsAdmin.config do |config|
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
   
-  config.main_app_name = ["SLON-DS Cloud", "Admin area"]
+  config.main_app_name = [APP_CONFIG[:app_title], "Admin area"]
     
   config.authenticate_with do
     warden.authenticate! scope: :user
