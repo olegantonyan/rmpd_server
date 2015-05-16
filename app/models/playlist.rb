@@ -19,9 +19,12 @@ class Playlist < ActiveRecord::Base
   #validates_presence_of :media_items
   validate :check_files_processing
   
-  def deploy_media_items!(media_items, media_items_positions)
+  def deploy_media_items!(items, media_items_positions)
     media_deployments.clear
-    media_items.each do |i|
+    items.each do |i|
+      puts "*******"
+      puts i.file_identifier
+      puts " *********"
       playlist_position = media_items_positions.find{ |e| e.first.to_i == i.id}.second 
       media_deployments << MediaDeployment.new(:media_item => i, :playlist_position => playlist_position)
     end
