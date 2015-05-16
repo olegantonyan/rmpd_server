@@ -46,8 +46,11 @@ class MediaItemsController < UsersApplicationController
   def create_multiple
     respond_to do |format|
       if bulk_create_media_items
-        create_playlist # don't care if it's failed
-        flash_success(t(:media_items_successfully_created, :names => (@media_items.map { |i| i.file_identifier }).join(", ")))
+        if create_playlist # don't care if it's failed
+          flash_success(t(:media_items_successfully_created, :names => (@media_items.map { |i| i.file_identifier }).join(", ")))
+        else
+          flash_warning t(:media_items_successfully_created_but_playlist_failed)
+        end
         format.html { redirect_to :media_items }
       else
         flash_error(t(:media_items_create_error))
@@ -112,7 +115,7 @@ class MediaItemsController < UsersApplicationController
     end
     
     def create_playlist
-      return unless params[:create_playlist] == 'true'
+      return true unless params[:create_playlist] == 'true'
       name = params[:playlist_name]
       desc = params[:playlist_description]
       company_id = params[:media_item][:company_id]

@@ -17,6 +17,7 @@ class Playlist < ActiveRecord::Base
   validates_length_of :description, :maximum => 250
   validates_presence_of :media_deployments
   #validates_presence_of :media_items
+  validate :check_files_processing
   
   def deploy_media_items!(media_items, media_items_positions)
     media_deployments.clear
@@ -71,6 +72,15 @@ class Playlist < ActiveRecord::Base
     def playlist_destroyed
       self.devices.each do |d|
         Deviceapi::Protocol.new.delete_playlist d
+      end
+    end
+    
+    def check_files_processing
+      if media_deployments.find{|i| !i.valid? }
+        errors.add(:base, I18n.t(:files_processing)) # for error message only
+        false
+      else
+        true    
       end
     end
   

@@ -4,3 +4,4 @@ en:
   media_item_successfully_deleted: Media item '%{name}' was successfully deleted
   media_items_successfully_deleted: Media items were successfully deleted
   media_items_not_selected: No media items selected
+  media_items_successfully_created_but_playlist_failed: Media items were successfully created, but playlist failed

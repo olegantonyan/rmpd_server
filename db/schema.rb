@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150509123829) do
+ActiveRecord::Schema.define(version: 20150516083311) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "title",      limit: 1024, null: false
@@ -105,11 +105,12 @@ ActiveRecord::Schema.define(version: 20150509123829) do
   add_index "media_deployments", ["playlist_id", "media_item_id"], name: "index_media_deployments_on_playlist_id_and_media_item_id"
 
   create_table "media_items", force: :cascade do |t|
-    t.string   "file",                     null: false
-    t.text     "description", default: "", null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "file",                            null: false
+    t.text     "description",     default: "",    null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "company_id"
+    t.boolean  "file_processing", default: false, null: false
   end
 
   add_index "media_items", ["company_id"], name: "index_media_items_on_company_id"

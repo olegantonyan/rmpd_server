@@ -15,8 +15,9 @@ RailsAdmin.config do |config|
   # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
+  app_title = defined?(APP_CONFIG) ? APP_CONFIG[:app_title] : "use load_config to initialize APP_CONFIG"
   
-  config.main_app_name = [APP_CONFIG[:app_title], "Admin area"]
+  config.main_app_name = [app_title, "Admin area"]
     
   config.authenticate_with do
     warden.authenticate! scope: :user

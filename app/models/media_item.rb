@@ -5,6 +5,7 @@ class MediaItem < ActiveRecord::Base
   belongs_to :company
   
   mount_uploader :file, MediaItemUploader
+  process_in_background :file
   
   validates_presence_of :file
   validates_length_of :description, :maximum => 130

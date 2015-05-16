@@ -1,4 +1,5 @@
-ru:    
+ru:   
+  file_processing: Идёт обработка файла
   activerecord:
     models:
       media_item: 

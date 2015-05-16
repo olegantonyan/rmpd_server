@@ -1,4 +1,5 @@
-ru:    
+ru:
+  files_processing: Идёт обработка файлов. Пожалуйста, подождите
   activerecord:
     models:
       playlist: 
@@ -16,6 +17,7 @@ ru:
               blank: должны присутствовать
             media_deployments:
               blank: должны присутствовать
+              invalid: некорректны
     
     attributes:
       playlist:

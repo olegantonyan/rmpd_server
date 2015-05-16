@@ -5,6 +5,7 @@ module ApplicationHelper
   end
   
   def app_title
+    return "use load_config to initialize APP_CONFIG" unless defined? APP_CONFIG
     APP_CONFIG[:app_title] || "set app_title in config/config.yml"
   end
   

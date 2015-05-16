@@ -3,10 +3,9 @@
 class MediaItemUploader < CarrierWave::Uploader::Base
   include ::CarrierWave::Backgrounder::Delay
   
-  version :video_for_device, if: :video? do
-    process :encode_video_for_device
-    
-  end
+  #version :video_for_device, if: :videofile? do
+    process :encode_video_for_device  
+  #end
   
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -47,18 +46,25 @@ class MediaItemUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(mp3 mp4 avi wav ogg ogv webm mpeg mpg)
   end
+  
+  def video_extensions
+    %w(mp4 avi ogv webm mpeg mpg)
+  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # def filename
   #   "something.jpg" if original_filename
   # end
-  
-  private
     
-    def video? file
-      if file.path.ends_with?('avi') || file.path.ends_with?('mp4') || file.path.ends_with?('mpeg') || file.path.ends_with?('mpg') \
-        || file.path.ends_with?('ogv') || file.path.ends_with?('webm')
+  def video? 
+    videofile? file
+  end
+    
+  private
+  
+    def videofile? f
+      if video_extensions.find{|ext| f.path.ends_with? ext}
         true
       else
         false
@@ -66,6 +72,7 @@ class MediaItemUploader < CarrierWave::Uploader::Base
     end
     
     def encode_video_for_device
+      return unless video?
       tmp_path = File.join File.dirname(current_path), "#{SecureRandom.hex}.mp4"
       system("ffmpeg -i #{current_path} -vcodec libx264 -acodec aac -strict -2 #{tmp_path}")
       File.rename tmp_path, current_path
