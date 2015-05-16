@@ -53,8 +53,8 @@ class Playlist < ActiveRecord::Base
   private
     def create_playlist_file
       tempfile = Tempfile.new(['playlist', '.m3u'])
-      self.media_items.each do |item|
-        tempfile.puts item.file_identifier
+      self.media_deployments.includes(:media_item).order(:playlist_position).each do |deployment| #TODO fix problem with join in association
+        tempfile.puts deployment.media_item.file_identifier
       end
       tempfile.close
       self.file = tempfile
@@ -62,11 +62,9 @@ class Playlist < ActiveRecord::Base
     end
     
     def playlist_updated
-      
+      create_playlist_file
       Playlist.skip_callback(:save, :after, :playlist_updated) # skipping callback is required to prevent recursion 
       save  # save newly created file in db
-      create_playlist_file
-      save
       Playlist.set_callback(:save, :after, :playlist_updated) 
       
       self.devices.each do |d|
