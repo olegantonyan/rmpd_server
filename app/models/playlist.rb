@@ -20,10 +20,10 @@ class Playlist < ActiveRecord::Base
   validate :check_files_processing
   
   def deploy_media_items!(items, media_items_positions)
-    media_deployments.destroy_all
+    media_deployments.clear
     items.each do |i|
       playlist_position = media_items_positions.find{ |e| e.first.to_i == i.id}.second 
-      media_deployments << MediaDeployment.new(:media_item => i, :playlist_position => playlist_position)
+      media_deployments << MediaDeployment.find_or_create_by(:media_item => i, :playlist_position => playlist_position)
     end
     
      open('/home/badmotherfucker/1.txt', 'a') { |f|
