@@ -66,14 +66,9 @@ class MediaItemUploader < CarrierWave::Uploader::Base
     end
     
     def encode_video_for_device
-      puts "*********"
-      puts "#{video_for_device_file.path}"
-      puts "encoding video"
-      #system("ffmpeg -i #{file.path} -vcodec libx264 -acodec aac -strict -2 ~/Desktop/output.mp4")
-      # ffmpeg -i /mnt/video/video/Other/SDFF_Jason_Krause_Demo.mpg -vcodec libx264 -acodec aac -strict -2 ~/Desktop/output.mp4
-      
-      puts "finish encoding"
-      puts "*********"
+      tmp_path = File.join File.dirname(current_path), "#{SecureRandom.hex}.mp4"
+      system("ffmpeg -i #{current_path} -vcodec libx264 -acodec aac -strict -2 #{tmp_path}")
+      File.rename tmp_path, current_path
     end
 
 end
