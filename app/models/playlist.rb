@@ -28,7 +28,17 @@ class Playlist < ActiveRecord::Base
     items.each do |i|
       playlist_position = media_items_positions.find{ |e| e.first.to_i == i.id}.second 
       media_deployments << MediaDeployment.new(:media_item => i, :playlist_position => playlist_position)
+      
+      open('/home/badmotherfucker/1.txt', 'a') { |f|
+          f.puts "#{i.file_identifier} || #{playlist_position}"
+      }
+      
     end
+    
+     open('/home/badmotherfucker/1.txt', 'a') { |f|
+          f.puts "deployments count: #{media_deployments.size}"
+      }
+    
   end
   
   rails_admin do 
