@@ -2,7 +2,9 @@ require 'tempfile'
 
 class Playlist < ActiveRecord::Base
   has_paper_trail
-  has_many :media_deployments, dependent: :destroy, autosave: true
+  has_many :media_deployments, -> {
+    order(:playlist_position)
+    }, dependent: :destroy, autosave: true
   has_many :media_items, -> { 
     joins(:media_deployments).order('media_deployments.playlist_position').group('media_items.id, media_deployments.playlist_position') 
     }, through: :media_deployments, autosave: true
@@ -53,7 +55,7 @@ class Playlist < ActiveRecord::Base
   private
     def create_playlist_file
       tempfile = Tempfile.new(['playlist', '.m3u'])
-      self.media_deployments.includes(:media_item).order(:playlist_position).each do |deployment| #TODO fix problem with join in association
+      self.media_deployments.includes(:media_item).each do |deployment| #TODO fix problem with join in association
         tempfile.puts deployment.media_item.file_identifier
       end
       tempfile.close
