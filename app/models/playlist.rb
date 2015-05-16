@@ -52,7 +52,6 @@ class Playlist < ActiveRecord::Base
   
   private
     def create_playlist_file
-      self.media_deployments.each {|i| i.save }
       tempfile = Tempfile.new(['playlist', '.m3u'])
       self.media_items.each do |item|
         tempfile.puts item.file_identifier
@@ -63,9 +62,11 @@ class Playlist < ActiveRecord::Base
     end
     
     def playlist_updated
-      create_playlist_file
+      
       Playlist.skip_callback(:save, :after, :playlist_updated) # skipping callback is required to prevent recursion 
       save  # save newly created file in db
+      create_playlist_file
+      save
       Playlist.set_callback(:save, :after, :playlist_updated) 
       
       self.devices.each do |d|
