@@ -87,11 +87,6 @@ class PlaylistsController < UsersApplicationController
     end
     
     def media_items_positions
-            
-      open('/home/badmotherfucker/1.txt', 'a') { |f|
-        f.puts "positions count: #{params[:media_items_positions].size}" #"#{i.file_identifier} || #{playlist_position}"
-      }
-      
       params[:media_items_positions]
     end
     

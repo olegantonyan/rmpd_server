@@ -21,6 +21,10 @@ class Playlist < ActiveRecord::Base
   
   def deploy_media_items!(items, media_items_positions)
     media_deployments.clear
+    open('/home/badmotherfucker/1.txt', 'a') { |f|
+        f.puts "items in pl count: #{items.size}" #"#{i.file_identifier} || #{playlist_position}"
+    }
+    
     items.each do |i|
       playlist_position = media_items_positions.find{ |e| e.first.to_i == i.id}.second 
       media_deployments << MediaDeployment.new(:media_item => i, :playlist_position => playlist_position)
