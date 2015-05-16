@@ -21,22 +21,13 @@ class Playlist < ActiveRecord::Base
   
   def deploy_media_items!(items, media_items_positions)
     media_deployments.destroy_all
-    open('/home/badmotherfucker/1.txt', 'a') { |f|
-        f.puts "items in pl count: #{items.size}" #"#{i.file_identifier} || #{playlist_position}"
-    }
-    
     items.each do |i|
       playlist_position = media_items_positions.find{ |e| e.first.to_i == i.id}.second 
       media_deployments << MediaDeployment.new(:media_item => i, :playlist_position => playlist_position)
-      
-      open('/home/badmotherfucker/1.txt', 'a') { |f|
-          f.puts "#{i.file_identifier} || #{playlist_position}"
-      }
-      
     end
     
      open('/home/badmotherfucker/1.txt', 'a') { |f|
-          f.puts "deployments count: #{media_deployments.size}"
+          f.puts "items count: #{media_items.size}"
       }
     
   end
