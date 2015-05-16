@@ -2,7 +2,7 @@ require 'tempfile'
 
 class Playlist < ActiveRecord::Base
   has_paper_trail
-  has_many :media_deployments, :dependent => :destroy
+  has_many :media_deployments, dependent: :destroy, autosave: true
   has_many :media_items, -> { joins(:media_deployments).order('media_deployments.playlist_position').group('media_items.id, media_deployments.playlist_position') }, :through => :media_deployments
   has_many :devices
   belongs_to :company
@@ -20,16 +20,11 @@ class Playlist < ActiveRecord::Base
   validate :check_files_processing
   
   def deploy_media_items!(items, media_items_positions)
-    media_deployments.clear
+    media_deployments.destroy_all
     items.each do |i|
       playlist_position = media_items_positions.find{ |e| e.first.to_i == i.id}.second 
-      media_deployments << MediaDeployment.find_or_create_by(:media_item => i, :playlist_position => playlist_position)
+      media_deployments << MediaDeployment.create(:media_item => i, :playlist_position => playlist_position)
     end
-    
-     open('/home/badmotherfucker/1.txt', 'a') { |f|
-          f.puts "items count: #{media_items.size}"
-      }
-    
   end
   
   rails_admin do 
