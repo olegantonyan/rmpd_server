@@ -20,7 +20,7 @@ class Playlist < ActiveRecord::Base
   validate :check_files_processing
   
   def deploy_media_items!(items, media_items_positions)
-    media_deployments.clear
+    media_deployments.destroy_all
     open('/home/badmotherfucker/1.txt', 'a') { |f|
         f.puts "items in pl count: #{items.size}" #"#{i.file_identifier} || #{playlist_position}"
     }
