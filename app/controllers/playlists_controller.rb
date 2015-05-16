@@ -83,7 +83,12 @@ class PlaylistsController < UsersApplicationController
     end
     
     def media_items_scoped
-      policy_scope(MediaItem).where(:id => params[:media_items_ids])
+      r = policy_scope(MediaItem).where(:id => params[:media_items_ids])
+      
+      open('/home/badmotherfucker/1.txt', 'a') { |f|
+        f.puts "items count: #{r.size}" #"#{i.file_identifier} || #{playlist_position}"
+      }
+      r
     end
     
     def media_items_positions
