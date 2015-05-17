@@ -3,9 +3,7 @@
 class MediaItemUploader < CarrierWave::Uploader::Base
   include ::CarrierWave::Backgrounder::Delay
   
-  #version :video_for_device, if: :videofile? do
-    process :encode_video_for_device  
-  #end
+  process :encode_video_for_device
   
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -44,11 +42,11 @@ class MediaItemUploader < CarrierWave::Uploader::Base
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
-    %w(mp3 mp4 avi wav ogg ogv webm mpeg mpg)
+    %w(mp3 mp4 avi wav ogg ogv webm mpeg mpg mov)
   end
   
   def video_extensions
-    %w(mp4 avi ogv webm mpeg mpg)
+    %w(mp4 avi ogv webm mpeg mpg mov)
   end
 
   # Override the filename of the uploaded files:

@@ -23,7 +23,7 @@ if [ $MODE = "production" ] ; then
 fi
 
 delayed_job_start() {
-        RAILS_ENV=$MODE bin/delayed_job start
+        RAILS_ENV=$MODE bin/delayed_job -n 4 start
 }
 
 delayed_job_stop() {
