@@ -1,6 +1,6 @@
 class Deviceapi::Timeouts
   def self.check
-    devices = DeviceStatus.where("online = ? AND updated_at <= ?", true, Time.now - 45)
+    devices = DeviceStatus.where("online = ? AND updated_at <= ?", true, Time.now - 60)
     count = devices.size
     if count > 0
       devices.update_all(:online => false, :now_playing => "")
