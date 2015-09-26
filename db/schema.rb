@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516083311) do
+ActiveRecord::Schema.define(version: 20150926095517) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "companies", force: :cascade do |t|
     t.string   "title",      limit: 1024, null: false
@@ -33,7 +36,7 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "device_group_memberships", force: :cascade do |t|
     t.string   "description",     limit: 1024, default: "", null: false
@@ -43,8 +46,8 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.datetime "updated_at",                                null: false
   end
 
-  add_index "device_group_memberships", ["device_group_id"], name: "index_device_group_memberships_on_device_group_id"
-  add_index "device_group_memberships", ["device_id"], name: "index_device_group_memberships_on_device_id"
+  add_index "device_group_memberships", ["device_group_id"], name: "index_device_group_memberships_on_device_group_id", using: :btree
+  add_index "device_group_memberships", ["device_id"], name: "index_device_group_memberships_on_device_id", using: :btree
 
   create_table "device_groups", force: :cascade do |t|
     t.string   "title",      limit: 256, null: false
@@ -64,9 +67,9 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.string   "user_agent"
   end
 
-  add_index "device_log_messages", ["details"], name: "index_device_log_messages_on_details"
-  add_index "device_log_messages", ["level"], name: "index_device_log_messages_on_level"
-  add_index "device_log_messages", ["module"], name: "index_device_log_messages_on_module"
+  add_index "device_log_messages", ["details"], name: "index_device_log_messages_on_details", using: :btree
+  add_index "device_log_messages", ["level"], name: "index_device_log_messages_on_level", using: :btree
+  add_index "device_log_messages", ["module"], name: "index_device_log_messages_on_module", using: :btree
 
   create_table "device_statuses", force: :cascade do |t|
     t.boolean  "online",       default: false, null: false
@@ -78,7 +81,7 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.datetime "devicetime"
   end
 
-  add_index "device_statuses", ["device_id"], name: "index_device_statuses_on_device_id"
+  add_index "device_statuses", ["device_id"], name: "index_device_statuses_on_device_id", using: :btree
 
   create_table "devices", force: :cascade do |t|
     t.string   "login"
@@ -90,9 +93,9 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.integer  "company_id"
   end
 
-  add_index "devices", ["company_id"], name: "index_devices_on_company_id"
-  add_index "devices", ["login"], name: "index_devices_on_login"
-  add_index "devices", ["playlist_id"], name: "index_devices_on_playlist_id"
+  add_index "devices", ["company_id"], name: "index_devices_on_company_id", using: :btree
+  add_index "devices", ["login"], name: "index_devices_on_login", using: :btree
+  add_index "devices", ["playlist_id"], name: "index_devices_on_playlist_id", using: :btree
 
   create_table "media_deployments", force: :cascade do |t|
     t.integer  "playlist_id"
@@ -102,7 +105,7 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.integer  "playlist_position", default: 1000000
   end
 
-  add_index "media_deployments", ["playlist_id", "media_item_id"], name: "index_media_deployments_on_playlist_id_and_media_item_id"
+  add_index "media_deployments", ["playlist_id", "media_item_id"], name: "index_media_deployments_on_playlist_id_and_media_item_id", using: :btree
 
   create_table "media_items", force: :cascade do |t|
     t.string   "file",                            null: false
@@ -113,7 +116,7 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.boolean  "file_processing", default: false, null: false
   end
 
-  add_index "media_items", ["company_id"], name: "index_media_items_on_company_id"
+  add_index "media_items", ["company_id"], name: "index_media_items_on_company_id", using: :btree
 
   create_table "message_queues", force: :cascade do |t|
     t.string   "key"
@@ -125,14 +128,14 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.string   "message_type"
   end
 
-  add_index "message_queues", ["key"], name: "index_message_queues_on_key"
-  add_index "message_queues", ["message_type"], name: "index_message_queues_on_message_type"
+  add_index "message_queues", ["key"], name: "index_message_queues_on_key", using: :btree
+  add_index "message_queues", ["message_type"], name: "index_message_queues_on_message_type", using: :btree
 
   create_table "news_items", force: :cascade do |t|
-    t.text     "body",       limit: 6000,              null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.string   "title",      limit: 128,  default: "", null: false
+    t.text     "body",                                null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "title",      limit: 128, default: "", null: false
   end
 
   create_table "playlists", force: :cascade do |t|
@@ -144,8 +147,8 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.integer  "company_id"
   end
 
-  add_index "playlists", ["company_id"], name: "index_playlists_on_company_id"
-  add_index "playlists", ["name"], name: "index_playlists_on_name"
+  add_index "playlists", ["company_id"], name: "index_playlists_on_company_id", using: :btree
+  add_index "playlists", ["name"], name: "index_playlists_on_name", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -155,8 +158,8 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-  add_index "roles", ["name"], name: "index_roles_on_name"
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "user_company_memberships", force: :cascade do |t|
     t.string   "title"
@@ -166,15 +169,15 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "user_company_memberships", ["company_id"], name: "index_user_company_memberships_on_company_id"
-  add_index "user_company_memberships", ["user_id"], name: "index_user_company_memberships_on_user_id"
+  add_index "user_company_memberships", ["company_id"], name: "index_user_company_memberships_on_company_id", using: :btree
+  add_index "user_company_memberships", ["user_id"], name: "index_user_company_memberships_on_user_id", using: :btree
 
   create_table "user_company_memberships_roles", id: false, force: :cascade do |t|
     t.integer "user_company_membership_id"
     t.integer "role_id"
   end
 
-  add_index "user_company_memberships_roles", ["user_company_membership_id", "role_id"], name: "__ids_index__"
+  add_index "user_company_memberships_roles", ["user_company_membership_id", "role_id"], name: "__ids_index__", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -195,11 +198,13 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.string   "unconfirmed_email"
     t.string   "displayed_name",         default: "",    null: false
     t.boolean  "allow_notifications",    default: false, null: false
+    t.boolean  "root",                   default: false, null: false
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["root"], name: "index_users_on_root", using: :btree
 
   create_table "version_associations", force: :cascade do |t|
     t.integer "version_id"
@@ -207,8 +212,8 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.integer "foreign_key_id"
   end
 
-  add_index "version_associations", ["foreign_key_name", "foreign_key_id"], name: "index_version_associations_on_foreign_key"
-  add_index "version_associations", ["version_id"], name: "index_version_associations_on_version_id"
+  add_index "version_associations", ["foreign_key_name", "foreign_key_id"], name: "index_version_associations_on_foreign_key", using: :btree
+  add_index "version_associations", ["version_id"], name: "index_version_associations_on_version_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false
@@ -221,7 +226,7 @@ ActiveRecord::Schema.define(version: 20150516083311) do
     t.integer  "transaction_id"
   end
 
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
-  add_index "versions", ["transaction_id"], name: "index_versions_on_transaction_id"
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+  add_index "versions", ["transaction_id"], name: "index_versions_on_transaction_id", using: :btree
 
 end

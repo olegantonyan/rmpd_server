@@ -6,8 +6,11 @@ class Role < ActiveRecord::Base
 
   validates :resource_type, :inclusion => { :in => Rolify.resource_types }, :allow_nil => true
   validates :name, presence: true, uniqueness: true, length: {:in => 2..30}
-  
-  rails_admin do 
+
+  Role.find_or_create_by!(name: 'root')
+  Role.find_or_create_by!(name: 'guest')
+
+  rails_admin do
     list do
       field :name
       field :created_at
@@ -21,9 +24,9 @@ class Role < ActiveRecord::Base
       exclude_fields :versions
     end
   end
-  
+
   def to_s
     "#{name}"
   end
-  
+
 end

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :news_items, path: :news, only: [:index, :show]
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
-  
+
   resources :media_items, except: [:edit, :update] do
     collection do
       post :create_multiple
@@ -16,11 +16,11 @@ Rails.application.routes.draw do
     resources :ssh_tunnels, only: [:index, :create]
   end
   resources :playlists
-  
+
   namespace :deviceapi, :defaults => {:format => :json} do
     resources :status, only: [:index, :create]
   end
-  
+
   root 'home#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

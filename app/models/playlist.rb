@@ -2,15 +2,15 @@ require 'tempfile'
 
 class Playlist < ActiveRecord::Base
   has_paper_trail
+
   has_many :media_deployments, -> {
     order(:playlist_position)
-    }, dependent: :destroy, autosave: true
+    }, dependent: :destroy, autosave: true, inverse_of: :playlist
   has_many :media_items, -> {
     joins(:media_deployments).order('media_deployments.playlist_position').group('media_items.id, media_deployments.playlist_position')
     }, through: :media_deployments, autosave: true
-
-  has_many :devices
-  belongs_to :company
+  has_many :devices, inverse_of: :playlist
+  belongs_to :company, inverse_of: :playlists
 
   after_save :playlist_updated
   after_destroy :playlist_destroyed

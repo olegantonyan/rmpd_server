@@ -16,22 +16,22 @@ RailsAdmin.config do |config|
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
   app_title = defined?(APP_CONFIG) ? APP_CONFIG[:app_title] : "use load_config to initialize APP_CONFIG"
-  
+
   config.main_app_name = [app_title, "Admin area"]
-    
+
   config.authenticate_with do
     warden.authenticate! scope: :user
   end
-  
+
   config.authorize_with do
-    redirect_to(main_app.root_path, flash: {error: "You have to be admin to access admin area."}) unless warden.user.has_role? :root
+    redirect_to(main_app.root_path, flash: {error: "You have to be admin to access admin area."}) unless warden.user.try(:root?)
   end
-  
+
   config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
-  
+
   config.current_user_method(&:current_user)
 
-  config.actions do    
+  config.actions do
     dashboard                     # mandatory
     index                         # mandatory
     new

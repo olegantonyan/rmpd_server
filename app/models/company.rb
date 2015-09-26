@@ -1,15 +1,17 @@
 class Company < ActiveRecord::Base
   has_paper_trail
 
-  has_many :devices, inverse_of: :company
-  has_many :media_items
-  has_many :playlists
-  has_many :user_company_memberships, dependent: :destroy
+  with_options inverse_of: :company do |a|
+    a.has_many :devices
+    a.has_many :playlists
+    a.has_many :media_items
+    a.has_many :user_company_memberships, dependent: :destroy
+  end
   has_many :users, through: :user_company_memberships
 
   validates :title, presence: true, length: {in: 4..100}, uniqueness: true
 
-  DEMO_TITLE = 'Demo'
+  Company.find_or_create_by!(title: 'Demo')
 
   rails_admin do
     list do

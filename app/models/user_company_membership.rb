@@ -1,8 +1,11 @@
 class UserCompanyMembership < ActiveRecord::Base
   has_paper_trail
   rolify
-  belongs_to :user
-  belongs_to :company
+
+  with_options inverse_of: :user_company_memberships do |a|
+    a.belongs_to :user
+    a.belongs_to :company
+  end
 
   validates :title, length: {maximum: 130}
 

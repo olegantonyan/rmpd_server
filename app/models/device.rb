@@ -2,10 +2,10 @@ class Device < ActiveRecord::Base
   has_secure_password
   has_paper_trail
 
-  belongs_to :playlist, touch: true
+  belongs_to :playlist, touch: true, inverse_of: :devices
   has_one :device_status, dependent: :destroy, inverse_of: :device, class_name: Device::Status
   has_many :device_log_messages, dependent: :destroy, class_name: Device::LogMessage
-  has_many :device_group_memberships, dependent: :destroy, inverse_of: :device, class_name: Device::GroupMembership
+  has_many :device_group_memberships, dependent: :destroy, inverse_of: :device, class_name: Device::Group::Membership
   has_many :device_groups, through: :device_group_memberships, class_name: Device::Group
   belongs_to :company, inverse_of: :devices
 

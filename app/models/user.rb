@@ -8,23 +8,14 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :async, :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  has_many :user_company_memberships
+  with_options inverse_of: :user do |a|
+    a.has_many :user_company_memberships
+  end
   has_many :companies, -> { group('companies.id')}, through: :user_company_memberships
 
   validates :displayed_name, length: {maximum: 130}
 
   before_save :set_defaults
-
-  #DEMO_EMAIL = 'demo@slon-ds.ru'
-  #DEMO_PASSWORD = 'demodemo'
-
-  def has_role? role
-    user_company_memberships.find{|c| c.has_role? role } ? true : false
-  end
-
-  def root?
-    has_role? :root
-  end
 
   rails_admin do
     object_label_method do
