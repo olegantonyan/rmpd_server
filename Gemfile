@@ -90,6 +90,7 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'capistrano-rails-console'
   gem 'capistrano-rails-tail-log'
+  gem 'rails-erd'
 end
 
 group :production do
