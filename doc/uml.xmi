@@ -105,7 +105,7 @@
         <UML:AssociationEnd changeability="changeable" visibility="public" isNavigable="true" isSpecification="false" relationship="true" xmi.id="nWCTjUyINFO4" type="iLj02hvJqVmz" name="" aggregation="none"/>
        </UML:Association.connection>
       </UML:Association>
-      <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="WWI2xsg5DjaV" name="DeviceStatus">
+      <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="WWI2xsg5DjaV" name="Device::Status">
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="WWI2xsg5DjaV" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="2drNsGRMkkNg" type="ktRCuKLw5Wif" dbindex_type="1100" initialValue="" name="device_id"/>
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="WWI2xsg5DjaV" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="2Pw7AFgGxVDC" type="p2CK6H5o8Xz2" dbindex_type="1100" initialValue="" name="online"/>
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="WWI2xsg5DjaV" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="zgS6146a8Rss" type="8nFtUNPVkJcu" dbindex_type="1100" initialValue="" name="last_seen"/>
@@ -119,7 +119,7 @@
        </UML:Association.connection>
       </UML:Association>
       <UML:Category categoryType="0" visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="jBR2nLY5U2qn" name="new_category"/>
-      <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="OYteMEIeRetD" name="DeviceLogMessage">
+      <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="OYteMEIeRetD" name="Device::LogMessage">
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="OYteMEIeRetD" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="JiGmVwZ9DbGR" type="" dbindex_type="1100" initialValue="" name="device_id"/>
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="OYteMEIeRetD" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="yIH4hpvJ9Abl" type="" dbindex_type="1100" initialValue="" name="localtime"/>
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="OYteMEIeRetD" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="Rc7eCL5AcMFH" type="" dbindex_type="1100" initialValue="" name="type"/>
@@ -149,10 +149,10 @@
        </UML:Association.connection>
       </UML:Association>
       <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="c7AEsF3Dh3Xn" name="User"/>
-      <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="n7w3Sp6yj4q5" name="DeviceGroup">
+      <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="n7w3Sp6yj4q5" name="Device::Group">
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="n7w3Sp6yj4q5" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="IJBaksw7DMLg" type="zsK6y63zagFf" dbindex_type="1100" initialValue="" name="title"/>
       </UML:Entity>
-      <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="nSoBV7Wl3Irw" name="DeviceGroupMembership">
+      <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="nSoBV7Wl3Irw" name="Device::GroupMembership">
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="nSoBV7Wl3Irw" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="7DTvwE1tIRgO" type="zsK6y63zagFf" dbindex_type="1100" initialValue="" name="description"/>
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="nSoBV7Wl3Irw" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="PNSFSEgGN9Mt" type="ktRCuKLw5Wif" dbindex_type="1102" initialValue="" name="device_id"/>
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="nSoBV7Wl3Irw" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="uN9lHAcPO3IK" type="ktRCuKLw5Wif" dbindex_type="1102" initialValue="" name="device_group_id"/>

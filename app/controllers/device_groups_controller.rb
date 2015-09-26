@@ -5,7 +5,7 @@ class DeviceGroupsController < UsersApplicationController
   # GET /device_groups
   # GET /device_groups.json
   def index
-    @device_groups = policy_scope(DeviceGroup).order(:created_at => :asc)
+    @device_groups = policy_scope(Device::Group.all).order(created_at: :asc)
   end
 
   # GET /device_groups/1
@@ -15,7 +15,7 @@ class DeviceGroupsController < UsersApplicationController
 
   # GET /device_groups/new
   def new
-    @device_group = DeviceGroup.new
+    @device_group = Device::Group.new
   end
 
   # GET /device_groups/1/edit
@@ -25,7 +25,8 @@ class DeviceGroupsController < UsersApplicationController
   # POST /device_groups
   # POST /device_groups.json
   def create
-    @device_group = DeviceGroup.new(device_group_params)
+    sap device_group_params
+    @device_group = Device::Group.new(device_group_params)
 
     respond_to do |format|
       if @device_group.save
@@ -65,9 +66,9 @@ class DeviceGroupsController < UsersApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_device_group
-      @device_group = policy_scope(DeviceGroup).find(params[:id])
+      @device_group = policy_scope(Device::Group).find(params[:id])
     end
-    
+
     def set_devices
       @devices = policy_scope(Device).order(:name => :asc)
     end

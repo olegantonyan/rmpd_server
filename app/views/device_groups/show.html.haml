@@ -7,6 +7,6 @@
     %table.table.table-bordered.table-hover.table-responsive
       = row_info t(:title), @device_group.title
       = row_info t(:devices), list_with_links(@device_group.devices, 'name')
-   
+
   .col-md-12
     = link_to t(:edit_device_group), edit_device_group_path(@device_group), class: "btn btn-primary"

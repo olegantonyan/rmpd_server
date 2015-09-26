@@ -1,32 +1,32 @@
 class User < ActiveRecord::Base
   include Gravtastic
   gravtastic
-  
+
   has_paper_trail
-  
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
-  
+  devise :async, :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
+
   has_many :user_company_memberships
   has_many :companies, -> { group('companies.id')}, through: :user_company_memberships
-  
+
   validates :displayed_name, length: {maximum: 130}
-  
+
   before_save :set_defaults
-  
+
   #DEMO_EMAIL = 'demo@slon-ds.ru'
   #DEMO_PASSWORD = 'demodemo'
-  
+
   def has_role? role
     user_company_memberships.find{|c| c.has_role? role } ? true : false
   end
-  
+
   def root?
     has_role? :root
   end
-  
-  rails_admin do 
+
+  rails_admin do
     object_label_method do
       :custom_label_method
     end
@@ -46,21 +46,21 @@ class User < ActiveRecord::Base
                      :confirmation_sent_at, :unconfirmed_email
     end
   end
-  
+
   def to_s
     "#{email} (#{displayed_name})"
   end
-  
+
   private
-    
+
     def set_defaults
       if self.companies.empty?
         self.companies << Company.where("lower(title) = ?", Company::DEMO_TITLE.downcase).first
       end
     end
-  
+
     def custom_label_method
       displayed_name.blank? ? email : to_s
     end
-  
+
 end

@@ -1,8 +1,8 @@
 require 'time'
 
-class DeviceLogMessage < ActiveRecord::Base
-  belongs_to :device 
-    
+class Device::LogMessage < ActiveRecord::Base
+  belongs_to :device
+
   validates_presence_of :module
   validates_presence_of :level
   validates_presence_of :etype
@@ -12,7 +12,7 @@ class DeviceLogMessage < ActiveRecord::Base
   validates_length_of :etype, :maximum => 250
   validates_length_of :user_agent, :maximum => 1024
   validates_length_of :details, :maximum => 1024
-  
+
   def self.write(device, logdata, user_agent)
     begin
       log = new(:device => device, :localtime => Time.parse(logdata["localtime"]), :user_agent => user_agent)
@@ -61,13 +61,13 @@ class DeviceLogMessage < ActiveRecord::Base
       logger.error("Error writing device log : " + err.to_s)
     end
   end
-  
+
   rails_admin do
     visible false
   end
-  
+
   def to_s
     "#{device.to_s} | #{self.module} | #{etype} | #{localtime} | #{details}"
   end
-    
+
 end

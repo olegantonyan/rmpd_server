@@ -33,7 +33,7 @@ class Deviceapi::Protocol
     return if from_device.nil?
     
     if from_device.device_status.nil?
-      from_device.device_status = DeviceStatus.new
+      from_device.device_status = Device::Status.new
     end
     
     from_device.device_status.online = true
@@ -112,7 +112,7 @@ class Deviceapi::Protocol
     end
     
     def write_device_log(device, logdata, user_agent)
-      DeviceLogMessage.write(device, logdata, user_agent)
+      Device::LogMessage.write(device, logdata, user_agent)
     end
     
     def clean_previous_commands(device_login, command_type)

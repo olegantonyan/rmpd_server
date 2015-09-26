@@ -2,10 +2,10 @@ class DevicesController < UsersApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
   before_action :set_playlists, only: [:edit, :new, :create, :update]
   before_action :set_device_groups, only: [:edit, :create, :update, :new]
-  
+
   # GET /devices
   def index
-    @devices = policy_scope(Device).includes(:device_status, :playlist, :device_groups, :company).order(:name => :asc)
+    @devices = policy_scope(Device.all).includes(:device_status, :playlist, :device_groups, :company).order(name: :asc)
   end
 
   # GET /devices/1
@@ -24,7 +24,7 @@ class DevicesController < UsersApplicationController
   # POST /devices
   def create
     @device = Device.new(device_params)
-    
+
     respond_to do |format|
       if @device.save
         flash_success(t(:device_successfully_created, :name => @device.login))
@@ -39,7 +39,7 @@ class DevicesController < UsersApplicationController
   # PATCH/PUT /devices/1
   def update
     respond_to do |format|
-      if @device.update(device_params) 
+      if @device.update(device_params)
         flash_success(t(:device_successfully_updated, :name => @device.login))
         format.html { redirect_to @device }
       else
@@ -61,20 +61,20 @@ class DevicesController < UsersApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_device
-      @device = policy_scope(Device).includes(:device_groups).find(params[:id])
+      @device = policy_scope(Device.all).includes(:device_groups).find(params[:id])
     end
-    
+
     def set_playlists
-      @playlists = policy_scope(Playlist).order(:name => :asc)
+      @playlists = policy_scope(Playlist.all).order(name: :asc)
     end
-    
+
     def set_device_groups
-      @device_groups = DeviceGroup.order(:title => :asc)
+      @device_groups = Device::Group.order(title: :asc)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
       params.require(:device).permit(:login, :name, :password, :password_confirmation, :playlist_id, :company_id, :device_group_ids => [])
     end
-    
+
 end

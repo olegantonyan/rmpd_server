@@ -48,8 +48,8 @@ class ApplicationPolicy
 
     def resolve
       return scope.all if user.root?
-      scope.where(:company => user.companies)
+      scope.where(company: user.companies)
     end
-    
+
   end
 end

@@ -21,7 +21,7 @@ require 'rails_helper'
 RSpec.describe DeviceGroupsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # DeviceGroup. As you add validations to DeviceGroup, be sure to
+  # Device::Group. As you add validations to Device::Group, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -38,7 +38,7 @@ RSpec.describe DeviceGroupsController, type: :controller do
 
   describe "GET #index" do
     it "assigns all device_groups as @device_groups" do
-      device_group = DeviceGroup.create! valid_attributes
+      device_group = Device::Group.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:device_groups)).to eq([device_group])
     end
@@ -46,7 +46,7 @@ RSpec.describe DeviceGroupsController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested device_group as @device_group" do
-      device_group = DeviceGroup.create! valid_attributes
+      device_group = Device::Group.create! valid_attributes
       get :show, {:id => device_group.to_param}, valid_session
       expect(assigns(:device_group)).to eq(device_group)
     end
@@ -55,13 +55,13 @@ RSpec.describe DeviceGroupsController, type: :controller do
   describe "GET #new" do
     it "assigns a new device_group as @device_group" do
       get :new, {}, valid_session
-      expect(assigns(:device_group)).to be_a_new(DeviceGroup)
+      expect(assigns(:device_group)).to be_a_new(Device::Group)
     end
   end
 
   describe "GET #edit" do
     it "assigns the requested device_group as @device_group" do
-      device_group = DeviceGroup.create! valid_attributes
+      device_group = Device::Group.create! valid_attributes
       get :edit, {:id => device_group.to_param}, valid_session
       expect(assigns(:device_group)).to eq(device_group)
     end
@@ -69,28 +69,28 @@ RSpec.describe DeviceGroupsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new DeviceGroup" do
+      it "creates a new Device::Group" do
         expect {
           post :create, {:device_group => valid_attributes}, valid_session
-        }.to change(DeviceGroup, :count).by(1)
+        }.to change(Device::Group, :count).by(1)
       end
 
       it "assigns a newly created device_group as @device_group" do
         post :create, {:device_group => valid_attributes}, valid_session
-        expect(assigns(:device_group)).to be_a(DeviceGroup)
+        expect(assigns(:device_group)).to be_a(Device::Group)
         expect(assigns(:device_group)).to be_persisted
       end
 
       it "redirects to the created device_group" do
         post :create, {:device_group => valid_attributes}, valid_session
-        expect(response).to redirect_to(DeviceGroup.last)
+        expect(response).to redirect_to(Device::Group.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved device_group as @device_group" do
         post :create, {:device_group => invalid_attributes}, valid_session
-        expect(assigns(:device_group)).to be_a_new(DeviceGroup)
+        expect(assigns(:device_group)).to be_a_new(Device::Group)
       end
 
       it "re-renders the 'new' template" do
@@ -107,20 +107,20 @@ RSpec.describe DeviceGroupsController, type: :controller do
       }
 
       it "updates the requested device_group" do
-        device_group = DeviceGroup.create! valid_attributes
+        device_group = Device::Group.create! valid_attributes
         put :update, {:id => device_group.to_param, :device_group => new_attributes}, valid_session
         device_group.reload
         skip("Add assertions for updated state")
       end
 
       it "assigns the requested device_group as @device_group" do
-        device_group = DeviceGroup.create! valid_attributes
+        device_group = Device::Group.create! valid_attributes
         put :update, {:id => device_group.to_param, :device_group => valid_attributes}, valid_session
         expect(assigns(:device_group)).to eq(device_group)
       end
 
       it "redirects to the device_group" do
-        device_group = DeviceGroup.create! valid_attributes
+        device_group = Device::Group.create! valid_attributes
         put :update, {:id => device_group.to_param, :device_group => valid_attributes}, valid_session
         expect(response).to redirect_to(device_group)
       end
@@ -128,13 +128,13 @@ RSpec.describe DeviceGroupsController, type: :controller do
 
     context "with invalid params" do
       it "assigns the device_group as @device_group" do
-        device_group = DeviceGroup.create! valid_attributes
+        device_group = Device::Group.create! valid_attributes
         put :update, {:id => device_group.to_param, :device_group => invalid_attributes}, valid_session
         expect(assigns(:device_group)).to eq(device_group)
       end
 
       it "re-renders the 'edit' template" do
-        device_group = DeviceGroup.create! valid_attributes
+        device_group = Device::Group.create! valid_attributes
         put :update, {:id => device_group.to_param, :device_group => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
@@ -143,14 +143,14 @@ RSpec.describe DeviceGroupsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested device_group" do
-      device_group = DeviceGroup.create! valid_attributes
+      device_group = Device::Group.create! valid_attributes
       expect {
         delete :destroy, {:id => device_group.to_param}, valid_session
-      }.to change(DeviceGroup, :count).by(-1)
+      }.to change(Device::Group, :count).by(-1)
     end
 
     it "redirects to the device_groups list" do
-      device_group = DeviceGroup.create! valid_attributes
+      device_group = Device::Group.create! valid_attributes
       delete :destroy, {:id => device_group.to_param}, valid_session
       expect(response).to redirect_to(device_groups_url)
     end
