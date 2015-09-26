@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :device_groups
   resources :devices do
     resources :device_log_messages, only: [:index]
-    resources :ssh_tunnels, only: [:index, :create]
+    resources :ssh_tunnels, only: [:new, :create]
   end
   resources :playlists
 

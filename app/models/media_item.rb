@@ -1,4 +1,5 @@
 class MediaItem < ActiveRecord::Base
+  include ScopesWithUser
   has_paper_trail
 
   has_many :media_deployments, dependent: :destroy, inverse_of: :media_item

@@ -1,4 +1,4 @@
-class DevicesController < UsersApplicationController
+class DevicesController < BaseController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
   before_action :set_playlists, only: [:edit, :new, :create, :update]
   before_action :set_device_groups, only: [:edit, :create, :update, :new]
@@ -6,24 +6,29 @@ class DevicesController < UsersApplicationController
   # GET /devices
   def index
     @devices = policy_scope(Device.all).includes(:device_status, :playlist, :device_groups, :company).order(name: :asc)
+    authorize @devices
   end
 
   # GET /devices/1
   def show
+    authorize @device
   end
 
   # GET /devices/new
   def new
     @device = Device.new
+    authorize @device
   end
 
   # GET /devices/1/edit
   def edit
+    authorize @device
   end
 
   # POST /devices
   def create
     @device = Device.new(device_params)
+    authorize @device
 
     respond_to do |format|
       if @device.save
@@ -38,6 +43,7 @@ class DevicesController < UsersApplicationController
 
   # PATCH/PUT /devices/1
   def update
+    authorize @device
     respond_to do |format|
       if @device.update(device_params)
         flash_success(t(:device_successfully_updated, :name => @device.login))
@@ -51,6 +57,7 @@ class DevicesController < UsersApplicationController
 
   # DELETE /devices/1
   def destroy
+    authorize @device
     @device.destroy
     respond_to do |format|
       flash_success(t(:device_successfully_deleted, :name => @device.login))

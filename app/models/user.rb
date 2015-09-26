@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
 
   before_save :set_defaults
 
+  def devices
+    Device.where(company: companies)
+  end
+
   rails_admin do
     object_label_method do
       :custom_label_method

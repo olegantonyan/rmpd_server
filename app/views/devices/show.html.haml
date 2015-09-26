@@ -36,7 +36,4 @@
   .row
     .col-md-12
       %h2 Admin area
-      = link_to 'Request SSH tunnel', device_ssh_tunnels_path(@device)
-    
-          
-          
+      = link_to 'Request SSH tunnel',  new_device_ssh_tunnel_path(@device)

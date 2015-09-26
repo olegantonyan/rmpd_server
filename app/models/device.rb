@@ -1,4 +1,5 @@
 class Device < ActiveRecord::Base
+  include ScopesWithUser
   has_secure_password
   has_paper_trail
 

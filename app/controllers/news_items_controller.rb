@@ -1,5 +1,7 @@
-class NewsItemsController < UsersApplicationController
+class NewsItemsController < BaseController
   skip_before_filter :authenticate_user!
+  skip_after_filter :verify_authorized
+  skip_after_filter :verify_policy_scoped
   before_action :set_news_item, only: [:show, :edit, :update, :destroy]
 
   # GET /news_items

@@ -1,6 +1,6 @@
-class MediaItemsController < UsersApplicationController
+class MediaItemsController < BaseController
   before_action :set_media_item, only: [:show, :edit, :update, :destroy]
-  
+
   # GET /media_items
   def index
     @filterrific = initialize_filterrific(
@@ -11,8 +11,9 @@ class MediaItemsController < UsersApplicationController
       }
     ) or return
     filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 30)
-    @media_items = policy_scope(filtered).includes(:company).order(:created_at => :desc)
-    
+    @media_items = policy_scope(filtered).includes(:company).order(created_at: :desc)
+    authorize @media_items
+
     respond_to do |format|
       format.html
       format.js
@@ -21,16 +22,19 @@ class MediaItemsController < UsersApplicationController
 
   # GET /media_items/1
   def show
+    authorize @media_item
   end
-  
+
   # GET /media_items/new
   def new
     @media_item = MediaItem.new
+    authorize @media_item
   end
 
   # POST /media_items
   def create
     @media_item = MediaItem.new(media_item_params)
+    authorize @media_item
     respond_to do |format|
       if @media_item.save
         flash_success(t(:media_item_successfully_created, :name => @media_item.file_identifier))
@@ -41,9 +45,10 @@ class MediaItemsController < UsersApplicationController
       end
     end
   end
-  
+
   # POST /media_items/create_multiple
   def create_multiple
+    authorize :media_item, :create?
     respond_to do |format|
       if bulk_create_media_items
         if create_playlist # don't care if it's failed
@@ -58,9 +63,10 @@ class MediaItemsController < UsersApplicationController
       end
     end
   end
-  
+
   # DELETE /media_items/1
   def destroy
+    authorize @media_item
     @media_item.remove_file!
     @media_item.destroy
     respond_to do |format|
@@ -68,60 +74,62 @@ class MediaItemsController < UsersApplicationController
       format.html { redirect_to media_items_path }
     end
   end
-  
+
   # DELETE /media_items/1
   def destroy_multiple
+    authorize :media_item, :destroy?
     media_items = params[:media_items]
     respond_to do |format|
       if media_items.nil? || media_items.empty?
         flash_error(t(:media_items_not_selected))
         format.html { redirect_to media_items_path }
       else
-        MediaItem.destroy(media_items)  
+        MediaItem.destroy(media_items)
         flash_success(t(:media_items_successfully_deleted))
         format.html { redirect_to media_items_path }
       end
     end
-    
+
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_media_item
-      @media_item = policy_scope(MediaItem).find(params[:id])
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_media_item
+    @media_item = policy_scope(MediaItem).find(params[:id])
+  end
+
+  def media_item_params
+    params.require(:media_item).permit(:file, :description, :company_id)
+  end
+
+  def bulk_create_media_items
+    files = params[:media_item][:file]
+    desc = params[:media_item][:description]
+    company_id = params[:media_item][:company_id]
+    if files.nil?
+      @media_item = MediaItem.new(:description => desc, :file => nil, :company_id => company_id) # new item with nil file for validation
+      @media_item.valid? # force validations
+      return false
     end
-    
-    def media_item_params
-      params.require(:media_item).permit(:file, :description, :company_id)
-    end
-    
-    def bulk_create_media_items
-      files = params[:media_item][:file]
-      desc = params[:media_item][:description]
-      company_id = params[:media_item][:company_id]
-      if files.nil?
-        @media_item = MediaItem.new(:description => desc, :file => nil, :company_id => company_id) # new item with nil file for validation
-        @media_item.valid? # force validations
+    @media_items = files.map{ |f| MediaItem.new(:description => desc, :file => f, :company_id => company_id) }
+    @media_items.each do |i|
+      unless i.save
+        @media_item = i # break and render form with problematic item
         return false
       end
-      @media_items = files.map{ |f| MediaItem.new(:description => desc, :file => f, :company_id => company_id) }
-      @media_items.each do |i|
-        unless i.save
-          @media_item = i # break and render form with problematic item
-          return false
-        end
-      end
-      true
     end
-    
-    def create_playlist
-      return true unless params[:create_playlist] == 'true'
-      name = params[:playlist_name]
-      desc = params[:playlist_description]
-      company_id = params[:media_item][:company_id]
-      playlist = Playlist.new(:name => name, :description => desc, :company_id => company_id)
-      playlist.deploy_media_items!(@media_items, @media_items.map.with_index{|item,index| [item.id, index * 10]})
-      playlist.save
-    end
-    
+    true
+  end
+
+  def create_playlist
+    return true unless params[:create_playlist] == 'true'
+    name = params[:playlist_name]
+    desc = params[:playlist_description]
+    company_id = params[:media_item][:company_id]
+    playlist = Playlist.new(:name => name, :description => desc, :company_id => company_id)
+    playlist.deploy_media_items!(@media_items, @media_items.map.with_index{|item,index| [item.id, index * 10]})
+    playlist.save
+  end
+
 end
