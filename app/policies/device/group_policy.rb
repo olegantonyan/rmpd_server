@@ -4,7 +4,7 @@ class Device::GroupPolicy < UserCompaniesScope
   end
 
   def show?
-    index? && (Device.accessible_for_user(user) & record.devices).any?
+    user.root? || (index? && (Device.accessible_for_user(user) & record.devices).any?)
   end
 
   def new?
@@ -26,4 +26,12 @@ class Device::GroupPolicy < UserCompaniesScope
   def destroy?
     update?
   end
+
+  class Scope < Scope
+    def resolve
+      return scope.all if user.root?
+      scope.joins(:device_group_memberships).where(device_group_memberships: {device: Device.accessible_for_user(user)})
+    end
+  end
+
 end

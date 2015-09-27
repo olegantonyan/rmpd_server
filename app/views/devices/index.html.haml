@@ -1,18 +1,16 @@
-- title t(:devices_title)
-  
-%h1.page-header= yield(:title)
+- content_for :page_title, t(:devices_title)
 
 .row
-  .col-md-12  
+  .col-md-12
     %table.table.table-striped.table-bordered.table-hover.table-responsive
       %tr
         %th= t(:name_th)
         %th= t(:group)
         - if current_user.companies.size > 1
-          %th= t(:company) 
+          %th= t(:company)
         %th= t(:playlist_th)
         %th= t(:more_th)
-    
+
       - @devices.each do |device|
         %tr{:class => device.online? ? "success" : "danger"}
           %td= device.name
@@ -22,6 +20,5 @@
           %td= link_to(device.playlist.name, device.playlist) if device.playlist
           %td
             = link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), device, :class => "btn btn-default"
-    
-    = link_to t(:add_new_device), new_device_path, class: "btn btn-primary"
 
+    = link_to t(:add_new_device), new_device_path, class: "btn btn-primary"

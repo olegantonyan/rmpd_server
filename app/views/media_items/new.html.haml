@@ -1,7 +1,5 @@
-- title t(:upload_new_files_text)
-  
-%h1.page-header= yield(:title)
-          
+- content_for :page_title, t(:upload_new_files_text)
+
 .row
   .col-md-12
-    = render partial: 'form', locals: {multiple: true}
+    = render partial: 'form', locals: {media_item: @media_item}

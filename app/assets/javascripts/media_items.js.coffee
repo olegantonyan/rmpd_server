@@ -2,18 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-toggle_playlist_form = ->
-  if $('#create-playlist-checkbox').is(':checked')
-    $('#playlist-form').show()
-  else
-    $('#playlist-form').hide()
-
 ready = ->
   setup_select_all()
-  toggle_playlist_form()
-  $('#create-playlist-checkbox').click ->
-    toggle_playlist_form()
-    
+
 setup_select_all = ->
   console.log('setting up select all js')
   $('#select-all-media_items-checkbox').click ->

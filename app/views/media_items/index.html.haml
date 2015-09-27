@@ -1,6 +1,4 @@
-- title t(:media_items_title)
-  
-%h1.page-header= yield(:title)
+- content_for :page_title, t(:media_items_title)
 
 %p
   = link_to icon_link_to('glyphicon-cloud-upload', t(:upload_new_files_text)), new_media_item_path, class: "btn btn-success"
@@ -14,10 +12,8 @@
         .col-sm-6
           = f.select :with_company_id, @filterrific.select_options[:with_company_id], { include_blank: t(:all_companies) }, :id => "select-company"
           = select2js_for_id "select-company"
-        
+
   = render_filterrific_spinner
   = link_to t(:reset_filter), reset_filterrific_url
 
 = render partial: 'list', locals: {media_items: @media_items}
-    
-    

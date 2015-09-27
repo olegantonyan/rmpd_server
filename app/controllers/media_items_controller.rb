@@ -31,36 +31,19 @@ class MediaItemsController < BaseController
     authorize @media_item
   end
 
-  # POST /media_items
-  def create
-    @media_item = MediaItem.new(media_item_params)
-    authorize @media_item
-    respond_to do |format|
-      if @media_item.save
-        flash_success(t(:media_item_successfully_created, :name => @media_item.file_identifier))
-        format.html { redirect_to :media_items }
-      else
-        flash_error(t(:media_items_create_error))
-        format.html { render :new }
-      end
-    end
-  end
-
   # POST /media_items/create_multiple
   def create_multiple
     authorize :media_item, :create?
-    respond_to do |format|
-      if bulk_create_media_items
-        if create_playlist # don't care if it's failed
-          flash_success(t(:media_items_successfully_created, :names => (@media_items.map { |i| i.file_identifier }).join(", ")))
-        else
-          flash_warning t(:media_items_successfully_created_but_playlist_failed)
-        end
-        format.html { redirect_to :media_items }
+    if bulk_create_media_items
+      if create_playlist # don't care if it's failed
+        flash_success(t(:media_items_successfully_created, names: (@media_items.map { |i| i.file_identifier }).join(", ")))
       else
-        flash_error(t(:media_items_create_error))
-        format.html { render :new }
+        flash_warning t(:media_items_successfully_created_but_playlist_failed)
       end
+      redirect_to :media_items
+    else
+      flash_error(t(:media_items_create_error))
+      render :new
     end
   end
 
@@ -122,16 +105,6 @@ class MediaItemsController < BaseController
       end
     end
     true
-  end
-
-  def create_playlist
-    return true unless params[:create_playlist] == 'true'
-    name = params[:playlist_name]
-    desc = params[:playlist_description]
-    company_id = params[:media_item][:company_id]
-    playlist = Playlist.new(:name => name, :description => desc, :company_id => company_id)
-    playlist.deploy_media_items!(@media_items, @media_items.map.with_index{|item,index| [item.id, index * 10]})
-    playlist.save
   end
 
 end

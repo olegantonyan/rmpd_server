@@ -1,6 +1,4 @@
-- title t(:playlist_info_title)
-
-%h1.page-header= yield(:title)
+- content_for :page_title, t(:playlist_info_title)
 
 .row
   .col-md-12
@@ -13,7 +11,7 @@
       = row_info t(:created_at_th), localtime(@playlist.created_at)
       = row_info t(:updated_at_th), localtime(@playlist.updated_at)
       = row_info t(:download_playlist_file_th), link_to(@playlist.file_identifier, @playlist.file_url)
-    
+
 .row
   .col-md-12
     %h2= t(:media_items_title)
@@ -22,7 +20,7 @@
         %th= t(:filename_th)
         %th= t(:description_th)
         %th= t(:size_th)
-    
+
       - @playlist.media_items.each do |media_item|
         %tr
           %td
@@ -30,10 +28,8 @@
             = link_to media_item.file_identifier, media_item.file_url
           %td= media_item.description
           %td= number_to_human_size(media_item.file.size, precision: 2)
-          
+
 .row
   .col-md-12
     = link_to t(:edit_playlist_title), edit_playlist_path(@playlist), :class => "btn btn-primary"
     = link_to t(:delete_playlist_text), @playlist, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => 'Are you sure?' }
-            
-  

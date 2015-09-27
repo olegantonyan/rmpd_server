@@ -4,6 +4,7 @@ class Device::Group < ActiveRecord::Base
   has_many :devices, through: :device_group_memberships
 
   validates :title, presence: true, length: {in: 4..100}, uniqueness: true
+  validates :devices, association_length: { minimum: 1 }
 
   rails_admin do
     list do

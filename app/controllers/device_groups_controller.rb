@@ -23,6 +23,7 @@ class DeviceGroupsController < BaseController
 
   # GET /device_groups/1/edit
   def edit
+    authorize @device_group
   end
 
   # POST /device_groups
@@ -31,14 +32,11 @@ class DeviceGroupsController < BaseController
     @device_group = Device::Group.new(device_group_params)
     authorize @device_group
 
-    respond_to do |format|
-      if @device_group.save
-        format.html { redirect_to @device_group, notice: 'Device group was successfully created.' }
-        format.json { render :show, status: :created, location: @device_group }
-      else
-        format.html { render :new }
-        format.json { render json: @device_group.errors, status: :unprocessable_entity }
-      end
+    if @device_group.save
+      redirect_to @device_group, notice: 'Device group was successfully created.'
+    else
+      flash_error("Error creating device group #{@device_group.errors.full_messages.join(', ')}")
+      render :new
     end
   end
 
@@ -46,14 +44,11 @@ class DeviceGroupsController < BaseController
   # PATCH/PUT /device_groups/1.json
   def update
     authorize @device_group
-    respond_to do |format|
-      if @device_group.update(device_group_params)
-        format.html { redirect_to @device_group, notice: 'Device group was successfully updated.' }
-        format.json { render :show, status: :ok, location: @device_group }
-      else
-        format.html { render :edit }
-        format.json { render json: @device_group.errors, status: :unprocessable_entity }
-      end
+    if @device_group.update(device_group_params)
+      redirect_to @device_group, notice: 'Device group was successfully updated.'
+    else
+      flash_error("Error updating device group #{@device_group.errors.full_messages.join(', ')}")
+      render :edit
     end
   end
 
@@ -62,14 +57,11 @@ class DeviceGroupsController < BaseController
   def destroy
     authorize @device_group
     @device_group.destroy
-    respond_to do |format|
-      format.html { redirect_to device_groups_url, notice: 'Device group was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to device_groups_url, notice: 'Device group was successfully destroyed.'
   end
 
   private
-  
+
   # Use callbacks to share common setup or constraints between actions.
   def set_device_group
     @device_group = policy_scope(Device::Group).find(params[:id])

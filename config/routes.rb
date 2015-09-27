@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
 
-  resources :media_items, except: [:edit, :update] do
+  resources :media_items, except: [:edit, :update, :create] do
     collection do
       post :create_multiple
       delete :destroy_multiple

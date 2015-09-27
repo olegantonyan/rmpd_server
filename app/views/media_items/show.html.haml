@@ -1,6 +1,4 @@
-- title t(:media_item_info_title)
-
-%h1.page-header= yield(:title)
+- content_for :page_title, t(:media_item_info_title)
 
 .row
   .col-md-12
@@ -16,10 +14,7 @@
 .row
   .col-md-12
     %h2= t(:statistics_title)
-    
+
 .row
   .col-md-12
     = link_to t(:delete_media_item_text), @media_item, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => t(:are_you_sure) }
-    
-            
-  

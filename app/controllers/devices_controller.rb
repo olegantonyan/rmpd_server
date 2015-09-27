@@ -76,7 +76,7 @@ class DevicesController < BaseController
     end
 
     def set_device_groups
-      @device_groups = Device::Group.order(title: :asc)
+      @device_groups = policy_scope(Device::Group.order(title: :asc))
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

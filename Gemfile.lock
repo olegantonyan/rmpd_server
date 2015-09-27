@@ -338,8 +338,12 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unicode (0.4.4.2)
     unicode_utils (1.4.0)
     uniform_notifier (1.9.0)
+    validates (1.0.0)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.0.0)
@@ -414,7 +418,9 @@ DEPENDENCIES
   timers
   turbolinks
   uglifier (>= 1.3.0)
+  unicode
   unicode_utils
+  validates
   web-console (~> 2.0.0)
   will_paginate
   will_paginate-bootstrap

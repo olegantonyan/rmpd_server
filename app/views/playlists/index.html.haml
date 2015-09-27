@@ -1,11 +1,9 @@
-- title t(:playlists_title)
-  
-%h1.page-header= yield(:title)
+- content_for :page_title, t(:playlists_title)
 
 %p
   = link_to icon_link_to('glyphicon-plus', t(:create_playlist_text)), new_playlist_path, class: "btn btn-success"
-  
-%p  
+
+%p
   .row
     .col-md-12
       %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
@@ -17,7 +15,7 @@
           %th= t(:media_items_title) + " / " + t(:size_th)
           %th= t(:devices_title)
           %th= t(:more_th)
-      
+
         - @playlists.each do |playlist|
           %tr
             %td= playlist.name
@@ -27,5 +25,3 @@
             %td= playlist.media_items.to_a.count.to_s + " / " + number_to_human_size((playlist.media_items.inject(0) {|sum, i| sum += i.file.size.to_i}), precision: 2)
             %td= policy_scope(playlist.devices).count
             %td= link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), playlist, :class => "btn btn-default"
-    
-    

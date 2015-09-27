@@ -1,7 +1,5 @@
-- title t(:edit_device_group)
+- content_for :page_title, t(:edit_device_group)
 
-%h1.page-header= yield(:title)
-  
 .row
   .col-md-12
-    = render partial: 'form'
+    = render partial: 'form', locals: {device_group: @device_group, devices: @devices}

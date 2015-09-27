@@ -1,31 +1,6 @@
-- multiple ||= false
-
-= bootstrap_form_for(@media_item, url: (multiple ? create_multiple_media_items_path : media_items_path(@media_item)), :html => {:multipart => true, :id => 'fileupload-form'}, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
+= bootstrap_form_for(media_item, url: create_multiple_media_items_path, :html => {:multipart => true, :id => 'fileupload-form'}, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
   = f.text_field :description
-  = f.file_field :file, multiple: multiple, label: (multiple ? t(:files) : t(:file))
+  = f.file_field :file, multiple: true, label: t(:files)
   = f.select :type, MediaItem.type_options_for_select, {}, id: "select-type"
   = render partial: 'shared/select_company_form', locals: {:f => f}
-
-  - if multiple
-    .row.form-group
-      .control-label.col-sm-2
-        = label_tag t(:create_playlist)
-      .col-sm-10
-        = check_box_tag :create_playlist, true, false, id: "create-playlist-checkbox"
-
-    .row#playlist-form
-      .col-sm-10.col-sm-offset-2
-        .row.form-group
-          .control-label.col-sm-2
-            = label_tag t(:name)
-          .col-sm-10
-            = text_field_tag :playlist_name, "Auto-created playlist on #{Time.now.strftime('%B %d, %Y %A, %H:%M')}", :class => 'form-control'
-        .row.form-group
-          .control-label.col-sm-2
-            = label_tag t(:description)
-          .col-sm-10
-            = text_field_tag :playlist_description, "Bulk upload", :class => 'form-control'
-
   = f.submit :value => t(:upload_button_text), :class => "btn btn-primary"
-
-/= render partial: 'jquery_upload_form', locals: {object: @media_item}

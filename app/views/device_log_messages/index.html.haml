@@ -1,6 +1,4 @@
-- title t(:log_for_device_title) + " #{@device.name}"
-
-%h1= yield(:title)
+- content_for :page_title, t(:log_for_device_title) + " #{@device.name}"
 
 .row
   .col-md-12
@@ -13,7 +11,7 @@
         %th= t(:details_th)
         %th= t(:device_time_th)
         %th= t(:server_time_th)
-    
+
       - @device_log_messages.each do |log_item|
         %tr
           %td= log_item.module
@@ -22,7 +20,7 @@
           %td= log_item.details
           %td= localtime log_item.localtime
           %td= localtime log_item.created_at
-          
+
 /.row
 /  .col-md-12
 /    .text-center= page_entries_info(@device_log_messages)

@@ -1,8 +1,5 @@
-- title t(:create_playlist_text)
-  
-%h1.page-header= yield(:title)
-          
+- content_for :page_title, t(:create_playlist_text)
+
 .row
   .col-md-12
     = render 'form'
-
