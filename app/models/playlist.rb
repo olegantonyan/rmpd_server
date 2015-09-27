@@ -3,12 +3,12 @@ require 'tempfile'
 class Playlist < ActiveRecord::Base
   has_paper_trail
 
-  has_many :media_deployments, -> {
-    order(:playlist_position)
-    }, dependent: :destroy, autosave: true, inverse_of: :playlist
+  has_many :playlist_items, -> {
+    order(:position)
+    }, dependent: :destroy, autosave: true, inverse_of: :playlist, class_name: Playlist::Item
   has_many :media_items, -> {
-    joins(:media_deployments).order('media_deployments.playlist_position').group('media_items.id, media_deployments.playlist_position')
-    }, through: :media_deployments, autosave: true
+    joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position')
+    }, through: :playlist_items, autosave: true
   has_many :devices, inverse_of: :playlist
   belongs_to :company, inverse_of: :playlists
 
@@ -20,15 +20,15 @@ class Playlist < ActiveRecord::Base
   validates_presence_of :name
   validates_length_of :name, :maximum => 130
   validates_length_of :description, :maximum => 250
-  validates_presence_of :media_deployments
+  validates_presence_of :playlist_items
   #validates_presence_of :media_items
   validate :check_files_processing
 
   def deploy_media_items!(items, media_items_positions)
-    media_deployments.destroy_all
+    playlist_items.destroy_all
     items.each do |i|
-      playlist_position = media_items_positions.find{ |e| e.first.to_i == i.id}.second
-      media_deployments << MediaDeployment.create(:media_item => i, :playlist_position => playlist_position, :playlist => self)
+      position = media_items_positions.find{ |e| e.first.to_i == i.id}.second
+      playlist_items << Playlist::Item.create(:media_item => i, :position => position, :playlist => self)
     end
   end
 
@@ -41,10 +41,10 @@ class Playlist < ActiveRecord::Base
       field :updated_at
     end
     show do
-      exclude_fields :media_deployments, :versions
+      exclude_fields :playlist_items, :versions
     end
     edit do
-      exclude_fields :media_deployments, :versions, :file
+      exclude_fields :playlist_items, :versions, :file
     end
   end
 
@@ -55,7 +55,7 @@ class Playlist < ActiveRecord::Base
   private
     def create_playlist_file
       tempfile = Tempfile.new(['playlist', '.m3u'])
-      self.media_deployments.includes(:media_item).each do |deployment| #TODO fix problem with join in association
+      self.playlist_items.includes(:media_item).each do |deployment| #TODO fix problem with join in association
         tempfile.puts deployment.media_item.file_identifier
       end
       tempfile.close
@@ -81,7 +81,7 @@ class Playlist < ActiveRecord::Base
     end
 
     def check_files_processing
-      if media_deployments.find{|i| !i.valid? }
+      if playlist_items.find{|i| !i.valid? }
         errors.add(:base, I18n.t(:files_processing)) # for error message only
         false
       else

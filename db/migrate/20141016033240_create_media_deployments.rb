@@ -1,10 +1,10 @@
 class CreateMediaDeployments < ActiveRecord::Migration
   def change
-    create_table :media_deployments do |t|
+    create_table :playlist_items do |t|
       t.references :playlist
       t.references :media_item
       t.timestamps null: false
     end
-    add_index :media_deployments, ["playlist_id", "media_item_id"]
+    add_index :playlist_items, ["playlist_id", "media_item_id"]
   end
 end

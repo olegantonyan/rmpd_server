@@ -4,7 +4,7 @@ class PlaylistsController < BaseController
 
   # GET /playlists
   def index
-    @playlists = policy_scope(Playlist.all).includes(:media_items, :media_deployments, :company).order(updated_at: :desc)
+    @playlists = policy_scope(Playlist.all).includes(:media_items, :playlist_items, :company).order(updated_at: :desc)
     authorize @playlists
   end
 
@@ -17,7 +17,7 @@ class PlaylistsController < BaseController
   def new
     @playlist = Playlist.new
     authorize @playlist
-    @media_deployments = MediaDeployment.includes(:playlist).all
+    @playlist_items = Playlist::Item.includes(:playlist).all
     respond_to do |format|
       format.html
     end
@@ -74,12 +74,12 @@ class PlaylistsController < BaseController
   
   # Use callbacks to share common setup or constraints between actions.
   def set_playlist
-    @playlist = policy_scope(Playlist).includes(:media_items, :media_deployments).find(params[:id])
+    @playlist = policy_scope(Playlist).includes(:media_items, :playlist_items).find(params[:id])
   end
 
   def set_media_items
     @media_items = policy_scope(MediaItem).includes(:company).all
-    #@media_items = policy_scope(MediaItem).joins(:media_deployments).order('media_deployments.playlist_position').group('media_items.id, media_deployments.playlist_position')
+    #@media_items = policy_scope(MediaItem).joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position')
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926095517) do
+ActiveRecord::Schema.define(version: 20150927044548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,16 +97,6 @@ ActiveRecord::Schema.define(version: 20150926095517) do
   add_index "devices", ["login"], name: "index_devices_on_login", using: :btree
   add_index "devices", ["playlist_id"], name: "index_devices_on_playlist_id", using: :btree
 
-  create_table "media_deployments", force: :cascade do |t|
-    t.integer  "playlist_id"
-    t.integer  "media_item_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.integer  "playlist_position", default: 1000000
-  end
-
-  add_index "media_deployments", ["playlist_id", "media_item_id"], name: "index_media_deployments_on_playlist_id_and_media_item_id", using: :btree
-
   create_table "media_items", force: :cascade do |t|
     t.string   "file",                            null: false
     t.text     "description",     default: "",    null: false
@@ -137,6 +127,16 @@ ActiveRecord::Schema.define(version: 20150926095517) do
     t.datetime "updated_at",                          null: false
     t.string   "title",      limit: 128, default: "", null: false
   end
+
+  create_table "playlist_items", force: :cascade do |t|
+    t.integer  "playlist_id"
+    t.integer  "media_item_id"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "position",      default: 1000000
+  end
+
+  add_index "playlist_items", ["playlist_id", "media_item_id"], name: "index_playlist_items_on_playlist_id_and_media_item_id", using: :btree
 
   create_table "playlists", force: :cascade do |t|
     t.string   "name",                                 null: false
