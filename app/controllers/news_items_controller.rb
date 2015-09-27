@@ -1,23 +1,24 @@
 class NewsItemsController < BaseController
   skip_before_filter :authenticate_user!
-  skip_after_filter :verify_authorized
-  skip_after_filter :verify_policy_scoped
   before_action :set_news_item, only: [:show, :edit, :update, :destroy]
 
   # GET /news_items
   # GET /news_items.json
   def index
-    @news_items = NewsItem.order(:created_at => :desc).to_a
+    @news_items = policy_scope(NewsItem.all).order(created_at: :desc)
+    authorize @news_items
   end
 
   # GET /news_items/1
   # GET /news_items/1.json
   def show
+    authorize @news_item
   end
 
   # GET /news_items/new
   def new
     @news_item = NewsItem.new
+    authorize @news_item
   end
 
   # GET /news_items/1/edit
@@ -28,6 +29,7 @@ class NewsItemsController < BaseController
   # POST /news_items.json
   def create
     @news_item = NewsItem.new(news_item_params)
+    authorize @news_item
     @news_item.save
     respond_with @news_item
   end
@@ -35,6 +37,7 @@ class NewsItemsController < BaseController
   # PATCH/PUT /news_items/1
   # PATCH/PUT /news_items/1.json
   def update
+    authorize @news_item
     @news_item.update(news_item_params)
     respond_with @news_item
   end
@@ -42,6 +45,7 @@ class NewsItemsController < BaseController
   # DELETE /news_items/1
   # DELETE /news_items/1.json
   def destroy
+    authorize @news_item
     @news_item.destroy
     respond_with @news_item
   end
@@ -54,6 +58,6 @@ class NewsItemsController < BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def news_item_params
-      params[:news_item]
+      params.require(:news_item).permit(:title, :body)
     end
 end
