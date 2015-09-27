@@ -7,7 +7,7 @@ class MediaItemsController < BaseController
       MediaItem,
       params[:filterrific],
       select_options: {
-         with_company_id: policy_scope(Company).all.map { |e| [e.title, e.id] }
+         with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] }
       }
     ) or return
     filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 30)
@@ -77,14 +77,15 @@ class MediaItemsController < BaseController
 
   # DELETE /media_items/1
   def destroy_multiple
-    authorize :media_item, :destroy?
-    media_items = params[:media_items]
+    media_items = MediaItem.where(id: params[:media_items])
+    media_items.each {|m| authorize m, :destroy? }
     respond_to do |format|
-      if media_items.nil? || media_items.empty?
+      if media_items.empty?
+        skip_authorization
         flash_error(t(:media_items_not_selected))
         format.html { redirect_to media_items_path }
       else
-        MediaItem.destroy(media_items)
+        media_items.destroy_all
         flash_success(t(:media_items_successfully_deleted))
         format.html { redirect_to media_items_path }
       end
@@ -100,19 +101,20 @@ class MediaItemsController < BaseController
   end
 
   def media_item_params
-    params.require(:media_item).permit(:file, :description, :company_id)
+    params.require(:media_item).permit(:file, :description, :company_id, :type)
   end
 
   def bulk_create_media_items
     files = params[:media_item][:file]
     desc = params[:media_item][:description]
     company_id = params[:media_item][:company_id]
+    type = params[:media_item][:type]
     if files.nil?
-      @media_item = MediaItem.new(:description => desc, :file => nil, :company_id => company_id) # new item with nil file for validation
+      @media_item = MediaItem.new(:description => desc, :file => nil, :company_id => company_id, type: type) # new item with nil file for validation
       @media_item.valid? # force validations
       return false
     end
-    @media_items = files.map{ |f| MediaItem.new(:description => desc, :file => f, :company_id => company_id) }
+    @media_items = files.map{ |f| MediaItem.new(:description => desc, :file => f, :company_id => company_id, type: type) }
     @media_items.each do |i|
       unless i.save
         @media_item = i # break and render form with problematic item

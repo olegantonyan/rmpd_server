@@ -1,28 +1,32 @@
 #filterrific_results
-  = form_tag destroy_multiple_media_items_path, :method => :delete do
-    %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
-      %tr
-        %th= check_box_tag 'select_all', true, false, :id => 'select-all-media_items-checkbox'
-        %th= t(:filename_th)
-        %th= t(:description_th)
-        - if current_user.companies.size > 1
-          %th= t(:company)
-        %th= t(:size_th)
-        /%th= t(:playlists_th)
-        %th= t(:more_th)
-    
-      - media_items.each do |media_item|
-        %tr
-          %td= check_box_tag "media_items[]", media_item.id, false, :class => 'media_item-checkbox'
-          %td
-            %span.glyphicon.glyphicon-play
-            = link_to media_item.file_identifier, media_item.file_url
-          %td= media_item.description
-          - if current_user.companies.size > 1
-            %td= media_item.company.nil? ? "" : media_item.company.title
-          %td= number_to_human_size(media_item.file.size, precision: 2)
-          /%td= media_item.playlists.count
-          %td
-            = link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), media_item, :class => "btn btn-default"
-    = submit_tag t(:delete_selected), :class => "btn btn-danger pull-right", :data => { :confirm => t(:are_you_sure) }
+  = form_tag destroy_multiple_media_items_path, method: :delete do
+    .row
+      .col-sm-12
+        %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
+          %tr
+            %th= check_box_tag 'select_all', true, false, :id => 'select-all-media_items-checkbox'
+            %th= t(:filename_th)
+            %th= t(:description_th)
+            - if current_user.companies.size > 1
+              %th= t(:company)
+            %th= t(:size_th)
+            %th= t('.type')
+            %th= t(:more_th)
+
+          - media_items.each do |media_item|
+            %tr
+              %td= check_box_tag "media_items[]", media_item.id, false, :class => 'media_item-checkbox'
+              %td
+                %span.glyphicon.glyphicon-play
+                = link_to media_item.file_identifier, media_item.file_url
+              %td= media_item.description
+              - if current_user.companies.size > 1
+                %td= media_item.company.try(:title)
+              %td= number_to_human_size(media_item.file.size, precision: 2)
+              %td= media_item.type
+              %td= link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), media_item, :class => "btn btn-default"
+    .row
+      .col-sm-12
+        = submit_tag t(:delete_selected), :class => "btn btn-danger pull-right", :data => { :confirm => t(:are_you_sure) }
+
     .text-center= will_paginate(media_items, :renderer => BootstrapPagination::Rails, :previous_label => "&larr; ", :next_label => " &rarr;")

@@ -1,10 +1,14 @@
 class MediaItem < ActiveRecord::Base
+  self.inheritance_column = 'sti_type'
+
   include ScopesWithUser
   has_paper_trail
 
   has_many :playlist_items, dependent: :destroy, inverse_of: :media_item, class_name: Playlist::Item
   has_many :playlists, through: :playlist_items
   belongs_to :company, inverse_of: :media_items
+
+  enum type: ['background', 'advertising']
 
   mount_uploader :file, MediaItemUploader
   process_in_background :file
@@ -45,6 +49,10 @@ class MediaItem < ActiveRecord::Base
 
   def to_s
     "#{file_identifier} in #{company.to_s}"
+  end
+
+  def self.type_options_for_select
+    types.map {|k,_| [I18n.t("activerecord.attributes.media_item.types.#{k}"), k]}
   end
 
   private

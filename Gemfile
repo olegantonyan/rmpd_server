@@ -65,6 +65,7 @@ gem 'pry-rails'
 gem 'devise-async'
 gem 'partial_namespaceble', github: 'olegantonyan/partial_namespaceble'
 gem 'super_awesome_print', github: 'olegantonyan/super_awesome_print'
+gem 'activerecord-colored_log_subscriber'
 
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
