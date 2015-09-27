@@ -1,9 +1,9 @@
-class Deviceapi::StatusController < Deviceapi::DeviceapiController
+class Deviceapi::StatusController < Deviceapi::BaseController
 
   def index
     render json: { :ok => device.inspect}
   end
-  
+
   def create
     queued_messsage_to_device = ""
     outgoing_sequence_number = 0
@@ -19,7 +19,7 @@ class Deviceapi::StatusController < Deviceapi::DeviceapiController
     response.headers["X-Sequence-Number"] = outgoing_sequence_number.to_s
     render :json => (JSON.parse(queued_messsage_to_device) rescue {}), :status => response_status
   end
-  
+
   private
-  
+
 end

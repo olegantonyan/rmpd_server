@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
   resources :playlists
 
-  namespace :deviceapi, :defaults => {:format => :json} do
+  namespace :deviceapi, defaults: {:format => :json} do
     resources :status, only: [:index, :create]
   end
 
