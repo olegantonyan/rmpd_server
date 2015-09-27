@@ -406,6 +406,7 @@ DEPENDENCIES
   rails (~> 4.2.0)
   rails-erd
   rails_admin
+  responders
   rolify
   rspec-rails (~> 3.0)
   rufus-scheduler

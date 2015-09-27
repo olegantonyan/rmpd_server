@@ -28,40 +28,22 @@ class NewsItemsController < BaseController
   # POST /news_items.json
   def create
     @news_item = NewsItem.new(news_item_params)
-
-    respond_to do |format|
-      if @news_item.save
-        format.html { redirect_to @news_item, notice: 'News item was successfully created.' }
-        format.json { render :show, status: :created, location: @news_item }
-      else
-        format.html { render :new }
-        format.json { render json: @news_item.errors, status: :unprocessable_entity }
-      end
-    end
+    @news_item.save
+    respond_with @news_item
   end
 
   # PATCH/PUT /news_items/1
   # PATCH/PUT /news_items/1.json
   def update
-    respond_to do |format|
-      if @news_item.update(news_item_params)
-        format.html { redirect_to @news_item, notice: 'News item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @news_item }
-      else
-        format.html { render :edit }
-        format.json { render json: @news_item.errors, status: :unprocessable_entity }
-      end
-    end
+    @news_item.update(news_item_params)
+    respond_with @news_item
   end
 
   # DELETE /news_items/1
   # DELETE /news_items/1.json
   def destroy
     @news_item.destroy
-    respond_to do |format|
-      format.html { redirect_to news_items_url, notice: 'News item was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    respond_with @news_item
   end
 
   private

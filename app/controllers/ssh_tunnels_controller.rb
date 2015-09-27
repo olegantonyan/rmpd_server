@@ -10,14 +10,12 @@ class SshTunnelsController < BaseController
     @ssh_tunnel = SshTunnel.new(ssh_tunnel_params)
     @ssh_tunnel.device = @device
     authorize @ssh_tunnel
-    respond_to do |format|
-      if @ssh_tunnel.save
-        flash_success("SSH tunnel requested for '#{@device.login}'. Example use for device user 'rmpd': ssh rmpd@#{@ssh_tunnel.server} -p #{@ssh_tunnel.external_port}")
-        format.html { redirect_to @device }
-      else
-        flash_error('Error creating SSH tunnel')
-        format.html { render :new }
-      end
+    if @ssh_tunnel.save
+      flash_success("SSH tunnel requested for '#{@device.login}'. Example use for device user 'rmpd': ssh rmpd@#{@ssh_tunnel.server} -p #{@ssh_tunnel.external_port}")
+      redirect_to @device
+    else
+      flash_error('Error creating SSH tunnel')
+      render :new
     end
   end
 

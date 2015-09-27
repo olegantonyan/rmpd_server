@@ -33,15 +33,8 @@ class PlaylistsController < BaseController
     @playlist = Playlist.new(playlist_params)
     authorize @playlist
     @playlist.deploy_media_items!(media_items_scoped, media_items_positions)
-    respond_to do |format|
-      if @playlist.save
-        flash_success(t(:playlist_successfully_created, :name => @playlist.name))
-        format.html { redirect_to @playlist }
-      else
-        flash_error("#{t(:error_creating_playlist)}: #{@playlist.errors.full_messages.join(', ')}")
-        format.html { render :new }
-      end
-    end
+    @playlist.save
+    respond_with @playlist
   end
 
   # PATCH/PUT /playlists/1
@@ -49,29 +42,19 @@ class PlaylistsController < BaseController
     authorize @playlist
     @playlist.attributes = playlist_params
     @playlist.deploy_media_items!(media_items_scoped, media_items_positions)
-    respond_to do |format|
-      if @playlist.save
-        flash_success(t(:playlist_successfully_updated, :name => @playlist.name))
-        format.html { redirect_to @playlist }
-      else
-        flash_error("#{t(:error_updating_playlist)}: #{@playlist.errors.full_messages.join(', ')}")
-        format.html { render :edit }
-      end
-    end
+    @playlist.save
+    respond_with @playlist
   end
 
   # DELETE /playlists/1
   def destroy
     authorize @playlist
     @playlist.destroy
-    respond_to do |format|
-      flash_success(t(:playlist_successfully_deleted, :name => @playlist.name))
-      format.html { redirect_to playlists_url }
-    end
+    respond_with @playlist
   end
 
   private
-  
+
   # Use callbacks to share common setup or constraints between actions.
   def set_playlist
     @playlist = policy_scope(Playlist).includes(:media_items, :playlist_items).find(params[:id])

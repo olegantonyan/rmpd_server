@@ -31,25 +31,16 @@ class DeviceGroupsController < BaseController
   def create
     @device_group = Device::Group.new(device_group_params)
     authorize @device_group
-
-    if @device_group.save
-      redirect_to @device_group, notice: 'Device group was successfully created.'
-    else
-      flash_error("Error creating device group #{@device_group.errors.full_messages.join(', ')}")
-      render :new
-    end
+    @device_group.save
+    respond_with @device_group
   end
 
   # PATCH/PUT /device_groups/1
   # PATCH/PUT /device_groups/1.json
   def update
     authorize @device_group
-    if @device_group.update(device_group_params)
-      redirect_to @device_group, notice: 'Device group was successfully updated.'
-    else
-      flash_error("Error updating device group #{@device_group.errors.full_messages.join(', ')}")
-      render :edit
-    end
+    @device_group.update(device_group_params)
+    respond_with @device_group
   end
 
   # DELETE /device_groups/1
@@ -57,7 +48,7 @@ class DeviceGroupsController < BaseController
   def destroy
     authorize @device_group
     @device_group.destroy
-    redirect_to device_groups_url, notice: 'Device group was successfully destroyed.'
+    respond_with @device_group
   end
 
   private

@@ -29,40 +29,22 @@ class DevicesController < BaseController
   def create
     @device = Device.new(device_params)
     authorize @device
-
-    respond_to do |format|
-      if @device.save
-        flash_success(t(:device_successfully_created, :name => @device.login))
-        format.html { redirect_to @device }
-      else
-        flash_error(t(:error_creating_device))
-        format.html { render :new }
-      end
-    end
+    @device.save
+    respond_with @device
   end
 
   # PATCH/PUT /devices/1
   def update
     authorize @device
-    respond_to do |format|
-      if @device.update(device_params)
-        flash_success(t(:device_successfully_updated, :name => @device.login))
-        format.html { redirect_to @device }
-      else
-        flash_error(t(:error_updating_device))
-        format.html { render :edit }
-      end
-    end
+    @device.update(device_params)
+    respond_with @device
   end
 
   # DELETE /devices/1
   def destroy
     authorize @device
     @device.destroy
-    respond_to do |format|
-      flash_success(t(:device_successfully_deleted, :name => @device.login))
-      format.html { redirect_to devices_path }
-    end
+    respond_with @device
   end
 
   private
