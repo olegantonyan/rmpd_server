@@ -1,11 +1,13 @@
-class MediaDeployment < ActiveRecord::Base
+class Playlist::Item < ActiveRecord::Base
   has_paper_trail
 
-  belongs_to :media_item, inverse_of: :media_deployments
-  belongs_to :playlist, inverse_of: :media_deployments
+  with_options inverse_of: :playlist_items do
+    belongs_to :media_item
+    belongs_to :playlist
+  end
 
-  validates :playlist_position, :media_item, :playlist, presence: true
-  validates_inclusion_of :playlist_position, :in => -1000000..1000000
+  validates :position, :media_item, :playlist, presence: true
+  validates_inclusion_of :position, :in => -1000000..1000000
 
   validate :check_files_processing
 

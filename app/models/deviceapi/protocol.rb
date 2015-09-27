@@ -5,7 +5,7 @@ class Deviceapi::Protocol
   def update_playlist(to_device)
     unless to_device.playlist.nil?
       items = []
-      to_device.playlist.media_deployments.includes(:media_item).each {|d| items << d.media_item.file_url }
+      to_device.playlist.playlist_items.includes(:media_item).each {|d| items << d.media_item.file_url }
       #to_device.playlist.media_items.each {|i| items << i.file_url } #TODO fix this fucking problem
       p = Playlist.find(to_device.playlist.id) #note: http://stackoverflow.com/questions/26923249/rails-carrierwave-manual-file-upload-wrong-url
       items << p.file_url

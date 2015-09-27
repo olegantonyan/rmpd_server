@@ -15,7 +15,7 @@ ru:
               too_long: слишком длинное
             media_items:
               blank: должны присутствовать
-            media_deployments:
+            playlist_items:
               blank: должны присутствовать
               invalid: некорректны
     
@@ -25,5 +25,5 @@ ru:
         description: Описание
         file: Файл-плейлист
         media_items: Медиафайлы
-        media_deployments: Связки медиафайлов
+        playlist_items: Связки медиафайлов
         company_id: Компания
