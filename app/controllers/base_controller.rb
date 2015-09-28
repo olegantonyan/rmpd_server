@@ -13,6 +13,32 @@ class BaseController < ApplicationController
 
   protected
 
+  def result(object, options = {})
+    method = options.fetch(:method, :save)
+    method = :destroy if caller[0][/`.*'/][1..-2] == 'destroy'
+    success_url = options.fetch(:success_url, object_url(object) || object_index_url(object) || :back)
+    error_action = options.fetch(:error_action, object.persisted? ? :edit : :new)
+    if object.send method
+      flash_success(t('flash.actions.create.notice', resource_name: object.class.to_s))
+      redirect_to success_url
+    else
+      flash_error(t('flash.actions.create.alert', resource_name: object.class.to_s, errors: object.errors.full_messages.to_sentence))
+      render error_action
+    end
+  end
+
+  def object_index_url object
+    polymorphic_url(object.class)
+  rescue NoMethodError
+    nil
+  end
+
+  def object_url object
+    polymorphic_url(object)
+  rescue NoMethodError
+    nil
+  end
+
   def flash_success msg
     flash[:notice] = truncate_message(msg)
   end

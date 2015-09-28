@@ -1,4 +1,6 @@
 class MediaItemsController < BaseController
+  include Filterrificable
+
   before_action :set_media_item, only: [:show, :edit, :update, :destroy]
 
   # GET /media_items
@@ -9,15 +11,10 @@ class MediaItemsController < BaseController
       select_options: {
          with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] }
       }
-    ) or return
+    ) || (on_reset; return)
     filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 30)
     @media_items = policy_scope(filtered).includes(:company).order(created_at: :desc)
     authorize @media_items
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
   end
 
   # GET /media_items/1
@@ -27,28 +24,21 @@ class MediaItemsController < BaseController
 
   # GET /media_items/new
   def new
-    @media_item = MediaItem.new
-    authorize @media_item
+    @media_item_multiple = MediaItem::MultipleFiles.new
+    authorize @media_item_multiple
   end
 
   # POST /media_items/create_multiple
   def create_multiple
-    authorize :media_item, :create?
-    if bulk_create_media_items #TODO responders + form object
-      flash_success(t(:media_items_successfully_created, names: (@media_items.map { |i| i.file_identifier }).join(", ")))
-      redirect_to :media_items
-    else
-      flash_error(t(:media_items_create_error))
-      render :new
-    end
+    @media_item_multiple = MediaItem::MultipleFiles.new(media_item_multiple_files_params)
+    authorize @media_item_multiple, :create?
+    result @media_item_multiple, success_url: media_items_path, error_action: :new
   end
 
   # DELETE /media_items/1
   def destroy
     authorize @media_item
-    @media_item.remove_file!
-    @media_item.destroy
-    respond_with @media_item
+    result @media_item
   end
 
   def destroy_multiple
@@ -68,11 +58,15 @@ class MediaItemsController < BaseController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_media_item
-    @media_item = policy_scope(MediaItem).find(params[:id])
+    @media_item = MediaItem.find(params[:id])
   end
 
   def media_item_params
-    params.require(:media_item).permit(:file, :description, :company_id, :type)
+    params.require(:media_item).permit(:description, :company_id, :type, :file)
+  end
+
+  def media_item_multiple_files_params
+    params.require(:media_item_multiple_files).permit(:description, :company_id, :type, files: [])
   end
 
   def bulk_create_media_items
