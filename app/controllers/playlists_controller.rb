@@ -33,8 +33,7 @@ class PlaylistsController < BaseController
     @playlist = Playlist.new(playlist_params)
     authorize @playlist
     @playlist.deploy_media_items!(media_items_scoped, media_items_positions)
-    @playlist.save
-    respond_with @playlist
+    crud_respond @playlist
   end
 
   # PATCH/PUT /playlists/1
@@ -42,15 +41,13 @@ class PlaylistsController < BaseController
     authorize @playlist
     @playlist.attributes = playlist_params
     @playlist.deploy_media_items!(media_items_scoped, media_items_positions)
-    @playlist.save
-    respond_with @playlist
+    crud_respond @playlist
   end
 
   # DELETE /playlists/1
   def destroy
     authorize @playlist
-    @playlist.destroy
-    respond_with @playlist
+    crud_respond @playlist
   end
 
   private

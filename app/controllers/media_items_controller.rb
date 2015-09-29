@@ -32,13 +32,13 @@ class MediaItemsController < BaseController
   def create_multiple
     @media_item_multiple = MediaItem::MultipleFiles.new(media_item_multiple_files_params)
     authorize @media_item_multiple, :create?
-    result @media_item_multiple, success_url: media_items_path, error_action: :new
+    crud_respond @media_item_multiple, success_url: media_items_path
   end
 
   # DELETE /media_items/1
   def destroy
     authorize @media_item
-    result @media_item
+    crud_respond @media_item
   end
 
   def destroy_multiple

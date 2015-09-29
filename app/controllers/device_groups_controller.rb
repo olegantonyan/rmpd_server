@@ -31,24 +31,22 @@ class DeviceGroupsController < BaseController
   def create
     @device_group = Device::Group.new(device_group_params)
     authorize @device_group
-    @device_group.save
-    respond_with @device_group
+    crud_respond @device_group
   end
 
   # PATCH/PUT /device_groups/1
   # PATCH/PUT /device_groups/1.json
   def update
     authorize @device_group
-    @device_group.update(device_group_params)
-    respond_with @device_group
+    @device_group.assign_attributes(device_group_params)
+    crud_respond @device_group
   end
 
   # DELETE /device_groups/1
   # DELETE /device_groups/1.json
   def destroy
     authorize @device_group
-    @device_group.destroy
-    respond_with @device_group
+    crud_respond @device_group
   end
 
   private

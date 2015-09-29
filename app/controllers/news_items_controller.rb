@@ -30,24 +30,22 @@ class NewsItemsController < BaseController
   def create
     @news_item = NewsItem.new(news_item_params)
     authorize @news_item
-    @news_item.save
-    respond_with @news_item
+    crud_respond @news_item
   end
 
   # PATCH/PUT /news_items/1
   # PATCH/PUT /news_items/1.json
   def update
     authorize @news_item
-    @news_item.update(news_item_params)
-    respond_with @news_item
+    @news_item.assign_attributes(news_item_params)
+    crud_respond @news_item
   end
 
   # DELETE /news_items/1
   # DELETE /news_items/1.json
   def destroy
     authorize @news_item
-    @news_item.destroy
-    respond_with @news_item
+    crud_respond @news_item
   end
 
   private
