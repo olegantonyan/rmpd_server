@@ -1,4 +1,5 @@
 module CrudResponder
+  include ActionView::Helpers::TextHelper
 
   protected
 
@@ -82,6 +83,18 @@ module CrudResponder
 
   def resoucre_name_by_object(object)
     object.class.to_s
+  end
+
+  def flash_success msg
+    flash[:notice] = truncate_message(msg)
+  end
+
+  def flash_error msg
+    flash[:alert] = truncate_message(msg)
+  end
+
+  def truncate_message msg
+    truncate(msg.to_s, length: 256, escape: false)
   end
 
 end

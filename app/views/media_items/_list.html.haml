@@ -15,7 +15,7 @@
 
           - media_items.each do |media_item|
             %tr
-              %td= check_box_tag "media_items[]", media_item.id, false, :class => 'media_item-checkbox'
+              %td= check_box_tag "media_item_ids[]", media_item.id, false, :class => 'media_item-checkbox'
               %td
                 %span.glyphicon.glyphicon-play
                 = link_to media_item.file_identifier, media_item.file_url
