@@ -82,7 +82,7 @@ class Playlist < ActiveRecord::Base
 
     def check_files_processing
       if playlist_items.find{|i| !i.valid? }
-        errors.add(:base, I18n.t(:files_processing)) # for error message only
+        errors.add(:base, I18n.t('activerecord.attributes.playlist.files_processing')) # for error message only
         false
       else
         true

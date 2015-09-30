@@ -1,0 +1,99 @@
+ru:
+  activerecord:
+    models:
+      user:
+        one: Пользователь
+        other: Пользователи
+      media_item:
+        one: Медиафайл
+        other: Медиафайлы
+      playlist:
+        one: Плейлист
+        other: Плейлисты
+      device_group:
+        one: Группа устройств
+        other: Группы устройств
+      device:
+        one: Устройство
+        other: Устройтсва
+      company:
+        one: Компания
+        other: Компании
+
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: Не может быть пустым
+              too_long: Слишком длинный
+            displayed_name:
+              too_long: Слишком длинное
+        media_item:
+          attributes:
+            file:
+              blank: Не может отсутствовать
+        playlist:
+          attributes:
+            name:
+              blank: не может быть пустым
+              too_long: слишком длинное
+            media_items:
+              blank: должны присутствовать
+            playlist_items:
+              blank: должны присутствовать
+              invalid: некорректны
+        device_group:
+          attributes:
+            title:
+              blank: Не может быть пустым
+              taken: Уже используется
+              too_long: Слишком длинный
+        device:
+          attributes:
+            login:
+              blank: Не может быть пустым
+              taken: Уже используется
+              too_long: Слишком длинный
+            password:
+              blank: Не может быть пустым
+              too_short: Слишком короткий (минимум %{count} символов)
+            password_confirmation:
+              confirmation: Подтверждение пароля должно совпадать
+
+    attributes:
+      user:
+        email: E-Mail
+        displayed_name: Отображаемое имя
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+        allow_notifications: Получать новости (обычно не чаще раза в неделю)
+      media_item:
+        file: Файл
+        description: Описание
+        company_id: Компания
+        type: Тип
+        file_processing: Идёт обработка файла
+        types:
+          background: Фоновый
+          advertising: Рекламный
+      playlist:
+        name: Имя
+        description: Описание
+        file: Файл-плейлист
+        media_items: Медиафайлы
+        playlist_items: Связки медиафайлов
+        company_id: Компания
+        files_processing: Идёт обработка файлов. Пожалуйста, подождите
+      device_group:
+        title: Название
+        devices: Устройства
+      device:
+        login: Логин
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+        name: Имя
+        playlist_id: Плейлист
+        company_id: Компания
+      company:
+        name: Название

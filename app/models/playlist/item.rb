@@ -23,7 +23,7 @@ class Playlist::Item < ActiveRecord::Base
 
     def check_files_processing
       if media_item.file.video? && media_item.file_processing?
-        errors.add(:media_item, I18n.t(:file_processing))
+        errors.add(:media_item, I18n.t('activerecord.attributes.media_item.file_processing'))
         false
       else
         true
