@@ -1,10 +1,6 @@
 class MediaItem::DestroyMultiple
   include ActiveModel::Model
 
-  def self.policy_class
-    MediaItemPolicy
-  end
-
   attr_accessor :media_items
 
   validates :media_items, presence: true
