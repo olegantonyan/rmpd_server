@@ -39,7 +39,7 @@ class PlaylistsController < BaseController
   # PATCH/PUT /playlists/1
   def update
     authorize @playlist
-    @playlist.attributes = playlist_params
+    @playlist.assign_attributes(playlist_params)
     @playlist.deploy_media_items!(media_items_scoped, media_items_positions)
     crud_respond @playlist
   end
@@ -64,15 +64,15 @@ class PlaylistsController < BaseController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def playlist_params
-    params.require(:playlist).permit(:name, :description, :company_id, :media_items_ids => [], :media_items_positions => [])
+    params.require(:playlist).permit(:name, :description, :company_id, media_items_background_ids: [], media_items_background_positions: [])
   end
 
   def media_items_scoped
-    policy_scope(MediaItem).where(:id => params[:media_items_ids])
+    policy_scope(MediaItem).where(:id => params[:media_items_background_ids])
   end
 
   def media_items_positions
-    params[:media_items_positions]
+    params[:media_items_background_positions]
   end
 
 end

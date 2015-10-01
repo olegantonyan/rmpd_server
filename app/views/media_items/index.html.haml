@@ -8,7 +8,7 @@
     .row
       .col-sm-6
         = f.text_field :search_query, :class => 'filterrific-periodically-observed form-control', :placeholder => t(:search)
-      - if current_user.companies.size > 1
+      - if many_companies?
         .col-sm-6
           = f.select :with_company_id, @filterrific.select_options[:with_company_id], { include_blank: t(:all_companies) }, :id => "select-company"
           = select2js_for_id "select-company"

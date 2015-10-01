@@ -1,12 +1,11 @@
-= bootstrap_form_for(@playlist, :html => {:multipart => true}, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
+= bootstrap_form_for(playlist, :html => {:multipart => true}, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
   = f.text_field :name
   = f.text_field :description
   = render partial: 'shared/select_company_form', locals: {:f => f}
   = f.label :media_items
-              
-  .input-group
-    = render partial: 'media_items_list', locals: { playlist: @playlist, media_items: @media_items }
-    
-  = f.submit :value => t(:save_button_text), :class => "btn btn-primary"
-  
 
+  .row
+    .col-sm-6
+      = render partial: 'media_items_list', locals: { playlist: playlist, media_items: media_items }
+
+  = f.submit :value => t(:save_button_text), :class => "btn btn-primary"

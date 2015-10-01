@@ -6,7 +6,7 @@
       %tr
         %th= t(:name_th)
         %th= t(:group)
-        - if current_user.companies.size > 1
+        - if many_companies?
           %th= t(:company)
         %th= t(:playlist_th)
         %th= t(:more_th)
@@ -15,7 +15,7 @@
         %tr{:class => device.online? ? "success" : "danger"}
           %td= device.name
           %td= list_with_links(device.device_groups, 'title')
-          - if current_user.companies.size > 1
+          - if many_companies?
             %td= device.company.nil? ? "" : device.company.title
           %td= link_to(device.playlist.name, device.playlist) if device.playlist
           %td

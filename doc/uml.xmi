@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMI verified="false" xmi.version="1.2" timestamp="2015-09-27T06:50:55" xmlns:UML="http://schema.omg.org/spec/UML/1.3">
+<XMI verified="false" xmi.version="1.2" timestamp="2015-10-01T05:21:13" xmlns:UML="http://schema.omg.org/spec/UML/1.3">
  <XMI.header>
   <XMI.documentation>
    <XMI.exporter>umbrello uml modeller http://umbrello.kde.org</XMI.exporter>
@@ -39,6 +39,9 @@
       <UML:Class visibility="public" isSpecification="false" namespace="Logical View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="lClpaj52oTJW" name="new_class_5"/>
       <UML:Class visibility="public" isSpecification="false" namespace="Logical View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="1mCAwbohlXUM" name="new_class_6"/>
       <UML:Class visibility="public" isSpecification="false" namespace="Logical View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="EViSjy4bEKVQ" name="new_class_7"/>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uhwU0aCkyCf3" name="new_class_8"/>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="JeIx0kAuR6OP" name="new_class_9"/>
+      <UML:Class visibility="public" isSpecification="false" namespace="Logical View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="YBiYG5kZh1Uh" name="new_class_10"/>
      </UML:Namespace.ownedElement>
      <XMI.extension xmi.extender="umbrello">
       <diagrams>
@@ -72,6 +75,9 @@
       </UML:Entity>
       <UML:Entity visibility="public" isSpecification="false" namespace="Entity Relationship Model" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="iLj02hvJqVmz" name="Playlist::Item">
        <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="iLj02hvJqVmz" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="3XX97pBQUh3M" type="ktRCuKLw5Wif" dbindex_type="1100" initialValue="1000000" name="position"/>
+       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="iLj02hvJqVmz" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="1yBGDEI6eNTE" type="uhwU0aCkyCf3" dbindex_type="1100" initialValue="" name="begin_time"/>
+       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="iLj02hvJqVmz" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="rjtl73v814OC" type="JeIx0kAuR6OP" dbindex_type="1100" initialValue="" name="end_time"/>
+       <UML:EntityAttribute visibility="private" values="" isSpecification="false" namespace="iLj02hvJqVmz" allow_null="0" isAbstract="false" isLeaf="false" attributes="" auto_increment="0" isRoot="false" xmi.id="gY9ckmeZVXIc" type="YBiYG5kZh1Uh" dbindex_type="1100" initialValue="" name="playbacks_number"/>
       </UML:Entity>
       <UML:Association visibility="public" isSpecification="false" namespace="Entity Relationship Model" xmi.id="uZDIRTdqODt7" name="">
        <UML:Association.connection>
@@ -223,7 +229,7 @@
         <widgets>
          <entitywidget width="93" showstereotype="1" x="553" usesdiagramusefillcolor="0" y="87" usesdiagramfillcolor="0" isinstance="0" localid="RwHvyhFdn4Tg" fillcolor="#ffff00" height="60" linecolor="#ff0000" xmi.id="vJBZV8RnENrI" textcolor="none" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
          <entitywidget width="80" showstereotype="1" x="895" usesdiagramusefillcolor="0" y="96" usesdiagramfillcolor="0" isinstance="0" localid="55tiMuRirv3a" fillcolor="#ffff00" height="45" linecolor="#ff0000" xmi.id="Rwc5j77h13zN" textcolor="none" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
-         <entitywidget width="112" showstereotype="1" x="720" usesdiagramusefillcolor="0" y="91" usesdiagramfillcolor="0" isinstance="0" localid="YvDArw5IsKCo" fillcolor="#ffff00" height="30" linecolor="#ff0000" xmi.id="iLj02hvJqVmz" textcolor="none" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
+         <entitywidget width="130" showstereotype="1" x="720" usesdiagramusefillcolor="0" y="91" usesdiagramfillcolor="0" isinstance="0" localid="YvDArw5IsKCo" fillcolor="#ffff00" height="75" linecolor="#ff0000" xmi.id="iLj02hvJqVmz" textcolor="none" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
          <entitywidget width="70" showstereotype="1" x="906" usesdiagramusefillcolor="0" y="308" usesdiagramfillcolor="0" isinstance="0" localid="1RRmTuSXxKFJ" fillcolor="#ffff00" height="60" linecolor="#ff0000" xmi.id="twpghWVEr3qZ" textcolor="none" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
          <entitywidget width="121" showstereotype="1" x="1121" usesdiagramusefillcolor="0" y="358" usesdiagramfillcolor="0" isinstance="0" localid="Ehz3a2e8vrHn" fillcolor="#ffff00" height="75" linecolor="#ff0000" xmi.id="WWI2xsg5DjaV" textcolor="none" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
          <entitywidget width="165" showstereotype="1" x="1121" usesdiagramusefillcolor="0" y="213" usesdiagramfillcolor="0" isinstance="0" localid="nM3dhFPgfqT8" fillcolor="#ffff00" height="105" linecolor="#ff0000" xmi.id="OYteMEIeRetD" textcolor="none" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0"/>
@@ -251,7 +257,7 @@
          <assocwidget indexa="1" indexb="1" usesdiagramusefillcolor="1" widgetaid="Rwc5j77h13zN" usesdiagramfillcolor="1" fillcolor="none" linecolor="none" seqnum="" totalcounta="2" xmi.id="ZvI8jH8EWRag" widgetbid="iLj02hvJqVmz" totalcountb="2" type="519" textcolor="none" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0">
           <linepath layout="Polyline">
            <startpoint startx="895" starty="111"/>
-           <endpoint endx="832" endy="111"/>
+           <endpoint endx="850" endy="111"/>
           </linepath>
          </assocwidget>
          <assocwidget indexa="1" indexb="1" usesdiagramusefillcolor="1" widgetaid="twpghWVEr3qZ" usesdiagramfillcolor="1" fillcolor="none" linecolor="none" seqnum="" totalcounta="2" xmi.id="a3lnmLHO6lLZ" widgetbid="WWI2xsg5DjaV" totalcountb="2" type="519" textcolor="none" usefillcolor="1" linewidth="none" font="DejaVu Sans,10,-1,5,50,0,0,0,0,0">
@@ -317,7 +323,7 @@
   </UML:Model>
  </XMI.content>
  <XMI.extensions xmi.extender="umbrello">
-  <docsettings viewid="pX20uyHMfOMK" uniqueid="EViSjy4bEKVQ" documentation=""/>
+  <docsettings viewid="pX20uyHMfOMK" uniqueid="YBiYG5kZh1Uh" documentation=""/>
   <listview>
    <listitem open="1" type="800" id="Views">
     <listitem open="1" type="821" id="Component View"/>
@@ -366,6 +372,9 @@
       <listitem open="0" type="833" id="I9Gw6mUDEES5"/>
      </listitem>
      <listitem open="1" type="832" id="iLj02hvJqVmz">
+      <listitem open="0" type="833" id="1yBGDEI6eNTE"/>
+      <listitem open="0" type="833" id="rjtl73v814OC"/>
+      <listitem open="0" type="833" id="gY9ckmeZVXIc"/>
       <listitem open="0" type="833" id="3XX97pBQUh3M"/>
      </listitem>
      <listitem open="1" type="832" id="vlaGkPu4e3DT">
@@ -396,12 +405,15 @@
      <listitem open="1" type="813" id="8nFtUNPVkJcu"/>
      <listitem open="1" type="813" id="MJUjiLehwqB0"/>
      <listitem open="1" type="813" id="JhyMN5bhN5Q3"/>
+     <listitem open="1" type="813" id="YBiYG5kZh1Uh"/>
      <listitem open="1" type="813" id="skYxTXwYpjcX"/>
      <listitem open="1" type="813" id="aXcvD466oe3I"/>
      <listitem open="1" type="813" id="S6OGiRYsNMp1"/>
      <listitem open="1" type="813" id="lClpaj52oTJW"/>
      <listitem open="1" type="813" id="1mCAwbohlXUM"/>
      <listitem open="1" type="813" id="EViSjy4bEKVQ"/>
+     <listitem open="1" type="813" id="uhwU0aCkyCf3"/>
+     <listitem open="1" type="813" id="JeIx0kAuR6OP"/>
     </listitem>
     <listitem open="1" type="802" id="Use Case View"/>
    </listitem>

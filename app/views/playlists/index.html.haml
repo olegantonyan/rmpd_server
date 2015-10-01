@@ -10,7 +10,7 @@
         %tr
           %th= t(:playlist_name_th)
           %th= t(:description_th)
-          - if current_user.companies.size > 1
+          - if many_companies?
             %th= t(:company)
           %th= t(:media_items_title) + " / " + t(:size_th)
           %th= t(:devices_title)
@@ -20,7 +20,7 @@
           %tr
             %td= playlist.name
             %td= playlist.description
-            - if current_user.companies.size > 1
+            - if many_companies?
               %td= playlist.company.nil? ? "" : playlist.company.title
             %td= playlist.media_items.to_a.count.to_s + " / " + number_to_human_size((playlist.media_items.inject(0) {|sum, i| sum += i.file.size.to_i}), precision: 2)
             %td= policy_scope(playlist.devices).count

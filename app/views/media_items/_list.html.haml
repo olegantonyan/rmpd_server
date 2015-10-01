@@ -7,7 +7,7 @@
             %th= check_box_tag 'select_all', true, false, :id => 'select-all-media_items-checkbox'
             %th= t(:filename_th)
             %th= t(:description_th)
-            - if current_user.companies.size > 1
+            - if many_companies?
               %th= t(:company)
             %th= t(:size_th)
             %th= t('.type')
@@ -20,7 +20,7 @@
                 %span.glyphicon.glyphicon-play
                 = link_to media_item.file_identifier, media_item.file_url
               %td= media_item.description
-              - if current_user.companies.size > 1
+              - if many_companies?
                 %td= media_item.company.try(:title)
               %td= number_to_human_size(media_item.file.size, precision: 2)
               %td= media_item.type
