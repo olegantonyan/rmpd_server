@@ -61,9 +61,9 @@ module CrudResponder
     ok = object.public_send(method)
     t_key = "flash.actions.#{action_by_caller(_caller)}.#{ok ? 'notice' : 'alert'}"
     if ok
-      flash_success I18n.t(t_key, resource_name: resoucre_name_by_object(object))
+      flash_success I18n.t(t_key, resource_name: resoucre_name_by_object(object), resource_desc: object.to_s)
     else
-      flash_error I18n.t(t_key, resource_name: resoucre_name_by_object(object), errors: object.errors.full_messages.to_sentence)
+      flash_error I18n.t(t_key, resource_name: resoucre_name_by_object(object), resource_desc: object.to_s, errors: object.errors.full_messages.to_sentence)
     end
     ok
   end

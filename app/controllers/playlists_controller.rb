@@ -18,9 +18,6 @@ class PlaylistsController < BaseController
     @playlist = Playlist.new
     authorize @playlist
     @playlist_items = Playlist::Item.includes(:playlist).all
-    respond_to do |format|
-      format.html
-    end
   end
 
   # GET /playlists/1/edit
@@ -32,7 +29,6 @@ class PlaylistsController < BaseController
   def create
     @playlist = Playlist.new(playlist_params)
     authorize @playlist
-    @playlist.deploy_media_items!(media_items_scoped, media_items_positions)
     crud_respond @playlist
   end
 
@@ -40,7 +36,6 @@ class PlaylistsController < BaseController
   def update
     authorize @playlist
     @playlist.assign_attributes(playlist_params)
-    @playlist.deploy_media_items!(media_items_scoped, media_items_positions)
     crud_respond @playlist
   end
 
@@ -58,21 +53,15 @@ class PlaylistsController < BaseController
   end
 
   def set_media_items
-    @media_items = policy_scope(MediaItem).includes(:company).all
-    #@media_items = policy_scope(MediaItem).joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position')
+    @media_items = policy_scope(MediaItem.includes(:company).all)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def playlist_params
-    params.require(:playlist).permit(:name, :description, :company_id, media_items_background_ids: [], media_items_background_positions: [])
-  end
-
-  def media_items_scoped
-    policy_scope(MediaItem).where(:id => params[:media_items_background_ids])
-  end
-
-  def media_items_positions
-    params[:media_items_background_positions]
+    res = params.require(:playlist).permit(:name, :description, :company_id)
+    res[:media_items_background_ids] = params[:media_items_background_ids] #XXX don't know how to do this. nested arrays in form doesnt fork
+    res[:media_items_background_positions] = params[:media_items_background_positions]
+    res
   end
 
 end
