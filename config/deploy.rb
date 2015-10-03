@@ -7,6 +7,7 @@ set :user, 'badmotherfucker'
 set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 set :linked_files, %w{config/database.yml config/config.yml}
+set :branch, ENV['BRANCH'] || 'master'
 
 set :rbenv_type, :user # or :system, depends on your rbenv setup
 set :rbenv_ruby, File.read('.ruby-version').strip
@@ -72,8 +73,8 @@ namespace :deploy do
   desc "Make sure local git is in sync with remote."
   task :check_revision do
     on roles(:app) do
-      unless `git rev-parse HEAD` == `git rev-parse origin/master`
-        puts "WARNING: HEAD is not the same as origin/master"
+      unless `git rev-parse HEAD` == %x[git rev-parse origin/"#{fetch(:branch)}"]
+        puts "WARNING: HEAD is not the same as origin/#{fetch(:branch)}"
         puts "Run `git push` to sync changes."
         exit
       end
@@ -103,4 +104,12 @@ namespace :deploy do
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
+
+  task :put_branch do
+    on roles(:app) do
+      execute "cd #{release_path} && echo #{fetch(:branch)} > BRANCH"
+    end
+  end
+  before 'deploy:restart', 'deploy:put_branch'
+
 end
