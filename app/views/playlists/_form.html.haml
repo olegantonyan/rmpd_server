@@ -2,10 +2,12 @@
   = f.text_field :name
   = f.text_field :description
   = render partial: 'shared/select_company_form', locals: {:f => f}
-  = f.label :media_items
 
   .row
-    .col-sm-6
-      = render partial: 'media_items_list', locals: { playlist: playlist, media_items: media_items }
+    .col-md-6.col-sm-12
+      = render partial: 'media_items_background_list', locals: { playlist: playlist, media_items: media_items.background }
+    .col-md-6.col-sm-12
+      = render partial: 'media_items_advertising_list', locals: { playlist: playlist, media_items: media_items.advertising }
+
 
   = f.submit :value => t(:save_button_text), :class => "btn btn-primary"

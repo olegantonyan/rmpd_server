@@ -1,24 +1,20 @@
 require 'tempfile'
 
 class Playlist < ActiveRecord::Base
+  include Playlist::ItemsCreation
   has_paper_trail
 
-  with_options autosave: true do |a|
-    a.has_many :playlist_items, -> {
-      order(:position)
-      }, dependent: :destroy, inverse_of: :playlist, class_name: Playlist::Item
-    a.has_many :media_items, -> {
-      joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position')
-      }, through: :playlist_items
-  end
+  has_many :playlist_items, -> {
+    order(:position)
+    }, dependent: :destroy, inverse_of: :playlist, class_name: Playlist::Item
+  has_many :media_items, -> {
+    joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position')
+    }, through: :playlist_items
   has_many :devices, inverse_of: :playlist
   belongs_to :company, inverse_of: :playlists
 
   after_save :playlist_updated
   after_destroy :playlist_destroyed
-  before_validation :create_playlist_items
-
-  attr_accessor :media_items_background_ids, :media_items_background_positions
 
   mount_uploader :file, PlaylistFileUploader
 
@@ -50,15 +46,6 @@ class Playlist < ActiveRecord::Base
   end
 
   private
-
-  def create_playlist_items
-    return true if !media_items_background_ids || !media_items_background_positions
-    playlist_items.destroy_all
-    media_items_background_ids.each do |i|
-      position = media_items_background_positions.find{ |e| e.first.to_i == i.to_i}.second
-      playlist_items << Playlist::Item.new(media_item_id: i, position: position, playlist: self)
-    end
-  end
 
   def create_playlist_file
     tempfile = Tempfile.new(['playlist', '.m3u'])

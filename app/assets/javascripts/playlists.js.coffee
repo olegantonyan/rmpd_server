@@ -3,15 +3,26 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready = ->
+  setup_list_background()
+  setup_list_advertising()
+
+setup_list_background = ->
   options = {
     valueNames: ['filename', 'description', 'company']
     page: 1000
   }
-  userList = new List('media_items', options)
-  
-  $('#select-all-checkbox').click ->
-    console.log("clicked select all")
-    $('.media-item-checkbox').prop('checked', @checked)
+  userList = new List('media-items-background', options)
+  $('#select-all-background-checkbox').click ->
+    $('.media-item-background-checkbox').prop('checked', @checked)
+
+setup_list_advertising = ->
+  options = {
+    valueNames: ['filename', 'description', 'company']
+    page: 1000
+  }
+  userList = new List('media-items-advertising', options)
+  $('#select-all-advertising-checkbox').click ->
+    $('.media-item-advertising-checkbox').prop('checked', @checked)
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

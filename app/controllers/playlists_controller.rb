@@ -34,6 +34,7 @@ class PlaylistsController < BaseController
 
   # PATCH/PUT /playlists/1
   def update
+    sap params
     authorize @playlist
     @playlist.assign_attributes(playlist_params)
     crud_respond @playlist
@@ -59,8 +60,19 @@ class PlaylistsController < BaseController
   # Never trust parameters from the scary internet, only allow the white list through.
   def playlist_params
     res = params.require(:playlist).permit(:name, :description, :company_id)
-    res[:media_items_background_ids] = params[:media_items_background_ids] #XXX don't know how to do this. nested arrays in form doesnt fork
+    #XXX don't know how to do this. nested arrays in form doesnt fork
+    begin
+      res[:media_items_background_ids] = params.fetch(:media_items_background_ids) || []
+    rescue KeyError
+    end
     res[:media_items_background_positions] = params[:media_items_background_positions]
+    begin
+      res[:media_items_advertising_ids] = params.fetch(:media_items_advertising_ids) || []
+    rescue KeyError
+    end
+    res[:media_items_advertising_begin_times] = params[:media_items_advertising_begin_times]
+    res[:media_items_advertising_end_times] = params[:media_items_advertising_end_times]
+    res[:media_items_advertising_playbacks_totals] = params[:media_items_advertising_playbacks_totals]
     res
   end
 

@@ -132,23 +132,23 @@ ActiveRecord::Schema.define(version: 20151001032201) do
   create_table "playlist_items", force: :cascade do |t|
     t.integer  "playlist_id"
     t.integer  "media_item_id"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "position",      default: 1000000
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "position",        default: 1000000
+    t.time     "begin_time"
+    t.time     "end_time"
+    t.integer  "playbacks_total"
   end
 
   add_index "playlist_items", ["playlist_id", "media_item_id"], name: "index_playlist_items_on_playlist_id_and_media_item_id", using: :btree
 
   create_table "playlists", force: :cascade do |t|
-    t.string   "name",                                      null: false
-    t.text     "description",                  default: "", null: false
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.string   "file",             limit: 256, default: "", null: false
+    t.string   "name",                                 null: false
+    t.text     "description",             default: "", null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "file",        limit: 256, default: "", null: false
     t.integer  "company_id"
-    t.time     "begin_time"
-    t.time     "end_time"
-    t.integer  "playbacks_number"
   end
 
   add_index "playlists", ["company_id"], name: "index_playlists_on_company_id", using: :btree

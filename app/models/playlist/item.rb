@@ -11,6 +11,9 @@ class Playlist::Item < ActiveRecord::Base
 
   validate :check_files_processing
 
+  scope :background, -> { joins(:media_item).where('media_items.type = ?', MediaItem.types['background']) }
+  scope :advertising, -> { joins(:media_item).where('media_items.type = ?', MediaItem.types['advertising']) }
+
   rails_admin do
     visible false
   end

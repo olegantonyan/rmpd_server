@@ -1,0 +1,35 @@
+#media-items-advertising
+  %h4 Advertising content
+  .input-group
+    .row
+      .col-sm-12
+        %input.search.form-control{'placeholder' => t(:search)}
+        = check_box_tag :select_all, "1", false, id: 'select-all-advertising-checkbox'
+        = label_tag t(:select_all)
+        %button.sort.btn.btn-default{'data-sort' => 'filename', 'type' => 'button'}= t(:sort_by_filename)
+        %button.sort.btn.btn-default{'data-sort' => 'description', 'type' => 'button'}= t(:sort_by_description)
+        - if many_companies?
+          %button.sort.btn.btn-default{'data-sort' => 'company', 'type' => 'button'}= t(:sort_by_company)
+    .row
+      .col-md-12
+        %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
+          %tr
+            %th= t(:add_th)
+            %th= 'Begin time'
+            %th= 'End time'
+            %th= 'Playbacks total'
+            %th= t(:filename_th)
+            %th= t(:description_th)
+            - if many_companies?
+              %th= t(:company)
+          %tbody.list
+            - media_items.each do |item|
+              %tr
+                %td= check_box_tag "media_items_advertising_ids[]", item.id, has_media_item?(playlist, item), class: 'form-control media-item-advertising-checkbox'
+                %td= select_time media_item_begin_time(playlist, item), prefix: "media_items_advertising_begin_times[#{item.id}]"
+                %td= select_time media_item_end_time(playlist, item), prefix: "media_items_advertising_end_times[#{item.id}]"
+                %td= number_field_tag "media_items_advertising_playbacks_totals[#{item.id}]", media_item_playbacks_total(playlist, item), min: 0, class: 'form-control'
+                %td.filename= label_tag "media_item#{item.id}", item.file_identifier
+                %td.description= item.description
+                - if many_companies?
+                  %td.company= item.company.try(:title)
