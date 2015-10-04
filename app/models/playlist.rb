@@ -4,12 +4,8 @@ class Playlist < ActiveRecord::Base
   include Playlist::ItemsCreation
   has_paper_trail
 
-  has_many :playlist_items, -> {
-    order(:position)
-    }, dependent: :destroy, inverse_of: :playlist, class_name: Playlist::Item
-  has_many :media_items, -> {
-    joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position')
-    }, through: :playlist_items
+  has_many :playlist_items, -> { order(:position) }, dependent: :destroy, inverse_of: :playlist, class_name: Playlist::Item
+  has_many :media_items, -> { joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position') }, through: :playlist_items
   has_many :devices, inverse_of: :playlist
   belongs_to :company, inverse_of: :playlists
 
@@ -23,7 +19,9 @@ class Playlist < ActiveRecord::Base
     validates :playlist_items
   end
   validates :description, length: {maximum: 250}
-  validate :check_files_processing
+  after_validation do #merge child's errors into base to see those messages TODO extract into separate class
+    playlist_items.select{|i| i.invalid?}.each{|i| errors.add(:playlist_items, i.errors.full_messages.to_sentence) }
+  end
 
   rails_admin do
     list do
@@ -71,15 +69,6 @@ class Playlist < ActiveRecord::Base
   def playlist_destroyed
     self.devices.each do |d|
       Deviceapi::Protocol.new.delete_playlist d
-    end
-  end
-
-  def check_files_processing
-    if playlist_items.find{|i| !i.valid? }
-      errors.add(:base, I18n.t('activerecord.attributes.playlist.files_processing')) # for error message only
-      false
-    else
-      true
     end
   end
 

@@ -1,14 +1,15 @@
 class Playlist::Item < ActiveRecord::Base
   has_paper_trail
 
-  with_options inverse_of: :playlist_items do
-    belongs_to :media_item
-    belongs_to :playlist
+  with_options inverse_of: :playlist_items do |a|
+    a.belongs_to :media_item
+    a.belongs_to :playlist
   end
 
-  validates :position, :media_item, :playlist, presence: true
-  validates_inclusion_of :position, :in => -1000000..1000000
-
+  with_options presence: true do
+    validates :media_item
+    validates :playlist
+  end
   validate :check_files_processing
 
   scope :background, -> { joins(:media_item).where('media_items.type = ?', MediaItem.types['background']) }
@@ -24,13 +25,10 @@ class Playlist::Item < ActiveRecord::Base
 
   private
 
-    def check_files_processing
-      if media_item.file.video? && media_item.file_processing?
-        errors.add(:media_item, I18n.t('activerecord.attributes.media_item.file_processing'))
-        false
-      else
-        true
-      end
+  def check_files_processing
+    if media_item.file.video? && media_item.file_processing?
+      errors.add(:media_item, I18n.t('activerecord.attributes.media_item.file_processing'))
     end
+  end
 
 end
