@@ -55,7 +55,7 @@ module ApplicationHelper
   end
 
   def icon_link_to(icon, text)
-    raw("<i class='glyphicon #{icon}'></i> #{text}")
+    raw("<i class='glyphicon glyphicon-#{icon}'></i> #{text}")
   end
 
   def present(model)

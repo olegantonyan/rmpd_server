@@ -1,0 +1,12 @@
+.panel.panel-default
+  .panel-heading
+    .row
+      .col-sm-10
+        %h4= playlist.name
+      .col-sm-2.btn-group.pull-right
+        = link_to icon_link_to('eye-open', ''), playlist_path(playlist), class: "btn btn-default"
+        = link_to icon_link_to('pencil', ''), edit_playlist_path(playlist), class: "btn btn-primary"
+  .panel-body
+    %p= playlist.description
+    - if true#many_companies?
+      %h6= playlist.company.title

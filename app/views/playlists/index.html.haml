@@ -1,7 +1,9 @@
 - content_for :page_title, t(:playlists_title)
 
 %p
-  = link_to icon_link_to('glyphicon-plus', t(:create_playlist_text)), new_playlist_path, class: "btn btn-success"
+  = link_to icon_link_to('plus', t(:create_playlist_text)), new_playlist_path, class: "btn btn-success"
+
+-#= render @playlists
 
 %p
   .row
