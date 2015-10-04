@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/olegantonyan/crud_responder.git
+  revision: 35968543399e774c980f196e374997066367b298
+  specs:
+    crud_responder (0.1.0)
+      railties
+
+GIT
   remote: git://github.com/olegantonyan/partial_namespaceble.git
   revision: c2a542dc9f7588d93fbbcbb480dc39e57188ae2b
   specs:
@@ -377,6 +384,7 @@ DEPENDENCIES
   carrierwave
   carrierwave_backgrounder
   coffee-rails (~> 4.1.0)
+  crud_responder!
   daemons
   database_cleaner
   delayed_job_active_record

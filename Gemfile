@@ -68,6 +68,7 @@ gem 'partial_namespaceble', github: 'olegantonyan/partial_namespaceble'
 gem 'super_awesome_print', github: 'olegantonyan/super_awesome_print'
 gem 'activerecord-colored_log_subscriber'
 gem 'validates'
+gem 'crud_responder', github: 'olegantonyan/crud_responder'
 
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
