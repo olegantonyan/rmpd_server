@@ -2,19 +2,26 @@ module Playlist::ItemsCreation
   extend ActiveSupport::Concern
 
   included do
-    before_validation :create_playlist_items_background, if: -> {
-      !playlist_items_background_created && media_items_background_ids && media_items_background_positions
-    }
+
     attr_accessor :media_items_background_ids
     attr_accessor :media_items_background_positions
-
-    before_validation :create_playlist_items_advertising, if: -> {
-      !playlist_items_advertising_created && media_items_advertising_ids && media_items_advertising_begin_times && media_items_advertising_end_times && media_items_advertising_playbacks_totals
+    before_validation :create_playlist_items_background, if: -> {
+      !playlist_items_background_created &&
+      media_items_background_ids &&
+      media_items_background_positions
     }
+
     attr_accessor :media_items_advertising_ids
     attr_accessor :media_items_advertising_begin_times
     attr_accessor :media_items_advertising_end_times
     attr_accessor :media_items_advertising_playbacks_totals
+    before_validation :create_playlist_items_advertising, if: -> {
+      !playlist_items_advertising_created &&
+      media_items_advertising_ids &&
+      media_items_advertising_begin_times &&
+      media_items_advertising_end_times &&
+      media_items_advertising_playbacks_totals
+    }
 
     private
 

@@ -7,7 +7,6 @@ class Role < ActiveRecord::Base
   validates :resource_type, :inclusion => { :in => Rolify.resource_types }, :allow_nil => true
   validates :name, presence: true, uniqueness: true, length: {:in => 2..30}
 
-  Role.find_or_create_by!(name: 'root')
   Role.find_or_create_by!(name: 'guest')
 
   rails_admin do
