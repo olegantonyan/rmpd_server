@@ -64,7 +64,9 @@ class PlaylistsController < BaseController
     res[:media_items_advertising_ids] = params[:media_items_advertising_ids] || []
     res[:media_items_advertising_begin_times] = params[:media_items_advertising_begin_times]
     res[:media_items_advertising_end_times] = params[:media_items_advertising_end_times]
-    res[:media_items_advertising_playbacks_totals] = params[:media_items_advertising_playbacks_totals]
+    res[:media_items_advertising_playbacks_per_days] = params[:media_items_advertising_playbacks_per_days]
+    res[:media_items_advertising_begin_dates] = params[:media_items_advertising_begin_dates]
+    res[:media_items_advertising_end_dates] = params[:media_items_advertising_end_dates]
     res
   end
 

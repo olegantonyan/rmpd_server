@@ -15,8 +15,16 @@ module PlaylistsHelper
     find_media_item(playlist, item).try(:end_time) || Time.parse('18:00')
   end
 
-  def media_item_playbacks_total(playlist, item)
-    find_media_item(playlist, item).try(:playbacks_total).to_i
+  def media_item_begin_date(playlist, item)
+    find_media_item(playlist, item).try(:begin_date) || Date.current
+  end
+
+  def media_item_end_date(playlist, item)
+    find_media_item(playlist, item).try(:end_date) || Date.current + 1.month
+  end
+
+  def media_items_advertising_playbacks_per_days(playlist, item)
+    find_media_item(playlist, item).try(:playbacks_per_day).to_i
   end
 
   private

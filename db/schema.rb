@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004072150) do
+ActiveRecord::Schema.define(version: 20151006042611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,12 +132,14 @@ ActiveRecord::Schema.define(version: 20151004072150) do
   create_table "playlist_items", force: :cascade do |t|
     t.integer  "playlist_id"
     t.integer  "media_item_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.integer  "position",        default: 1000000
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "position",          default: 1000000
     t.time     "begin_time"
     t.time     "end_time"
-    t.integer  "playbacks_total"
+    t.integer  "playbacks_per_day"
+    t.date     "begin_date"
+    t.date     "end_date"
   end
 
   add_index "playlist_items", ["playlist_id", "media_item_id"], name: "index_playlist_items_on_playlist_id_and_media_item_id", using: :btree
