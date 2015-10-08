@@ -1,31 +1,34 @@
 #media-items-background
-  %h4 Background content
-  .input-group
-    .row
-      .col-sm-12
-        %input.search.form-control{'placeholder' => t(:search)}
-        = check_box_tag :select_all, "1", false, id: 'select-all-background-checkbox'
-        = label_tag t(:select_all)
-        %button.sort.btn.btn-default{'data-sort' => 'filename', 'type' => 'button'}= t(:sort_by_filename)
-        %button.sort.btn.btn-default{'data-sort' => 'description', 'type' => 'button'}= t(:sort_by_description)
-        - if many_companies?
-          %button.sort.btn.btn-default{'data-sort' => 'company', 'type' => 'button'}= t(:sort_by_company)
-    .row
-      .col-md-12
-        %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
-          %tr
-            %th= t(:add_th)
-            %th= t(:position_th)
-            %th= t(:filename_th)
-            %th= t(:description_th)
-            - if many_companies?
-              %th= t(:company)
-          %tbody.list
-            - media_items.each do |item|
-              %tr
-                %td= check_box_tag "media_items_background_ids[]", item.id, has_media_item?(playlist, item), class: 'form-control media-item-background-checkbox'
-                %td= number_field_tag "media_items_background_positions[#{item.id}]", media_item_position(playlist, item), class: 'form-control'
-                %td.filename= label_tag "media_item#{item.id}", item.file_identifier
-                %td.description= item.description
-                - if many_companies?
-                  %td.company= item.company.try(:title)
+  .panel.panel-info
+    .panel-heading
+      %h4 Background content
+    .panel-body
+      .row
+        .col-sm-12
+          %input.search.form-control{'placeholder' => t(:search)}
+          = check_box_tag :select_all, "1", false, id: 'select-all-background-checkbox'
+          = label_tag t(:select_all)
+          %button.sort.btn.btn-default{'data-sort' => 'filename', 'type' => 'button'}= t(:sort_by_filename)
+          %button.sort.btn.btn-default{'data-sort' => 'description', 'type' => 'button'}= t(:sort_by_description)
+          - if many_companies?
+            %button.sort.btn.btn-default{'data-sort' => 'company', 'type' => 'button'}= t(:sort_by_company)
+      .row
+        .col-md-12
+          %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
+            %tr
+              %th= t(:add_th)
+              %th= t(:position_th)
+              %th= t(:filename_th)
+              %th= t(:description_th)
+              - if many_companies?
+                %th= t(:company)
+            %tbody.list
+              - media_items.each do |item|
+                %tr
+                  - prefix = 'media_items_background_'
+                  %td= check_box_tag "#{prefix}ids[]", item.id, has_media_item?(playlist, item), class: 'form-control media-item-background-checkbox'
+                  %td= number_field_tag "#{prefix}positions[#{item.id}]", media_item_position(playlist, item), class: 'form-control'
+                  %td.filename= label_tag "media_item#{item.id}", item.file_identifier
+                  %td.description= item.description
+                  - if many_companies?
+                    %td.company= item.company.try(:title)
