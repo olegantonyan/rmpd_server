@@ -1,4 +1,5 @@
 #media-items-advertising
+  - prefix = 'media_items_advertising_'
   .panel.panel-warning
     .panel-heading
       %h4 Advertising content
@@ -29,7 +30,6 @@
             %tbody.list
               - media_items.each do |item|
                 %tr
-                  - prefix = 'media_items_advertising_'
                   %td= check_box_tag "#{prefix}ids[]", item.id, has_media_item?(playlist, item), class: 'form-control media-item-advertising-checkbox'
                   %td= select_time media_item_begin_time(playlist, item), prefix: "#{prefix}begin_times[#{item.id}]"
                   %td= select_time media_item_end_time(playlist, item), prefix: "#{prefix}end_times[#{item.id}]"

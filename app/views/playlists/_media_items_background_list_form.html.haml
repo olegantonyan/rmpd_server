@@ -1,7 +1,14 @@
 #media-items-background
+  - prefix = 'media_items_background_'
   .panel.panel-info
     .panel-heading
-      %h4 Background content
+      .row
+        .col-sm-4
+          %h4 Background content
+        .col-sm-8
+          = select_time media_items_background_begin_time(playlist), prefix: "#{prefix}begin_time"
+          = '-'
+          = select_time media_items_background_end_time(playlist), prefix: "#{prefix}end_time"
     .panel-body
       .row
         .col-sm-12
@@ -25,7 +32,6 @@
             %tbody.list
               - media_items.each do |item|
                 %tr
-                  - prefix = 'media_items_background_'
                   %td= check_box_tag "#{prefix}ids[]", item.id, has_media_item?(playlist, item), class: 'form-control media-item-background-checkbox'
                   %td= number_field_tag "#{prefix}positions[#{item.id}]", media_item_position(playlist, item), class: 'form-control'
                   %td.filename= label_tag "media_item#{item.id}", item.file_identifier

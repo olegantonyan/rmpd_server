@@ -4,6 +4,8 @@ module Playlist::ItemsCreation
   included do
     attr_accessor :media_items_background_ids
     attr_accessor :media_items_background_positions
+    attr_accessor :media_items_background_begin_time
+    attr_accessor :media_items_background_end_time
     before_validation :create_playlist_items_background, if: -> {
       !playlist_items_background_created &&
       media_items_background_ids
@@ -43,7 +45,11 @@ module Playlist::ItemsCreation
     media_items_background_ids.each do |i|
       position = media_items_background_positions.find{ |e| e.first.to_i == i.to_i}.second
 
-      playlist_items << Playlist::Item::Background.new(media_item_id: i, position: position)
+      playlist_items << Playlist::Item::Background.new(media_item_id: i,
+                                                       position: position,
+                                                       begin_time: time_param_to_time(media_items_background_begin_time),
+                                                       end_time: time_param_to_time(media_items_background_end_time)
+                                                       )
     end
     self.playlist_items_background_created = true
   end
@@ -54,7 +60,6 @@ module Playlist::ItemsCreation
       begin_time = media_items_advertising_begin_times.find{ |k,v| k.to_i == i.to_i}.second
       end_time = media_items_advertising_end_times.find{ |k,v| k.to_i == i.to_i}.second
       playbacks_per_day = media_items_advertising_playbacks_per_days.find{ |e| e.first.to_i == i.to_i}.second
-      sap media_items_advertising_begin_dates
       begin_date = media_items_advertising_begin_dates.find{ |k,v| k.to_i == i.to_i}.second
       end_date = media_items_advertising_end_dates.find{ |k,v| k.to_i == i.to_i}.second
 

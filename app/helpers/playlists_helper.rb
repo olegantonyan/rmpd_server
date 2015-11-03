@@ -27,6 +27,14 @@ module PlaylistsHelper
     find_media_item(playlist, item).try(:playbacks_per_day).to_i
   end
 
+  def media_items_background_begin_time playlist
+    Time.parse('09:00') #TODO extract begin_times from all background items in playlist
+  end
+
+  def media_items_background_end_time playlist
+    Time.parse('18:00')
+  end
+
   private
 
   def find_media_item(playlist, item)
