@@ -28,11 +28,11 @@ module PlaylistsHelper
   end
 
   def media_items_background_begin_time playlist
-    Time.parse('09:00') #TODO extract begin_times from all background items in playlist
+    playlist.playlist_items.background.first.try(:begin_time) || Time.parse('09:00')
   end
 
   def media_items_background_end_time playlist
-    Time.parse('18:00')
+    playlist.playlist_items.background.first.try(:end_time) || Time.parse('18:00')
   end
 
   private
