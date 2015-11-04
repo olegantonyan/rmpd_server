@@ -13,8 +13,8 @@ class MediaItem < ActiveRecord::Base
   mount_uploader :file, MediaItemUploader
   process_in_background :file
 
-  validates_presence_of :file
-  validates_length_of :description, :maximum => 130
+  validates :file, presence: true
+  validates :description, length: {maximum: 130}
 
   filterrific(
     available_filters: [ :search_query, :with_company_id ]

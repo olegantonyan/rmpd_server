@@ -3,22 +3,28 @@ class Device < ActiveRecord::Base
   has_secure_password
   has_paper_trail
 
-  belongs_to :playlist, touch: true, inverse_of: :devices
-  has_one :device_status, dependent: :destroy, inverse_of: :device, class_name: Device::Status
-  has_many :device_log_messages, dependent: :destroy, class_name: Device::LogMessage
-  has_many :device_group_memberships, dependent: :destroy, inverse_of: :device, class_name: Device::Group::Membership
+  with_options dependent: :destroy do |a|
+    a.with_options inverse_of: :device do |aa|
+      aa.has_one :device_status, class_name: Device::Status
+      aa.has_many :device_group_memberships, class_name: Device::Group::Membership
+    end
+    a.has_many :device_log_messages, class_name: Device::LogMessage
+  end
+  with_options inverse_of: :devices do |a|
+    belongs_to :playlist, touch: true
+    belongs_to :company
+  end
   has_many :device_groups, through: :device_group_memberships, class_name: Device::Group
-  belongs_to :company, inverse_of: :devices
 
   validates :login, presence: true, uniqueness: true, length: {:in => 4..100}
-  validates_length_of :name, :maximum => 130
-  validates :password, length: {:in => 8..60}, :presence => true, :confirmation => true, :if => -> { new_record? || !password.nil? }
+  validates :name, length: {maximum: 130}
+  validates :password, length: {in: 8..60}, presence: true, confirmation: true, if: -> { new_record? || !password.nil? }
 
   after_save :device_updated
   after_destroy :device_destroyed
 
   def online?
-    self.device_status != nil && self.device_status.online
+    device_status && device_status.online
   end
 
   rails_admin do
