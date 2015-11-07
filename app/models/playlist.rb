@@ -2,11 +2,14 @@ require 'tempfile'
 
 class Playlist < ActiveRecord::Base
   include Playlist::ItemsCreation
+  include Wisper::Publisher
   has_paper_trail
 
-  has_many :playlist_items, -> { order(:position) }, dependent: :destroy, inverse_of: :playlist, class_name: Playlist::Item
+  with_options inverse_of: :playlist do |a|
+    a.has_many :playlist_items, -> { order(:position) }, dependent: :destroy, class_name: Playlist::Item
+    a.has_many :devices
+  end
   has_many :media_items, -> { joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position') }, through: :playlist_items
-  has_many :devices, inverse_of: :playlist
   belongs_to :company, inverse_of: :playlists
 
   after_save :playlist_updated
