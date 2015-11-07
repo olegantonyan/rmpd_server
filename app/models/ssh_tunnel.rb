@@ -22,7 +22,7 @@ class SshTunnel
 
   def save
     if valid?
-      Deviceapi::Protocol.new.request_ssh_tunnel self
+      Deviceapi::Protocol.new.request_ssh_tunnel(self.device, {tunnel: self})
     else
       false
     end
