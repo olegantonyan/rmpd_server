@@ -1,8 +1,7 @@
-- content_for :page_title, t(:log_for_device_title) + " #{@device.name}"
+- content_for :page_title, t(:log_for_device_title) + " #{@device_log_messages.first.try(:device).try(:name)}"
 
 .row
   .col-md-12
-    .text-center= will_paginate(@device_log_messages, :renderer => BootstrapPagination::Rails, :previous_label => "&larr; "+t(:newer), :next_label => t(:older)+" &rarr;")
     %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
       %tr
         %th= t(:module_th)
@@ -16,11 +15,9 @@
         %tr
           %td= log_item.module
           %td= log_item.level
-          %td= log_item.etype
+          %td= log_item.type
           %td= log_item.details
           %td= localtime log_item.localtime
           %td= localtime log_item.created_at
 
-/.row
-/  .col-md-12
-/    .text-center= page_entries_info(@device_log_messages)
+  .text-center= will_paginate(@device_log_messages, :renderer => BootstrapPagination::Rails, :previous_label => "&larr; "+t(:newer), :next_label => t(:older)+" &rarr;")

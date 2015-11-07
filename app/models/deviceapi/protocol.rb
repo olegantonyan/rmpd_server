@@ -1,13 +1,6 @@
 require 'time'
 
 class Deviceapi::Protocol
-
-  Deviceapi::Protocol::BaseCommand.available.each do |command|
-    define_method("#{command}") do |to_device, options = {}|
-      "#{self.class.name}::Commands::#{command.classify}".constantize.new.call(to_device, options)
-    end
-  end
-
   def process(from_device, data, user_agent, incomming_sequence_number)
     return if from_device.nil?
 

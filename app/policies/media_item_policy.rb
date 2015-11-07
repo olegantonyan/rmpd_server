@@ -26,4 +26,11 @@ class MediaItemPolicy < ApplicationPolicy
   def destroy?
     update?
   end
+
+  class Scope < Scope
+    def resolve
+      return scope.all if user.root?
+      scope.where(company: user.companies)
+    end
+  end
 end

@@ -8,12 +8,12 @@ class Device < ActiveRecord::Base
     a.with_options inverse_of: :device do |aa|
       aa.has_one :device_status, class_name: Device::Status
       aa.has_many :device_group_memberships, class_name: Device::Group::Membership
+      aa.has_many :device_log_messages, class_name: Device::LogMessage
     end
-    a.has_many :device_log_messages, class_name: Device::LogMessage
   end
   with_options inverse_of: :devices do |a|
-    belongs_to :playlist, touch: true
-    belongs_to :company
+    a.belongs_to :playlist, touch: true
+    a.belongs_to :company
   end
   has_many :device_groups, through: :device_group_memberships, class_name: Device::Group
 
@@ -51,13 +51,11 @@ class Device < ActiveRecord::Base
   private
 
   def device_updated
-    send_to_device :update_playlist, self
-    #Deviceapi::Protocol.new.update_playlist self
+    send_to :update_playlist
   end
 
   def device_destroyed
-    send_to_device :clear_queue, self
-    #Deviceapi::Protocol.new.clear_queue self
+    send_to :clear_queue
   end
 
 end

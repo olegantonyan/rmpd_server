@@ -1,21 +1,17 @@
 class Deviceapi::MessageQueue < ActiveRecord::Base
+  self.table_name = 'deviceapi_message_queue'
 
-  validates_presence_of :key
-  validates_length_of :key, :maximum => 255
-
-  before_save :default_values
+  validates :key, presence: true, length: { maximum: 512 }
 
   def self.enqueue(key, data, message_type)
     logger.debug("Enqueue message to '#{key}': '#{data}'")
-    d = new(:key => key, :data => data, :dequeued => false, :message_type => message_type)
-    d.save
+    create(key: key, data: data, message_type: message_type)
   end
 
   def self.dequeue(key)
-    d = where(:key => key, :dequeued => false).order(:created_at).first
-    unless d.nil?
-      d.dequeued = true
-      d.save
+    d = where(key: key, dequeued: false).order(:created_at).first
+    if d
+      d.update(dequeued: true)
       logger.debug("Dequeue message for '#{key}': '#{d.data}', sequence '#{d.id}'")
       [d.data, d.id]
     else
@@ -25,8 +21,8 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
 
   def self.remove(sequence_number)
     return if sequence_number.nil?
-    d = find_by(:id => sequence_number)
-    unless d.nil?
+    d = find_by(id: sequence_number)
+    if d
       logger.debug("Remove message for '#{d.key}': '#{d.data}', sequence '#{d.id}'")
       d.destroy
     end
@@ -45,11 +41,7 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
 
   def self.retries(sequence_number)
     return 0 if sequence_number.nil?
-    d = find_by(:id => sequence_number)
-    unless d.nil?
-      return d.reenqueue_retries
-    end
-    0
+    find_by(id: sequence_number).try(:reenqueue_retries) || 0
   end
 
   def self.reenqueue_all(key)
@@ -60,17 +52,15 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
 
   def self.destroy_all_messages(key)
     logger.debug("Destroy all messages for '#{key}'")
-    destroy_all(:key => key)
+    destroy_all(key: key)
   end
 
   def self.destroy_messages_with_type(key, message_type)
-    destroy_all(:key => key, :message_type => message_type)
+    destroy_all(key: key, message_type: message_type)
   end
 
-  private
-
-  def default_values
-    self.reenqueue_retries ||= 0
+  def sequence_number
+    id
   end
 
 end

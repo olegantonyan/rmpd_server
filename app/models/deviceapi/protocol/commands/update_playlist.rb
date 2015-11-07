@@ -1,4 +1,4 @@
-class Deviceapi::Protocol::Commands::UpdatePlaylist < Deviceapi::Protocol::BaseCommand
+class Deviceapi::Protocol::Commands::UpdatePlaylist < Deviceapi::Protocol::Commands::BaseCommand
   def call(to_device, options = {})
     if to_device.playlist
       items = []

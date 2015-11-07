@@ -1,7 +1,4 @@
-class Deviceapi::Protocol::BaseCommand
-  def self.available
-    Dir["#{File.dirname(__FILE__)}/commands/*.rb"].map{|i| File.basename(i, '.rb') }
-  end
+class Deviceapi::Protocol::Commands::BaseCommand
 
   protected
 
@@ -12,5 +9,4 @@ class Deviceapi::Protocol::BaseCommand
   def type
     self.class.name.underscore.split('/').last
   end
-
 end

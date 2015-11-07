@@ -1,8 +1,5 @@
-require 'tempfile'
-
 class Playlist < ActiveRecord::Base
   include Playlist::ItemsCreation
-  include Deviceapi::Sender
   has_paper_trail
 
   with_options inverse_of: :playlist do |a|
@@ -64,16 +61,11 @@ class Playlist < ActiveRecord::Base
     save  # save newly created file in db
     Playlist.set_callback(:save, :after, :playlist_updated)
 
-    self.devices.each do |d|
-      send_to_device(:update_playlist, d)
-    end
+    devices.each { |d| d.send_to :update_playlist }
   end
 
   def playlist_destroyed
-    self.devices.each do |d|
-      send_to_device(:delete_playlist, d)
-      #Deviceapi::Protocol.new.delete_playlist d
-    end
+    devices.each { |d| d.send_to :delete_playlist }
   end
 
 end

@@ -47,8 +47,7 @@ class ApplicationPolicy
     end
 
     def resolve
-      return scope.all if user.root?
-      scope.where(company: user.companies)
+      scope
     end
 
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006042611) do
+ActiveRecord::Schema.define(version: 20151107161751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20151006042611) do
     t.integer  "device_id"
     t.string   "module",     null: false
     t.string   "level",      null: false
-    t.string   "etype",      null: false
+    t.string   "type",       null: false
     t.datetime "localtime",  null: false
     t.string   "details"
     t.datetime "created_at", null: false
@@ -82,6 +82,19 @@ ActiveRecord::Schema.define(version: 20151006042611) do
   end
 
   add_index "device_statuses", ["device_id"], name: "index_device_statuses_on_device_id", using: :btree
+
+  create_table "deviceapi_message_queue", force: :cascade do |t|
+    t.string   "key"
+    t.string   "data"
+    t.boolean  "dequeued",          default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "reenqueue_retries", default: 0,     null: false
+    t.string   "message_type"
+  end
+
+  add_index "deviceapi_message_queue", ["key"], name: "index_deviceapi_message_queue_on_key", using: :btree
+  add_index "deviceapi_message_queue", ["message_type"], name: "index_deviceapi_message_queue_on_message_type", using: :btree
 
   create_table "devices", force: :cascade do |t|
     t.string   "login"
@@ -108,19 +121,6 @@ ActiveRecord::Schema.define(version: 20151006042611) do
   end
 
   add_index "media_items", ["company_id"], name: "index_media_items_on_company_id", using: :btree
-
-  create_table "message_queues", force: :cascade do |t|
-    t.string   "key"
-    t.string   "data"
-    t.boolean  "dequeued"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.integer  "reenqueue_retries"
-    t.string   "message_type"
-  end
-
-  add_index "message_queues", ["key"], name: "index_message_queues_on_key", using: :btree
-  add_index "message_queues", ["message_type"], name: "index_message_queues_on_message_type", using: :btree
 
   create_table "news_items", force: :cascade do |t|
     t.text     "body",                                null: false
