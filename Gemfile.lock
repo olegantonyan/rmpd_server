@@ -363,7 +363,6 @@ GEM
     will_paginate (3.0.7)
     will_paginate-bootstrap (1.0.1)
       will_paginate (>= 3.0.3)
-    wisper (2.0.0.rc1)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -435,7 +434,6 @@ DEPENDENCIES
   web-console (~> 2.0.0)
   will_paginate
   will_paginate-bootstrap
-  wisper (= 2.0.0.rc1)
 
 BUNDLED WITH
    1.10.6

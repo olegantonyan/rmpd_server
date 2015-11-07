@@ -1,4 +1,5 @@
 class Device < ActiveRecord::Base
+  include Deviceapi::Sender
   include ScopesWithUser
   has_secure_password
   has_paper_trail
@@ -49,12 +50,14 @@ class Device < ActiveRecord::Base
 
   private
 
-    def device_updated
-      Deviceapi::Protocol.new.update_playlist self
-    end
+  def device_updated
+    send_to_device :update_playlist, self
+    #Deviceapi::Protocol.new.update_playlist self
+  end
 
-    def device_destroyed
-      Deviceapi::Protocol.new.clear_queue self
-    end
+  def device_destroyed
+    send_to_device :clear_queue, self
+    #Deviceapi::Protocol.new.clear_queue self
+  end
 
 end

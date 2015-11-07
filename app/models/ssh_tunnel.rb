@@ -1,4 +1,5 @@
 class SshTunnel
+  include Deviceapi::Sender
   include ActiveModel::Model
 
   validates :server, :username, :server_port, :external_port, :internal_port, :open_duration, :device, presence: true
@@ -22,7 +23,7 @@ class SshTunnel
 
   def save
     if valid?
-      Deviceapi::Protocol.new.request_ssh_tunnel(self.device, {tunnel: self})
+      send_to_device(:request_ssh_tunnel, self.device, {tunnel: self})
     else
       false
     end
