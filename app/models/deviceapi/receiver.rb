@@ -2,7 +2,7 @@ module Deviceapi::Receiver
   def receive_from_device(device, data, user_agent, sequence_number)
     prepare_update_device_status(device, data)
     write_device_log(device, data, user_agent)
-    incomming_command_object(device, data).call(sequence_number: sequence_number)
+    incomming_command_object(device, data, sequence_number).call
     save_device_status(device)
   end
 
@@ -20,8 +20,8 @@ module Deviceapi::Receiver
 
   private
 
-  def incomming_command_object(device, data)
-    "Deviceapi::Protocol::Incoming::#{data[:type].to_s.classify}".constantize.new(device, data)
+  def incomming_command_object(device, data, sequence_number)
+    "Deviceapi::Protocol::Incoming::#{data[:type].to_s.classify}".constantize.new(device, data, sequence_number)
   end
 
   def prepare_update_device_status(device, data)

@@ -20,7 +20,6 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
   end
 
   def self.remove(sequence_number)
-    return if sequence_number.nil?
     d = find_by(id: sequence_number)
     if d
       logger.debug("Remove message for '#{d.key}': '#{d.data}', sequence '#{d.id}'")
@@ -29,7 +28,6 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
   end
 
   def self.reenqueue(sequence_number)
-    return if sequence_number.nil?
     d = find_by(:id => sequence_number)
     unless d.nil?
       logger.debug("Reenqueue message for '#{d.key}': '#{d.data}', sequence '#{d.id}'")
@@ -40,14 +38,12 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
   end
 
   def self.retries(sequence_number)
-    return 0 if sequence_number.nil?
     find_by(id: sequence_number).try(:reenqueue_retries) || 0
   end
 
   def self.reenqueue_all(key)
-    return if key.nil?
     logger.debug("Reenqueue all dequed messages for '#{key}'")
-    where(:key => key, :dequeued => true).update_all(["reenqueue_retries = reenqueue_retries + 1, dequeued = ?", false])
+    where(key: key, dequeued: true).update_all(["reenqueue_retries = reenqueue_retries + 1, dequeued = ?", false])
   end
 
   def self.destroy_all_messages(key)
@@ -58,9 +54,4 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
   def self.destroy_messages_with_type(key, message_type)
     destroy_all(key: key, message_type: message_type)
   end
-
-  def sequence_number
-    id
-  end
-
 end
