@@ -1,8 +1,8 @@
 class Deviceapi::Protocol::Outgoing::RequestSshTunnel < Deviceapi::Protocol::Outgoing::BaseCommand
-  def call(to_device, options = {})
+  def call(options = {})
     tunnel = options.fetch(:tunnel)
-    clean_previous_commands(tunnel.device.login, type)
-    Deviceapi::MessageQueue.enqueue(tunnel.device.login, json(tunnel), type)
+    clean_previous_commands
+    enqueue(json(tunnel))
   end
 
   def json(tunnel)

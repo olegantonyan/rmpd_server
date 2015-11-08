@@ -1,12 +1,22 @@
 class Deviceapi::Protocol::Outgoing::BaseCommand
+  attr_reader :device, :mq
+
+  def initialize(device)
+    @device = device
+    @mq = Deviceapi::MessageQueue
+  end
 
   protected
 
-  def clean_previous_commands(device_login, command_type)
-    Deviceapi::MessageQueue.destroy_messages_with_type(device_login, command_type)
+  def enqueue(json)
+    mq.enqueue(device.login, json, type)
+  end
+
+  def clean_previous_commands
+    mq.destroy_messages_with_type(device.login, type)
   end
 
   def type
-    self.class.name.underscore.split('/').last
+    @_type ||= self.class.name.underscore.split('/').last
   end
 end

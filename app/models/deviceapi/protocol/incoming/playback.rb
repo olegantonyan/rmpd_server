@@ -1,7 +1,7 @@
 class Deviceapi::Protocol::Incoming::Playback < Deviceapi::Protocol::Incoming::BaseCommand
   include Deviceapi::Sender
 
-  def call(device, data, options = {})
+  def call(options = {})
     if data[:status] == 'now_playing'
       device.device_status.now_playing = data[:track]
       if data[:track] == 'none'
