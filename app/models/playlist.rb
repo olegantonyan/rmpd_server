@@ -1,5 +1,6 @@
 class Playlist < ActiveRecord::Base
   include Playlist::ItemsCreation
+  include ValidatesHasManyWithErrorMessages
   has_paper_trail
 
   with_options inverse_of: :playlist do |a|
@@ -15,13 +16,11 @@ class Playlist < ActiveRecord::Base
   mount_uploader :file, PlaylistFileUploader
 
   with_options presence: true do
-    validates :name, length: {maximum: 130}
+    validates :name, length: {maximum: 128}
     validates :playlist_items
   end
-  validates :description, length: {maximum: 250}
-  after_validation do #merge child's errors into base to see those messages TODO extract into separate class
-    playlist_items.select{|i| i.invalid?}.each{|i| errors.add(:playlist_items, i.errors.full_messages.to_sentence) }
-  end
+  validates :description, length: {maximum: 512}
+  validates_has_many_with_error_messages :playlist_items
 
   rails_admin do
     list do

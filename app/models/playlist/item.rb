@@ -11,6 +11,7 @@ class Playlist::Item < ActiveRecord::Base
     validates :playlist
   end
   validate :check_files_processing
+  validate :begin_time_less_than_end_time
 
   scope :background, -> { joins(:media_item).where('media_items.type = ?', MediaItem.types['background']) }
   scope :advertising, -> { joins(:media_item).where('media_items.type = ?', MediaItem.types['advertising']) }
@@ -31,6 +32,10 @@ class Playlist::Item < ActiveRecord::Base
     if media_item.file.video? && media_item.file_processing?
       errors.add(:media_item, I18n.t('activerecord.attributes.media_item.file_processing'))
     end
+  end
+
+  def begin_time_less_than_end_time
+    errors.add(:begin_time, "#{begin_time} >= end time #{end_time}") if begin_time >= end_time
   end
 
 end
