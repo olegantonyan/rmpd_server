@@ -10,6 +10,6 @@ module Deviceapi::Sender
   private
 
   def command_object_by_command command
-    "Deviceapi::Protocol::Commands::#{command.to_s.classify}".constantize.new
+    "Deviceapi::Protocol::Outgoing::#{command.to_s.classify}".constantize.new
   end
 end

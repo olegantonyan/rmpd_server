@@ -1,4 +1,4 @@
-class Deviceapi::Protocol::Commands::BaseCommand
+class Deviceapi::Protocol::Outgoing::BaseCommand
 
   protected
 

@@ -1,5 +1,3 @@
-require 'time'
-
 class Device::LogMessage < ActiveRecord::Base
   self.inheritance_column = 'sti_type'
 
@@ -15,39 +13,39 @@ class Device::LogMessage < ActiveRecord::Base
 
   def self.write(device, logdata, user_agent)
     begin
-      log = new(:device => device, :localtime => Time.parse(logdata["localtime"]), :user_agent => user_agent)
-      case logdata["type"]
+      log = new(:device => device, :localtime => Time.parse(logdata[:localtime]), :user_agent => user_agent)
+      case logdata[:type]
       when "ack"
         log.module = "system"
-        log.type = logdata["status"] == "ok" ? "ack_ok" : "ack_error"
-        log.level = logdata["status"] == "ok" ? "info" : "error"
-        log.details = logdata["message"]
+        log.type = logdata[:status] == "ok" ? "ack_ok" : "ack_error"
+        log.level = logdata[:status] == "ok" ? "info" : "error"
+        log.details = logdata[:message]
       when "power"
         log.module = "system"
         log.level = "info"
-        log.type = logdata["status"]
+        log.type = logdata[:status]
       when "playback"
         log.module = "player"
         log.level = "info"
-        case logdata["status"]
+        case logdata[:status]
         when "begin"
           log.type = "begin"
-          log.details = logdata["track"].to_s
+          log.details = logdata[:track].to_s
         when "end"
           log.type = "end"
-          log.details = logdata["track"].to_s
+          log.details = logdata[:track].to_s
         when "now_playing"
           return
         when "error"
           log.level = "warning"
           log.type = "error"
-          log.details = logdata["track"].to_s
+          log.details = logdata[:track].to_s
         when "update_playlist"
           log.type = "start update playlist"
-          log.details = logdata["track"].join(", ")
+          log.details = logdata[:track].join(", ")
         when "begin_playlist"
           log.type = "begin playlist"
-          log.details = logdata["track"].join(", ")
+          log.details = logdata[:track].join(", ")
         else
           log.type = "unknown"
         end

@@ -1,25 +1,17 @@
 class Deviceapi::StatusController < Deviceapi::BaseController
-
-  def index
-    render json: { :ok => device.inspect}
-  end
+  include Deviceapi::Receiver
 
   def create
-    queued_messsage_to_device = ""
     outgoing_sequence_number = 0
     response_status = :ok
-    user_agent = request.headers["User-Agent"]
-    incomming_sequence_number = request.headers["X-Sequence-Number"]
-    data = JSON.parse request.body.read
-    queued_messsage_to_device, outgoing_sequence_number = Deviceapi::Protocol.new.process(device, data, user_agent, incomming_sequence_number)
+
+    queued_messsage_to_device, outgoing_sequence_number = received_from_device(device, params, request.user_agent, request.headers['X-Sequence-Number'])
   rescue => err
     logger.error("Error processing message from device '#{device.login}' : " + err.to_s)
     response_status = :unprocessable_entity
   ensure
-    response.headers["X-Sequence-Number"] = outgoing_sequence_number.to_s
-    render :json => (JSON.parse(queued_messsage_to_device) rescue {}), :status => response_status
+    response.headers['X-Sequence-Number'] = outgoing_sequence_number.to_s
+    render json: (JSON.parse(queued_messsage_to_device) rescue {}), status: response_status
   end
-
-  private
 
 end

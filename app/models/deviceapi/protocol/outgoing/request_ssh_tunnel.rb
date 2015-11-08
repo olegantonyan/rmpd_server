@@ -1,4 +1,4 @@
-class Deviceapi::Protocol::Commands::RequestSshTunnel < Deviceapi::Protocol::Commands::BaseCommand
+class Deviceapi::Protocol::Outgoing::RequestSshTunnel < Deviceapi::Protocol::Outgoing::BaseCommand
   def call(to_device, options = {})
     tunnel = options.fetch(:tunnel)
     clean_previous_commands(tunnel.device.login, type)
