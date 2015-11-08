@@ -15,6 +15,8 @@ class Playlist::Item < ActiveRecord::Base
   scope :background, -> { joins(:media_item).where('media_items.type = ?', MediaItem.types['background']) }
   scope :advertising, -> { joins(:media_item).where('media_items.type = ?', MediaItem.types['advertising']) }
 
+  delegate :file_url, :type, :description, :file_identifier, to: :media_item
+
   rails_admin do
     visible false
   end
