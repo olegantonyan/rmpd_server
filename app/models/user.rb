@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
 
   before_save :set_defaults
 
+  scope :available_for_notifications, -> {
+    where.not(confirmed_at: nil, allow_notifications: false)
+  }
+
   def devices
     Device.where(company: companies)
   end

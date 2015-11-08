@@ -3,6 +3,10 @@ class Playlist::Item::Background < Playlist::Item
   validates_inclusion_of :position, in: -1000000..1000000
   validate :media_item_type
 
+  rails_admin do
+    visible false
+  end
+
   private
 
   def media_item_type
