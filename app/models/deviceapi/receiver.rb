@@ -1,15 +1,26 @@
 module Deviceapi::Receiver
-  def received_from_device(device, data, user_agent, sequence_number)
+  def receive_from_device(device, data, user_agent, sequence_number)
     prepare_update_device_status(device, data)
     write_device_log(device, data, user_agent)
-    command_object(device, data).call(sequence_number: sequence_number)
+    incomming_command_object(device, data).call(sequence_number: sequence_number)
     save_device_status(device)
+  end
+
+  def dequeue_for_device(device)
     Deviceapi::MessageQueue.dequeue(device.login)
+  end
+
+  def dequeue
+    dequeue_for_device(self)
+  end
+
+  def receive_from(data, user_agent, sequence_number)
+    receive_from_device(self, data, user_agent, sequence_number)
   end
 
   private
 
-  def command_object(device, data)
+  def incomming_command_object(device, data)
     "Deviceapi::Protocol::Incoming::#{data[:type].to_s.classify}".constantize.new(device, data)
   end
 

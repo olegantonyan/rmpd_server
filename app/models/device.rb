@@ -1,5 +1,6 @@
 class Device < ActiveRecord::Base
   include Deviceapi::Sender
+  include Deviceapi::Receiver
   include ScopesWithUser
   has_secure_password
   has_paper_trail

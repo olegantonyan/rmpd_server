@@ -4,12 +4,12 @@ module Deviceapi::Sender
   end
 
   def send_to_device(command, device, options = {})
-    command_object(command, device).call(options)
+    outgoing_command_object(command, device).call(options)
   end
 
   private
 
-  def command_object(command, device)
+  def outgoing_command_object(command, device)
     "Deviceapi::Protocol::Outgoing::#{command.to_s.classify}".constantize.new(device)
   end
 end
