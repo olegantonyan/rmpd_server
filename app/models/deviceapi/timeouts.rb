@@ -1,10 +1,13 @@
 class Deviceapi::Timeouts
   def self.check
-    devices = Device::Status.where("online = ? AND updated_at <= ?", true, Time.now - 60)
-    count = devices.size
-    if count > 0
-      devices.update_all(:online => false, :now_playing => "")
-      Rails.logger.info("#{count.to_s} gone offline")
+    statuses = Device::Status.where("online = ? AND updated_at <= ?", true, Time.now - 60)
+    if statuses.any?
+      new_online_status = false
+      statuses.find_each do |status|
+        Rails.logger.info("#{status.device} gone offline")
+        Notifiers::DeviceStatusNotifierJob.perform_later(status.device, new_online_status)
+      end
+      statuses.update_all(online: new_online_status, now_playing: '')
     end
   end
 end

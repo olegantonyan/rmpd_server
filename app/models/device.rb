@@ -46,7 +46,7 @@ class Device < ActiveRecord::Base
   end
 
   def to_s
-    "#{name} (#{login} in #{company.to_s})"
+    "#{login} (#{name} in #{company.to_s})"
   end
 
   private

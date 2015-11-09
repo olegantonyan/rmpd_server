@@ -29,6 +29,7 @@ module Deviceapi::Receiver
     device.device_status.devicetime = Time.parse(data[:localtime]) if data[:localtime]
     device.device_status.online = true
     device.device_status.updated_at = Time.zone.now
+    Notifiers::DeviceStatusNotifierJob.perform_later(device, device.device_status.online) if device.device_status.online_changed?
   end
 
   def save_device_status(device)
