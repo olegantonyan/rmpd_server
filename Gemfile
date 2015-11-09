@@ -70,6 +70,7 @@ gem 'activerecord-colored_log_subscriber'
 gem 'validates'
 gem 'crud_responder', github: 'olegantonyan/crud_responder'
 gem 'slack-notifier'
+gem 'exception_notification'
 
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console

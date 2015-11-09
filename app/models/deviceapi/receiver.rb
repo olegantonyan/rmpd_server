@@ -1,6 +1,7 @@
 module Deviceapi::Receiver
   def receive_from_device(device, data, user_agent, sequence_number)
     prepare_update_device_status(device, data)
+    notify_status(device)
     write_device_log(device, data, user_agent)
     incomming_command_object(device, data, sequence_number).call
     save_device_status(device)
@@ -29,7 +30,6 @@ module Deviceapi::Receiver
     device.device_status.devicetime = Time.parse(data[:localtime]) if data[:localtime]
     device.device_status.online = true
     device.device_status.updated_at = Time.zone.now
-    Notifiers::DeviceStatusNotifierJob.perform_later(device, device.device_status.online) if device.device_status.online_changed?
   end
 
   def save_device_status(device)
@@ -38,6 +38,10 @@ module Deviceapi::Receiver
 
   def write_device_log(device, logdata, user_agent)
     Device::LogMessage.write(device, logdata, user_agent)
+  end
+
+  def notify_status(device)
+    Notifiers::DeviceStatusNotifierJob.perform_later(device, device.device_status.online) if device.device_status.online_changed?
   end
 
 end

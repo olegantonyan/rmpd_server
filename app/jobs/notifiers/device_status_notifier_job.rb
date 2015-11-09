@@ -2,7 +2,7 @@ class Notifiers::DeviceStatusNotifierJob < Notifiers::BaseNotifierJob
   def perform(device, status)
     status_text = status ? 'online' : 'offline'
     text = "Device #{device} is now #{status_text}"
-    color = status ? 'good' : 'danger'
+    color = status ? 'good' : 'warning'
     a = {
       fields: [{
           title: "Device login",

@@ -54,4 +54,8 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
   def self.destroy_messages_with_type(key, message_type)
     destroy_all(key: key, message_type: message_type)
   end
+
+  def self.message_type_for_sequence_number sequence_number
+    find_by(id: sequence_number).try(:message_type)
+  end
 end
