@@ -7,10 +7,6 @@ class Deviceapi::BaseController < ApplicationController
 
   attr_accessor :device
 
-  def notify_exception(exception)
-    ExceptionNotifier.notify_exception(exception, env: request.env)
-  end
-
   private
 
   def authenticate_and_set_device
