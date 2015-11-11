@@ -58,7 +58,7 @@ class PlaylistsController < BaseController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def playlist_params
-    res = params.require(:playlist).permit(:name, :description, :company_id)
+    res = params.require(:playlist).permit(:name, :description, :company_id, :shuffle)
     res[:media_items_background_ids] = params[:media_items_background_ids] || []
     res[:media_items_background_positions] = params[:media_items_background_positions]
     res[:media_items_advertising_ids] = params[:media_items_advertising_ids] || []

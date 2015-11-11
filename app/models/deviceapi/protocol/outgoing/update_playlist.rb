@@ -32,6 +32,7 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
       description: playlist.description,
       created_at: playlist.created_at,
       updated_at: playlist.updated_at,
+      shuffle: playlist.shuffle,
       items: playlist.playlist_items.includes(:media_item).map{|i|
                                    {url: i.file_url,
                                     filename: i.file_identifier,

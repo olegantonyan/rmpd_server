@@ -2,6 +2,9 @@
   = f.text_field :name
   = f.text_field :description
   = render partial: 'shared/select_company_form', locals: {:f => f}
+  = f.check_box :shuffle, id: 'playlists-shuffle-checkbox'
+
+  = tag :br
 
   .row
     .col-sm-12
