@@ -6,6 +6,12 @@ GIT
       railties
 
 GIT
+  remote: git://github.com/olegantonyan/initializer_helpers.git
+  revision: 6f7026bdc391b832e24de98176d0e4a922953c0f
+  specs:
+    initializer_helpers (0.1.0)
+
+GIT
   remote: git://github.com/olegantonyan/partial_namespaceble.git
   revision: c2a542dc9f7588d93fbbcbb480dc39e57188ae2b
   specs:
@@ -404,6 +410,7 @@ DEPENDENCIES
   gaffe
   gravtastic
   haml-rails
+  initializer_helpers!
   jbuilder (~> 2.0)
   jquery-fileupload-rails
   jquery-rails (~> 4.0.0.beta2)

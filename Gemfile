@@ -71,6 +71,7 @@ gem 'validates'
 gem 'crud_responder', github: 'olegantonyan/crud_responder'
 gem 'slack-notifier'
 gem 'exception_notification'
+gem 'initializer_helpers', github: 'olegantonyan/initializer_helpers'
 
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console

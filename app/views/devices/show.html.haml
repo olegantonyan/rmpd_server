@@ -10,6 +10,11 @@
       = row_info t(:company), @device.company.nil? ? "" : @device.company.title
       = row_info t(:added_at_th), @device.created_at
       = row_info t(:updated_at_th), @device.updated_at
+
+.row
+  .col-sm-12
+    = render partial: 'shared/playlist_assignment_form', locals: {selected: @device.playlist_id, url: device_playlist_assignment_path(device_id: @device.id)}
+
 .row
   .col-md-12
     %h2= t(:status_header)

@@ -61,7 +61,7 @@ class DevicesController < BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:login, :name, :password, :password_confirmation, :playlist_id, :company_id, :device_group_ids => [])
+      params.require(:device).permit(:login, :name, :password, :password_confirmation, :company_id, :device_group_ids => [])
     end
 
 end
