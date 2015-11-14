@@ -4,12 +4,7 @@ class PlaylistAssignmentsController < BaseController
   def update
     assignment = Playlist::Assignment.new(assignable: @assignable, playlist_id: playlist_assignment_params[:playlist_id])
     authorize assignment
-    if assignment.save
-      flash_success 'Playlist assigned'
-    else
-      flash_error 'Error ' + assignment.errors.full_messages.join(',')
-    end
-    redirect_to :back
+    crud_respond assignment, success_url: :back, error_url: :back
   end
 
   private
