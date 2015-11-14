@@ -6,5 +6,9 @@
       = row_info t(:title), @device_group.title
       = row_info t(:devices), list_with_links(@device_group.devices, 'name')
 
+.row
+  .col-sm-12
+    = render partial: 'shared/playlist_assignment_form', locals: {selected: selected_playlist_id(@device_group), url: device_group_playlist_assignment_path(device_group_id: @device_group.id) }
+
   .col-md-12
     = link_to t(:edit_device_group), edit_device_group_path(@device_group), class: "btn btn-primary"

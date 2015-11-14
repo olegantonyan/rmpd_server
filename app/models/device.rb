@@ -22,7 +22,6 @@ class Device < ActiveRecord::Base
   validates :name, length: {maximum: 130}
   validates :password, length: {in: 8..60}, presence: true, confirmation: true, if: -> { new_record? || !password.nil? }
 
-  after_save :device_updated
   after_destroy :device_destroyed
 
   def online?
@@ -50,10 +49,6 @@ class Device < ActiveRecord::Base
   end
 
   private
-
-  def device_updated
-    send_to :update_playlist
-  end
 
   def device_destroyed
     send_to :clear_queue
