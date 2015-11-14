@@ -8,6 +8,8 @@ class Notifiers::BaseNotifierJob < ApplicationJob
   def notifier
     if SLACK_WEBHOOK_URL
       Slack::Notifier.new SLACK_WEBHOOK_URL, username: self.class.name
+    else
+      Rails.logger.warn 'slack notification is not configured'
     end
   end
 
