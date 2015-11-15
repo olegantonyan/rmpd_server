@@ -5,7 +5,7 @@ class Deviceapi::Protocol::Outgoing::DeletePlaylist < Deviceapi::Protocol::Outgo
   end
 
   def json
-    {'type' => 'playlist', 'status' => 'delete'}.to_json
+    {'type' => 'playlist', 'status' => 'delete'}
   end
 
 end

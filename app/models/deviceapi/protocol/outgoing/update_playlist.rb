@@ -12,7 +12,7 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
      'status' => 'update',
      'items' => legacy_items, #old implementation, for compatability
      'playlist' => serialized_playlist(device.playlist)  #new implementation
-   }.to_json
+   }
   end
 
   def legacy_items

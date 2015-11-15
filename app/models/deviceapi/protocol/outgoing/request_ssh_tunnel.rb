@@ -6,7 +6,7 @@ class Deviceapi::Protocol::Outgoing::RequestSshTunnel < Deviceapi::Protocol::Out
   end
 
   def json(tunnel)
-    {'type' => 'ssh_tunnel',
+      {'type' => 'ssh_tunnel',
       'status' => 'open',
       'server' => tunnel.server,
       'server_port' => tunnel.server_port,
@@ -14,7 +14,7 @@ class Deviceapi::Protocol::Outgoing::RequestSshTunnel < Deviceapi::Protocol::Out
       'internal_port' => tunnel.internal_port,
       'duration' => tunnel.open_duration,
       'username' => tunnel.username
-    }.to_json
+    }
   end
 
 end
