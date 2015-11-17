@@ -98,6 +98,7 @@ group :development, :test do
   gem 'capistrano-rails-console'
   gem 'capistrano-rails-tail-log'
   gem 'rails-erd'
+  gem 'capistrano-slackify', require: false
 end
 
 group :production do

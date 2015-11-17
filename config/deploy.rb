@@ -20,6 +20,13 @@ _delayed_job_workers = _workers_match ? _workers_match[:workers].to_i : 1
 set :delayed_job_workers, _delayed_job_workers
 set :delayed_job_roles, [:app]
 
+set :slack_channel, '#dev'
+set :slack_username, 'deployer'
+set :slack_emoji, ':trollface:'
+set :slack_deploy_finished_color, 'good'
+set :slack_deploy_failed_color, 'danger'
+set :slack_url, 'https://hooks.slack.com/services/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'
+
 #set :default_env, { path: "~/.rbenv/shims:~/.rbenv/bin:$PATH" }
 #set :default_environment, {
 #  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
