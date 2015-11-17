@@ -4,7 +4,7 @@ class Playlist < ActiveRecord::Base
   has_paper_trail
 
   with_options inverse_of: :playlist do |a|
-    a.has_many :playlist_items, -> { order(:position) }, dependent: :destroy, class_name: Playlist::Item
+    a.has_many :playlist_items, -> { order(:position) }, dependent: :destroy, class_name: 'Playlist::Item'
     a.has_many :devices
   end
   has_many :media_items, -> { joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position') }, through: :playlist_items

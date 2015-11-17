@@ -7,18 +7,18 @@ class Device < ActiveRecord::Base
 
   with_options dependent: :destroy do |a|
     a.with_options inverse_of: :device do |aa|
-      aa.has_one :device_status, class_name: Device::Status, autosave: true
-      aa.has_many :device_group_memberships, class_name: Device::Group::Membership
-      aa.has_many :device_log_messages, class_name: Device::LogMessage
+      aa.has_one :device_status, class_name: 'Device::Status', autosave: true
+      aa.has_many :device_group_memberships, class_name: 'Device::Group::Membership'
+      aa.has_many :device_log_messages, class_name: 'Device::LogMessage'
     end
   end
   with_options inverse_of: :devices do |a|
     a.belongs_to :playlist, touch: true
     a.belongs_to :company
   end
-  has_many :device_groups, through: :device_group_memberships, class_name: Device::Group
+  has_many :device_groups, through: :device_group_memberships, class_name: 'Device::Group'
 
-  validates :login, presence: true, uniqueness: true, length: {:in => 4..100}
+  validates :login, presence: true, uniqueness: true, length: {in: 4..100}
   validates :name, length: {maximum: 130}
   validates :password, length: {in: 8..60}, presence: true, confirmation: true, if: -> { new_record? || !password.nil? }
 
