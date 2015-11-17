@@ -35,7 +35,9 @@ class Playlist::Item < ActiveRecord::Base
   end
 
   def begin_time_less_than_end_time
-    errors.add(:begin_time, "#{begin_time} >= end time #{end_time}") if begin_time >= end_time
+    if begin_time && end_time
+      errors.add(:begin_time, "#{begin_time} >= end time #{end_time}") if begin_time >= end_time
+    end
   end
 
 end
