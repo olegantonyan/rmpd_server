@@ -1,3 +1,8 @@
+require 'playlist'
+require 'playlist/item'
+require 'playlist/item/advertising'
+require 'playlist/item/background'
+
 module Playlist::ItemsCreation
   extend ActiveSupport::Concern
 
