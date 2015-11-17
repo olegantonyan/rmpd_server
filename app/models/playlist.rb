@@ -1,5 +1,5 @@
 class Playlist < ActiveRecord::Base
-  include CreationOfPlaylistItems
+  include PlaylistItemsCreation
   include ValidatesHasManyWithErrorMessages
   has_paper_trail
 

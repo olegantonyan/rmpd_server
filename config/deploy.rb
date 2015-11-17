@@ -15,11 +15,11 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all # default value
 
-_workers_match = /WORKERS=(?<workers>\d)/.match(File.read("#{File.dirname(__FILE__)}/../bin/delayed_job.sh"))
-_delayed_job_workers = _workers_match ? _workers_match[:workers].to_i : 1
-set :delayed_job_workers, _delayed_job_workers
-set :delayed_job_workers, 4
-set :delayed_job_roles, [:app]
+#_workers_match = /WORKERS=(?<workers>\d)/.match(File.read("#{File.dirname(__FILE__)}/../bin/delayed_job.sh"))
+#_delayed_job_workers = _workers_match ? _workers_match[:workers].to_i : 1
+#set :delayed_job_workers, _delayed_job_workers
+#set :delayed_job_workers, 4
+#set :delayed_job_roles, [:app]
 
 #set :default_env, { path: "~/.rbenv/shims:~/.rbenv/bin:$PATH" }
 #set :default_environment, {
