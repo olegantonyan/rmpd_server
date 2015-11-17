@@ -1,3 +1,5 @@
+require 'playlist/items_creation'
+
 class Playlist < ActiveRecord::Base
   include Playlist::ItemsCreation
   include ValidatesHasManyWithErrorMessages
