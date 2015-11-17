@@ -1,5 +1,5 @@
 class Playlist < ActiveRecord::Base
-  include PlaylistItemsCreation
+  include CreationOfPlaylistItems
   include ValidatesHasManyWithErrorMessages
   has_paper_trail
 
@@ -21,11 +21,6 @@ class Playlist < ActiveRecord::Base
   end
   validates :description, length: {maximum: 512}
   validates_has_many_with_error_messages :playlist_items
-
-  after_initialize do
-    @advertising_class = Playlist::Item::Advertizing
-    @background_class = Playlist::Item::Background
-  end
 
   rails_admin do
     list do
