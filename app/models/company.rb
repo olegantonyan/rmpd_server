@@ -10,8 +10,12 @@ class Company < ActiveRecord::Base
   has_many :users, through: :user_company_memberships
 
   validates :title, presence: true, length: {in: 4..100}, uniqueness: true
-
+  
   Company.find_or_create_by!(title: 'Demo')
+
+  def self.demo
+    find_by(title: 'Demo')
+  end
 
   rails_admin do
     list do

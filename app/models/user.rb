@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
 
     def set_defaults
       if self.companies.empty?
-        self.companies << Company.where("lower(title) = ?", Company::DEMO_TITLE.downcase).first
+        self.companies << Company.demo
       end
     end
 
