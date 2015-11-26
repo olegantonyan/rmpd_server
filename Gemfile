@@ -99,6 +99,7 @@ group :development, :test do
   gem 'capistrano-rails-tail-log'
   gem 'rails-erd'
   gem 'capistrano-slackify', require: false
+  gem 'rails_db'
 end
 
 group :production do
