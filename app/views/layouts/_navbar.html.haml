@@ -1,8 +1,16 @@
 %nav.navbar.navbar-inverse{:role => "navigation"}
   .container-fluid
-    = image_tag "logo.png", alt: "logo", class: "navbar-brand img-responsive"
-    = link_to app_title, root_path, class: "navbar-brand"
-    .collapse.navbar-collapse
+    .navbar-header
+      %button{:type => 'button', :class => 'navbar-toggle collapsed',
+              :data => {:toggle => 'collapse', :target => '#bs-navbar-1' }, 'aria-expanded' => 'false'}
+        %span.sr-only
+          Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = image_tag "logo.png", alt: "logo", class: "navbar-brand img-responsive"
+      = link_to app_title, root_path, class: "navbar-brand"
+    #bs-navbar-1.collapse.navbar-collapse
       %ul.nav.navbar-nav
         %li{:class => active_class_for('media_items')}= link_to icon_link_to('play', t(:media_items_title)), media_items_path
         %li{:class => active_class_for('playlists')}= link_to icon_link_to('list', t(:playlists_title)), playlists_path
@@ -23,5 +31,5 @@
             %span{:title => t(:logout)}
               = link_to icon_link_to('log-out', ''), destroy_user_session_path, method: :delete, :class => "btn btn-warning navbar-btn"
         - else
-          = link_to icon_link_to('glyphicon glyphicon-user', t(:sign_up)), new_user_registration_path, :class => "btn btn-default navbar-btn"
-          = link_to icon_link_to('glyphicon glyphicon-log-in', t(:login)), new_user_session_path, :class => "btn btn-success navbar-btn"
+          = link_to icon_link_to('user', t(:sign_up)), new_user_registration_path, :class => "btn btn-default navbar-btn"
+          = link_to icon_link_to('log-in', t(:login)), new_user_session_path, :class => "btn btn-success navbar-btn"
