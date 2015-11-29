@@ -22,7 +22,11 @@ module Deviceapi::Receiver
   private
 
   def incomming_command_object(device, data, sequence_number)
-    "Deviceapi::Protocol::Incoming::#{data[:type].to_s.classify}".constantize.new(device, data, sequence_number)
+    if data[:command]
+      "Deviceapi::Protocol::Incoming::#{data[:command].to_s.classify}"
+    else
+      "Deviceapi::Protocol::Incoming::Legacy::#{data[:type].to_s.classify}"
+    end.constantize.new(device, data, sequence_number)
   end
 
   def prepare_update_device_status(device, data)
@@ -37,7 +41,7 @@ module Deviceapi::Receiver
   end
 
   def write_device_log(device, logdata, user_agent)
-    Device::LogMessage.write(device, logdata, user_agent)
+    Device::LogMessage.write!(device, logdata, user_agent)
   end
 
   def notify_status(device)
