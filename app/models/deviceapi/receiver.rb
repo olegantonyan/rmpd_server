@@ -41,7 +41,15 @@ module Deviceapi::Receiver
   end
 
   def write_device_log(device, logdata, user_agent)
-    Device::LogMessage.write!(device, logdata, user_agent)
+    return if [logdata[:status], logdata[:command]].any? {|i| i == 'now_playing'}
+
+    Device::LogMessage.create!(device: device,
+                               localtime: Time.parse(logdata[:localtime]),
+                               user_agent: user_agent,
+                               command: logdata[:command] || "#{logdata[:type]}_#{logdata[:status]}",
+                               message: logdata[:message] || logdata[:track])
+  rescue => e
+    logger.error "error writing device log: #{e.message}"
   end
 
   def notify_status(device)
