@@ -8,8 +8,8 @@ class Deviceapi::Protocol::Outgoing::BaseCommand
 
   protected
 
-  def enqueue(json)
-    mq.enqueue(device.login, json.merge({'command' => type}).to_json, type)
+  def enqueue(json = {})
+    mq.enqueue(device.login, json.merge({command: type}).to_json, type)
   end
 
   def clean_previous_commands

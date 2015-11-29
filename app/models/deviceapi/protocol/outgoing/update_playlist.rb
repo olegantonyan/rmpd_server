@@ -8,20 +8,9 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
   private
 
   def json
-    {'type' => 'playlist',
-     'status' => 'update',
-     'items' => legacy_items, #old implementation, for compatability
-     'playlist' => serialized_playlist(device.playlist)  #new implementation
-   }
-  end
-
-  def legacy_items
-    items = []
-    device.playlist.playlist_items.includes(:media_item).each {|d| items << d.media_item.file_url }
-    #device.playlist.media_items.each {|i| items << i.file_url } #TODO fix this fucking problem
-    p = Playlist.find(device.playlist.id) #note: http://stackoverflow.com/questions/26923249/rails-carrierwave-manual-file-upload-wrong-url
-    items << p.file_url
-    items
+    {
+      playlist: serialized_playlist(device.playlist)
+   }.merge(legacy_json)
   end
 
   def serialized_playlist playlist
@@ -48,6 +37,22 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
                                   }
                                 }
     }
+  end
+
+  def legacy_items
+    items = []
+    device.playlist.playlist_items.includes(:media_item).each {|d| items << d.media_item.file_url }
+    #device.playlist.media_items.each {|i| items << i.file_url } #TODO fix this fucking problem
+    p = Playlist.find(device.playlist.id) #note: http://stackoverflow.com/questions/26923249/rails-carrierwave-manual-file-upload-wrong-url
+    items << p.file_url
+    items
+  end
+
+  def legacy_json
+    {type: 'playlist',
+     status: 'update',
+     items: legacy_items #old implementation, for compatability
+   }
   end
 
 end

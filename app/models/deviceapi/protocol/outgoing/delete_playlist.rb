@@ -4,8 +4,14 @@ class Deviceapi::Protocol::Outgoing::DeletePlaylist < Deviceapi::Protocol::Outgo
     enqueue(json)
   end
 
+  private
+
   def json
-    {'type' => 'playlist', 'status' => 'delete'}
+    legacy_json
+  end
+
+  def legacy_json
+    {type: 'playlist', status: 'delete'}
   end
 
 end
