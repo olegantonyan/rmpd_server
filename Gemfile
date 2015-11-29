@@ -51,7 +51,7 @@ gem 'delayed_job_active_record'
 gem 'pundit'
 gem 'rolify'
 gem 'rails_admin'
-gem 'paper_trail', '~> 4.0.0.beta2'
+gem 'paper_trail', '~> 4.0.0'
 gem 'gravtastic'
 gem 'gaffe'
 gem 'nested_form_fields'
@@ -97,9 +97,9 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'capistrano-rails-console'
   gem 'capistrano-rails-tail-log'
-  gem 'rails-erd'
+  #gem 'rails-erd', require: false
   gem 'capistrano-slackify', require: false
-  gem 'rails_db'
+  #gem 'rails_db', require: false
 end
 
 group :production do
