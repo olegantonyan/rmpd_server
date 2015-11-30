@@ -33,7 +33,7 @@ module Deviceapi::Receiver
     device.build_device_status unless device.device_status
     device.device_status.devicetime = Time.parse(data[:localtime]) if data[:localtime]
     device.device_status.online = true
-    device.device_status.updated_at = Time.zone.now
+    device.device_status.updated_at = Time.current
   end
 
   def save_device_status(device)
