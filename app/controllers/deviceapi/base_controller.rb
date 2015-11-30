@@ -5,14 +5,14 @@ class Deviceapi::BaseController < ApplicationController
 
   protected
 
-  attr_accessor :device
+  attr_reader :device
 
   private
 
   def authenticate_and_set_device
     authenticate_or_request_with_http_basic do |username, password|
-      self.device = Device.find_by(login: username).try(:authenticate, password)
-      if self.device
+      @device = Device.find_by(login: username).try(:authenticate, password)
+      if @device
         true
       else
         render status: :forbidden, text: 'Forbidden'
