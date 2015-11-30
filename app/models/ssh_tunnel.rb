@@ -10,14 +10,14 @@ class SshTunnel
   attr_accessor :server, :username, :server_port, :external_port, :internal_port, :open_duration, :device
 
   def self.new_default(host)
-    ssh_tunnel = new
-    ssh_tunnel.server = host
-    ssh_tunnel.username = "sshtunnel"
-    ssh_tunnel.server_port = 10022
-    ssh_tunnel.external_port = 10023
-    ssh_tunnel.internal_port = 22
-    ssh_tunnel.open_duration = 120
-    ssh_tunnel
+    new.tap do |s|
+      s.server = host
+      s.username = "sshtunnel"
+      s.server_port = 10022
+      s.external_port = 10023
+      s.internal_port = 22
+      s.open_duration = 120
+    end
   end
 
   def save
