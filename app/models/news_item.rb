@@ -6,6 +6,8 @@ class NewsItem < ActiveRecord::Base
 
   after_create :notify_users
 
+  scope :latest, -> (count = 6) { order(created_at: :desc).limit(count) }
+
   private
 
   def notify_users

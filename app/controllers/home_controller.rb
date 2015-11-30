@@ -4,6 +4,6 @@ class HomeController < BaseController
   skip_after_filter :verify_policy_scoped
 
   def index
-    @news_items = NewsItem.order(created_at: :desc).limit(6).to_a
+    @news_items = NewsItem.latest.to_a
   end
 end
