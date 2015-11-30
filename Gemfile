@@ -100,6 +100,7 @@ group :development, :test do
   #gem 'rails-erd', require: false
   gem 'capistrano-slackify', require: false
   #gem 'rails_db', require: false
+  gem 'gemput', require: false
 end
 
 group :production do
