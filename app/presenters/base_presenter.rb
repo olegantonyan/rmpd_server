@@ -10,7 +10,4 @@ class BasePresenter < Delegator
   def inspect
     "#<#{self.class} model: #{model.inspect}>"
   end
-
-  protected
-
 end
