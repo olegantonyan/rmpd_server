@@ -11,7 +11,7 @@ class SshTunnelsController < BaseController
     @ssh_tunnel.device = @device
     authorize @ssh_tunnel
     if @ssh_tunnel.save
-      flash_success("SSH tunnel requested for '#{@device.login}'. Example use for device user 'rmpd': ssh rmpd@#{@ssh_tunnel.server} -p #{@ssh_tunnel.external_port}")
+      flash_success("Tunnel requested for '#{@device.login}'. Example for device user 'rmpd': ssh rmpd@#{@ssh_tunnel.server} -p #{@ssh_tunnel.external_port}")
       redirect_to @device
     else
       flash_error('Error creating SSH tunnel')
