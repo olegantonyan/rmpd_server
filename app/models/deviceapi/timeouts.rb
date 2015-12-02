@@ -1,6 +1,6 @@
 class Deviceapi::Timeouts
   def self.check
-    statuses = Device::Status.where("online = ? AND updated_at <= ?", true, Time.now - 60)
+    statuses = Device::Status.where('online = ? AND updated_at <= ?', true, Time.current - 60)
     if statuses.any?
       new_online_status = false
       statuses.find_each do |status|

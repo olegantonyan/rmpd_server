@@ -31,7 +31,7 @@ module Deviceapi::Receiver
 
   def prepare_update_device_status(device, data)
     device.build_device_status unless device.device_status
-    device.device_status.devicetime = Time.parse(data[:localtime]) if data[:localtime]
+    device.device_status.devicetime = Time.zone.parse(data[:localtime]) if data[:localtime]
     device.device_status.online = true
     device.device_status.updated_at = Time.current
   end
@@ -41,10 +41,10 @@ module Deviceapi::Receiver
   end
 
   def write_device_log(device, logdata, user_agent)
-    return if [logdata[:status], logdata[:command]].any? {|i| i == 'now_playing'}
+    return if [logdata[:status], logdata[:command]].any? { |i| i == 'now_playing' }
 
     Device::LogMessage.create!(device: device,
-                               localtime: Time.parse(logdata[:localtime]),
+                               localtime: Time.zone.parse(logdata[:localtime]),
                                user_agent: user_agent,
                                command: logdata[:command] || "#{logdata[:type]}_#{logdata[:status]}",
                                message: logdata[:message] || logdata[:track])
@@ -55,5 +55,4 @@ module Deviceapi::Receiver
   def notify_status(device)
     Notifiers::DeviceStatusNotifierJob.perform_later(device, device.device_status.online) if device.device_status.online_changed?
   end
-
 end

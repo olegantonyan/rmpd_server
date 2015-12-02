@@ -1,11 +1,11 @@
 class Role < ActiveRecord::Base
   # has_paper_trail # causes problems https://github.com/RolifyCommunity/rolify/issues/334
   scopify
-  has_and_belongs_to_many :user_company_memberships, :join_table => :user_company_memberships_roles
-  belongs_to :resource, :polymorphic => true
+  has_and_belongs_to_many :user_company_memberships, join_table: :user_company_memberships_roles
+  belongs_to :resource, polymorphic: true
 
-  validates :resource_type, :inclusion => { :in => Rolify.resource_types }, :allow_nil => true
-  validates :name, presence: true, uniqueness: true, length: {:in => 2..30}
+  validates :resource_type, inclusion: { in: Rolify.resource_types }, allow_nil: true
+  validates :name, presence: true, uniqueness: true, length: { in: 2..30 }
 
   Role.find_or_create_by!(name: 'guest')
 
@@ -27,5 +27,4 @@ class Role < ActiveRecord::Base
   def to_s
     "#{name}"
   end
-
 end

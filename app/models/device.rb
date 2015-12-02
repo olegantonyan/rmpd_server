@@ -18,9 +18,9 @@ class Device < ActiveRecord::Base
   end
   has_many :device_groups, through: :device_group_memberships, class_name: 'Device::Group'
 
-  validates :login, presence: true, uniqueness: true, length: {in: 4..100}
-  validates :name, length: {maximum: 130}
-  validates :password, length: {in: 8..60}, presence: true, confirmation: true, if: -> { new_record? || !password.nil? }
+  validates :login, presence: true, uniqueness: true, length: { in: 4..100 }
+  validates :name, length:  { maximum: 130 }
+  validates :password, length: { in: 8..60 }, presence: true, confirmation: true, if: -> { new_record? || !password.nil? }
 
   after_destroy :device_destroyed
 
@@ -45,7 +45,7 @@ class Device < ActiveRecord::Base
   end
 
   def to_s
-    "#{login} (#{name} in #{company.to_s})"
+    "#{login} (#{name} in #{company})"
   end
 
   private
@@ -53,5 +53,4 @@ class Device < ActiveRecord::Base
   def device_destroyed
     send_to :clear_queue
   end
-
 end

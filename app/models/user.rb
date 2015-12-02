@@ -11,9 +11,9 @@ class User < ActiveRecord::Base
   with_options inverse_of: :user do |a|
     a.has_many :user_company_memberships
   end
-  has_many :companies, -> { group('companies.id')}, through: :user_company_memberships
+  has_many :companies, -> { group('companies.id') }, through: :user_company_memberships
 
-  validates :displayed_name, length: {maximum: 130}
+  validates :displayed_name, length: { maximum: 130 }
 
   before_save :set_defaults
 
@@ -52,14 +52,13 @@ class User < ActiveRecord::Base
 
   private
 
-    def set_defaults
-      if self.companies.empty?
-        self.companies << Company.demo
-      end
+  def set_defaults
+    if companies.empty?
+      self.companies << Company.demo
     end
+  end
 
-    def custom_label_method
-      displayed_name.blank? ? email : to_s
-    end
-
+  def custom_label_method
+    displayed_name.blank? ? email : to_s
+  end
 end

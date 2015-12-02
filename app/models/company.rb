@@ -9,8 +9,8 @@ class Company < ActiveRecord::Base
   end
   has_many :users, through: :user_company_memberships
 
-  validates :title, presence: true, length: {in: 4..100}, uniqueness: true
-  
+  validates :title, presence: true, length: { in: 4..100 }, uniqueness: true
+
   Company.find_or_create_by!(title: 'Demo')
 
   def self.demo
@@ -31,5 +31,4 @@ class Company < ActiveRecord::Base
   def to_s
     "#{title}"
   end
-
 end

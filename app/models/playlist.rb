@@ -16,10 +16,10 @@ class Playlist < ActiveRecord::Base
   mount_uploader :file, PlaylistFileUploader
 
   with_options presence: true do
-    validates :name, length: {maximum: 128}
+    validates :name, length: { maximum: 128 }
     validates :playlist_items
   end
-  validates :description, length: {maximum: 512}
+  validates :description, length: { maximum: 512 }
   validates_has_many_with_error_messages :playlist_items
 
   rails_admin do
@@ -39,14 +39,14 @@ class Playlist < ActiveRecord::Base
   end
 
   def to_s
-    (description.blank? ? "#{name}" : "#{name} (#{description})") + " in #{company.to_s}"
+    (description.blank? ? "#{name}" : "#{name} (#{description})") + " in #{company}"
   end
 
   private
 
   def create_playlist_file
     tempfile = Tempfile.new(['playlist', '.m3u'])
-    self.playlist_items.includes(:media_item).each do |deployment| #TODO fix problem with join in association
+    playlist_items.includes(:media_item).each do |deployment| # TODO: fix problem with join in association
       tempfile.puts deployment.media_item.file_identifier
     end
     tempfile.close
@@ -57,7 +57,7 @@ class Playlist < ActiveRecord::Base
   def playlist_updated
     create_playlist_file
     Playlist.skip_callback(:save, :after, :playlist_updated) # skipping callback is required to prevent recursion
-    save  # save newly created file in db
+    save # save newly created file in db
     Playlist.set_callback(:save, :after, :playlist_updated)
 
     devices.each { |d| d.send_to :update_playlist }
@@ -66,5 +66,4 @@ class Playlist < ActiveRecord::Base
   def playlist_destroyed
     devices.each { |d| d.send_to :delete_playlist }
   end
-
 end

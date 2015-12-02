@@ -7,7 +7,7 @@ class UserCompanyMembership < ActiveRecord::Base
     a.belongs_to :company
   end
 
-  validates :title, length: {maximum: 130}
+  validates :title, length: { maximum: 130 }
 
   before_save :set_defaults
 
@@ -30,19 +30,18 @@ class UserCompanyMembership < ActiveRecord::Base
   end
 
   def to_s
-    "#{user.to_s} in #{company.to_s}"
+    "#{user} in #{company}"
   end
 
   private
 
-    def set_defaults
-      if self.roles.empty?
-        self.roles << Role.where("lower(name) = ?", 'guest').first
-      end
+  def set_defaults
+    if roles.empty?
+      self.roles << Role.where('lower(name) = ?', 'guest').first
     end
+  end
 
-    def custom_label_method
-      title.blank? ? to_s : title
-    end
-
+  def custom_label_method
+    title.blank? ? to_s : title
+  end
 end

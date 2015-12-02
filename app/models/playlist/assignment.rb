@@ -5,7 +5,7 @@ class Playlist::Assignment
 
   attr_accessor :playlist_id, :assignable
 
-  validates_presence_of :assignable
+  validates :assignable, presence: true
 
   def save
     return false unless valid?
@@ -14,9 +14,9 @@ class Playlist::Assignment
       when Device
         assign_to_device!(assignable)
       when Device::Group
-        assignable.devices.each {|device| assign_to_device!(device) }
+        assignable.devices.each { |device| assign_to_device!(device) }
       else
-        raise ArgumentError, "unknown assignable type #{assignable.try(:class).try(:name)}"
+        fail ArgumentError, "unknown assignable type #{assignable.try(:class).try(:name)}"
       end
     end
     true
@@ -39,10 +39,8 @@ class Playlist::Assignment
     device.playlist = playlist
     notify = device.playlist_id_changed?
     device.save!
-    if notify
-      command = device.playlist.present? ? :update_playlist : :delete_playlist
-      send_to_device(command, device)
-    end
+    return unless notify
+    command = device.playlist.present? ? :update_playlist : :delete_playlist
+    send_to_device(command, device)
   end
-
 end

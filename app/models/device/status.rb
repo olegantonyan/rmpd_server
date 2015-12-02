@@ -1,7 +1,7 @@
 class Device::Status < ActiveRecord::Base
   belongs_to :device, inverse_of: :device_status
 
-  validates_length_of :now_playing, maximum: 1024
+  validates :now_playing, length: { maximum: 1024 }
 
   scope :online, -> { where(online: true) }
 
@@ -10,7 +10,6 @@ class Device::Status < ActiveRecord::Base
   end
 
   def to_s
-    "#{device.to_s} #{online ? 'online' : 'offline'}"
+    "#{device} #{online ? 'online' : 'offline'}"
   end
-
 end

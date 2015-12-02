@@ -23,7 +23,7 @@ class Playlist::Item < ActiveRecord::Base
   end
 
   def to_s
-    "#{media_item.to_s} @ #{playlist.to_s}"
+    "#{media_item} @ #{playlist}"
   end
 
   private
@@ -39,5 +39,4 @@ class Playlist::Item < ActiveRecord::Base
       errors.add(:begin_time, "#{begin_time} >= end time #{end_time}") if begin_time >= end_time
     end
   end
-
 end

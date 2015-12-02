@@ -11,7 +11,6 @@ class Deviceapi::Protocol::Outgoing::DeletePlaylist < Deviceapi::Protocol::Outgo
   end
 
   def legacy_json
-    {type: 'playlist', status: 'delete'}
+    { type: 'playlist', status: 'delete' }
   end
-
 end

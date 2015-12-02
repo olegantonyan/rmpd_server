@@ -21,5 +21,4 @@ class MediaItem::CreateMultiple
     errors.add(:base, e.to_s)
     false
   end
-
 end

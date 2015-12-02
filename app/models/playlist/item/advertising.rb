@@ -25,6 +25,6 @@ class Playlist::Item::Advertising < Playlist::Item
   end
 
   def fit_to_time_period
-    #TODO calculate  playbacks_per_day * overal time ...
+    # TODO: calculate  playbacks_per_day * overal time ...
   end
 end

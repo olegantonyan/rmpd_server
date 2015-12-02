@@ -8,14 +8,11 @@ class MediaItem::DestroyMultiple
   def destroy
     return false unless valid?
     ActiveRecord::Base.transaction do
-      media_items.each do |i|
-        i.destroy!
-      end
+      media_items.each(&:destroy!)
     end
     true
   rescue ActiveRecord::RecordInvalid => e
     errors.add(:base, e.to_s)
     false
   end
-
 end
