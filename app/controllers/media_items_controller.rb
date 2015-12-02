@@ -9,7 +9,7 @@ class MediaItemsController < BaseController
       MediaItem,
       params[:filterrific],
       select_options: {
-         with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] }
+        with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] }
       }
     ) || (on_reset; return)
     filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 30)
@@ -43,7 +43,7 @@ class MediaItemsController < BaseController
 
   def destroy_multiple
     media_items = MediaItem.find(params[:media_item_ids])
-    media_items.each {|m| authorize m, :destroy? }
+    media_items.each { |m| authorize m, :destroy? }
     crud_respond MediaItem::DestroyMultiple.new(media_items: media_items)
   end
 
@@ -61,5 +61,4 @@ class MediaItemsController < BaseController
   def media_item_create_multiple_params
     params.require(:media_item_create_multiple).permit(:description, :company_id, :type, files: [])
   end
-
 end

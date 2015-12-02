@@ -101,6 +101,7 @@ group :development, :test do
   gem 'capistrano-slackify', require: false
   #gem 'rails_db', require: false
   gem 'gemput', require: false
+  gem 'rubocop', require: false
 end
 
 group :production do

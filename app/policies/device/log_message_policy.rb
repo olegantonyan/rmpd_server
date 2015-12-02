@@ -9,5 +9,4 @@ class Device::LogMessagePolicy < UserCompaniesScope
       scope.where(device: Device.accessible_for_user(user))
     end
   end
-
 end

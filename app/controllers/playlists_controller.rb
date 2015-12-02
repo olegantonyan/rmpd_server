@@ -71,5 +71,4 @@ class PlaylistsController < BaseController
     res[:media_items_background_end_time] = params[:media_items_background_end_time]
     res
   end
-
 end

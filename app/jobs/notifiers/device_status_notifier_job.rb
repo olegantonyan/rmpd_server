@@ -5,19 +5,19 @@ class Notifiers::DeviceStatusNotifierJob < Notifiers::BaseNotifierJob
     color = status ? 'good' : 'warning'
     a = {
       fields: [{
-          title: "Device login",
-          value: device.login,
-          short: true
-        }, {
-          title: "Device status",
-          value: status_text,
-          short: true
+        title: 'Device login',
+        value: device.login,
+        short: true
+      }, {
+        title: 'Device status',
+        value: status_text,
+        short: true
       }],
       color: color,
       fallback: text,
       author_name: device.to_s,
-      author_link: device_url(device),
+      author_link: device_url(device)
     }
-    notify(text, icon_emoji: ":squirrel:", attachments: [a])
+    notify(text, icon_emoji: ':squirrel:', attachments: [a])
   end
 end

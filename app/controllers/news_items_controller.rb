@@ -1,5 +1,5 @@
 class NewsItemsController < BaseController
-  skip_before_filter :authenticate_user!
+  skip_before_action :authenticate_user!
   before_action :set_news_item, only: [:show, :edit, :update, :destroy]
 
   # GET /news_items
@@ -49,13 +49,14 @@ class NewsItemsController < BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_news_item
-      @news_item = NewsItem.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def news_item_params
-      params.require(:news_item).permit(:title, :body)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_news_item
+    @news_item = NewsItem.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def news_item_params
+    params.require(:news_item).permit(:title, :body)
+  end
 end

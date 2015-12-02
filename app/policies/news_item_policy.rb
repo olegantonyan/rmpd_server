@@ -32,5 +32,4 @@ class NewsItemPolicy < ApplicationPolicy
       scope
     end
   end
-
 end

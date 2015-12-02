@@ -1,6 +1,6 @@
 class Playlist::AssignmentPolicy < ApplicationPolicy
   def update?
-    #TODO
+    # TODO
     true
   end
 end

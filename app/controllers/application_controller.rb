@@ -27,5 +27,4 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) << [:displayed_name, :allow_notifications]
     devise_parameter_sanitizer.for(:sign_up) << [:displayed_name, :allow_notifications]
   end
-
 end

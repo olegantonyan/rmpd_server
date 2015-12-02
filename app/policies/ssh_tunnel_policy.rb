@@ -1,5 +1,4 @@
 class SshTunnelPolicy < ApplicationPolicy
-
   def create?
     user.try(:root?)
   end
@@ -7,5 +6,4 @@ class SshTunnelPolicy < ApplicationPolicy
   def index?
     create?
   end
-
 end

@@ -2,9 +2,9 @@
 
 class MediaItemUploader < CarrierWave::Uploader::Base
   include ::CarrierWave::Backgrounder::Delay
-  
+
   process :encode_video_for_device
-  
+
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -44,7 +44,7 @@ class MediaItemUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(mp3 mp4 avi wav ogg ogv webm mpeg mpg mov)
   end
-  
+
   def video_extensions
     %w(mp4 avi ogv webm mpeg mpg mov)
   end
@@ -54,26 +54,25 @@ class MediaItemUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-    
-  def video? 
+
+  def video?
     videofile? file
   end
-    
-  private
-  
-    def videofile? f
-      if video_extensions.find{|ext| f.path.ends_with? ext}
-        true
-      else
-        false
-      end
-    end
-    
-    def encode_video_for_device
-      return unless video?
-      tmp_path = File.join File.dirname(current_path), "#{SecureRandom.hex}.mp4"
-      system("ffmpeg -i #{current_path} -vcodec libx264 -acodec aac -strict -2 #{tmp_path}")
-      File.rename tmp_path, current_path
-    end
 
+  private
+
+  def videofile?(f)
+    if video_extensions.find { |ext| f.path.ends_with? ext }
+      true
+    else
+      false
+    end
+  end
+
+  def encode_video_for_device
+    return unless video?
+    tmp_path = File.join File.dirname(current_path), "#{SecureRandom.hex}.mp4"
+    system("ffmpeg -i #{current_path} -vcodec libx264 -acodec aac -strict -2 #{tmp_path}")
+    File.rename tmp_path, current_path
+  end
 end

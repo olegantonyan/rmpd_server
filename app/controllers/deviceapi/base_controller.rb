@@ -1,7 +1,7 @@
 class Deviceapi::BaseController < ApplicationController
   protect_from_forgery with: :null_session
 
-  before_filter :authenticate_and_set_device
+  before_action :authenticate_and_set_device
 
   protected
 
@@ -19,5 +19,4 @@ class Deviceapi::BaseController < ApplicationController
       end
     end
   end
-
 end

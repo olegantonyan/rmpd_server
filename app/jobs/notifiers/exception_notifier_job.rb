@@ -1,5 +1,4 @@
 class Notifiers::ExceptionNotifierJob < Notifiers::BaseNotifierJob
-
   def self.call(ex)
     perform_later ex.class.name, ex.message, ex.backtrace.try(:join, "\n")
   end

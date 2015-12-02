@@ -7,7 +7,7 @@ class Deviceapi::StatusController < Deviceapi::BaseController
     queued_messsage_to_device, outgoing_sequence_number = device.dequeue
   rescue => err
     Notifiers::ExceptionNotifierJob.call(err)
-    logger.error("error processing message from device #{device.login}: #{err.to_s}\n#{err.backtrace}")
+    logger.error("error processing message from device #{device.login}: #{err}\n#{err.backtrace}")
     response_status = :unprocessable_entity
   ensure
     response.headers['X-Sequence-Number'] = outgoing_sequence_number.to_s

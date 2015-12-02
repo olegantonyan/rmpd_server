@@ -46,22 +46,22 @@ class DevicesController < BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_device
-      @device = policy_scope(Device.all).includes(:device_groups).find(params[:id])
-    end
 
-    def set_playlists
-      @playlists = policy_scope(Playlist.all).order(name: :asc)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_device
+    @device = policy_scope(Device.all).includes(:device_groups).find(params[:id])
+  end
 
-    def set_device_groups
-      @device_groups = policy_scope(Device::Group.order(title: :asc))
-    end
+  def set_playlists
+    @playlists = policy_scope(Playlist.all).order(name: :asc)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def device_params
-      params.require(:device).permit(:login, :name, :password, :password_confirmation, :company_id, :device_group_ids => [])
-    end
+  def set_device_groups
+    @device_groups = policy_scope(Device::Group.order(title: :asc))
+  end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def device_params
+    params.require(:device).permit(:login, :name, :password, :password_confirmation, :company_id, device_group_ids: [])
+  end
 end

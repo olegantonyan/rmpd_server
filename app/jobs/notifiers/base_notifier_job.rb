@@ -16,5 +16,4 @@ class Notifiers::BaseNotifierJob < ApplicationJob
   def notify(text, options = {})
     notifier.try(:ping, text, options)
   end
-
 end

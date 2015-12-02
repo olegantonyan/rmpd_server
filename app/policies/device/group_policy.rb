@@ -30,8 +30,7 @@ class Device::GroupPolicy < UserCompaniesScope
   class Scope < Scope
     def resolve
       return scope.all if user.root?
-      scope.joins(:device_group_memberships).where(device_group_memberships: {device: Device.accessible_for_user(user)})
+      scope.joins(:device_group_memberships).where(device_group_memberships: { device: Device.accessible_for_user(user) })
     end
   end
-
 end

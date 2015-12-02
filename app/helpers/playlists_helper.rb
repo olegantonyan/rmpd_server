@@ -8,11 +8,11 @@ module PlaylistsHelper
   end
 
   def media_item_begin_time(playlist, item)
-    find_media_item(playlist, item).try(:begin_time) || Time.parse('09:00')
+    find_media_item(playlist, item).try(:begin_time) || Time.zone.parse('09:00')
   end
 
   def media_item_end_time(playlist, item)
-    find_media_item(playlist, item).try(:end_time) || Time.parse('18:00')
+    find_media_item(playlist, item).try(:end_time) || Time.zone.parse('18:00')
   end
 
   def media_item_begin_date(playlist, item)
@@ -27,12 +27,12 @@ module PlaylistsHelper
     find_media_item(playlist, item).try(:playbacks_per_day).to_i
   end
 
-  def media_items_background_begin_time playlist
-    playlist.playlist_items.background.first.try(:begin_time) || Time.parse('09:00')
+  def media_items_background_begin_time(playlist)
+    playlist.playlist_items.background.first.try(:begin_time) || Time.zone.parse('09:00')
   end
 
-  def media_items_background_end_time playlist
-    playlist.playlist_items.background.first.try(:end_time) || Time.parse('18:00')
+  def media_items_background_end_time(playlist)
+    playlist.playlist_items.background.first.try(:end_time) || Time.zone.parse('18:00')
   end
 
   private
@@ -40,5 +40,4 @@ module PlaylistsHelper
   def find_media_item(playlist, item)
     playlist.playlist_items.find_by(media_item_id: item.id)
   end
-
 end

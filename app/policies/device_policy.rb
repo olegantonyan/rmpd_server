@@ -33,5 +33,4 @@ class DevicePolicy < ApplicationPolicy
       scope.where(company: user.companies)
     end
   end
-
 end

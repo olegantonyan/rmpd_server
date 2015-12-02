@@ -33,5 +33,4 @@ class SshTunnelsController < BaseController
     result[:open_duration] = result[:open_duration].to_i
     result
   end
-
 end

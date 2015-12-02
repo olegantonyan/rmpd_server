@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class PlaylistFileUploader < CarrierWave::Uploader::Base
-  
   include CarrierWave::MimeTypes
 
   process :set_content_type
@@ -49,7 +48,6 @@ class PlaylistFileUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "playlist.m3u" if original_filename
+    'playlist.m3u' if original_filename
   end
-
 end

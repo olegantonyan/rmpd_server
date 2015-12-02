@@ -15,7 +15,7 @@ class PlaylistAssignmentsController < BaseController
                   elsif params[:device_group_id]
                     Device::Group.find(params[:device_group_id])
                   else
-                    raise 'No assignable object'
+                    fail 'No assignable object'
                   end
   end
 
