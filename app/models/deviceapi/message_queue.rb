@@ -15,7 +15,7 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
       logger.debug("Dequeue message for '#{key}': '#{d.data}', sequence '#{d.id}'")
       [d.data, d.id]
     else
-      ["", 0]
+      ['', 0]
     end
   end
 
@@ -28,7 +28,7 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
   end
 
   def self.reenqueue(sequence_number)
-    d = find_by(:id => sequence_number)
+    d = find_by(id: sequence_number)
     unless d.nil?
       logger.debug("Reenqueue message for '#{d.key}': '#{d.data}', sequence '#{d.id}'")
       d.dequeued = false
@@ -43,7 +43,7 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
 
   def self.reenqueue_all(key)
     logger.debug("Reenqueue all dequed messages for '#{key}'")
-    where(key: key, dequeued: true).update_all(["reenqueue_retries = reenqueue_retries + 1, dequeued = ?", false])
+    where(key: key, dequeued: true).update_all(['reenqueue_retries = reenqueue_retries + 1, dequeued = ?', false])
   end
 
   def self.destroy_all_messages(key)
@@ -55,7 +55,7 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
     destroy_all(key: key, message_type: message_type)
   end
 
-  def self.message_type_for_sequence_number sequence_number
+  def self.message_type_for_sequence_number(sequence_number)
     find_by(id: sequence_number).try(:message_type)
   end
 end

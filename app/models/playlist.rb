@@ -7,7 +7,8 @@ class Playlist < ActiveRecord::Base
     a.has_many :playlist_items, -> { order(:position) }, dependent: :destroy, class_name: 'Playlist::Item'
     a.has_many :devices
   end
-  has_many :media_items, -> { joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position') }, through: :playlist_items
+  has_many :media_items, -> { joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position') },
+           through: :playlist_items
   belongs_to :company, inverse_of: :playlists
 
   after_save :playlist_updated

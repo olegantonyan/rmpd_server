@@ -30,7 +30,7 @@
             %tbody.list
               - media_items.each do |item|
                 %tr
-                  %td= check_box_tag "#{prefix}ids[]", item.id, has_media_item?(playlist, item), class: 'form-control media-item-advertising-checkbox'
+                  %td= check_box_tag "#{prefix}ids[]", item.id, got_media_item?(playlist, item), class: 'form-control media-item-advertising-checkbox'
                   %td= select_time media_item_begin_time(playlist, item), prefix: "#{prefix}begin_times[#{item.id}]"
                   %td= select_time media_item_end_time(playlist, item), prefix: "#{prefix}end_times[#{item.id}]"
                   %td= number_field_tag "#{prefix}playbacks_per_days[#{item.id}]", media_items_advertising_playbacks_per_days(playlist, item), min: 0, class: 'form-control'

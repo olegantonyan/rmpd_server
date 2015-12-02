@@ -18,12 +18,14 @@ module ApplicationHelper
 
   def flash_class(level)
     case level.to_sym
-    when :info    then 'alert alert-info'
-    when :success then 'alert alert-success'
-    when :notice  then 'alert alert-success'
-    when :alert   then 'alert alert-danger'
-    when :error   then 'alert alert-danger'
-    when :warning then 'alert alert-warning'
+    when :info
+      'alert alert-info'
+    when :success, :notice
+      'alert alert-success'
+    when :alert, :error
+      'alert alert-danger'
+    when :warning
+      'alert alert-warning'
     end
   end
 
@@ -43,11 +45,13 @@ module ApplicationHelper
     render partial: 'shared/row_info', locals: { title: title, value: value || '', value_class: value_class, title_class: title_class }
   end
 
+  # rubocop: disable Lint/Eval
   def list_with_links(collection, attr_title)
     ("<ul class='list-group'>" +
     collection.map { |g| "<li class='list-group-item'>" + link_to(sanitize(eval("g.#{attr_title}")), g) + '</li>' }.join('') +
     '</ul>').html_safe
   end
+  # rubocop: enable Lint/Eval
 
   def current_user_displayed_name
     current_user.displayed_name.blank? ? current_user.email : current_user.displayed_name

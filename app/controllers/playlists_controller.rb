@@ -56,7 +56,7 @@ class PlaylistsController < BaseController
     @media_items = policy_scope(MediaItem.includes(:company).all)
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
   def playlist_params
     res = params.require(:playlist).permit(:name, :description, :company_id, :shuffle)
     res[:media_items_background_ids] = params[:media_items_background_ids] || []
@@ -71,4 +71,5 @@ class PlaylistsController < BaseController
     res[:media_items_background_end_time] = params[:media_items_background_end_time]
     res
   end
+  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
 end

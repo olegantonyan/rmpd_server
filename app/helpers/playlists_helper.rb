@@ -1,5 +1,5 @@
 module PlaylistsHelper
-  def has_media_item?(playlist, item)
+  def got_media_item?(playlist, item)
     playlist.media_items.find_by_id(item.id)
   end
 

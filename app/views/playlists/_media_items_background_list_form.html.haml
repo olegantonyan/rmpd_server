@@ -32,7 +32,7 @@
             %tbody.list
               - media_items.each do |item|
                 %tr
-                  %td= check_box_tag "#{prefix}ids[]", item.id, has_media_item?(playlist, item), class: 'form-control media-item-background-checkbox'
+                  %td= check_box_tag "#{prefix}ids[]", item.id, got_media_item?(playlist, item), class: 'form-control media-item-background-checkbox'
                   %td= number_field_tag "#{prefix}positions[#{item.id}]", media_item_position(playlist, item), class: 'form-control media-item-background-position'
                   %td.filename= label_tag "media_item#{item.id}", item.file_identifier
                   %td.description= item.description

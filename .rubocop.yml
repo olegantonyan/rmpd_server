@@ -6,6 +6,7 @@ AllCops:
     - '**/config.ru'
   Exclude:
     - 'Gemfile'
+    - 'config.ru'
     - 'db/**/*'
     - 'config/**/*'
     - 'script/**/*'
@@ -20,10 +21,6 @@ Style/ClassAndModuleChildren:
 
 Metrics/LineLength:
   Max: 160
-
-Rails/HasAndBelongsToMany:
-  Exclude:
-    - 'app/models/role.rb'
 
 Style/Lambda:
   Enabled: false

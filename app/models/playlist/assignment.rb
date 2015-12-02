@@ -7,6 +7,7 @@ class Playlist::Assignment
 
   validates :assignable, presence: true
 
+  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
   def save
     return false unless valid?
     ActiveRecord::Base.transaction do
@@ -24,6 +25,7 @@ class Playlist::Assignment
     errors.add(:base, e.to_s)
     false
   end
+  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
 
   def playlist
     @_playlist ||= Playlist.find_by_id(playlist_id)

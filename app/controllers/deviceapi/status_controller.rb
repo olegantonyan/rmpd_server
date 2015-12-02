@@ -1,4 +1,5 @@
 class Deviceapi::StatusController < Deviceapi::BaseController
+  # rubocop: disable Metrics/AbcSize
   def create
     outgoing_sequence_number = 0
     response_status = :ok
@@ -11,6 +12,7 @@ class Deviceapi::StatusController < Deviceapi::BaseController
     response.headers['X-Sequence-Number'] = outgoing_sequence_number.to_s
     render json: json(queued_messsage_to_device), status: response_status
   end
+  # rubocop: enable Metrics/AbcSize
 
   private
 

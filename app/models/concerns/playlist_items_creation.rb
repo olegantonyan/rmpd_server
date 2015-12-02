@@ -6,9 +6,7 @@ module PlaylistItemsCreation
     attr_accessor :media_items_background_positions
     attr_accessor :media_items_background_begin_time
     attr_accessor :media_items_background_end_time
-    before_validation :create_playlist_items_background, if: -> {
-      !playlist_items_background_created && media_items_background_ids
-    }
+    before_validation :create_playlist_items_background, if: -> { !playlist_items_background_created && media_items_background_ids }
 
     attr_accessor :media_items_advertising_ids
     attr_accessor :media_items_advertising_begin_times
@@ -16,9 +14,7 @@ module PlaylistItemsCreation
     attr_accessor :media_items_advertising_playbacks_per_days
     attr_accessor :media_items_advertising_begin_dates
     attr_accessor :media_items_advertising_end_dates
-    before_validation :create_playlist_items_advertising, if: -> {
-      !playlist_items_advertising_created && media_items_advertising_ids
-    }
+    before_validation :create_playlist_items_advertising, if: -> { !playlist_items_advertising_created && media_items_advertising_ids }
 
     private
 
@@ -38,6 +34,7 @@ module PlaylistItemsCreation
     self.playlist_items_advertising_created = false
   end
 
+  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
   def create_playlist_items_background
     playlist_items.background.destroy_all
     media_items_background_ids.each do |i|
@@ -69,6 +66,7 @@ module PlaylistItemsCreation
     end
     self.playlist_items_advertising_created = true
   end
+  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
 
   def time_param_to_time(param)
     Time.zone.parse("#{param[:hour]}:#{param[:minute]}")

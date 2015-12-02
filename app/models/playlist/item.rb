@@ -29,14 +29,11 @@ class Playlist::Item < ActiveRecord::Base
   private
 
   def check_files_processing
-    if media_item.file.video? && media_item.file_processing?
-      errors.add(:media_item, I18n.t('activerecord.attributes.media_item.file_processing'))
-    end
+    errors.add(:media_item, I18n.t('activerecord.attributes.media_item.file_processing')) if media_item.file.video? && media_item.file_processing?
   end
 
   def begin_time_less_than_end_time
-    if begin_time && end_time
-      errors.add(:begin_time, "#{begin_time} >= end time #{end_time}") if begin_time >= end_time
-    end
+    return if begin_time.nil? || end_time.nil?
+    errors.add(:begin_time, "#{begin_time} >= end time #{end_time}") if begin_time >= end_time
   end
 end

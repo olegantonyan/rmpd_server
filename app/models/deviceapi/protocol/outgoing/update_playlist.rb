@@ -1,9 +1,11 @@
 class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgoing::BaseCommand
+  # rubocop: disable Lint/UnusedMethodArgument
   def call(options = {})
     return unless device.playlist
     clean_previous_commands
     enqueue(json)
   end
+  # rubocop: enable Lint/UnusedMethodArgument
 
   private
 
@@ -24,6 +26,7 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
     }
   end
 
+  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
   def serialized_media_item(i)
     time_format = '%H:%M:%S'
     date_format = '%d.%m.%Y'
@@ -41,6 +44,7 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
       playbacks_per_day: i.playbacks_per_day
     }
   end
+  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
 
   def legacy_items
     items = []

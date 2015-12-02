@@ -1,4 +1,5 @@
 class Deviceapi::Protocol::Incoming::Legacy::Ack < Deviceapi::Protocol::Incoming::BaseCommand
+  # rubocop: disable Lint/UnusedMethodArgument
   def call(options = {})
     if data[:status] == 'ok'
       Deviceapi::Protocol::Incoming::AckOk
@@ -6,4 +7,5 @@ class Deviceapi::Protocol::Incoming::Legacy::Ack < Deviceapi::Protocol::Incoming
       Deviceapi::Protocol::Incoming::AckFail
     end.new(device, data, sequence_number).call
   end
+  # rubocop: enable Lint/UnusedMethodArgument
 end
