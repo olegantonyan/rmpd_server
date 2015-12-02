@@ -24,3 +24,6 @@ Metrics/LineLength:
 Rails/HasAndBelongsToMany:
   Exclude:
     - 'app/models/role.rb'
+
+Style/Lambda:
+  Enabled: false

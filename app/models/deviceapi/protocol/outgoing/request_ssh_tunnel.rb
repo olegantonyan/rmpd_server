@@ -21,5 +21,4 @@ class Deviceapi::Protocol::Outgoing::RequestSshTunnel < Deviceapi::Protocol::Out
   def legacy_json
     { type: 'ssh_tunnel', status: 'open' }
   end
-
 end

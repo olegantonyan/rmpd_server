@@ -40,9 +40,9 @@ class User < ActiveRecord::Base
       exclude_fields :versions
     end
     edit do
-      exclude_fields :password, :password_confirmation, :user_company_memberships, :versions, :reset_password_token, :reset_password_sent_at, :remember_created_at, :sign_in_count, :current_sign_in_at,
-                     :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip, :created_at, :updated_at,:confirmation_token, :confirmed_at,
-                     :confirmation_sent_at, :unconfirmed_email
+      exclude_fields :password, :password_confirmation, :user_company_memberships, :versions, :reset_password_token, :reset_password_sent_at,
+                     :remember_created_at, :sign_in_count, :current_sign_in_at, :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip, :created_at,
+                     :updated_at, :confirmation_token, :confirmed_at, :confirmation_sent_at, :unconfirmed_email
     end
   end
 
@@ -53,9 +53,8 @@ class User < ActiveRecord::Base
   private
 
   def set_defaults
-    if companies.empty?
-      self.companies << Company.demo
-    end
+    return if companies.any?
+    companies << Company.demo
   end
 
   def custom_label_method

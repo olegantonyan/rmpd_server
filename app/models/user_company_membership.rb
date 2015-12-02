@@ -36,9 +36,8 @@ class UserCompanyMembership < ActiveRecord::Base
   private
 
   def set_defaults
-    if roles.empty?
-      self.roles << Role.where('lower(name) = ?', 'guest').first
-    end
+    return if roles.any?
+    roles << Role.find_by('lower(name) = ?', 'guest')
   end
 
   def custom_label_method
