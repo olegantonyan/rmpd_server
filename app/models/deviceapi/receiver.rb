@@ -55,6 +55,6 @@ module Deviceapi::Receiver
   # rubocop: enable Metrics/AbcSize
 
   def notify_status(device)
-    Notifiers::DeviceStatusNotifierJob.perform_later(device, device.device_status.online) if device.device_status.online_changed?
+    Notifiers::DeviceStatusNotifierJob.perform_later(device, device.device_status.online, Time.current.to_s) if device.device_status.online_changed?
   end
 end

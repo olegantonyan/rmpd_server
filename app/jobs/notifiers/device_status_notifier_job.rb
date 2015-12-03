@@ -1,12 +1,13 @@
 class Notifiers::DeviceStatusNotifierJob < Notifiers::BaseNotifierJob
   # rubocop: disable Metrics/MethodLength
-  def perform(device, status)
+  def perform(device, status, thetime)
     status_text = status ? 'online' : 'offline'
-    text = "Device #{device} is now #{status_text}"
+    text = "Device #{device} is now #{status_text} (#{thetime})"
     color = status ? 'good' : 'warning'
     a = {
       fields: [{ title: 'Device login', value: device.login, short: true },
-               { title: 'Device status', value: status_text, short: true }],
+               { title: 'Device status', value: status_text, short: true },
+               { title: 'Datetime (local)', value: Time.zone.parse(thetime).localtime.to_s, short: true }],
       color: color,
       fallback: text,
       author_name: device.to_s,
