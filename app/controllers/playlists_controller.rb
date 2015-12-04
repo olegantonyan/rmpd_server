@@ -56,20 +56,11 @@ class PlaylistsController < BaseController
     @media_items = policy_scope(MediaItem.includes(:company).all)
   end
 
-  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
   def playlist_params
     res = params.require(:playlist).permit(:name, :description, :company_id, :shuffle)
-    res[:media_items_background_ids] = params[:media_items_background_ids] || []
-    res[:media_items_background_positions] = params[:media_items_background_positions]
-    res[:media_items_advertising_ids] = params[:media_items_advertising_ids] || []
-    res[:media_items_advertising_begin_times] = params[:media_items_advertising_begin_times]
-    res[:media_items_advertising_end_times] = params[:media_items_advertising_end_times]
-    res[:media_items_advertising_playbacks_per_days] = params[:media_items_advertising_playbacks_per_days]
-    res[:media_items_advertising_begin_dates] = params[:media_items_advertising_begin_dates]
-    res[:media_items_advertising_end_dates] = params[:media_items_advertising_end_dates]
-    res[:media_items_background_begin_time] = params[:media_items_background_begin_time]
-    res[:media_items_background_end_time] = params[:media_items_background_end_time]
+    Playlist.media_items_attrs.each do |attr|
+      res[attr] = params[attr]
+    end
     res
   end
-  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
 end

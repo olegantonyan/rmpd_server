@@ -1,20 +1,27 @@
 module PlaylistItemsCreation
   extend ActiveSupport::Concern
 
-  included do
-    attr_accessor :media_items_background_ids
-    attr_accessor :media_items_background_positions
-    attr_accessor :media_items_background_begin_time
-    attr_accessor :media_items_background_end_time
-    before_validation :create_playlist_items_background, if: -> { !playlist_items_background_created && media_items_background_ids }
+  class_methods do
+    def media_items_attrs
+      [:media_items_background_ids,
+       :media_items_background_positions,
+       :media_items_background_begin_time,
+       :media_items_background_end_time,
+       :media_items_advertising_ids,
+       :media_items_advertising_begin_times,
+       :media_items_advertising_end_times,
+       :media_items_advertising_playbacks_per_days,
+       :media_items_advertising_begin_dates,
+       :media_items_advertising_end_dates]
+    end
+  end
 
-    attr_accessor :media_items_advertising_ids
-    attr_accessor :media_items_advertising_begin_times
-    attr_accessor :media_items_advertising_end_times
-    attr_accessor :media_items_advertising_playbacks_per_days
-    attr_accessor :media_items_advertising_begin_dates
-    attr_accessor :media_items_advertising_end_dates
-    before_validation :create_playlist_items_advertising, if: -> { !playlist_items_advertising_created && media_items_advertising_ids }
+  included do
+    media_items_attrs.each do |attr|
+      attr_accessor attr
+    end
+    before_validation :create_playlist_items_background, if: '!playlist_items_background_created'
+    before_validation :create_playlist_items_advertising, if: '!playlist_items_advertising_created'
 
     private
 
@@ -36,9 +43,10 @@ module PlaylistItemsCreation
 
   # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
   def create_playlist_items_background
+    self.media_items_background_ids ||= []
     playlist_items.background.destroy_all
     media_items_background_ids.each do |i|
-      position = media_items_background_positions.find { |e| e.first.to_i == i.to_i }.second
+      position = find_object(media_items_background_positions, i)
 
       playlist_items << Playlist::Item::Background.new(media_item_id: i,
                                                        position: position,
@@ -49,13 +57,14 @@ module PlaylistItemsCreation
   end
 
   def create_playlist_items_advertising
+    self.media_items_advertising_ids ||= []
     playlist_items.advertising.destroy_all
     media_items_advertising_ids.each do |i|
-      begin_time = media_items_advertising_begin_times.find { |k, _| k.to_i == i.to_i }.second
-      end_time = media_items_advertising_end_times.find { |k, _| k.to_i == i.to_i }.second
-      playbacks_per_day = media_items_advertising_playbacks_per_days.find { |e| e.first.to_i == i.to_i }.second
-      begin_date = media_items_advertising_begin_dates.find { |k, _| k.to_i == i.to_i }.second
-      end_date = media_items_advertising_end_dates.find { |k, _| k.to_i == i.to_i }.second
+      begin_time = find_hash(media_items_advertising_begin_times, i)
+      end_time = find_hash(media_items_advertising_end_times, i)
+      playbacks_per_day = find_object(media_items_advertising_playbacks_per_days.find, i)
+      begin_date = find_hash(media_items_advertising_begin_dates, i)
+      end_date = find_hash(media_items_advertising_end_dates, i)
 
       playlist_items << Playlist::Item::Advertising.new(media_item_id: i,
                                                         playbacks_per_day: playbacks_per_day,
@@ -74,5 +83,13 @@ module PlaylistItemsCreation
 
   def date_param_to_date(param)
     Date.parse("#{param[:day]}.#{param[:month]}.#{param[:year]}")
+  end
+
+  def find_hash(arg, index)
+    arg.find { |k, _| k.to_i == index.to_i }.second
+  end
+
+  def find_object(arg, index)
+    arg.find { |e| e.first.to_i == index.to_i }.second
   end
 end

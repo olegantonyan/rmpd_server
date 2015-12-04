@@ -7,25 +7,16 @@ class Playlist::Assignment
 
   validates :assignable, presence: true
 
-  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
   def save
     return false unless valid?
     ActiveRecord::Base.transaction do
-      case assignable
-      when Device
-        assign_to_device!(assignable)
-      when Device::Group
-        assignable.devices.each { |device| assign_to_device!(device) }
-      else
-        fail ArgumentError, "unknown assignable type #{assignable.try(:class).try(:name)}"
-      end
+      perform!
     end
     true
   rescue ActiveRecord::RecordInvalid => e
     errors.add(:base, e.to_s)
     false
   end
-  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
 
   def playlist
     @_playlist ||= Playlist.find_by_id(playlist_id)
@@ -44,5 +35,16 @@ class Playlist::Assignment
     return unless notify
     command = device.playlist.present? ? :update_playlist : :delete_playlist
     send_to_device(command, device)
+  end
+
+  def perform!
+    case assignable
+    when Device
+      assign_to_device!(assignable)
+    when Device::Group
+      assignable.devices.each { |device| assign_to_device!(device) }
+    else
+      fail ArgumentError, "unknown assignable type #{assignable.try(:class).try(:name)}"
+    end
   end
 end

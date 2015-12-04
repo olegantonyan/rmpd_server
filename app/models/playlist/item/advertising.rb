@@ -21,6 +21,7 @@ class Playlist::Item::Advertising < Playlist::Item
   end
 
   def begin_date_less_than_end_date
+    return if begin_date.nil? || end_date.nil?
     errors.add(:begin_date, "#{begin_date} > end date #{end_date}") if begin_date > end_date
   end
 
