@@ -72,7 +72,7 @@ class MediaItemUploader < CarrierWave::Uploader::Base
   def encode_video_for_device
     return unless video?
     tmp_path = File.join File.dirname(current_path), "#{SecureRandom.hex}.mp4"
-    system("ffmpeg -i #{current_path} -vcodec libx264 -acodec aac -strict -2 #{tmp_path}")
+    MediafilesUtils.convert_to_h264(current_path, tmp_path)
     File.rename tmp_path, current_path
   end
 end

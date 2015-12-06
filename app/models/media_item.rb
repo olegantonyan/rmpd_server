@@ -29,6 +29,8 @@ class MediaItem < ActiveRecord::Base
     where(company_id: [*companies_ids])
   }
 
+  delegate :path, to: :file, prefix: true
+
   rails_admin do
     object_label_method do
       :custom_label_method

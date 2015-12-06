@@ -26,6 +26,15 @@ class Playlist::Item::Advertising < Playlist::Item
   end
 
   def fit_to_time_period
-    # TODO: calculate  playbacks_per_day * overal time ...
+    return if begin_time.nil? || end_time.nil? || !media_item.advertising?
+    errors.add(:playbacks_per_day, "does not fit total playback time (#{total_time} sec)") if playback_duration.total >= total_time.seconds
+  end
+
+  def playback_duration
+    MediafilesUtils.duration(media_item.file_path) * playbacks_per_day.to_i
+  end
+
+  def total_time
+    end_time - begin_time
   end
 end
