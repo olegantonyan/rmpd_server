@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/olegantonyan/crud_responder.git
-  revision: 579e88d3c2b0fd3c24cc5b37357ce19dd0e7a172
-  specs:
-    crud_responder (0.1.0)
-      railties
-
-GIT
   remote: git://github.com/olegantonyan/initializer_helpers.git
   revision: caf3301bd487a8b577af7ee72714b14b25166c18
   specs:
@@ -129,6 +122,9 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     colorize (0.7.7)
+    crud_responder (0.2.3)
+      actionpack (~> 4)
+      railties (~> 4)
     daemons (1.2.3)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
@@ -412,7 +408,7 @@ DEPENDENCIES
   carrierwave
   carrierwave_backgrounder
   coffee-rails (~> 4.1.0)
-  crud_responder!
+  crud_responder
   daemons
   database_cleaner
   delayed_job_active_record
