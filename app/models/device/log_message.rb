@@ -20,4 +20,12 @@ class Device::LogMessage < ActiveRecord::Base
   def to_s
     "#{device} | #{command} | #{localtime} | #{message}"
   end
+
+  def self.write!(device, logdata, user_agent)
+    create!(device: device,
+            localtime: Time.zone.parse(logdata[:localtime]),
+            user_agent: user_agent,
+            command: logdata[:command] || "#{logdata[:type]}_#{logdata[:status]}",
+            message: logdata[:message] || logdata[:track])
+  end
 end

@@ -15,7 +15,7 @@
       .container
         .content
           .row
-            %h1.page-header= Unicode::capitalize yield(:page_title)
+            %h1.page-header= Unicode.capitalize yield(:page_title)
             .col-md-12
               = render 'layouts/messages'
             .col-md-12

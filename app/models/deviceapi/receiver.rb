@@ -40,19 +40,12 @@ module Deviceapi::Receiver
     device.device_status.save
   end
 
-  # rubocop: disable Metrics/AbcSize
   def write_device_log(device, logdata, user_agent)
     return if [logdata[:status], logdata[:command]].any? { |i| i == 'now_playing' }
-
-    Device::LogMessage.create!(device: device,
-                               localtime: Time.zone.parse(logdata[:localtime]),
-                               user_agent: user_agent,
-                               command: logdata[:command] || "#{logdata[:type]}_#{logdata[:status]}",
-                               message: logdata[:message] || logdata[:track])
+    Device::LogMessage.write!(device, logdata, user_agent)
   rescue => e
     logger.error "error writing device log: #{e.message}"
   end
-  # rubocop: enable Metrics/AbcSize
 
   def notify_status(device)
     Notifiers::DeviceStatusNotifierJob.perform_later(device, device.device_status.online, Time.current.to_s) if device.device_status.online_changed?
