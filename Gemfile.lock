@@ -126,6 +126,7 @@ GEM
     crud_responder (0.2.3)
       actionpack (~> 4)
       railties (~> 4)
+    daemons (1.2.3)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
     delayed_job (4.1.1)
@@ -403,6 +404,7 @@ DEPENDENCIES
   carrierwave_backgrounder
   coffee-rails (~> 4.1.0)
   crud_responder
+  daemons
   database_cleaner
   delayed_job_active_record
   devise
