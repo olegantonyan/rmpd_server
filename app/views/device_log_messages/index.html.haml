@@ -13,7 +13,7 @@
         %tr
           %td= log_item.command
           %td= log_item.message
-          %td= localtime log_item.localtime
-          %td= localtime log_item.created_at
+          %td= log_item.localtime
+          %td= log_item.created_at
 
   .text-center= will_paginate(@device_log_messages, renderer: BootstrapPagination::Rails, previous_label: "&larr; "+t(:newer), next_label: t(:older)+" &rarr;")

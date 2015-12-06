@@ -1,6 +1,4 @@
-class MediaItem::DestroyMultiple
-  include ActiveModel::Model
-
+class MediaItem::DestroyMultiple < BaseService
   attr_accessor :media_items
 
   validates :media_items, presence: true

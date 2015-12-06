@@ -41,6 +41,7 @@ module RmpdServer
     config.autoload_paths += Dir["#{config.root}/lib", "#{config.root}/lib/**/"]
     config.autoload_paths += Dir[ Rails.root.join('app', 'policies', '**/') ]
     config.autoload_paths += Dir[ Rails.root.join('app', 'presenters', '**/') ]
+    config.autoload_paths += Dir[ Rails.root.join('app', 'services', '**/') ]
     config.active_job.queue_adapter = :delayed_job
     #config.i18n.default_locale = :ru
 

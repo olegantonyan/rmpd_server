@@ -1,6 +1,4 @@
-class MediaItem::CreateMultiple
-  include ActiveModel::Model
-
+class MediaItem::CreateMultiple < BaseService
   def self.policy_class
     MediaItemPolicy
   end
