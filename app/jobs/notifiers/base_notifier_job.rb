@@ -1,14 +1,21 @@
 class Notifiers::BaseNotifierJob < ApplicationJob
   queue_as :notifiers
 
-  SLACK_WEBHOOK_URL = APP_CONFIG.fetch(:slack, {}).fetch(:webhook_url, nil)
-  SLACK_CHANNEL = '#dev'
+  def slack_channel
+    '#dev'.freeze
+  end
+
+  def slack_webhook_url
+    APP_CONFIG.fetch(:slack, {}).fetch(:webhook_url, nil)
+  rescue NameError
+    nil
+  end
 
   protected
 
   def notifier
-    if SLACK_WEBHOOK_URL
-      Slack::Notifier.new SLACK_WEBHOOK_URL, username: self.class.name, channel: SLACK_CHANNEL
+    if slack_webhook_url
+      Slack::Notifier.new slack_webhook_url, username: self.class.name, channel: slack_channel
     else
       Rails.logger.warn 'slack notification is not configured'
       nil
