@@ -57,10 +57,10 @@ class PlaylistsController < BaseController
   end
 
   def playlist_params
-    res = params.require(:playlist).permit(:name, :description, :company_id, :shuffle)
-    Playlist.media_items_attrs.each do |attr|
-      res[attr] = params[attr]
+    params.require(:playlist).permit(:name, :description, :company_id, :shuffle).tap do |res|
+      Playlist.media_items_attrs.each do |attr|
+        res[attr] = params[attr]
+      end
     end
-    res
   end
 end
