@@ -1,11 +1,15 @@
 class SshTunnel
   include ActiveModel::Model
+  include ActiveModel::Validations
+  include ActiveModel::Validations::Callbacks
 
   validates :server, :username, :server_port, :external_port, :internal_port, :open_duration, :device, presence: true
   validates :server, :username, length: { maximum: 130 }
   validates :server_port, :external_port, :external_port, :internal_port, :open_duration, numericality: true
   validates :server_port, :external_port, :internal_port, inclusion: { in: 0..65_535 }
   validates :open_duration, inclusion: { in: 20..600 }
+
+  before_validation :cast_attrs
 
   attr_accessor :server, :username, :server_port, :external_port, :internal_port, :open_duration, :device
 
@@ -25,6 +29,14 @@ class SshTunnel
       device.send_to(:request_ssh_tunnel, tunnel: self)
     else
       false
+    end
+  end
+
+  private
+
+  def cast_attrs
+    %w(server_port external_port internal_port open_duration).map(&:to_sym).each do |attr|
+      send("#{attr}=", send(attr).to_i)
     end
   end
 end

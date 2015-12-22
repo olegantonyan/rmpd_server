@@ -26,11 +26,6 @@ class SshTunnelsController < BaseController
   end
 
   def ssh_tunnel_params
-    result = params.require(:ssh_tunnel).permit(:server, :username, :server_port, :external_port, :internal_port, :open_duration)
-    result[:server_port] = result[:server_port].to_i
-    result[:external_port] = result[:external_port].to_i
-    result[:internal_port] = result[:internal_port].to_i
-    result[:open_duration] = result[:open_duration].to_i
-    result
+    params.require(:ssh_tunnel).permit(:server, :username, :server_port, :external_port, :internal_port, :open_duration)
   end
 end
