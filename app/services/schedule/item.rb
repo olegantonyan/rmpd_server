@@ -3,7 +3,7 @@ class Schedule::Item < Delegator
   alias_method :__getobj__, :playlist_item
 
   def initialize(playlist_item)
-    fail ArgumentError, 'expected advertising playlist item' unless playlist_item.advertising?
+    fail ArgumentError, 'expected advertising playlist item' unless playlist_item.try(:advertising?)
     @playlist_item = playlist_item
   end
 
@@ -26,5 +26,9 @@ class Schedule::Item < Delegator
 
   def period_seconds
     (end_time_seconds - begin_time_seconds) / (playbacks_per_day + 1)
+  end
+
+  def appropriate_at?(time_seconds)
+    begin_time_seconds <= time_seconds && time_seconds <= end_time_seconds
   end
 end
