@@ -4,7 +4,7 @@ class Schedule::Item < Delegator
 
   def initialize(playlist_item)
     fail ArgumentError, 'expected advertising playlist item' unless playlist_item.try(:advertising?)
-    @playlist_item = playlist_item
+    self.playlist_item = playlist_item
   end
 
   def schedule_seconds
@@ -31,4 +31,8 @@ class Schedule::Item < Delegator
   def appropriate_at?(time_seconds)
     begin_time_seconds <= time_seconds && time_seconds <= end_time_seconds
   end
+
+  private
+
+  attr_writer :playlist_item
 end
