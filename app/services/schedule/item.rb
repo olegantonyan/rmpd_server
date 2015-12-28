@@ -1,15 +1,17 @@
 class Schedule::Item < Delegator
   attr_reader :playlist_item
+  attr_accessor :time_shift
   alias_method :__getobj__, :playlist_item
 
   def initialize(playlist_item)
     fail ArgumentError, 'expected advertising playlist item' unless playlist_item.try(:advertising?)
     self.playlist_item = playlist_item
+    self.time_shift = 0
   end
 
   def schedule_seconds
     return [] if playbacks_per_day.zero?
-    (0..playbacks_per_day).map { |i| begin_time_seconds + i * period_seconds }
+    (0..playbacks_per_day).map { |i| begin_time_seconds + time_shift + i * period_seconds }
   end
 
   def schedule_times
