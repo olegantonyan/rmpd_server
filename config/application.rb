@@ -39,6 +39,7 @@ module RmpdServer
     end
 
     config.autoload_paths += Dir["#{config.root}/lib", "#{config.root}/lib/**/"]
+    config.autoload_paths += Dir[ Rails.root.join('lib', '**/') ]
     config.autoload_paths += Dir[ Rails.root.join('app', 'policies', '**/') ]
     config.autoload_paths += Dir[ Rails.root.join('app', 'presenters', '**/') ]
     config.autoload_paths += Dir[ Rails.root.join('app', 'services', '**/') ]

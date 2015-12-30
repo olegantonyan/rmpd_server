@@ -13,8 +13,8 @@ class Schedule::Scheduler
 
   def fill_intervals(all_times = all_times_seconds)
     self.intervals = []
-    all_times.each_with_index do |e, idx|
-      intervals << Schedule::Interval.new(e, all_times_seconds.at(idx + 1)) if idx + 1 < all_times_seconds.size
+    all_times.each_pair_overlapped do |crnt, nxt|
+      intervals << Schedule::Interval.new(crnt, nxt)
     end
     assign_items_to_intervals
   end
