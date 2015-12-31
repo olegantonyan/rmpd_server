@@ -1,31 +1,56 @@
 class Schedule::TimeShifter
   attr_reader :intervals
 
+  # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
   def initialize(intervals)
+    all_items = []
+    intervals.each do |i|
+      i.items.each do |j|
+        all_items << j unless j.in?(all_items)
+      end
+    end
+    all_items.each do |i|
+      sap i.to_s
+      sap i.schedule_times
+    end
     self.intervals = intervals
+    self.invariant_items = []
+    self.invariant_intervals = []
     loop do
       break unless shift
+    end
+    sap 'finished'
+    all_items = []
+    intervals.each do |i|
+      i.items.each do |j|
+        all_items << j unless j.in?(all_items)
+      end
+    end
+    all_items.each do |i|
+      sap i.to_s
+      sap i.schedule_times
     end
   end
 
   private
 
   attr_writer :intervals
+  attr_accessor :invariant_items, :invariant_intervals
 
-  # rubocop: disable Metrics/MethodLength
   def shift
     intervals_sorted.each do |interval|
+      next if interval.in?(invariant_intervals)
       times_seconds = interval.items.map(&:schedule_seconds).flatten.sort
       times_seconds.each_pair_overlapped do |crnt, nxt|
-        next unless near?(crnt, nxt)
         itm = item_by_time(interval, crnt)
-        sap itm.schedule_seconds
-        itm.time_shift = 600
-        sap "shifting #{itm}"
-        sap itm.schedule_seconds
+        next if !near?(crnt, nxt) || itm.in?(invariant_items)
+        itm.time_shift += 600
+        invariant_items << itm
+        invariant_intervals << interval
         return itm
       end
     end
+    nil
   end
 
   def near?(first, second)
