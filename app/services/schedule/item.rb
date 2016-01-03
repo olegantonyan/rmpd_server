@@ -34,6 +34,18 @@ class Schedule::Item < Delegator
     begin_time_seconds <= time_seconds && time_seconds <= end_time_seconds
   end
 
+  def to_s
+    "#{file_identifier} (#{schedule_times.join(', ')})"
+  end
+
+  def max_positive_allowed_shift
+    end_time_seconds - schedule_seconds.last
+  end
+
+  def max_negative_allowed_shift
+    schedule_seconds.first - begin_time_seconds
+  end
+
   private
 
   attr_writer :playlist_item

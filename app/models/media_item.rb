@@ -57,6 +57,10 @@ class MediaItem < ActiveRecord::Base
     types.map { |k, _| [I18n.t("activerecord.attributes.media_item.types.#{k}"), k] }
   end
 
+  def duration
+    @_duration ||= MediafilesUtils.duration(file.path)
+  end
+
   private
 
   def custom_label_method

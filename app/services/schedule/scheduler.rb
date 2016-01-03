@@ -1,31 +1,50 @@
 class Schedule::Scheduler
-  attr_reader :items, :intervals, :time_shifter
+  attr_reader :items
 
-  def initialize(items)
-    self.items = items.select(&:advertising?).map { |i| Schedule::Item.new(i) }
-    fill_intervals
-    self.time_shifter = Schedule::TimeShifter.new(intervals)
+  def initialize(itms)
+    self.items = itms.select(&:advertising?).map { |i| Schedule::Item.new(i) }
+    1.upto(items.map(&:schedule_times).flatten.size) do
+      optimize
+      break unless any_near
+    end
+  end
+
+  def items_with_times(key = :schedule_seconds, value = nil)
+    items.each_with_object([]) { |e, a| e.public_send(key).each { |ss| a << [ss, value ? e.public_send(value) : e] } }.sort_by(&:first)
+  end
+
+  def any_near
+    items_with_times(:schedule_seconds).each_pair_overlapped do |crnt, nxt|
+      return crnt, nxt if near?(crnt, nxt)
+    end
+    nil
   end
 
   private
 
-  attr_writer :items, :intervals, :time_shifter
+  attr_writer :items
 
-  def fill_intervals(all_times = all_times_seconds)
-    self.intervals = []
-    all_times.each_pair_overlapped do |crnt, nxt|
-      intervals << Schedule::Interval.new(crnt, nxt)
-    end
-    assign_items_to_intervals
-  end
-
-  def assign_items_to_intervals
-    intervals.each do |interval|
-      items.select { |item| item.appropriate_at?(interval.mean_time_seconds) }.each { |item| interval.add_item(item) }
+  def optimize
+    items_with_times(:schedule_seconds).each_pair_overlapped do |crnt, nxt|
+      next unless near?(crnt, nxt)
+      shift_time(crnt.second, nxt.second)
     end
   end
 
-  def all_times_seconds
-    (items.map(&:begin_time_seconds) + items.map(&:end_time_seconds)).uniq.sort
+  def near?(one, two)
+    delta = base_time_shift
+    ((one.first - delta)..(one.first + delta)).include?(two.first)
+  end
+
+  def shift_time(one, two)
+    if two.max_positive_allowed_shift >= base_time_shift
+      two.time_shift += base_time_shift
+    else
+      one.time_shift -= [one.max_negative_allowed_shift / 2, base_time_shift].max
+    end
+  end
+
+  def base_time_shift
+    @_base_time_shift ||= items.map { |i| i.duration.try!(:total) || 300 }.max
   end
 end
