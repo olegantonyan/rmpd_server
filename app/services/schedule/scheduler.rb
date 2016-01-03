@@ -3,9 +3,9 @@ class Schedule::Scheduler
 
   def initialize(itms)
     self.items = itms.select(&:advertising?).map { |i| Schedule::Item.new(i) }
-    1.upto(items.map(&:schedule_times).flatten.size) do
+    1.upto(items.map(&:schedule_times).flatten.size * 2) do
       optimize
-      break unless any_near
+      break unless overlap
     end
   end
 
@@ -13,9 +13,9 @@ class Schedule::Scheduler
     items.each_with_object([]) { |e, a| e.public_send(key).each { |ss| a << [ss, value ? e.public_send(value) : e] } }.sort_by(&:first)
   end
 
-  def any_near
+  def overlap
     items_with_times(:schedule_seconds).each_pair_overlapped do |crnt, nxt|
-      return crnt, nxt if near?(crnt, nxt)
+      return crnt.second, nxt.second if near?(crnt, nxt)
     end
     nil
   end
@@ -28,6 +28,7 @@ class Schedule::Scheduler
     items_with_times(:schedule_seconds).each_pair_overlapped do |crnt, nxt|
       next unless near?(crnt, nxt)
       shift_time(crnt.second, nxt.second)
+      break
     end
   end
 
@@ -40,7 +41,9 @@ class Schedule::Scheduler
     if two.max_positive_allowed_shift >= base_time_shift
       two.time_shift += base_time_shift
     else
-      one.time_shift -= [one.max_negative_allowed_shift / 2, base_time_shift].max
+      if one.max_negative_allowed_shift >= base_time_shift
+        one.time_shift -= base_time_shift
+      end
     end
   end
 

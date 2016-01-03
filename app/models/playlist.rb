@@ -22,6 +22,7 @@ class Playlist < ActiveRecord::Base
   end
   validates :description, length: { maximum: 512 }
   validates_has_many_with_error_messages :playlist_items
+  validate :overlapped_schedule
 
   rails_admin do
     list do
@@ -70,5 +71,9 @@ class Playlist < ActiveRecord::Base
 
   def playlist_destroyed
     devices.each { |d| d.send_to :delete_playlist }
+  end
+
+  def overlapped_schedule
+    errors.add(:base, "advertising schedule overlap: #{schedule.overlap.map(&:file_identifier).to_sentence}") if schedule.overlap
   end
 end
