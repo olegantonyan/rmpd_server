@@ -43,6 +43,10 @@ class Playlist < ActiveRecord::Base
     (description.blank? ? "#{name}" : "#{name} (#{description})") + " in #{company}"
   end
 
+  def schedule
+    @_schedule ||= Schedule::Scheduler.new(playlist_items.includes(:media_item).advertising)
+  end
+
   private
 
   def create_playlist_file

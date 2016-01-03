@@ -22,14 +22,13 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
       created_at: playlist.created_at,
       updated_at: playlist.updated_at,
       shuffle: playlist.shuffle,
-      items: playlist.playlist_items.includes(:media_item).map { |i| serialized_media_item(i) }
+      items: playlist.playlist_items.includes(:media_item).map { |i| serialized_media_item(i) },
+      schedule: serialized_schedule(playlist.schedule)
     }
   end
 
   # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
   def serialized_media_item(i)
-    time_format = '%H:%M:%S'
-    date_format = '%d.%m.%Y'
     {
       url: i.file_url,
       filename: i.file_identifier,
@@ -46,6 +45,15 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
   end
   # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
 
+  def serialized_schedule(schedule)
+    schedule.items.map do |i|
+      {
+        id: i.media_item_id,
+        schedule_times: i.schedule_times.map { |j| j.strftime(time_format) }
+      }
+    end
+  end
+
   def legacy_items
     items = []
     device.playlist.playlist_items.includes(:media_item).each { |d| items << d.media_item.file_url }
@@ -61,5 +69,13 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
       status: 'update',
       items: legacy_items # old implementation, for compatability
     }
+  end
+
+  def time_format
+    '%H:%M:%S'.freeze
+  end
+
+  def date_format
+    '%d.%m.%Y'.freeze
   end
 end
