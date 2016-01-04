@@ -17,17 +17,15 @@ class MediaItem < ActiveRecord::Base
   validates :description, length: { maximum: 130 }
 
   filterrific(
-    available_filters: [:search_query, :with_company_id]
+    available_filters: [:search_query, :with_company_id, :with_type]
   )
 
   scope :search_query, -> (query) {
     q = "%#{Unicode.downcase query.to_s}%"
     where('LOWER(file) LIKE ? OR LOWER(description) LIKE ?', q, q)
   }
-
-  scope :with_company_id, -> (companies_ids) {
-    where(company_id: [*companies_ids])
-  }
+  scope :with_company_id, -> (companies_ids) { where(company_id: [*companies_ids]) }
+  scope :with_type, -> (type) { where(type: types[type]) }
 
   delegate :path, to: :file, prefix: true
 

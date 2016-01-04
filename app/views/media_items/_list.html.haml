@@ -23,7 +23,7 @@
               - if many_companies?
                 %td= media_item.company.try(:title)
               %td= number_to_human_size(media_item.file.size, precision: 2)
-              %td= media_item.type
+              %td= t("activerecord.attributes.media_item.types.#{media_item.type}")
               %td= link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), media_item, :class => "btn btn-default"
     .row
       .col-sm-12

@@ -4,20 +4,21 @@ class MediaItemsController < BaseController
   before_action :set_media_item, only: [:show, :edit, :update, :destroy]
 
   # GET /media_items
-  # rubocop: disable Metrics/AbcSize, Style/Semicolon
+  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength
   def index
     @filterrific = initialize_filterrific(
       MediaItem,
       params[:filterrific],
       select_options: {
-        with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] }
+        with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] },
+        with_type: MediaItem.type_options_for_select
       }
     ) || (on_reset; return)
     filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 30)
     @media_items = policy_scope(filtered).includes(:company).order(created_at: :desc)
     authorize @media_items
   end
-  # rubocop: enable Metrics/AbcSize, Style/Semicolon
+  # rubocop: enable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength
 
   # GET /media_items/1
   def show
