@@ -94,9 +94,8 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'capistrano-rails-console'
   gem 'capistrano-rails-tail-log'
-  #gem 'rails-erd', require: false
+  gem 'rails-erd', require: false
   gem 'capistrano-slackify', require: false
-  #gem 'rails_db', require: false
   gem 'gemput', require: false
   gem 'rubocop', require: false
 end

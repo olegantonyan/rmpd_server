@@ -7,6 +7,8 @@ require 'capistrano/rails'
 require 'capistrano/rbenv'
 require 'capistrano/delayed-job'
 require 'capistrano/slackify'
+require 'capistrano/rails/console'
+require 'capistrano/rails_tail_log'
 
 # Include tasks from other gems included in your Gemfile
 #
