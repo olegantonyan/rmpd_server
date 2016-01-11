@@ -12,10 +12,16 @@ class Device::LogMessage < ActiveRecord::Base
   end
 
   scope :ordered, -> { order(created_at: :desc) }
+  scope :with_since_date, -> (date) { where('date(created_at) >= ?', Date.parse(date.to_s)) }
+  scope :with_to_date, -> (date) { where('date(created_at) <= ?', Date.parse(date.to_s)) }
 
   rails_admin do
     visible false
   end
+
+  filterrific(
+    available_filters: [:with_since_date, :with_to_date]
+  )
 
   def to_s
     "#{device} | #{command} | #{localtime} | #{message}"
@@ -27,5 +33,14 @@ class Device::LogMessage < ActiveRecord::Base
             user_agent: user_agent,
             command: logdata[:command] || "#{logdata[:type]}_#{logdata[:status]}",
             message: logdata[:message] || logdata[:track])
+  end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << column_names
+      find_each do |obj|
+        csv << obj.attributes.values_at(*column_names)
+      end
+    end
   end
 end

@@ -1,19 +1,7 @@
 - content_for :page_title, t(:log_for_device_title) + " #{@device_log_messages.first.try(:device).try(:name)}"
 
-.row
-  .col-md-12
-    %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
-      %tr
-        %th= 'Command'
-        %th= 'Message'
-        %th= t(:device_time_th)
-        %th= t(:server_time_th)
+= render 'filter_form'
 
-      - @device_log_messages.each do |log_item|
-        %tr
-          %td= log_item.command
-          %td= log_item.message
-          %td= log_item.localtime
-          %td= log_item.created_at
+= render(partial: 'list', locals: {device_log_messages: @device_log_messages})
 
-  .text-center= will_paginate(@device_log_messages, renderer: BootstrapPagination::Rails, previous_label: "&larr; "+t(:newer), next_label: t(:older)+" &rarr;")
+= link_to icon_link_to('export', 'Export to CSV'), device_device_log_messages_path(device_id: params[:device_id], format: 'csv'), class: 'btn btn-default'

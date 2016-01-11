@@ -1,0 +1,18 @@
+#filterrific_results
+  .row
+    .col-md-12
+      %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
+        %tr
+          %th= 'Command'
+          %th= 'Message'
+          %th= t(:device_time_th)
+          %th= t(:server_time_th)
+
+        - device_log_messages.each do |log_item|
+          %tr
+            %td= log_item.command
+            %td= log_item.message
+            %td= log_item.localtime
+            %td= log_item.created_at
+
+    .text-center= will_paginate(device_log_messages, renderer: BootstrapPagination::Rails, previous_label: "&larr; "+t(:newer), next_label: t(:older)+" &rarr;")

@@ -1,0 +1,4 @@
+<% js = escape_javascript(
+  render(partial: 'list', locals: {device_log_messages: @device_log_messages})
+) %>
+$("#filterrific_results").html("<%= js %>");

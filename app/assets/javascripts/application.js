@@ -19,5 +19,7 @@
 //= require select2_locale_ru
 //= require nested_form_fields
 //= require filterrific/filterrific-jquery
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
 //= require list
 //= require_tree .
