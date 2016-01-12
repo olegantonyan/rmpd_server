@@ -3,7 +3,7 @@ class Schedule::Scheduler
 
   def initialize(itms)
     self.items = itms.select(&:advertising?).map { |i| Schedule::Item.new(i) }
-    1.upto(items.map(&:schedule_times).flatten.size * 2) do
+    1.upto(items.size**2) do
       optimize
       break unless overlap
     end
