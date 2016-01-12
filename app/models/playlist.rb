@@ -11,8 +11,10 @@ class Playlist < ActiveRecord::Base
            through: :playlist_items
   belongs_to :company, inverse_of: :playlists
 
-  after_save :playlist_updated
-  after_destroy :playlist_destroyed
+  after_save :store_file
+  after_save :update_schedule
+  after_commit :notify_devices_delete, on: :destroy
+  after_commit :notify_devices_update, on: [:create, :update]
 
   mount_uploader :file, PlaylistFileUploader
 
@@ -60,20 +62,29 @@ class Playlist < ActiveRecord::Base
     tempfile.unlink
   end
 
-  def playlist_updated
+  def store_file
     create_playlist_file
-    Playlist.skip_callback(:save, :after, :playlist_updated) # skipping callback is required to prevent recursion
+    Playlist.skip_callback(:save, :after, :store_file) # skipping callback is required to prevent recursion
     save # save newly created file in db
-    Playlist.set_callback(:save, :after, :playlist_updated)
+    Playlist.set_callback(:save, :after, :store_file)
+  end
 
+  def notify_devices_update
     devices.each { |d| d.send_to :update_playlist }
   end
 
-  def playlist_destroyed
+  def notify_devices_delete
     devices.each { |d| d.send_to :delete_playlist }
   end
 
   def overlapped_schedule
     errors.add(:base, "advertising schedule overlap: #{schedule.overlap.map(&:file_identifier).to_sentence}") if schedule.overlap
+  end
+
+  def update_schedule
+    playlist_items.advertising.each do |pitem|
+      pitem.schedule = schedule.items.find { |i| i.id == pitem.id }.schedule_times
+      pitem.save!
+    end
   end
 end

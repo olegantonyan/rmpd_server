@@ -22,12 +22,12 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
       created_at: playlist.created_at,
       updated_at: playlist.updated_at,
       shuffle: playlist.shuffle,
-      items: playlist.playlist_items.includes(:media_item).map { |i| serialized_media_item(i, playlist) }
+      items: playlist.playlist_items.includes(:media_item).map { |i| serialized_media_item(i) }
     }
   end
 
   # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
-  def serialized_media_item(i, playlist)
+  def serialized_media_item(i)
     {
       url: i.file_url,
       filename: i.file_identifier,
@@ -40,15 +40,15 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
       end_date: i.end_date.try(:strftime, date_format),
       begin_date: i.begin_date.try(:strftime, date_format),
       playbacks_per_day: i.playbacks_per_day,
-      schedule: serialized_schedule(playlist.schedule, i)
+      schedule: serialized_schedule(i)
     }
   end
   # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
 
-  def serialized_schedule(schedule, item)
+  def serialized_schedule(item)
     return [] unless item.advertising?
-    @_schedule_items ||= schedule.items
-    @_schedule_items.find { |j| j.id == item.id }.schedule_times.map { |j| j.strftime(time_format) }
+    return [] unless item.schedule
+    item.schedule.map { |j| j.strftime(time_format) }
   end
 
   def legacy_items

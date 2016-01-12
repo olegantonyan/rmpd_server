@@ -1,6 +1,8 @@
 class Playlist::Item < ActiveRecord::Base
   has_paper_trail
 
+  serialize :schedule
+
   with_options inverse_of: :playlist_items do |a|
     a.belongs_to :media_item
     a.belongs_to :playlist
