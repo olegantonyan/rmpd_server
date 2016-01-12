@@ -42,7 +42,7 @@ class PlaylistsController < BaseController
   # DELETE /playlists/1
   def destroy
     authorize @playlist
-    crud_respond @playlist
+    crud_respond @playlist, success_url: playlists_path
   end
 
   private
