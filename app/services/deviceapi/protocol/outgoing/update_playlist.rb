@@ -47,7 +47,8 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
 
   def serialized_schedule(schedule, item)
     return [] unless item.advertising?
-    schedule.items.find { |j| j.id == item.id }.schedule_times.map { |j| j.strftime(time_format) }
+    @_schedule_items ||= schedule.items
+    @_schedule_items.find { |j| j.id == item.id }.schedule_times.map { |j| j.strftime(time_format) }
   end
 
   def legacy_items
