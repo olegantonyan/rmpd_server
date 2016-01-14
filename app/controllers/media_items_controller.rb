@@ -35,7 +35,7 @@ class MediaItemsController < BaseController
   def create_multiple
     @media_item_multiple = MediaItem::CreateMultiple.new(media_item_create_multiple_params)
     authorize @media_item_multiple, :create?
-    crud_respond @media_item_multiple, success_url: media_items_path
+    crud_respond @media_item_multiple
   end
 
   # DELETE /media_items/1
@@ -63,5 +63,9 @@ class MediaItemsController < BaseController
 
   def media_item_create_multiple_params
     params.require(:media_item_create_multiple).permit(:description, :company_id, :type, files: [])
+  end
+
+  def crud_responder_default_options
+    { success_url: media_items_path }
   end
 end

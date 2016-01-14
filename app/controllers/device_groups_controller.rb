@@ -31,7 +31,7 @@ class DeviceGroupsController < BaseController
   def create
     @device_group = Device::Group.new(device_group_params)
     authorize @device_group
-    crud_respond @device_group
+    crud_respond @device_group, success_url: device_groups_path
   end
 
   # PATCH/PUT /device_groups/1
@@ -39,14 +39,14 @@ class DeviceGroupsController < BaseController
   def update
     authorize @device_group
     @device_group.assign_attributes(device_group_params)
-    crud_respond @device_group
+    crud_respond @device_group, success_url: device_group_path(@device_group)
   end
 
   # DELETE /device_groups/1
   # DELETE /device_groups/1.json
   def destroy
     authorize @device_group
-    crud_respond @device_group
+    crud_respond @device_group, success_url: device_groups_path
   end
 
   private

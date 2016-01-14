@@ -29,20 +29,20 @@ class DevicesController < BaseController
   def create
     @device = Device.new(device_params)
     authorize @device
-    crud_respond @device
+    crud_respond @device, success_url: devices_path
   end
 
   # PATCH/PUT /devices/1
   def update
     authorize @device
     @device.assign_attributes(device_params)
-    crud_respond @device
+    crud_respond @device, success_url: device_path(@device)
   end
 
   # DELETE /devices/1
   def destroy
     authorize @device
-    crud_respond @device
+    crud_respond @device, success_url: devices_path
   end
 
   private
