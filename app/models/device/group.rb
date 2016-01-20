@@ -19,6 +19,6 @@ class Device::Group < ActiveRecord::Base
   end
 
   def to_s
-    "#{title}"
+    title
   end
 end

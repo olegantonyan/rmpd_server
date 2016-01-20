@@ -29,6 +29,6 @@ class Company < ActiveRecord::Base
   end
 
   def to_s
-    "#{title}"
+    title
   end
 end

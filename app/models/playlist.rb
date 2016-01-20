@@ -43,7 +43,7 @@ class Playlist < ActiveRecord::Base
   end
 
   def to_s
-    (description.blank? ? "#{name}" : "#{name} (#{description})") + " in #{company}"
+    (description.blank? ? name : "#{name} (#{description})") + " in #{company}"
   end
 
   def schedule

@@ -34,16 +34,14 @@ class Schedule::Scheduler
 
   def near?(one, two)
     delta = base_time_shift
-    ((one.first - delta)..(one.first + delta)).include?(two.first)
+    ((one.first - delta)..(one.first + delta)).cover?(two.first)
   end
 
   def shift_time(one, two)
     if two.max_positive_allowed_shift >= base_time_shift
       two.time_shift += base_time_shift
-    else
-      if one.max_negative_allowed_shift >= base_time_shift
-        one.time_shift -= base_time_shift
-      end
+    elsif one.max_negative_allowed_shift >= base_time_shift
+      one.time_shift -= base_time_shift
     end
   end
 

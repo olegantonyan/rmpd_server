@@ -2,7 +2,7 @@ class Notifiers::BaseNotifierJob < ApplicationJob
   queue_as :notifiers
 
   def slack_channel
-    '#dev'.freeze
+    '#dev'
   end
 
   def slack_webhook_url

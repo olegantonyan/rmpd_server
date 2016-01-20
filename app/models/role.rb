@@ -27,6 +27,6 @@ class Role < ActiveRecord::Base
   end
 
   def to_s
-    "#{name}"
+    name
   end
 end

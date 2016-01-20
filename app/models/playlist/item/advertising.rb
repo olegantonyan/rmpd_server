@@ -25,10 +25,12 @@ class Playlist::Item::Advertising < Playlist::Item
     errors.add(:begin_date, "#{begin_date} > end date #{end_date}") if begin_date > end_date
   end
 
+  # rubocop: disable Metrics/AbcSize
   def fit_to_time_period
     return if begin_time.nil? || end_time.nil? || !media_item.advertising?
     errors.add(:playbacks_per_day, "does not fit total playback time (#{total_time} sec)") if playback_duration.total >= total_time.seconds
   end
+  # rubocop: enable Metrics/AbcSize
 
   def playback_duration
     MediafilesUtils.duration(media_item.file_path) * playbacks_per_day.to_i

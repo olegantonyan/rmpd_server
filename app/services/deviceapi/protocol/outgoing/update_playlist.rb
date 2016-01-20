@@ -69,10 +69,10 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
   end
 
   def time_format
-    '%H:%M:%S'.freeze
+    '%H:%M:%S'
   end
 
   def date_format
-    '%d.%m.%Y'.freeze
+    '%d.%m.%Y'
   end
 end

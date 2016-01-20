@@ -1,5 +1,4 @@
 AllCops:
-  RunRailsCops: true
 
   Include:
     - '**/Rakefile'
@@ -12,6 +11,9 @@ AllCops:
     - 'script/**/*'
     - 'bin/**/*'
     - 'spec/**/*'
+
+Rails:
+  Enabled: true
 
 Style/Documentation:
   Enabled: false

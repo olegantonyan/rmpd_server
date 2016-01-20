@@ -1,7 +1,7 @@
 class Schedule::Item < Delegator
   attr_reader :playlist_item
   attr_accessor :time_shift
-  alias_method :__getobj__, :playlist_item
+  alias __getobj__ playlist_item
 
   def initialize(playlist_item)
     fail ArgumentError, 'expected advertising playlist item' unless playlist_item.try(:advertising?)
