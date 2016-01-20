@@ -23,7 +23,7 @@ class Device < ActiveRecord::Base
   validates :password, length: { in: 8..60 }, presence: true, confirmation: true, if: -> { new_record? || !password.nil? }
 
   after_destroy { send_to :clear_queue }
-  after_create { send_to :update_settings }
+  around_save :update_setting
 
   def online?
     device_status && device_status.online
@@ -52,5 +52,13 @@ class Device < ActiveRecord::Base
   def time_zone_formatted_offset
     tz = time_zone.blank? ? Rails.application.config.time_zone : time_zone
     ActiveSupport::TimeZone.new(tz).formatted_offset
+  end
+
+  private
+
+  def update_setting
+    need_send = time_zone_changed?
+    yield
+    send_to :update_setting if need_send
   end
 end
