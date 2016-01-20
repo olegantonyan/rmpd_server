@@ -11,7 +11,7 @@
         %th= t(:playlist_th)
         %th= t(:more_th)
 
-      - @devices.each do |device|
+      - @devices.map { |d| present(d) }.each do |device|
         %tr{:class => device.online? ? "success" : "danger"}
           %td= device.name
           %td= list_with_links(device.device_groups, 'title')

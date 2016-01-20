@@ -22,7 +22,8 @@ class Device < ActiveRecord::Base
   validates :name, length:  { maximum: 130 }
   validates :password, length: { in: 8..60 }, presence: true, confirmation: true, if: -> { new_record? || !password.nil? }
 
-  after_destroy :device_destroyed
+  after_destroy { send_to :clear_queue }
+  after_create { send_to :update_settings }
 
   def online?
     device_status && device_status.online
@@ -48,9 +49,8 @@ class Device < ActiveRecord::Base
     "#{login} (#{name} in #{company})"
   end
 
-  private
-
-  def device_destroyed
-    send_to :clear_queue
+  def time_zone_formatted_offset
+    tz = time_zone.blank? ? Rails.application.config.time_zone : time_zone
+    ActiveSupport::TimeZone.new(tz).formatted_offset
   end
 end
