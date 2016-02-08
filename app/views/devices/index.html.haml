@@ -17,7 +17,10 @@
           %td= list_with_links(device.device_groups, 'title')
           - if many_companies?
             %td= device.company.nil? ? "" : device.company.title
-          %td= link_to(device.playlist.name, device.playlist) if device.playlist
+          %td
+            = link_to(device.playlist.name, device.playlist) if device.playlist
+            - if device.synchronizing?
+              %i.glyphicon.glyphicon-refresh.pull-right
           %td
             = link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), device, :class => "btn btn-default"
 

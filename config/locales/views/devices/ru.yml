@@ -26,3 +26,4 @@ ru:
   groups: Группы
   group: Группа
   time_zone: Часовой пояс
+  synchronizing_in_process: Идёт синхронизация

@@ -12,6 +12,7 @@
       = row_info t(:added_at_th), device.created_at
       = row_info t(:updated_at_th), device.updated_at
       = row_info t(:time_zone), device.time_zone_info
+      = row_info t(:synchronizing_in_process), device.synchronizing? ? t(:yes) : t(:no)
 
 .row
   .col-sm-12

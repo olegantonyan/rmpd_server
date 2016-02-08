@@ -26,3 +26,4 @@ en:
   groups: Groups
   group: Group
   time_zone: Time zone
+  synchronizing_in_process: Synchronization in process

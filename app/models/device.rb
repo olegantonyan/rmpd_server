@@ -54,6 +54,10 @@ class Device < ActiveRecord::Base
     ActiveSupport::TimeZone.new(tz).formatted_offset
   end
 
+  def synchronizing?
+    Deviceapi::MessageQueue.find_by(key: login, message_type: :update_playlist, dequeued: true)
+  end
+
   private
 
   def update_setting
