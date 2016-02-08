@@ -55,7 +55,7 @@ class Device < ActiveRecord::Base
   end
 
   def synchronizing?
-    Deviceapi::MessageQueue.find_by(key: login, message_type: :update_playlist, dequeued: true)
+    Deviceapi::MessageQueue.find_by(key: login, message_type: :update_playlist)
   end
 
   private
@@ -63,6 +63,6 @@ class Device < ActiveRecord::Base
   def update_setting
     changed_attrs = changed.map(&:to_sym).dup
     yield
-    send_to(:update_setting, *changed_attrs) if changed_attrs.any?
+    send_to(:update_setting, *changed_attrs) if changed_attrs.include?(:time_zone)
   end
 end
