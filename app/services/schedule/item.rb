@@ -4,7 +4,7 @@ class Schedule::Item < Delegator
   alias __getobj__ playlist_item
 
   def initialize(playlist_item)
-    fail ArgumentError, 'expected advertising playlist item' unless playlist_item.try(:advertising?)
+    raise ArgumentError, 'expected advertising playlist item' unless playlist_item.try(:advertising?)
     self.playlist_item = playlist_item
     self.time_shift = 0
   end

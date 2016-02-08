@@ -16,7 +16,7 @@ class PlaylistAssignmentsController < BaseController
                   elsif params[:device_group_id]
                     Device::Group.find(params[:device_group_id])
                   else
-                    fail 'No assignable object'
+                    raise 'No assignable object'
                   end
   end
   # rubocop: enable Style/GuardClause

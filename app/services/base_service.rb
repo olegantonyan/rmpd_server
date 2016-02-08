@@ -14,11 +14,11 @@ class BaseService
   end
 
   def save!
-    fail ActiveRecord::RecordInvalid, self unless save
+    raise ActiveRecord::RecordInvalid, self unless save
   end
 
   def destroy!
-    fail ActiveRecord::RecordInvalid, self unless destroy
+    raise ActiveRecord::RecordInvalid, self unless destroy
   end
 
   def assign_if(output, attr, value)

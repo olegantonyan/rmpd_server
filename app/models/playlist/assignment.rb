@@ -44,7 +44,7 @@ class Playlist::Assignment
     when Device::Group
       assignable.devices.each { |device| assign_to_device!(device) }
     else
-      fail ArgumentError, "unknown assignable type #{assignable.try(:class).try(:name)}"
+      raise ArgumentError, "unknown assignable type #{assignable.try(:class).try(:name)}"
     end
   end
 end
