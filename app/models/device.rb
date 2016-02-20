@@ -63,6 +63,6 @@ class Device < ActiveRecord::Base
   def update_setting
     changed_attrs = changed.map(&:to_sym).dup
     yield
-    send_to(:update_setting, *changed_attrs) if changed_attrs.include?(:time_zone)
+    send_to(:update_setting, changed_attrs) if changed_attrs.include?(:time_zone)
   end
 end
