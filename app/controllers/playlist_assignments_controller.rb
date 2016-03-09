@@ -9,7 +9,6 @@ class PlaylistAssignmentsController < BaseController
 
   private
 
-  # rubocop: disable Style/GuardClause
   def set_assignable
     @assignable = if params[:device_id]
                     Device.find(params[:device_id])
@@ -19,7 +18,6 @@ class PlaylistAssignmentsController < BaseController
                     raise 'No assignable object'
                   end
   end
-  # rubocop: enable Style/GuardClause
 
   def playlist_assignment_params
     params.require(:playlist_assignment).permit(:playlist_id)

@@ -61,7 +61,7 @@ gem 'carrierwave_backgrounder'
 gem 'pry-rails'
 gem 'devise-async'
 gem 'partial_namespaceble', github: 'olegantonyan/partial_namespaceble'
-gem 'super_awesome_print', github: 'olegantonyan/super_awesome_print'
+gem 'super_awesome_print'
 gem 'activerecord-colored_log_subscriber'
 gem 'validates'
 gem 'crud_responder'
@@ -93,8 +93,8 @@ group :development, :test do
   gem 'capistrano-rbenv'
   gem 'capistrano3-delayed-job', '~> 1.0'
   gem 'quiet_assets'
-  gem 'capistrano-rails-console'
-  gem 'capistrano-rails-tail-log'
+  gem 'capistrano-rails-console', require: false
+  gem 'capistrano-rails-tail-log', require: false
   gem 'rails-erd', require: false
   gem 'capistrano-slackify', require: false
   gem 'gemput', require: false

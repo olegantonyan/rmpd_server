@@ -8,7 +8,6 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
     create(key: key, data: data, message_type: message_type)
   end
 
-  # rubocop: disable Performance/RedundantMerge
   def self.dequeue(key)
     d = where(key: key, dequeued: false).order(:created_at).first
     if d
@@ -19,7 +18,6 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
       ['', 0]
     end
   end
-  # rubocop: enable Performance/RedundantMerge
 
   def self.remove(sequence_number)
     d = find_by(id: sequence_number)

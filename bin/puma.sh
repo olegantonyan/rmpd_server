@@ -5,7 +5,7 @@ pushd `pwd` > /dev/null
 cd $(dirname $(readlink -f $0))
 cd ..
 
-PUMA_CONFIG_FILE=config/puma.rb
+PUMA_CONFIG_FILE=config/puma_config.rb
 PUMA_PID_FILE=tmp/pids/puma.pid
 ENVIROMENT=production
 
