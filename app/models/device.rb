@@ -13,7 +13,7 @@ class Device < ActiveRecord::Base
     end
   end
   with_options inverse_of: :devices do |a|
-    a.belongs_to :playlist, touch: true
+    a.belongs_to :playlist
     a.belongs_to :company
   end
   has_many :device_groups, through: :device_group_memberships, class_name: 'Device::Group'
