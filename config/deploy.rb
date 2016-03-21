@@ -27,6 +27,10 @@ set :slack_deploy_finished_color, 'good'
 set :slack_deploy_failed_color, 'danger'
 set :slack_url, 'https://hooks.slack.com/services/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'
 
+set :rollbar_token, YAML.load_file(File.expand_path('../secrets.yml', __FILE__))[fetch(:rails_env) || 'production']['rollbar_token']
+set :rollbar_env, Proc.new { fetch :stage }
+set :rollbar_role, Proc.new { :app }
+
 #set :default_env, { path: "~/.rbenv/shims:~/.rbenv/bin:$PATH" }
 #set :default_environment, {
 #  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
