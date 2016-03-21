@@ -23,7 +23,6 @@ class Deviceapi::StatusController < Deviceapi::BaseController
   end
 
   def log_error(err)
-    Notifiers::ExceptionNotifierJob.call(err)
     logger.error("error processing message from device #{device.login}: #{err}\n#{err.backtrace}")
   end
 end

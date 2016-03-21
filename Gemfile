@@ -66,10 +66,10 @@ gem 'activerecord-colored_log_subscriber'
 gem 'validates'
 gem 'crud_responder'
 gem 'slack-notifier'
-gem 'exception_notification'
 gem 'initializer_helpers', github: 'olegantonyan/initializer_helpers'
 gem 'ruby-duration'
 gem 'bootstrap-datepicker-rails'
+gem 'rollbar', '~> 2.8.1'
 
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
@@ -89,9 +89,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'faker'
   gem 'launchy'
-  gem 'capistrano-rails'
-  gem 'capistrano-rbenv'
-  gem 'capistrano3-delayed-job', '~> 1.0'
   gem 'quiet_assets'
   gem 'capistrano-rails-console', require: false
   gem 'capistrano-rails-tail-log', require: false
@@ -99,6 +96,9 @@ group :development, :test do
   gem 'capistrano-slackify', require: false
   gem 'gemput', require: false
   gem 'rubocop', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rbenv', require: false
+  gem 'capistrano3-delayed-job', '~> 1.0', require: false
 end
 
 group :production do

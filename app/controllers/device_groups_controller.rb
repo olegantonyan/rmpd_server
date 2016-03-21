@@ -5,6 +5,7 @@ class DeviceGroupsController < BaseController
   # GET /device_groups
   # GET /device_groups.json
   def index
+    raise 'i hate you'
     @device_groups = policy_scope(Device::Group.all).order(created_at: :asc)
     authorize @device_groups
   end
