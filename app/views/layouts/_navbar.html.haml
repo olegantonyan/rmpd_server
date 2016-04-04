@@ -21,7 +21,7 @@
         %li
         - if user_signed_in?
           = succeed "." do
-            - if current_user.root?
+            - if current_user.root? && defined?(RailsAdmin)
               %span{:title => 'Admin area'}
                 = link_to icon_link_to('fire', ''), rails_admin_path, :class => "btn btn-danger navbar-btn"
             %span{:title => 'Gravatar'}

@@ -1,7 +1,6 @@
-class Playlist < ActiveRecord::Base
+class Playlist < ApplicationRecord
   include PlaylistItemsCreation
   include ValidatesHasManyWithErrorMessages
-  has_paper_trail
 
   with_options inverse_of: :playlist do |a|
     a.has_many :playlist_items, -> { order(:position) }, dependent: :destroy, class_name: 'Playlist::Item'

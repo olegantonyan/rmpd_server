@@ -1,4 +1,4 @@
-class Role < ActiveRecord::Base
+class Role < ApplicationRecord
   # has_paper_trail # causes problems https://github.com/RolifyCommunity/rolify/issues/334
   scopify
   # rubocop: disable Rails/HasAndBelongsToMany

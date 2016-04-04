@@ -1,4 +1,4 @@
-class NewsItem < ActiveRecord::Base
+class NewsItem < ApplicationRecord
   with_options presence: true do
     validates :title, length: { in: 4..100 }
     validates :body, length: { in: 4..6000 }

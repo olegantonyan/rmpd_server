@@ -1,5 +1,4 @@
-class UserCompanyMembership < ActiveRecord::Base
-  has_paper_trail
+class UserCompanyMembership < ApplicationRecord
   rolify
 
   with_options inverse_of: :user_company_memberships do |a|

@@ -1,4 +1,4 @@
-class Device::LogMessage < ActiveRecord::Base
+class Device::LogMessage < ApplicationRecord
   belongs_to :device, inverse_of: :device_log_messages
 
   with_options presence: true do

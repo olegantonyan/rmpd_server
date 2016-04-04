@@ -52,7 +52,7 @@ gem 'rolify'
 # gem 'rails_admin', github: 'sferik/rails_admin'
 gem 'paper_trail', '~> 4.0.0'
 gem 'gravtastic'
-gem 'gaffe'
+# gem 'gaffe'
 gem 'nested_form_fields'
 gem 'filterrific'
 gem 'listjs-rails'
@@ -70,9 +70,11 @@ gem 'initializer_helpers', github: 'olegantonyan/initializer_helpers'
 gem 'ruby-duration'
 gem 'bootstrap-datepicker-rails'
 gem 'rollbar', '~> 2.8.1'
+gem 'rails-i18n', '~> 5.0.0.beta3'
+gem 'devise-i18n'
 
 group :development, :test do
-  gem 'erb2haml'
+  gem 'erb2haml', require: false
   gem 'bullet'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
@@ -80,6 +82,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'faker'
   gem 'launchy'
+  gem 'listen'
   gem 'capistrano-rails-console', require: false
   gem 'capistrano-rails-tail-log', require: false
   gem 'rails-erd', require: false

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   resources :news_items, path: :news, only: [:index, :show]
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  if defined?(RailsAdmin)
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  end
   devise_for :users
 
   concern :playlist_assignable do

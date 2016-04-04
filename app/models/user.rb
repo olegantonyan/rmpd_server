@@ -1,12 +1,10 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include Gravtastic
   gravtastic
 
-  has_paper_trail
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :async, :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable # , :async
 
   with_options inverse_of: :user do |a|
     a.has_many :user_company_memberships

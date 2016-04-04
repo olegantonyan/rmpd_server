@@ -1,4 +1,4 @@
-class Device < ActiveRecord::Base
+class Device < ApplicationRecord
   include Deviceapi::Sender
   include Deviceapi::Receiver
   include ScopesWithUser

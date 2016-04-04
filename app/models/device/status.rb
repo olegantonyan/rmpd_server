@@ -1,4 +1,4 @@
-class Device::Status < ActiveRecord::Base
+class Device::Status < ApplicationRecord
   belongs_to :device, inverse_of: :device_status
 
   validates :now_playing, length: { maximum: 1024 }

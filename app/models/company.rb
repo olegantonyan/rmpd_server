@@ -1,6 +1,4 @@
-class Company < ActiveRecord::Base
-  has_paper_trail
-
+class Company < ApplicationRecord
   with_options inverse_of: :company do |a|
     a.has_many :devices
     a.has_many :playlists

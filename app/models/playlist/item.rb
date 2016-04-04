@@ -1,6 +1,4 @@
-class Playlist::Item < ActiveRecord::Base
-  has_paper_trail
-
+class Playlist::Item < ApplicationRecord
   serialize :schedule
 
   with_options inverse_of: :playlist_items do |a|
