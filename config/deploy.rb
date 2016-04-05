@@ -15,18 +15,6 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all # default value
 
-_workers_match = /WORKERS=(?<workers>\d)/.match(File.read("#{File.dirname(__FILE__)}/../bin/delayed_job.sh"))
-_delayed_job_workers = _workers_match ? _workers_match[:workers].to_i : 1
-set :delayed_job_workers, _delayed_job_workers
-set :delayed_job_roles, [:app]
-
-set :slack_channel, '#dev'
-set :slack_username, 'deployer'
-set :slack_emoji, ':trollface:'
-set :slack_deploy_finished_color, 'good'
-set :slack_deploy_failed_color, 'danger'
-set :slack_url, 'https://hooks.slack.com/services/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'
-
 set :rollbar_token, YAML.load_file(File.expand_path('../secrets.yml', __FILE__))[fetch(:rails_env) || 'production']['rollbar_token']
 set :rollbar_env, Proc.new { fetch :stage }
 set :rollbar_role, Proc.new { :app }
@@ -83,6 +71,17 @@ namespace :deploy do
     end
   end
 
+  namespace :delayed_job do
+    desc 'Commands for Delayed::Job'
+    %w(start stop restart).each do |command|
+      task command do
+        on roles(:app)  do
+          execute "cd #{release_path} && bin/delayed_job.sh #{command} #{fetch(:rails_env)}"
+        end
+      end
+    end
+  end
+
   desc "Make sure local git is in sync with remote."
   task :check_revision do
     on roles(:app) do
@@ -117,6 +116,7 @@ namespace :deploy do
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
+  after  :finishing,    'delayed_job:restart'
 
   task :put_branch do
     on roles(:app) do

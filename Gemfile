@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '>= 5.0.0.beta3', '< 5.1'
@@ -59,7 +59,6 @@ gem 'listjs-rails'
 gem 'unicode'
 gem 'carrierwave_backgrounder'
 gem 'pry-rails'
-# gem 'devise-async'
 gem 'partial_namespaceble', github: 'olegantonyan/partial_namespaceble'
 gem 'super_awesome_print'
 gem 'activerecord-colored_log_subscriber'
@@ -70,7 +69,7 @@ gem 'initializer_helpers', github: 'olegantonyan/initializer_helpers'
 gem 'ruby-duration'
 gem 'bootstrap-datepicker-rails'
 gem 'rollbar', '~> 2.8.1'
-gem 'rails-i18n', '~> 5.0.0.beta3'
+gem 'rails-i18n', '>= 5.0.0.beta3', '< 5.1'
 gem 'devise-i18n'
 
 group :development, :test do
@@ -86,10 +85,8 @@ group :development, :test do
   gem 'capistrano-rails-console', require: false
   gem 'capistrano-rails-tail-log', require: false
   gem 'rails-erd', require: false
-  gem 'capistrano-slackify', require: false
   gem 'gemput', require: false
   gem 'rubocop', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rbenv', require: false
-  gem 'capistrano3-delayed-job', '~> 1.0', require: false
 end
