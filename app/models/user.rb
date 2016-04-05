@@ -7,7 +7,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   with_options inverse_of: :user do |a|
-    a.has_many :user_company_memberships
+    a.has_many :user_company_memberships, dependent: :destroy
   end
   has_many :companies, -> { group('companies.id') }, through: :user_company_memberships
 
