@@ -3,7 +3,7 @@ class Device::Group < ApplicationRecord
   has_many :devices, through: :device_group_memberships
 
   validates :title, presence: true, length: { in: 4..100 }, uniqueness: true
-  validates :devices, association_length: { minimum: 1 }
+  validates :devices, presence: true
 
   rails_admin do
     list do

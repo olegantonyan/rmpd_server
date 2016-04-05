@@ -1,7 +1,4 @@
 class User < ApplicationRecord
-  include Gravtastic
-  gravtastic
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
@@ -21,6 +18,10 @@ class User < ApplicationRecord
 
   def devices
     Device.where(company: companies)
+  end
+
+  def gravatar_url
+    @_gravatar_url ||= "https://gravatar.com/avatar/#{Digest::MD5.hexdigest(email).downcase}.png"
   end
 
   rails_admin do

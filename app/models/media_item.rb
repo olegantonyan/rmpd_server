@@ -20,8 +20,8 @@ class MediaItem < ApplicationRecord
   )
 
   scope :search_query, -> (query) {
-    q = "%#{Unicode.downcase query.to_s}%"
-    where('LOWER(file) LIKE ? OR LOWER(description) LIKE ?', q, q)
+    q = "%#{query}%"
+    where('LOWER(file) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)', q, q)
   }
   scope :with_company_id, -> (companies_ids) { where(company_id: [*companies_ids]) }
   scope :with_type, -> (type) { where(type: types[type]) }
