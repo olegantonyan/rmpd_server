@@ -24,7 +24,7 @@ delayed_job_start()
 delayed_job_stop()
 {
     echo "Stopping delayed job"
-    RAILS_ENV=$ENVIROMENT bin/delayed_job stop
+    RAILS_ENV=$ENVIROMENT bin/delayed_job -n $WORKERS stop
 }
 
 case "$1" in
