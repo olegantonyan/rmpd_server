@@ -1,5 +1,5 @@
 class ErrorsController < BaseController
-  include Gaffe::Errors
+  include Gaffe::Errors if defined?(Gaffe)
 
   skip_before_action :authenticate_user!
   skip_after_action :verify_authorized
