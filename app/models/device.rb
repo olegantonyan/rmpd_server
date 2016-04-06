@@ -25,6 +25,15 @@ class Device < ApplicationRecord
   after_destroy { send_to :clear_queue }
   around_save :update_setting
 
+  filterrific(available_filters: %i(search_query with_company_id with_group_id))
+
+  scope :search_query, -> (query) {
+    q = "%#{query}%"
+    where('LOWER(name) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)', q, q)
+  }
+  scope :with_company_id, -> (ids) { where(company_id: [*ids]) }
+  scope :with_group_id, -> (ids) { joins(:device_groups).where(device_groups: { id: [*ids] }) }
+
   def online?
     device_status && device_status.online
   end

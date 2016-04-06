@@ -1,5 +1,3 @@
-- content_for :page_title, t(:edit_playlist_title)
+= page_title(@playlist, template: 'edit')
 
-.row
-  .col-md-12
-    = render partial: 'form', locals: {playlist: @playlist, media_items: @media_items}
+= render partial: 'form', locals: { resource: @playlist }

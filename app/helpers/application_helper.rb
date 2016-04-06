@@ -34,22 +34,6 @@ module ApplicationHelper
     controller.include?(params[:controller]) ? 'active' : ''
   end
 
-  def row_info(title, value, value_class = '', title_class = '')
-    render partial: 'shared/row_info', locals: { title: title, value: value || '', value_class: value_class, title_class: title_class }
-  end
-
-  # rubocop: disable Lint/Eval
-  def list_with_links(collection, attr_title)
-    ("<ul class='list-group'>" +
-    collection.map { |g| "<li class='list-group-item'>" + link_to(sanitize(eval("g.#{attr_title}")), g) + '</li>' }.join('') +
-    '</ul>').html_safe
-  end
-  # rubocop: enable Lint/Eval
-
-  def current_user_displayed_name
-    current_user.displayed_name.blank? ? current_user.email : current_user.displayed_name
-  end
-
   def icon_link_to(icon, text)
     raw("<i class='glyphicon glyphicon-#{icon}'></i> #{text}")
   end

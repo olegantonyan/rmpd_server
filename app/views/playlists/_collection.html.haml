@@ -1,0 +1,9 @@
+- playlists = present_collection(@playlists)
+= render partial: 'shared/list', locals: { collection: playlists,
+  columns: [{attr: :name},
+            {attr: :description},
+            {attr: :company},
+            {attr: :media_items_and_size },
+            {attr: :devices } ],
+  details_link: -> (i) { playlist_path(i) },
+  new_path: new_playlist_path }

@@ -1,16 +1,16 @@
-- content_for :page_title, t(:playlist_info_title)
+= page_title(@playlist)
+- playlist = present(@playlist)
 
 .row
-  .col-md-12
-    %table.table.table-bordered.table-hover.table-responsive
-      = row_info t(:playlist_name_th), @playlist.name
-      = row_info t(:description_th), @playlist.description
-      = row_info t(:company), @playlist.company.nil? ? "" : @playlist.company.title
-      = row_info t(:number_of_items_th), @playlist.media_items.to_a.count
-      = row_info t(:total_size_th), number_to_human_size((@playlist.media_items.inject(0) {|sum, i| sum += i.file.size.to_i}), precision: 2)
-      = row_info t(:created_at_th), localtime(@playlist.created_at)
-      = row_info t(:updated_at_th), localtime(@playlist.updated_at)
-      = row_info t(:download_playlist_file_th), link_to(@playlist.file_identifier, @playlist.file_url)
+  .col-sm-12
+    = render partial: 'shared/show', locals: { object: playlist,
+      edit_path: edit_playlist_path(playlist),
+      destroy_path: playlist_path(playlist),
+      attrs: [{attr: :name},
+              {attr: :description},
+              {attr: :company},
+              {attr: :media_items_and_size },
+              {attr: :devices } ] }
 
 .row
   .col-md-12
@@ -30,8 +30,3 @@
           %td= media_item.description
           %td= t("activerecord.attributes.media_item.types.#{media_item.type}")
           %td= number_to_human_size(media_item.file.size, precision: 2)
-
-.row
-  .col-md-12
-    = link_to t(:edit_playlist_title), edit_playlist_path(@playlist), :class => "btn btn-primary"
-    = link_to t(:delete_playlist_text), @playlist, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => 'Are you sure?' }

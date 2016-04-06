@@ -3,7 +3,8 @@
   columns: [{attr: :name},
             {attr: :login},
             {attr: :device_groups },
-            {attr: :playlist, link: -> (i) { safe_path_to(:playlist_path, i.playlist) } } ],
+            {attr: :company},
+            {attr: :playlist} ],
   details_link: -> (i) { device_path(i) },
   new_path: new_device_path,
-  row_class: -> (i) { i.online? ? 'success' : 'warning' } }
+  row_class: -> (i) { i.online? ? 'success' : 'danger' } }

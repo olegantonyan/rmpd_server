@@ -1,16 +1,15 @@
-= bootstrap_form_for(playlist, :html => {:multipart => true}, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
-  = f.text_field :name
-  = f.text_field :description
-  = render partial: 'shared/select_company_form', locals: {:f => f}
-  = f.check_box :shuffle, id: 'playlists-shuffle-checkbox'
+= simple_form_for resource do |f|
+  = f.input :name
+  = f.input :description
+  = render partial: 'shared/select_company_form', locals: { f: f }
+  = f.input :shuffle, input_html: { id: 'playlists-shuffle-checkbox' }
 
   = tag :br
 
   .row
     .col-sm-12
-      = render partial: 'media_items_background_list_form', locals: { playlist: playlist, media_items: media_items.background }
+      = render partial: 'media_items_background_list_form', locals: { playlist: resource, media_items: policy_scope(MediaItem.includes(:company)).background }
     .col-sm-12
-      = render partial: 'media_items_advertising_list_form', locals: { playlist: playlist, media_items: media_items.advertising }
+      = render partial: 'media_items_advertising_list_form', locals: { playlist: resource, media_items: policy_scope(MediaItem.includes(:company)).advertising }
 
-
-  = f.submit :value => t(:save_button_text), :class => "btn btn-primary"
+  = f.button :submit

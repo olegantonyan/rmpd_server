@@ -4,10 +4,21 @@ class DevicesController < BaseController
   before_action :set_device, only: %i(show edit update destroy)
 
   # GET /devices
+  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength, Style/RedundantParentheses
   def index
-    @devices = policy_scope(Device.all).includes(:device_status, :playlist, :device_groups, :company).order(name: :asc).page(page).per_page(per_page)
+    @filterrific = initialize_filterrific(
+      Device,
+      params[:filterrific],
+      select_options: {
+        with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] },
+        with_group_id: policy_scope(Device::Group.all).map { |e| [e.title, e.id] }
+      }
+    ) || (on_reset; return)
+    filtered = @filterrific.find.page(page).per_page(per_page)
+    @devices = policy_scope(filtered).includes(:device_status, :playlist, :device_groups, :company).order(name: :asc).page(page).per_page(per_page)
     authorize @devices
   end
+  # rubocop: eanble Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength, Style/RedundantParentheses
 
   # GET /devices/1
   def show

@@ -25,8 +25,16 @@ class Playlist < ApplicationRecord
   validates_has_many_with_error_messages :playlist_items
   validate :overlapped_schedule
 
+  filterrific(available_filters: %i(search_query with_company_id))
+
+  scope :search_query, -> (query) {
+    q = "%#{query}%"
+    where('LOWER(name) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)', q, q)
+  }
+  scope :with_company_id, -> (companies_ids) { where(company_id: [*companies_ids]) }
+
   def to_s
-    (description.blank? ? name : "#{name} (#{description})") + " in #{company}"
+    (description.blank? ? name : "#{name} (#{description})")
   end
 
   def schedule

@@ -25,7 +25,7 @@ class User < ApplicationRecord
   end
 
   def to_s
-    "#{email} (#{displayed_name})"
+    displayed_name || email
   end
 
   private

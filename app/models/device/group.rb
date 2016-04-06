@@ -4,6 +4,14 @@ class Device::Group < ApplicationRecord
 
   validates :title, presence: true, length: { in: 4..100 }, uniqueness: true
 
+  filterrific(available_filters: %i(search_query with_device_id))
+
+  scope :search_query, -> (query) {
+    q = "%#{query}%"
+    where('LOWER(title) LIKE LOWER(?)', q)
+  }
+  scope :with_device_id, -> (ids) { joins(:devices).where(devices: { id: [*ids] }) }
+
   def to_s
     title
   end

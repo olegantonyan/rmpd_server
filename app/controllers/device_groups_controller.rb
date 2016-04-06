@@ -5,10 +5,20 @@ class DeviceGroupsController < BaseController
 
   # GET /device_groups
   # GET /device_groups.json
+  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
   def index
-    @device_groups = policy_scope(Device::Group.all).order(created_at: :asc).page(page).per_page(per_page)
+    @filterrific = initialize_filterrific(
+      Device::Group,
+      params[:filterrific],
+      select_options: {
+        with_device_id: policy_scope(Device.all).map { |e| [e.name, e.id] }
+      }
+    ) || (on_reset; return)
+    filtered = @filterrific.find.page(page).per_page(per_page)
+    @device_groups = policy_scope(filtered).order(created_at: :asc).page(page).per_page(per_page)
     authorize @device_groups
   end
+  # rubocop: enable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
 
   # GET /device_groups/1
   # GET /device_groups/1.json

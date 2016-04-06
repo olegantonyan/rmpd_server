@@ -1,12 +1,23 @@
 class PlaylistsController < BaseController
-  before_action :set_playlist, only: [:show, :edit, :update, :destroy]
-  before_action :set_media_items, only: [:edit, :new, :create, :update]
+  include Filterrificable
+
+  before_action :set_playlist, only: %i(show edit update destroy)
 
   # GET /playlists
+  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
   def index
-    @playlists = policy_scope(Playlist.all).includes(:media_items, :playlist_items, :company).order(updated_at: :desc)
+    @filterrific = initialize_filterrific(
+      Playlist,
+      params[:filterrific],
+      select_options: {
+        with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] }
+      }
+    ) || (on_reset; return)
+    filtered = @filterrific.find.page(page).per_page(per_page)
+    @playlists = policy_scope(filtered).includes(:media_items, :playlist_items, :company).order(created_at: :desc)
     authorize @playlists
   end
+  # rubocop: enable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
 
   # GET /playlists/1
   def show
