@@ -1,2 +1,2 @@
-- if collection.any?# && collection.respond_to?(:total_pages)
+- if collection.any? && collection.respond_to?(:total_pages)
   = will_paginate(collection, renderer: BootstrapPagination::Rails, previous_label: '&larr;', next_label: '&rarr;')

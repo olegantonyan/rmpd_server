@@ -46,6 +46,7 @@ class PlaylistsController < BaseController
   # PATCH/PUT /playlists/1
   def update
     authorize @playlist
+    sap playlist_params
     @playlist.assign_attributes(playlist_params)
     crud_respond @playlist, success_url: playlist_path(@playlist)
   end
@@ -69,9 +70,9 @@ class PlaylistsController < BaseController
 
   def playlist_params
     params.require(:playlist).permit(:name, :description, :company_id, :shuffle).tap do |res|
-      Playlist.media_items_attrs.each do |attr|
+      Playlist.media_items_attrs.each do |attr| # TODO: work with ActionController::Parameters
         res[attr] = params[attr]
       end
-    end
+    end.permit!
   end
 end

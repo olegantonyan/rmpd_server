@@ -16,7 +16,7 @@ module PresentersHelper
 
         def self.human_attribute_name(*args)
           @_original_collection.human_attribute_name(*args)
-        end
+        end if @_original_collection.respond_to?(:human_attribute_name)
 
         def self.policy_class
           @_policy_class
@@ -24,15 +24,15 @@ module PresentersHelper
 
         def self.model_name(*args)
           @_original_collection.model_name(*args)
-        end
+        end if @_original_collection.respond_to?(:model_name)
 
         def self.total_pages
           @_original_collection.total_pages
-        end
+        end if @_original_collection.respond_to?(:total_pages)
 
         def self.current_page
           @_original_collection.current_page
-        end
+        end if @_original_collection.respond_to?(:current_page)
       end
     end
   end
