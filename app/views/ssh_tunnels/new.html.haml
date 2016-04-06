@@ -1,12 +1,10 @@
-- content_for :page_title, "Request SSH tunnel for #{@device.name}"
+= page_title(@ssh_tunnel, template: 'new')
 
-.row
-  .col-md-12
-    = bootstrap_form_for([@device, @ssh_tunnel], layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
-      = f.text_field :server
-      = f.text_field :username
-      = f.number_field :server_port
-      = f.number_field :external_port
-      = f.number_field :internal_port
-      = f.number_field :open_duration
-      = f.primary 'Make request'
+= simple_form_for([@device, @ssh_tunnel]) do |f|
+  = f.input :server
+  = f.input :username
+  = f.input :server_port, as: :integer
+  = f.input :external_port, as: :integer
+  = f.input :internal_port, as: :integer
+  = f.input :open_duration, as: :integer
+  = f.button :submit

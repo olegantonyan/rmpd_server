@@ -1,5 +1,3 @@
-%h1 New news_item
+= page_title(@news_item, template: 'new')
 
-= render 'form'
-
-= link_to 'Back', news_items_path
+= render partial: 'form', locals: { resource: @news_item }

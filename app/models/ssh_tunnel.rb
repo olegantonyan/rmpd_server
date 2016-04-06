@@ -32,6 +32,10 @@ class SshTunnel
     end
   end
 
+  def to_s
+    "to #{server} via #{username}"
+  end
+
   private
 
   def cast_attrs

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resource :playlist_assignment, only: [:update]
   end
 
-  resources :news_items, path: :news, only: [:index, :show]
+  resources :news_items, path: :news
   resources :media_items, except: [:edit, :update, :create] do
     collection do
       post :create_multiple

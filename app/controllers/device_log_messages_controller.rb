@@ -7,7 +7,7 @@ class DeviceLogMessagesController < BaseController
       Device::LogMessage,
       params[:filterrific]
     ) || (on_reset; return)
-    filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 100)
+    filtered = @filterrific.find.page(page).per_page(per_page)
     @device_log_messages = policy_scope(filtered.where(device_id: params[:device_id])).ordered
     authorize @device_log_messages
 
@@ -18,4 +18,10 @@ class DeviceLogMessagesController < BaseController
     end
   end
   # rubocop: enable Metrics/AbcSize, Metrics/MethodLength, Style/Semicolon, Style/RedundantParentheses
+
+  private
+
+  def default_per_page
+    100
+  end
 end

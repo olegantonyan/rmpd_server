@@ -25,6 +25,14 @@ module PresentersHelper
         def self.model_name(*args)
           @_original_collection.model_name(*args)
         end
+
+        def self.total_pages
+          @_original_collection.total_pages
+        end
+
+        def self.current_page
+          @_original_collection.current_page
+        end
       end
     end
   end

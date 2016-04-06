@@ -1,7 +1,19 @@
-- content_for :page_title, t(:log_for_device_title) + " #{@device_log_messages.first.try(:device).try(:name)}"
+= page_title(@device_log_messages)
 
-= render 'filter_form'
+= render_filter_form do |f|
+  .row
+    .col-sm-6
+      = filter_form_datetime(f, :with_since_date, class: 'js-datepicker')
+    .col-sm-6
+      = filter_form_datetime(f, :with_to_date, class: 'js-datepicker')
 
-= render(partial: 'list', locals: {device_log_messages: @device_log_messages})
+:javascript
+  $('.js-datepicker').datepicker({
+    format: 'dd.mm.yyyy',
+    autoclose: true,
+    weekStart: 1
+  });
+
+= render 'collection'
 
 = link_to icon_link_to('export', 'Export to CSV'), device_device_log_messages_path(device_id: params[:device_id], format: 'csv'), class: 'btn btn-default'

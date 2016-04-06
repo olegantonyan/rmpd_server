@@ -24,6 +24,13 @@ module UiHelper
     end
   end
 
+  def filter_form_datetime(f, attr, options = {})
+    capture do
+      concat f.label(t("activerecord.models.#{attr.to_s.sub(/^with_/, '').sub(/w*_id/, '')}.one", default: attr.to_s))
+      concat f.text_field(attr, class: "form-control #{options.fetch(:class, '')}")
+    end
+  end
+
   def select2js_for_id(id)
     javascript_tag "$(document).ready(function() { $('##{id}').select2({ width: '100%', theme: 'bootstrap' }); });"
   end

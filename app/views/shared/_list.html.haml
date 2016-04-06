@@ -6,7 +6,8 @@
           %th= ' '
         - columns.each do |column|
           %th= column[:heading] || localized_heading(collection, column[:attr])
-        %th{class: 'text-right'}= t('views.shared.details', default: 'Details')
+        - if defined?(details_link)
+          %th{class: 'text-right'}= t('views.shared.details', default: 'Details')
 
       - collection.each do |item|
         %tr{class: (defined?(row_class) ? row_class.call(item) : '')}
@@ -14,7 +15,8 @@
             %td= check_box_tag "#{collection.model_name.name.underscore}_ids[]", item.id, false
           - columns.each do |column|
             %td= attr_link_show(item, column[:attr], column[:link])
-          %td{class: 'text-right'}= attr_link_show(item, nil, details_link, link_class: 'btn btn-default btn-sm', link_text: icon_text('ellipsis-h'))
+          - if defined?(details_link)
+            %td{class: 'text-right'}= attr_link_show(item, nil, details_link, link_class: 'btn btn-default btn-sm', link_text: icon_text('ellipsis-h'))
 
     - if defined?(destroy_multiple_path)
       = submit_tag t('views.shared.delete_selected', default: 'Delete selected'), data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }, class: 'btn btn-danger'

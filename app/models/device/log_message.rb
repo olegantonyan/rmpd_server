@@ -1,3 +1,5 @@
+require 'csv'
+
 class Device::LogMessage < ApplicationRecord
   belongs_to :device, inverse_of: :device_log_messages
 
