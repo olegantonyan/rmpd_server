@@ -1,7 +1,5 @@
 class DevicesController < BaseController
-  before_action :set_device, only: [:show, :edit, :update, :destroy]
-  before_action :set_playlists, only: [:edit, :new, :create, :update]
-  before_action :set_device_groups, only: [:edit, :create, :update, :new]
+  before_action :set_device, only: %i(show edit update destroy)
 
   # GET /devices
   def index

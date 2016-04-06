@@ -10,4 +10,12 @@ class BasePresenter < Delegator
   def inspect
     "#<#{self.class} model: #{model.inspect}>"
   end
+
+  def human_attribute_name(*args)
+    model.class.human_attribute_name(*args)
+  end
+
+  def model_name(*args)
+    model.class.model_name(*args)
+  end
 end

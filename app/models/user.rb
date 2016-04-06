@@ -24,27 +24,6 @@ class User < ApplicationRecord
     @_gravatar_url ||= "https://gravatar.com/avatar/#{Digest::MD5.hexdigest(email).downcase}.png"
   end
 
-  rails_admin do
-    object_label_method do
-      :custom_label_method
-    end
-    list do
-      field :displayed_name
-      field :email
-      field :created_at
-      field :updated_at
-      field :user_company_memberships
-    end
-    show do
-      exclude_fields :versions
-    end
-    edit do
-      exclude_fields :password, :password_confirmation, :user_company_memberships, :versions, :reset_password_token, :reset_password_sent_at,
-                     :remember_created_at, :sign_in_count, :current_sign_in_at, :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip, :created_at,
-                     :updated_at, :confirmation_token, :confirmed_at, :confirmation_sent_at, :unconfirmed_email
-    end
-  end
-
   def to_s
     "#{email} (#{displayed_name})"
   end
@@ -54,9 +33,5 @@ class User < ApplicationRecord
   def set_defaults
     return if companies.any?
     companies << Company.demo
-  end
-
-  def custom_label_method
-    displayed_name.blank? ? email : to_s
   end
 end

@@ -1,6 +1,6 @@
-- unless current_user.nil?
+- if current_user
   - if many_companies? || current_user.root?
-    = f.select :company_id, policy_scope(Company).map{ |p| ["#{p.title}", p.id] }, {}, id: 'select-company'
+    = f.input :company_id, collection: policy_scope(Company), include_blank: false, input_html: { id: 'select-company' }
     = select2js_for_id "select-company"
   - else
-    = f.hidden_field :company_id, value: current_user.companies.first.try(:id)
+    = f.input :company_id, value: current_user.companies.first.try(:id), as: :hidden

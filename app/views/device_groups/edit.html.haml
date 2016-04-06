@@ -1,5 +1,3 @@
-- content_for :page_title, t(:edit_device_group)
+= page_title(@device_group, template: 'edit')
 
-.row
-  .col-md-12
-    = render partial: 'form', locals: {device_group: @device_group, devices: @devices}
+= render partial: 'form', locals: { resource: @device_group }

@@ -1,6 +1,5 @@
 class DeviceGroupsController < BaseController
-  before_action :set_device_group, only: [:show, :edit, :update, :destroy]
-  before_action :set_devices, only: [:edit, :new, :create, :update]
+  before_action :set_device_group, only: %i(show edit update destroy)
 
   # GET /device_groups
   # GET /device_groups.json
@@ -54,10 +53,6 @@ class DeviceGroupsController < BaseController
   # Use callbacks to share common setup or constraints between actions.
   def set_device_group
     @device_group = policy_scope(Device::Group).find(params[:id])
-  end
-
-  def set_devices
-    @devices = policy_scope(Device).order(name: :asc)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,0 +1,18 @@
+%dl.dl-horizontal
+  - attrs.each do |a|
+    %dt= a[:heading] || localized_heading(object, a[:attr])
+    %dd= attr_link_show(object, a[:attr], a[:link])
+  - if !defined?(disable_timestamps) || !disable_timestamps
+    - if object.respond_to?(:created_at)
+      %dt= localized_heading(object, :created_at)
+      %dd= object.created_at
+    - if object.respond_to?(:updated_at)
+      %dt= localized_heading(object, :updated_at)
+      %dd= object.updated_at
+
+
+.pull-right
+  - if defined?(edit_path) && policy(object).edit?
+    = link_to icon_text('pencil', t('views.shared.edit', default: 'Edit')), edit_path, class: 'btn btn-primary'
+  - if defined?(destroy_path) && policy(object).destroy?
+    = link_to icon_text('trash', t('views.shared.delete', default: 'Delete')), destroy_path, method: :delete, class: 'btn btn-danger', data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }

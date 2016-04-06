@@ -1,6 +1,4 @@
-= bootstrap_form_for(device_group, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
-  = f.text_field :title
-  = f.collection_check_boxes :device_ids, devices, :id, :name, label: t(:devices)
-  = f.submit :value => t(:save_button_text), :class => "btn btn-primary"
-  - unless device_group.new_record?
-    = link_to t(:delete_this_device_group), device_group, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => t(:are_you_sure) }
+= simple_form_for(resource) do |f|
+  = f.input :title
+  = f.association :devices, collection: policy_scope(Device).order(name: :asc), as: :check_boxes
+  = f.button :submit

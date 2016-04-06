@@ -5,10 +5,6 @@ class Device::Status < ApplicationRecord
 
   scope :online, -> { where(online: true) }
 
-  rails_admin do
-    visible false
-  end
-
   def to_s
     "#{device} #{online ? 'online' : 'offline'}"
   end

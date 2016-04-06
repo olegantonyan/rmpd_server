@@ -15,10 +15,6 @@ class Device::LogMessage < ApplicationRecord
   scope :with_since_date, -> (date) { where('date(created_at) >= ?', Date.parse(date.to_s)) }
   scope :with_to_date, -> (date) { where('date(created_at) <= ?', Date.parse(date.to_s)) }
 
-  rails_admin do
-    visible false
-  end
-
   filterrific(
     available_filters: [:with_since_date, :with_to_date]
   )

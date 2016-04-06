@@ -1,15 +1,14 @@
-= bootstrap_form_for(device, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
-  - if device.new_record?
-    = f.text_field :login
-    = f.password_field :password
-    = f.password_field :password_confirmation
+= simple_form_for resource do |f|
+  - if resource.new_record?
+    = f.input :login
+    = f.input :password
+    = f.input :password_confirmation
 
-  = f.text_field :name
-  - unless device_groups.empty?
-    = f.collection_check_boxes :device_group_ids, device_groups, :id, :title, label: t(:groups)
+  = f.input :name
+  - device_groups = policy_scope(Device::Group.order(title: :asc))
+  = f.association :device_groups, collection: device_groups, as: :check_boxes unless device_groups.empty?
   = render partial: 'shared/select_company_form', locals: {:f => f}
-  = f.time_zone_select :time_zone
+  = f.input :time_zone, input_html: { id: 'select-timezone' }
+  = f.button :submit
 
-  = f.submit :value => t(:save_button_text), :class => "btn btn-primary"
-  - unless device.new_record?
-    = link_to t(:delete_this_device), device, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => t(:are_you_sure) }
+= select2js_for_id('select-timezone')

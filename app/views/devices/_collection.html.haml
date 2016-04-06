@@ -1,0 +1,9 @@
+- devices = present_collection(@devices)
+= render partial: 'shared/list', locals: { collection: devices,
+  columns: [{attr: :name},
+            {attr: :login},
+            {attr: :device_groups },
+            {attr: :playlist, link: -> (i) { safe_path_to(:playlist_path, i.playlist) } } ],
+  details_link: -> (i) { device_path(i) },
+  new_path: new_device_path,
+  row_class: -> (i) { i.online? ? 'success' : 'warning' } }

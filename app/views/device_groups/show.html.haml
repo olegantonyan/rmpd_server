@@ -1,14 +1,14 @@
-- content_for :page_title, t(:device_group)
-
-.row
-  .col-md-12
-    %table.table.table-bordered.table-hover.table-responsive
-      = row_info t(:title), @device_group.title
-      = row_info t(:devices), list_with_links(@device_group.devices, 'name')
+= page_title(@device_group)
+- group = present(@device_group)
 
 .row
   .col-sm-12
-    = render partial: 'shared/playlist_assignment_form', locals: {selected: selected_playlist_id(@device_group), url: device_group_playlist_assignment_path(device_group_id: @device_group.id) }
+    = render partial: 'shared/show', locals: { object: group,
+      edit_path: edit_device_group_path(group),
+      destroy_path: device_group_path(group),
+      attrs: [{attr: :title},
+              {attr: :devices } ] }
 
-  .col-md-12
-    = link_to t(:edit_device_group), edit_device_group_path(@device_group), class: "btn btn-primary"
+.row
+  .col-sm-12
+    = render partial: 'shared/playlist_assignment_form', locals: { resource: Playlist::Assignment.new(playlist_id: group.selected_playlist_id), url: device_group_playlist_assignment_path(device_group_id: group.id) }

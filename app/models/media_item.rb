@@ -28,24 +28,6 @@ class MediaItem < ApplicationRecord
 
   delegate :path, to: :file, prefix: true
 
-  rails_admin do
-    object_label_method do
-      :custom_label_method
-    end
-    list do
-      field :file
-      field :description
-      field :company
-      field :playlists
-    end
-    show do
-      exclude_fields :playlist_items, :versions
-    end
-    edit do
-      exclude_fields :playlist_items, :versions
-    end
-  end
-
   def to_s
     "#{file_identifier} in #{company}"
   end
@@ -56,11 +38,5 @@ class MediaItem < ApplicationRecord
 
   def duration
     @_duration ||= MediafilesUtils.duration(file.path)
-  end
-
-  private
-
-  def custom_label_method
-    file_identifier
   end
 end

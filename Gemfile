@@ -49,10 +49,7 @@ gem 'daemons'
 gem 'delayed_job_active_record'
 gem 'pundit'
 gem 'rolify'
-# gem 'rails_admin', github: 'sferik/rails_admin'
 gem 'paper_trail'
-# gem 'gaffe'
-gem 'nested_form_fields'
 gem 'filterrific'
 gem 'listjs-rails'
 gem 'carrierwave_backgrounder'
@@ -67,6 +64,8 @@ gem 'bootstrap-datepicker-rails'
 gem 'rollbar', '~> 2.8.1'
 gem 'rails-i18n', '>= 5.0.0.beta3', '< 5.1'
 gem 'devise-i18n'
+gem 'simple_form'
+gem 'font-awesome-sass', '~> 4.5.0'
 
 group :development, :test do
   gem 'erb2haml', require: false
@@ -77,7 +76,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'faker'
   gem 'launchy'
-  gem 'listen'
+  # gem 'listen'
   gem 'capistrano-rails-console', require: false
   gem 'capistrano-rails-tail-log', require: false
   gem 'rails-erd', require: false

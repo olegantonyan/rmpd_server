@@ -9,11 +9,12 @@ module ApplicationHelper
   end
 
   def localtime(utc_time)
-    if utc_time.nil?
-      ''
-    else
-      local_time utc_time, '%Y-%m-%d %H:%M:%S'
-    end
+    return '' unless utc_time
+    local_time(utc_time, '%Y-%m-%d %H:%M:%S')
+  end
+
+  def icon_text(icon, text = '')
+    icon(icon) + ' ' + text
   end
 
   def flash_class(level)
@@ -30,15 +31,7 @@ module ApplicationHelper
   end
 
   def active_class_for(*controller)
-    if controller.include?(params[:controller])
-      'active'
-    else
-      ''
-    end
-  end
-
-  def select2js_for_id(id)
-    javascript_tag "$(document).ready(function() { $('##{id}').select2({ width: '100%' }); });"
+    controller.include?(params[:controller]) ? 'active' : ''
   end
 
   def row_info(title, value, value_class = '', title_class = '')
@@ -59,13 +52,5 @@ module ApplicationHelper
 
   def icon_link_to(icon, text)
     raw("<i class='glyphicon glyphicon-#{icon}'></i> #{text}")
-  end
-
-  def present(model)
-    return if model.blank?
-    klass = "#{model.class}Presenter".constantize
-    presenter = klass.new(model, self)
-    yield(presenter) if block_given?
-    presenter
   end
 end

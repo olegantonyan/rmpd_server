@@ -25,22 +25,6 @@ class Playlist < ApplicationRecord
   validates_has_many_with_error_messages :playlist_items
   validate :overlapped_schedule
 
-  rails_admin do
-    list do
-      field :name
-      field :description
-      field :company
-      field :created_at
-      field :updated_at
-    end
-    show do
-      exclude_fields :playlist_items, :versions
-    end
-    edit do
-      exclude_fields :playlist_items, :versions, :file
-    end
-  end
-
   def to_s
     (description.blank? ? name : "#{name} (#{description})") + " in #{company}"
   end

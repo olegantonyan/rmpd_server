@@ -10,10 +10,6 @@ class Playlist::Item::Advertising < Playlist::Item
   validate :begin_date_less_than_end_date
   validate :fit_to_time_period
 
-  rails_admin do
-    visible false
-  end
-
   private
 
   def media_item_type

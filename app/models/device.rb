@@ -29,22 +29,6 @@ class Device < ApplicationRecord
     device_status && device_status.online
   end
 
-  rails_admin do
-    list do
-      field :name
-      field :login
-      field :playlist
-      field :company
-      field :device_groups
-    end
-    show do
-      exclude_fields :password_digest, :device_log_messages, :device_group_memberships, :device_status
-    end
-    edit do
-      exclude_fields :versions, :device_group_memberships, :password_digest, :device_status, :device_log_messages
-    end
-  end
-
   def to_s
     "#{login} (#{name} in #{company})"
   end

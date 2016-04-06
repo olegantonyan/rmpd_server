@@ -1,45 +1,33 @@
-- content_for :page_title, t(:device_info_title)
-
+= page_title(@device)
 - device = present(@device)
-.row
-  .col-md-12
-    %table.table.table-bordered.table-hover.table-responsive
-      = row_info t(:name_th), device.name
-      = row_info t(:login_th), device.login
-      = row_info t(:playlist_th), device.playlist.nil? ? "" : link_to(device.playlist.name, device.playlist)
-      = row_info t(:groups), list_with_links(device.device_groups, 'title')
-      = row_info t(:company), device.company.nil? ? "" : device.company.title
-      = row_info t(:added_at_th), device.created_at
-      = row_info t(:updated_at_th), device.updated_at
-      = row_info t(:time_zone), device.time_zone_info
-      = row_info t(:synchronizing_in_process), device.synchronizing? ? t(:yes) : t(:no)
 
 .row
   .col-sm-12
-    = render partial: 'shared/playlist_assignment_form', locals: {selected: device.playlist_id, url: device_playlist_assignment_path(device_id: device.id)}
+    = render partial: 'shared/show', locals: { object: device,
+      edit_path: edit_device_path(device),
+      destroy_path: device_path(device),
+      attrs: [{attr: :login},
+              {attr: :name},
+              {attr: :company},
+              {attr: :playlist, link: safe_path_to(:playlist_path, device.playlist) },
+              {attr: :device_groups },
+              {attr: :time_zone} ] }
+
+.row
+  .col-sm-12
+    = render partial: 'shared/playlist_assignment_form', locals: { resource: Playlist::Assignment.new(playlist_id: device.playlist_id), url: device_playlist_assignment_path(device_id: device.id) }
 
 .row
   .col-md-12
-    %h2= t(:status_header)
-    - unless device.device_status.nil?
-      %table.table.table-bordered.table-hover.table-responsive
-        - if device.online?
-          = row_info t(:connection_th), t(:online), 'success'
-        - else
-          = row_info t(:connection_th), t(:offline), 'danger'
-        = row_info t(:last_status_update_th), localtime(device.device_status.updated_at)
-        = row_info t(:powered_on_at_th), localtime(device.device_status.poweredon_at)
-        = row_info t(:now_playing_th), device.device_status.now_playing
-        = row_info t(:logs_th), link_to(t(:full_log_text), device_device_log_messages_path(device))
-    - else
-      %strong= t(:not_available)
-
-.row
-  .col-md-12
-    = link_to t(:edit_device_title), edit_device_path(device), class: "btn btn-primary"
+    %h2= singular_title(device, :device_status)
+    - if device.device_status
+      - status = present(device.device_status)
+      = link_to localized_heading(device.device_status, :device_log_messages), device_device_log_messages_path(device), class: 'btn btn-default'
+      = render partial: 'shared/show', locals: { object: status,
+        attrs: [{attr: :online},
+                {attr: :poweredon_at},
+                {attr: :devicetime},
+                {attr: :now_playing} ] }
 
 - if policy(:ssh_tunnel).index?
-  .row
-    .col-md-12
-      %h2 Admin area
-      = link_to 'Request SSH tunnel',  new_device_ssh_tunnel_path(device)
+  = link_to 'Request SSH tunnel', new_device_ssh_tunnel_path(device), class: 'btn btn-default'

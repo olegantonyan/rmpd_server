@@ -1,18 +1,3 @@
-- content_for :page_title, t(:device_groups_title)
+= page_title(@device_groups)
 
-%p
-  = link_to icon_link_to('plus', t(:add_new_device_group)), new_device_group_path, class: "btn btn-success"
-
-%p
-  .row
-    .col-md-12
-      %table.table.table-striped.table-bordered.table-hover.table-responsive
-        %tr
-          %th= t(:title)
-          %th= t(:more)
-
-        - @device_groups.each do |group|
-          %tr
-            %td= group.title
-            %td
-              = link_to content_tag(:span, "", :class => "glyphicon glyphicon-list"), group, :class => "btn btn-default"
+= render 'collection'

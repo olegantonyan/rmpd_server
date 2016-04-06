@@ -1,0 +1,6 @@
+- groups = present_collection(@device_groups)
+= render partial: 'shared/list', locals: { collection: groups,
+  columns: [{attr: :title},
+            {attr: :devices } ],
+  details_link: -> (i) { device_group_path(i) },
+  new_path: new_device_group_path }
