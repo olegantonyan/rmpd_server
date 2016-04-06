@@ -25,7 +25,8 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:account_update) << [:displayed_name, :allow_notifications]
-    devise_parameter_sanitizer.for(:sign_up) << [:displayed_name, :allow_notifications]
+    keys = %i(displayed_name allow_notifications)
+    devise_parameter_sanitizer.permit(:sign_up, keys: keys)
+    devise_parameter_sanitizer.permit(:account_update, keys: keys)
   end
 end
