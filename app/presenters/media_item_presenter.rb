@@ -10,4 +10,8 @@ class MediaItemPresenter < BasePresenter
   def type
     model.class.human_enum_name(super)
   end
+
+  def file_identifier
+    h.link_to(super.to_s, file_url)
+  end
 end

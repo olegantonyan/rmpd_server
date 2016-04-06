@@ -1,8 +1,6 @@
 class MediaItem < ApplicationRecord
   self.inheritance_column = 'sti_type'
 
-  include ScopesWithUser
-
   has_many :playlist_items, dependent: :destroy, inverse_of: :media_item, class_name: 'Playlist::Item'
   has_many :playlists, through: :playlist_items
   belongs_to :company, inverse_of: :media_items

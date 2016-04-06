@@ -12,21 +12,13 @@
               {attr: :media_items_and_size },
               {attr: :devices } ] }
 
+= tag(:br)
 .row
-  .col-md-12
-    %h2= t(:media_items_title)
-    %table.table.table-striped.table-bordered.table-hover.table-responsive.table-condensed
-      %tr
-        %th= t(:filename_th)
-        %th= t(:description_th)
-        %th= 'Type'
-        %th= t(:size_th)
-
-      - @playlist.media_items.each do |media_item|
-        %tr
-          %td
-            %span.glyphicon.glyphicon-play
-            = link_to media_item.file_identifier, media_item.file_url
-          %td= media_item.description
-          %td= t("activerecord.attributes.media_item.types.#{media_item.type}")
-          %td= number_to_human_size(media_item.file.size, precision: 2)
+  .col-sm-12
+    - playlist_items = present_collection(playlist.playlist_items)
+    = render partial: 'shared/list', locals: { collection: playlist_items,
+      columns: [{attr: :file_identifier},
+                {attr: :description},
+                {attr: :type },
+                {attr: :size} ],
+      details_link: -> (i) { media_item_path(i.media_item) } }

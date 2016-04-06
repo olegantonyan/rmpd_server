@@ -4,7 +4,7 @@ class Device::GroupPolicy < UserCompaniesScope
   end
 
   def show?
-    user.root? || (index? && (Device.accessible_for_user(user) & record.devices).any?)
+    user.root? || (index? && (Device.where(company_id: user.company_ids) & record.devices).any?)
   end
 
   def new?
@@ -30,7 +30,7 @@ class Device::GroupPolicy < UserCompaniesScope
   class Scope < Scope
     def resolve
       return scope.all if user.root?
-      scope.joins(:device_group_memberships).where(device_group_memberships: { device: Device.accessible_for_user(user) }).distinct
+      scope.joins(:device_group_memberships).where(device_group_memberships: { device: Device.where(company_id: user.company_ids) }).distinct
     end
   end
 end

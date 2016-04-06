@@ -4,7 +4,7 @@ class PlaylistPolicy < ApplicationPolicy
   end
 
   def show?
-    index?
+    user.root? || (index? && user.company_ids.include?(record.company_id))
   end
 
   def new?

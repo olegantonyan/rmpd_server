@@ -4,7 +4,7 @@ class DevicePolicy < ApplicationPolicy
   end
 
   def show?
-    user.root? || (index? && Device.accessible_for_user(user).include?(record))
+    user.root? || (index? && user.company_ids.include?(record.company_id))
   end
 
   def new?

@@ -1,9 +1,7 @@
 class Device < ApplicationRecord
   include Deviceapi::Sender
   include Deviceapi::Receiver
-  include ScopesWithUser
   has_secure_password
-  has_paper_trail
 
   with_options dependent: :destroy do |a|
     a.with_options inverse_of: :device do |aa|
