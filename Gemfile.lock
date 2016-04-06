@@ -62,7 +62,6 @@ GEM
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    bootstrap_form (2.3.0)
     builder (3.2.2)
     bullet (5.0.0)
       activesupport (>= 3.0.0)
@@ -348,7 +347,6 @@ DEPENDENCIES
   bcrypt
   bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3.6)
-  bootstrap_form
   bullet
   capistrano-rails
   capistrano-rails-console
