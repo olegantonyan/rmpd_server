@@ -15,9 +15,7 @@ class MediaItem < ApplicationRecord
   validates :file, presence: true
   validates :description, length: { maximum: 130 }
 
-  filterrific(
-    available_filters: [:search_query, :with_company_id, :with_type]
-  )
+  filterrific(available_filters: %i(search_query with_company_id with_type))
 
   scope :search_query, -> (query) {
     q = "%#{query}%"
@@ -32,8 +30,8 @@ class MediaItem < ApplicationRecord
     "#{file_identifier} in #{company}"
   end
 
-  def self.type_options_for_select
-    types.map { |k, _| [I18n.t("activerecord.attributes.media_item.types.#{k}"), k] }
+  def self.human_enum_name(enum_key)
+    I18n.t("activerecord.attributes.media_item.types.#{enum_key}")
   end
 
   def duration

@@ -1,20 +1,11 @@
-- content_for :page_title, t(:media_item_info_title)
+= page_title(@media_item)
+- media_item = present(@media_item)
 
-.row
-  .col-md-12
-    %table.table.table-bordered.table-hover.table-responsive
-      = row_info t(:filename_th), @media_item.file_identifier
-      = row_info t(:size_th), number_to_human_size(@media_item.file.size, precision: 2)
-      = row_info t(:description_th), @media_item.description
-      = row_info t(:company), @media_item.company.nil? ? "" : @media_item.company.title
-      = row_info t(:playlists_th), list_with_links(@media_item.playlists, 'name')
-      = row_info t(:uploaded_at_th), localtime(@media_item.created_at)
-      = row_info t(:updated_at_th), localtime(@media_item.updated_at)
-
-.row
-  .col-md-12
-    %h2= t(:statistics_title)
-
-.row
-  .col-md-12
-    = link_to t(:delete_media_item_text), @media_item, :method => :delete, :class => "btn btn-danger pull-right", :data => { :confirm => t(:are_you_sure) }
+= render partial: 'shared/show', locals: { object: media_item,
+  destroy_path: media_item_path(media_item),
+  attrs: [{attr: :file_identifier},
+          {attr: :description},
+          {attr: :type},
+          {attr: :company},
+          {attr: :size},
+          {attr: :playlists} ] }

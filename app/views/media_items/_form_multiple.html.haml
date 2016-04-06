@@ -1,6 +1,0 @@
-= bootstrap_form_for(media_item_multiple, url: create_multiple_media_items_path, :html => {:multipart => true, :id => 'fileupload-form'}, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
-  = f.text_field :description
-  = f.file_field :files, multiple: true, label: t(:files)
-  = f.select :type, MediaItem.type_options_for_select, {}
-  = render partial: 'shared/select_company_form', locals: {:f => f}
-  = f.submit :value => t(:upload_button_text), :class => "btn btn-primary"

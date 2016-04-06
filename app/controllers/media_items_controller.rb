@@ -11,10 +11,10 @@ class MediaItemsController < BaseController
       params[:filterrific],
       select_options: {
         with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] },
-        with_type: MediaItem.type_options_for_select
+        with_type: MediaItem.types.map { |k, _| [MediaItem.human_enum_name(k), k] }
       }
     ) || (on_reset; return)
-    filtered = @filterrific.find.page(params[:page]).per_page(params[:per_page] || 30)
+    filtered = @filterrific.find.page(page).per_page(per_page)
     @media_items = policy_scope(filtered).includes(:company).order(created_at: :desc)
     authorize @media_items
   end

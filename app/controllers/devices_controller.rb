@@ -1,9 +1,11 @@
 class DevicesController < BaseController
+  include Filterrificable
+
   before_action :set_device, only: %i(show edit update destroy)
 
   # GET /devices
   def index
-    @devices = policy_scope(Device.all).includes(:device_status, :playlist, :device_groups, :company).order(name: :asc)
+    @devices = policy_scope(Device.all).includes(:device_status, :playlist, :device_groups, :company).order(name: :asc).page(page).per_page(per_page)
     authorize @devices
   end
 

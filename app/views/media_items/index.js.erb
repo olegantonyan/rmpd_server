@@ -1,8 +1,2 @@
-<% js = escape_javascript(
-  render(partial: 'list', locals: {media_items: @media_items})
-) %>
+<% js = escape_javascript(render 'collection') %>
 $("#filterrific_results").html("<%= js %>");
-
-if(typeof window.setup_select_all === 'function') {
-    window.setup_select_all();
-}

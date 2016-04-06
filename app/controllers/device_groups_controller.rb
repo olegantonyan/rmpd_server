@@ -1,10 +1,12 @@
 class DeviceGroupsController < BaseController
+  include Filterrificable
+
   before_action :set_device_group, only: %i(show edit update destroy)
 
   # GET /device_groups
   # GET /device_groups.json
   def index
-    @device_groups = policy_scope(Device::Group.all).order(created_at: :asc)
+    @device_groups = policy_scope(Device::Group.all).order(created_at: :asc).page(page).per_page(per_page)
     authorize @device_groups
   end
 
