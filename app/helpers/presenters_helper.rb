@@ -14,13 +14,13 @@ module PresentersHelper
         @_original_collection = original_collection
         @_policy_class = policy_class
 
-        def self.human_attribute_name(*args)
-          @_original_collection.human_attribute_name(*args)
-        end if @_original_collection.respond_to?(:human_attribute_name)
-
         def self.policy_class
           @_policy_class
         end
+
+        def self.human_attribute_name(*args)
+          @_original_collection.human_attribute_name(*args)
+        end if @_original_collection.respond_to?(:human_attribute_name)
 
         def self.model_name(*args)
           @_original_collection.model_name(*args)

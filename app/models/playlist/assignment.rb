@@ -1,6 +1,4 @@
-class Playlist::Assignment
-  include ActiveModel::Model
-  include ActiveModel::Validations
+class Playlist::Assignment < ApplicationModel
   include Deviceapi::Sender
 
   attr_accessor :playlist_id, :assignable

@@ -41,6 +41,10 @@ class Playlist < ApplicationRecord
     @_schedule ||= Schedule::Scheduler.new(playlist_items.includes(:media_item).advertising)
   end
 
+  def files_processing
+    media_items.processing
+  end
+
   private
 
   def create_playlist_file

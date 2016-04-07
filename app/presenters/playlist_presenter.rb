@@ -6,4 +6,12 @@ class PlaylistPresenter < BasePresenter
   def devices
     h.collection_links(super, :name, :device_path)
   end
+
+  def name
+    if files_processing.exists?
+      "#{h.sanitize(super.to_s)} #{h.icon('cogs')}".html_safe
+    else
+      super
+    end
+  end
 end

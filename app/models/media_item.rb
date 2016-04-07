@@ -21,6 +21,7 @@ class MediaItem < ApplicationRecord
   }
   scope :with_company_id, -> (companies_ids) { where(company_id: [*companies_ids]) }
   scope :with_type, -> (type) { where(type: types[type]) }
+  scope :processing, -> { where(file_processing: true) }
 
   delegate :path, to: :file, prefix: true
 

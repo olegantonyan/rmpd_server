@@ -6,4 +6,12 @@ class Playlist::ItemPresenter < BasePresenter
   def type
     media_item.class.human_enum_name(super)
   end
+
+  def file_identifier
+    if media_item.file_processing?
+      "#{h.sanitize(super.to_s)} #{h.icon('cogs')}".html_safe
+    else
+      super
+    end
+  end
 end
