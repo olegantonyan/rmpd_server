@@ -5,20 +5,21 @@ pushd `pwd` > /dev/null
 cd $(dirname $(readlink -f $0))
 cd ..
 
-PUMA_CONFIG_FILE=config/puma_config.rb
-PUMA_PID_FILE=tmp/pids/puma.pid
-ENVIROMENT=production
-
 if [ -z "$2" ]; then
+    ENVIROMENT=production
     echo "Using default enviroment $ENVIROMENT"
 else
     ENVIROMENT=$2
     echo "Using enviroment $ENVIROMENT"
 fi
 
+PUMA_CONFIG_FILE=config/puma/$ENVIROMENT.rb
+PUMA_PID_FILE=tmp/pids/puma.pid
+
 puma_start()
 {
     echo "Starting puma server"
+    mkdir -p tmp/pids
     RACK_MULTIPART_LIMIT=0 bundle exec puma --config $PUMA_CONFIG_FILE -e $ENVIROMENT --pidfile $PUMA_PID_FILE
 }
 
