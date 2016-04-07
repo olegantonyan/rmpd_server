@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120063734) do
+ActiveRecord::Schema.define(version: 20160407142635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,21 +204,13 @@ ActiveRecord::Schema.define(version: 20160120063734) do
     t.string   "displayed_name",         default: "",    null: false
     t.boolean  "allow_notifications",    default: false, null: false
     t.boolean  "root",                   default: false, null: false
+    t.string   "authentication_token"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["root"], name: "index_users_on_root", using: :btree
-
-  create_table "version_associations", force: :cascade do |t|
-    t.integer "version_id"
-    t.string  "foreign_key_name", null: false
-    t.integer "foreign_key_id"
-  end
-
-  add_index "version_associations", ["foreign_key_name", "foreign_key_id"], name: "index_version_associations_on_foreign_key", using: :btree
-  add_index "version_associations", ["version_id"], name: "index_version_associations_on_version_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false
