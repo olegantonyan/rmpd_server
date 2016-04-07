@@ -16,6 +16,7 @@ ru:
         company: Компания
         type: Тип
         file_processing: Идёт обработка файла
+        playlists: Плейлисты
         types:
           background: Фоновый
           advertising: Рекламный

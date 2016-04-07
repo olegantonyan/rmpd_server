@@ -9,8 +9,8 @@ ru:
       logout: Выход
       sign_up: Регистрация
       my_account: Моя учётная запись
-      yes: Да
-      no: Нет
+      "true": Да
+      "false": Нет
       details: Подробности
       reset_filters: Сбросить фильтры
       search: Поиск

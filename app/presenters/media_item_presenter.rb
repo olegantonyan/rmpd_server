@@ -19,4 +19,8 @@ class MediaItemPresenter < BasePresenter
            end
     h.link_to(text, file_url).html_safe
   end
+
+  def file_processing
+    I18n.t("views.shared.#{super}", default: super.to_s)
+  end
 end
