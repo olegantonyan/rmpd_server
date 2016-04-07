@@ -1,4 +1,6 @@
 class Company < ApplicationRecord
+  has_paper_trail
+
   find_or_create_by!(title: 'Demo')
 
   with_options inverse_of: :company do |a|

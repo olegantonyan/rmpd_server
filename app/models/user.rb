@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  has_paper_trail
+
   with_options inverse_of: :user do |a|
     a.has_many :user_company_memberships, dependent: :destroy
   end

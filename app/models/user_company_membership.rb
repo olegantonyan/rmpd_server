@@ -1,4 +1,6 @@
 class UserCompanyMembership < ApplicationRecord
+  has_paper_trail
+
   with_options inverse_of: :user_company_memberships do |a|
     a.belongs_to :user
     a.belongs_to :company
