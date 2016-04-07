@@ -8,8 +8,8 @@
 
   .row
     .col-sm-12
-      = render partial: 'media_items_background_list_form', locals: { playlist: resource, media_items: policy_scope(MediaItem.includes(:company)).background }
+      = render partial: 'media_items_background_list_form', locals: { playlist: resource, media_items: policy_scope(MediaItem.background) }
     .col-sm-12
-      = render partial: 'media_items_advertising_list_form', locals: { playlist: resource, media_items: policy_scope(MediaItem.includes(:company)).advertising }
+      = render partial: 'media_items_advertising_list_form', locals: { playlist: resource, media_items: policy_scope(MediaItem.advertising) }
 
   = f.button :submit

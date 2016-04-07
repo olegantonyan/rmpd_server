@@ -15,20 +15,26 @@ module UiHelper
     f.text_field(:search_query, class: 'filterrific-periodically-observed form-control', placeholder: t('views.shared.search', default: 'Search'), maxlength: 64)
   end
 
-  def filter_form_select(f, attr, include_blank: '*')
+  def filter_form_select(f, attr, options = {})
     id = "select-#{attr}"
+    lbl = label_by_attr(attr, options)
     capture do
-      concat f.label(t("activerecord.models.#{attr.to_s.sub(/^with_/, '').sub(/w*_id/, '')}.one", default: attr.to_s))
-      concat f.select(attr, @filterrific.select_options[attr], { include_blank: include_blank }, id: id)
+      concat f.label(lbl)
+      concat f.select(attr, @filterrific.select_options[attr], { include_blank: options.fetch(:include_blank, '*') }, id: id)
       concat select2js_for_id(id)
     end
   end
 
   def filter_form_datetime(f, attr, options = {})
+    lbl = label_by_attr(attr, options)
     capture do
-      concat f.label(t("activerecord.models.#{attr.to_s.sub(/^with_/, '').sub(/w*_id/, '')}.one", default: attr.to_s))
+      concat f.label(lbl)
       concat f.text_field(attr, class: "form-control #{options.fetch(:class, '')}")
     end
+  end
+
+  def label_by_attr(attr, options = {})
+    options.fetch(:label) { t("activerecord.models.#{attr.to_s.sub(/^with_/, '').sub(/w*_id/, '')}.one", default: attr.to_s) }
   end
 
   def select2js_for_id(id)

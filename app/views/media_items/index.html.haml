@@ -3,6 +3,6 @@
 = render_filter_form do |f|
   = filter_form_search_query(f)
   = filter_form_select(f, :with_company_id)
-  = filter_form_select(f, :with_type)
+  = filter_form_select(f, :with_type, label: MediaItem.human_attribute_name(:type))
 
 = render 'collection'
