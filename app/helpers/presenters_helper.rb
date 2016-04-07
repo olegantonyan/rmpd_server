@@ -15,9 +15,7 @@ module PresentersHelper
 
     %w(human_attribute_name model_name total_pages current_page).each do |m|
       next unless collection.respond_to?(m, false)
-      result.define_singleton_method(m) do |*args|
-        collection.public_send(m, *args)
-      end
+      result.define_singleton_method(m) { |*args| collection.public_send(m, *args) }
     end
     result
   end
