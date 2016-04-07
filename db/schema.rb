@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407142635) do
+ActiveRecord::Schema.define(version: 20160407143943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,17 +155,6 @@ ActiveRecord::Schema.define(version: 20160407142635) do
   add_index "playlists", ["company_id"], name: "index_playlists_on_company_id", using: :btree
   add_index "playlists", ["name"], name: "index_playlists_on_name", using: :btree
 
-  create_table "roles", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "resource_id"
-    t.string   "resource_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
-  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
-
   create_table "user_company_memberships", force: :cascade do |t|
     t.string   "title"
     t.integer  "user_id"
@@ -176,13 +165,6 @@ ActiveRecord::Schema.define(version: 20160407142635) do
 
   add_index "user_company_memberships", ["company_id"], name: "index_user_company_memberships_on_company_id", using: :btree
   add_index "user_company_memberships", ["user_id"], name: "index_user_company_memberships_on_user_id", using: :btree
-
-  create_table "user_company_memberships_roles", id: false, force: :cascade do |t|
-    t.integer "user_company_membership_id"
-    t.integer "role_id"
-  end
-
-  add_index "user_company_memberships_roles", ["user_company_membership_id", "role_id"], name: "__ids_index__", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
