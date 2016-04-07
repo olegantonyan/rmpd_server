@@ -7,13 +7,15 @@ class DevicePresenter < BasePresenter
     h.collection_links(super, :title, :device_group_path)
   end
 
+  def name
+    if synchronizing?
+      "#{h.sanitize(super.to_s)} #{h.icon('refresh')}".html_safe
+    else
+      super.to_s
+    end
+  end
+
   def playlist
-    return '' unless super
-    text = if synchronizing?
-             "#{h.sanitize(super.to_s)} #{h.icon('refresh')}".html_safe
-           else
-             super.to_s
-           end
-    h.link_to(text, h.playlist_path(super)).html_safe
+    h.link_to(super.to_s, h.safe_path_to(:playlist_path, super))
   end
 end

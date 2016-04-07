@@ -13,7 +13,7 @@ class Playlist < ApplicationRecord
   after_save :store_file
   after_save :update_schedule
   after_commit :notify_devices_delete, on: :destroy
-  after_commit :notify_devices_update, on: [:create, :update]
+  after_commit :notify_devices_update, on: %i(create update)
 
   mount_uploader :file, PlaylistFileUploader
 
