@@ -1,11 +1,8 @@
 = page_title(@device_log_messages)
 
 = render_filter_form do |f|
-  .row
-    .col-sm-6
-      = filter_form_datetime(f, :with_since_date, class: 'js-datepicker')
-    .col-sm-6
-      = filter_form_datetime(f, :with_to_date, class: 'js-datepicker')
+  = filter_form_datetime(f, :with_since_date, class: 'js-datepicker', label: 'Since date')
+  = filter_form_datetime(f, :with_to_date, class: 'js-datepicker', label: 'To date')
 
 :javascript
   $('.js-datepicker').datepicker({

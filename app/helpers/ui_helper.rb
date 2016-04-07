@@ -1,3 +1,4 @@
+# rubocop: disable Metrics/MethodLength, Metrics/AbcSize, Metrics/ModuleLength
 module UiHelper
   def render_filter_form(filterrific = @filterrific)
     capture do
@@ -12,15 +13,30 @@ module UiHelper
   end
 
   def filter_form_search_query(f)
-    f.text_field(:search_query, class: 'filterrific-periodically-observed form-control', placeholder: t('views.shared.search', default: 'Search'), maxlength: 64)
+    capture do
+      concat(content_tag(:div, class: 'row') do
+        concat(content_tag(:div, class: 'col-sm-2') do
+          concat f.label(t('views.shared.search', default: 'Search'))
+        end)
+        concat(content_tag(:div, class: 'col-sm-10') do
+          concat f.text_field(:search_query, class: 'filterrific-periodically-observed form-control', maxlength: 64)
+        end)
+      end)
+    end
   end
 
   def filter_form_select(f, attr, options = {})
     id = "select-#{attr}"
     lbl = label_by_attr(attr, options)
     capture do
-      concat f.label(lbl)
-      concat f.select(attr, @filterrific.select_options[attr], { include_blank: options.fetch(:include_blank, '*') }, id: id)
+      concat(content_tag(:div, class: 'row') do
+        concat(content_tag(:div, class: 'col-sm-2') do
+          concat f.label(lbl)
+        end)
+        concat(content_tag(:div, class: 'col-sm-10') do
+          concat f.select(attr, @filterrific.select_options[attr], { include_blank: options.fetch(:include_blank, '*') }, id: id)
+        end)
+      end)
       concat select2js_for_id(id)
     end
   end
@@ -28,8 +44,14 @@ module UiHelper
   def filter_form_datetime(f, attr, options = {})
     lbl = label_by_attr(attr, options)
     capture do
-      concat f.label(lbl)
-      concat f.text_field(attr, class: "form-control #{options.fetch(:class, '')}")
+      concat(content_tag(:div, class: 'row') do
+        concat(content_tag(:div, class: 'col-sm-2') do
+          concat f.label(lbl)
+        end)
+        concat(content_tag(:div, class: 'col-sm-10') do
+          concat f.text_field(attr, class: "form-control #{options.fetch(:class, '')}")
+        end)
+      end)
     end
   end
 
@@ -80,7 +102,6 @@ module UiHelper
     "#{object.model_name.human} #{object.public_send(attribute)}"
   end
 
-  # rubocop: disable Metrics/AbcSize
   def plural_title(object)
     object.model_name.human(count: object&.size || 2)
   rescue I18n::InvalidPluralizationData
@@ -100,7 +121,6 @@ module UiHelper
       content_for(:page_title, singular_title(object, singular_attr))
     end
   end
-  # rubocop: enable Metrics/AbcSize
 
   def safe_path_to(method, object)
     return '' unless object
