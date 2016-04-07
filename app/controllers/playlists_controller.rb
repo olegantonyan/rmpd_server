@@ -13,8 +13,7 @@ class PlaylistsController < BaseController
         with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] }
       }
     ) || (on_reset; return)
-    filtered = @filterrific.find.page(page).per_page(per_page)
-    @playlists = policy_scope(filtered).includes(:media_items, :playlist_items, :company).order(created_at: :desc)
+    @playlists = policy_scope(@filterrific.find.page(page).per_page(per_page)).order(created_at: :desc)
     authorize @playlists
   end
   # rubocop: enable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses

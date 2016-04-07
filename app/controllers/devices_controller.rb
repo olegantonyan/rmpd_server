@@ -15,7 +15,7 @@ class DevicesController < BaseController
       }
     ) || (on_reset; return)
     filtered = @filterrific.find.page(page).per_page(per_page)
-    @devices = policy_scope(filtered).includes(:device_status, :playlist, :device_groups, :company).order(name: :asc).page(page).per_page(per_page)
+    @devices = policy_scope(filtered).includes(:device_status, :playlist, :company).order(name: :asc)
     authorize @devices
   end
   # rubocop: eanble Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength, Style/RedundantParentheses
@@ -60,7 +60,7 @@ class DevicesController < BaseController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_device
-    @device = Device.includes(:device_groups).find(params[:id])
+    @device = Device.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

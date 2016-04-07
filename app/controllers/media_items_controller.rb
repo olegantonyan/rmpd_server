@@ -1,10 +1,10 @@
 class MediaItemsController < BaseController
   include Filterrificable
 
-  before_action :set_media_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_media_item, only: %i(show edit update destroy)
 
   # GET /media_items
-  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength, Style/RedundantParentheses
+  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
   def index
     @filterrific = initialize_filterrific(
       MediaItem,
@@ -14,11 +14,10 @@ class MediaItemsController < BaseController
         with_type: MediaItem.types.map { |k, _| [MediaItem.human_enum_name(k), k] }
       }
     ) || (on_reset; return)
-    filtered = @filterrific.find.page(page).per_page(per_page)
-    @media_items = policy_scope(filtered).includes(:company).order(created_at: :desc)
+    @media_items = policy_scope(@filterrific.find.page(page).per_page(per_page)).order(created_at: :desc)
     authorize @media_items
   end
-  # rubocop: enable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength, Style/RedundantParentheses
+  # rubocop: enable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
 
   # GET /media_items/1
   def show
