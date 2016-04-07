@@ -8,11 +8,6 @@ module ApplicationHelper
     APP_CONFIG[:app_title] || 'set app_title in config/config.yml'
   end
 
-  def localtime(utc_time)
-    return '' unless utc_time
-    local_time(utc_time, '%Y-%m-%d %H:%M:%S')
-  end
-
   def icon_text(icon, text = '')
     icon(icon) + ' ' + text
   end

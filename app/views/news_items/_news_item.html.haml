@@ -2,6 +2,6 @@
   .col-md-12
     %h3
       = sanitize news_item.title
-      %small= link_to(icon_link_to('link', localtime(news_item.created_at)), news_item)
+      %small= link_to(icon_link_to('link', news_item.created_at), news_item)
     %p
       = sanitize news_item.body, tags: ['a', 'ul', 'ol', 'li']
