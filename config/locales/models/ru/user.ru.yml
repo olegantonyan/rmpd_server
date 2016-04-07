@@ -1,0 +1,16 @@
+ru:
+  activerecord:
+    models:
+      user:
+        one: Пользователь
+        few: Пользователи
+        many: Пользователи
+        other: Пользователи
+
+attributes:
+  user:
+    email: E-Mail
+    displayed_name: Отображаемое имя
+    password: Пароль
+    password_confirmation: Подтверждение пароля
+    allow_notifications: Получать новости (обычно не чаще раза в неделю)

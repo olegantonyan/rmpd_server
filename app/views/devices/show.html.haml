@@ -17,17 +17,19 @@
   .col-sm-12
     = render partial: 'shared/playlist_assignment_form', locals: { resource: Playlist::Assignment.new(playlist_id: device.playlist_id), url: device_playlist_assignment_path(device_id: device.id) }
 
-.row
-  .col-md-12
-    %h2= singular_title(device, :device_status)
-    - if device.device_status
-      - status = present(device.device_status)
-      = link_to localized_heading(device.device_status, :device_log_messages), device_device_log_messages_path(device), class: 'btn btn-default'
-      = render partial: 'shared/show', locals: { object: status,
-        attrs: [{attr: :online},
-                {attr: :poweredon_at},
-                {attr: :devicetime},
-                {attr: :now_playing} ] }
+- if device.device_status
+  .row
+    .col-md-12
+      %h2= device.device_status.model_name.human
+      - if device.device_status
+        - status = present(device.device_status)
+        = render partial: 'shared/show', locals: { object: status,
+          attrs: [{attr: :online},
+                  {attr: :poweredon_at},
+                  {attr: :devicetime},
+                  {attr: :now_playing} ] }
+
+= link_to localized_heading(device, :device_log_messages), device_device_log_messages_path(device), class: 'btn btn-default'
 
 - if policy(:ssh_tunnel).index?
   = link_to 'Request SSH tunnel', new_device_ssh_tunnel_path(device), class: 'btn btn-default'

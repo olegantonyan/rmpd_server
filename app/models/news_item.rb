@@ -8,6 +8,10 @@ class NewsItem < ApplicationRecord
 
   scope :latest, -> (count = 6) { order(created_at: :desc).limit(count) }
 
+  def to_s
+    title
+  end
+
   private
 
   def notify_users

@@ -1,0 +1,15 @@
+ru:
+  activerecord:
+    models:
+      device/log_message:
+        one: Событие в логе устройства
+        few: События в логе устройства
+        many: События в логе устройства
+        other: События в логе устройства
+
+    attributes:
+      device/log_message:
+        command: Команда
+        message: Сообщение
+        localtime: Локальное время устройства
+        created_at: Даат принятия сервером

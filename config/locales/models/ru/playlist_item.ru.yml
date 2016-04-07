@@ -1,0 +1,15 @@
+ru:
+  activerecord:
+    models:
+      playlist/item:
+        one: Медиафайл в плейлисте
+        few: Медиафайлы в плейлисте
+        many: Медиафайлы в плейлисте
+        other: Медиафайлы в плейлисте
+
+    attributes:
+      playlist/item:
+        file_identifier: Имя файла
+        size: Размер
+        description: Описание
+        type: Тип

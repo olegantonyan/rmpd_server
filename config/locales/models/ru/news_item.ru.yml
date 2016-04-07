@@ -1,0 +1,13 @@
+ru:
+  activerecord:
+    models:
+      news_item:
+        one: Новость
+        few: Новости
+        many: Новости
+        other: Новости
+
+    attributes:
+      news_item:
+        title: Заголовок
+        body: Текст

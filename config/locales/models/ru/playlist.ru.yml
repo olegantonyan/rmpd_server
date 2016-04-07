@@ -1,0 +1,19 @@
+ru:
+  activerecord:
+    models:
+      playlist:
+        one: Плейлист
+        few: Плейлисты
+        many: Плейлисты
+        other: Плейлисты
+
+    attributes:
+      playlist:
+        name: Название
+        description: Описание
+        media_items: Медиафайлы
+        playlist_items: Связки медиафайлов
+        company: Компания
+        files_processing: Идёт обработка файлов
+        devices: Устройства
+        media_items_and_size: Файлов / размер

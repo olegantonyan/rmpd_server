@@ -1,0 +1,21 @@
+ru:
+  activerecord:
+    models:
+      media_item:
+        one: Медиафайл
+        few: Медиафайлы
+        many: Медиафайлы
+        other: Медиафайлы
+
+    attributes:
+      media_item:
+        file: Файл
+        file_identifier: Имя файла
+        size: Размер
+        description: Описание
+        company: Компания
+        type: Тип
+        file_processing: Идёт обработка файла
+        types:
+          background: Фоновый
+          advertising: Рекламный

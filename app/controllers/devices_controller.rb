@@ -11,7 +11,7 @@ class DevicesController < BaseController
       params[:filterrific],
       select_options: {
         with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] },
-        with_group_id: policy_scope(Device::Group.all).map { |e| [e.title, e.id] }
+        with_device_group_id: policy_scope(Device::Group.all).map { |e| [e.title, e.id] }
       }
     ) || (on_reset; return)
     filtered = @filterrific.find.page(page).per_page(per_page)

@@ -1,0 +1,16 @@
+ru:
+  activerecord:
+    models:
+      device/status:
+        one: Состояние устройства
+        few: Состояния устройства
+        many: Состояния устройства
+        other: Состояния устройства
+
+    attributes:
+      device/status:
+        online: Онлайн
+        poweredon_at: Дата включения
+        now_playing: Сейчас воспроизводится
+        device: Устройство
+        devicetime: Время на устройстве

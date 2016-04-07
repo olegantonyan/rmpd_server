@@ -1,0 +1,22 @@
+ru:
+  views:
+    shared:
+      are_you_sure: Вы уверены?
+      help: Помощь
+      contact_us: Контакты
+      privacy_policy: Политика конфиденциальности
+      login: Вход
+      logout: Выход
+      sign_up: Регистрация
+      my_account: Моя учётная запись
+      yes: Да
+      no: Нет
+      details: Подробности
+      reset_filters: Сбросить фильтры
+      search: Поиск
+      edit: Редактировать
+      new: Добавить
+      delete: Удалить
+      delete_selected: Удалить выбранные
+      language: Язык
+      home_page: Домашняя страница

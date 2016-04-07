@@ -1,0 +1,13 @@
+ru:
+  activerecord:
+    models:
+      device/group:
+        one: Группа устройств
+        few: Группы устройств
+        many: Группы устройств
+        other: Группы устройств
+
+    attributes:
+      device/group:
+        title: Название
+        devices: Устройства

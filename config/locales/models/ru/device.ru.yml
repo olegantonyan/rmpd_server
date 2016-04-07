@@ -1,0 +1,21 @@
+ru:
+  activerecord:
+    models:
+      device:
+        one: Устройство
+        few: Устройства
+        many: Устройства
+        other: Устройства
+
+    attributes:
+      device:
+        login: Логин
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+        name: Имя
+        playlist: Плейлист
+        company: Компания
+        time_zone: Часовой пояс
+        device_groups: Группы
+        device_status: Состояние
+        device_log_messages: Лог устройства

@@ -1,4 +1,4 @@
-- content_for :page_title, t(:home_page_title)
+- content_for :page_title, t('views.shared.home_page', default: 'Home page')
 
 - unless user_signed_in?
   %h2 Демо-доступ

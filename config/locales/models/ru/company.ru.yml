@@ -1,0 +1,13 @@
+ru:
+  activerecord:
+    models:
+      company:
+        one: Компания
+        few: Компании
+        many: Компании
+        other: Компании
+
+    attributes:
+      company:
+        title: Название
+        devices: Устройства

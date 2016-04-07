@@ -1,7 +1,0 @@
-ru:
-  media_items_successfully_created: Медиафайл(ы) '%{names}' успешно загружены
-  media_items_create_error: Ошибка загрузки медиафайлов
-  media_item_successfully_deleted: Медиафайл '%{name}' успешно удалён
-  media_items_successfully_deleted: Медиафайлы успешно удалены
-  media_items_not_selected: Не выбран ни один медиафайл
-  media_items_successfully_created_but_playlist_failed: Медиафайлы успешно загружены, однако плейлист создать не удалось. Вероятно загружаемые файлы содержат видео, требующее преобразования. Попробуйте создать плейлист вручную позже

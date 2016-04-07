@@ -1,35 +1,33 @@
-%nav.navbar.navbar-inverse{:role => "navigation"}
+%nav.navbar.navbar-inverse{role: 'navigation'}
   .container-fluid
     .navbar-header
-      %button{:type => 'button', :class => 'navbar-toggle collapsed',
-              :data => {:toggle => 'collapse', :target => '#bs-navbar-1' }, 'aria-expanded' => 'false'}
+      %button{type: 'button', class: 'navbar-toggle collapsed', data: {toggle: 'collapse', target: '#bs-navbar-1' }, 'aria-expanded' => 'false'}
         %span.sr-only
           Toggle navigation
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = image_tag "logo.png", alt: "logo", class: "navbar-brand img-responsive"
-      = link_to app_title, root_path, class: "navbar-brand"
+      = image_tag 'logo.png', alt: 'logo', class: 'navbar-brand img-responsive'
+      = link_to app_title, root_path, class: 'navbar-brand'
     #bs-navbar-1.collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li{:class => active_class_for('media_items')}= link_to icon_link_to('play', t(:media_items_title)), media_items_path
-        %li{:class => active_class_for('playlists')}= link_to icon_link_to('list', t(:playlists_title)), playlists_path
-        %li{:class => active_class_for('devices')}= link_to icon_link_to('glyphicon glyphicon-hdd', t(:devices_title)), devices_path
-        %li{:class => active_class_for('device_groups')}= link_to icon_link_to('tags', t(:device_groups_title)), device_groups_path
-        /%li{:class => active_class_for('reports')}= link_to t(:reports_title), "#"
+        %li{class: active_class_for('media_items')}= link_to icon_link_to('play', MediaItem.model_name.human(count: 2)), media_items_path
+        %li{class: active_class_for('playlists')}= link_to icon_link_to('list', Playlist.model_name.human(count: 2)), playlists_path
+        %li{class: active_class_for('devices')}= link_to icon_link_to('glyphicon glyphicon-hdd', Device.model_name.human(count: 2)), devices_path
+        %li{class: active_class_for('device_groups')}= link_to icon_link_to('tags', Device::Group.model_name.human(count: 2)), device_groups_path
       %ul.nav.navbar-right.nav
         %li
         - if user_signed_in?
-          = succeed "." do
+          = succeed '.' do
             - if current_user.root?
-              %span{:title => 'Admin area'}
-                = link_to icon_link_to('fire', ''), root_path, :class => "btn btn-danger navbar-btn"
-            %span{:title => 'Gravatar'}
-              = image_tag current_user.gravatar_url, size: "32x32", alt: "gravatar", class: "img-rounded"
-            %span{:title => t(:my_account)}
-              = link_to icon_link_to('user', current_user.to_s), edit_user_registration_path, :class => "btn btn-success navbar-btn"
-            %span{:title => t(:logout)}
-              = link_to icon_link_to('log-out', ''), destroy_user_session_path, method: :delete, :class => "btn btn-warning navbar-btn"
+              %span{title: 'Admin area'}
+                = link_to icon_link_to('fire', ''), root_path, class: 'btn btn-danger navbar-btn'
+            %span{title: 'Gravatar'}
+              = image_tag current_user.gravatar_url, size: "32x32", alt: 'gravatar', class: 'img-rounded'
+            %span{title: t('views.shared.my_account', default: 'My account')}
+              = link_to icon_link_to('user', current_user.to_s), edit_user_registration_path, class: 'btn btn-success navbar-btn'
+            %span{title: t('views.shared.logout', default: 'Logout')}
+              = link_to icon_link_to('log-out', ''), destroy_user_session_path, method: :delete, class: 'btn btn-warning navbar-btn'
         - else
-          = link_to icon_link_to('user', t(:sign_up)), new_user_registration_path, :class => "btn btn-default navbar-btn"
-          = link_to icon_link_to('log-in', t(:login)), new_user_session_path, :class => "btn btn-success navbar-btn"
+          = link_to icon_link_to('user', t('views.shared.sign_up', default: 'Sign up')), new_user_registration_path, class: 'btn btn-default navbar-btn'
+          = link_to icon_link_to('log-in', t('views.shared.login', default: 'Login')), new_user_session_path, class: 'btn btn-success navbar-btn'
