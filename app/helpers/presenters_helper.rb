@@ -7,34 +7,18 @@ module PresentersHelper
     presenter
   end
 
-  # rubocop: disable Lint/NestedMethodDefinition, Metrics/MethodLength
   def present_collection(collection)
-    collection.map { |i| present(i) }.tap do |result|
-      result.instance_exec(collection, policy(collection).class) do |original_collection, policy_class|
-        @_original_collection = original_collection
-        @_policy_class = policy_class
+    result = collection.map { |i| present(i) }
+    policy_class = policy(collection).class
 
-        def self.policy_class
-          @_policy_class
-        end
+    result.define_singleton_method(:policy_class) { policy_class }
 
-        def self.human_attribute_name(*args)
-          @_original_collection.human_attribute_name(*args)
-        end if @_original_collection.respond_to?(:human_attribute_name)
-
-        def self.model_name(*args)
-          @_original_collection.model_name(*args)
-        end if @_original_collection.respond_to?(:model_name)
-
-        def self.total_pages
-          @_original_collection.total_pages
-        end if @_original_collection.respond_to?(:total_pages)
-
-        def self.current_page
-          @_original_collection.current_page
-        end if @_original_collection.respond_to?(:current_page)
+    %w(human_attribute_name model_name total_pages current_page).each do |m|
+      next unless collection.respond_to?(m, false)
+      result.define_singleton_method(m) do |*args|
+        collection.public_send(m, *args)
       end
     end
+    result
   end
-  # rubocop: enable Lint/NestedMethodDefinition, Metrics/MethodLength
 end
