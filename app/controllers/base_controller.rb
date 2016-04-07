@@ -7,7 +7,7 @@ class BaseController < ApplicationController
   after_action :verify_authorized
   after_action :verify_policy_scoped, only: :index
 
-  # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   protected
 
@@ -29,7 +29,8 @@ class BaseController < ApplicationController
     truncate(msg.to_s, length: 256, escape: false)
   end
 
-  # def user_not_authorized
-  #   redirect_to(request.referrer || root_path, flash_error(t('.user_no_authorized')))
-  # end
+  def user_not_authorized
+    flash_error(t('.views.shared.not_authorized', default: "You don't have permissions to do this"))
+    redirect_back(fallback_location: root_path)
+  end
 end

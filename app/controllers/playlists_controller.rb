@@ -61,11 +61,7 @@ class PlaylistsController < BaseController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_playlist
-    @playlist = policy_scope(Playlist).includes(:media_items, :playlist_items).find(params[:id])
-  end
-
-  def set_media_items
-    @media_items = policy_scope(MediaItem.includes(:company).all)
+    @playlist = Playlist.includes(:media_items, :playlist_items).find(params[:id])
   end
 
   def playlist_params
