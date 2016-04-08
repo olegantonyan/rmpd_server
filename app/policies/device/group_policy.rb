@@ -1,14 +1,10 @@
-class Device::GroupPolicy < UserCompaniesScope
+class Device::GroupPolicy < ApplicationPolicy
   def index?
     user.present?
   end
 
   def show?
-    user.root? || (index? && (Device.where(company_id: user.company_ids) & record.devices).any?)
-  end
-
-  def new?
-    create?
+    super || (index? && (Device.where(company_id: user.company_ids) & record.devices).any?)
   end
 
   def create?
@@ -16,15 +12,11 @@ class Device::GroupPolicy < UserCompaniesScope
   end
 
   def update?
-    show? # && TODO user has role in a company this device belongs
-  end
-
-  def edit?
-    update?
+    super || (index? && (Device.where(company_id: user.company_ids) & record.devices).any?)
   end
 
   def destroy?
-    update?
+    super || (index? && (Device.where(company_id: user.company_ids) & record.devices).any?)
   end
 
   class Scope < Scope

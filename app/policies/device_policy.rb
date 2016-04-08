@@ -7,20 +7,12 @@ class DevicePolicy < ApplicationPolicy
     user.root? || (index? && user.company_ids.include?(record.company_id))
   end
 
-  def new?
-    create?
-  end
-
   def create?
     user.present?
   end
 
   def update?
-    show? # && TODO user has role in a company this device belongs
-  end
-
-  def edit?
-    update?
+    show?
   end
 
   def destroy?

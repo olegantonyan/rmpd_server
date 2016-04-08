@@ -1,8 +1,4 @@
-class Device::LogMessagePolicy < ApplicationPolicy
-  def index?
-    user.present?
-  end
-
+class Device::StatusPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       return scope.all if user.root?

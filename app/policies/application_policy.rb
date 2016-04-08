@@ -7,15 +7,15 @@ class ApplicationPolicy
   end
 
   def index?
-    false
+    user.root?
   end
 
   def show?
-    scope.where(id: record.id).exists?
+    user.root?
   end
 
   def create?
-    false
+    user.root?
   end
 
   def new?
@@ -23,7 +23,7 @@ class ApplicationPolicy
   end
 
   def update?
-    false
+    user.root?
   end
 
   def edit?
@@ -31,7 +31,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    false
+    user.root?
   end
 
   def scope

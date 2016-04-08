@@ -23,4 +23,8 @@ class MediaItemPresenter < BasePresenter
   def file_processing
     I18n.t("views.shared.#{super}", default: super.to_s)
   end
+
+  def company
+    h.link_to(super.to_s, h.safe_path_to(:company_path, super))
+  end
 end

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :ssh_tunnels, only: [:new, :create]
   end
   resources :playlists
+  resources :companies
 
   namespace :deviceapi, defaults: {format: :json} do
     resources :status, only: [:create]

@@ -15,6 +15,13 @@ class Company < ApplicationRecord
     find_by!(title: 'Demo')
   end
 
+  filterrific(available_filters: %i(search_query))
+
+  scope :search_query, -> (query) {
+    q = "%#{query}%"
+    where('LOWER(title) LIKE LOWER(?)', q)
+  }
+
   def to_s
     title
   end

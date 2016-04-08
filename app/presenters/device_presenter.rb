@@ -18,4 +18,8 @@ class DevicePresenter < BasePresenter
   def playlist
     h.link_to(super.to_s, h.safe_path_to(:playlist_path, super))
   end
+
+  def company
+    h.link_to(super.to_s, h.safe_path_to(:company_path, super))
+  end
 end

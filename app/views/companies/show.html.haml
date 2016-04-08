@@ -1,0 +1,9 @@
+= page_title(@company)
+- company = present(@company)
+
+= render partial: 'shared/show', locals: { object: company,
+  edit_path: edit_company_path(company),
+  destroy_path: company_path(company),
+  attrs: [{attr: :title},
+          {attr: :users},
+          {attr: :devices} ] }

@@ -4,11 +4,7 @@ class PlaylistPolicy < ApplicationPolicy
   end
 
   def show?
-    user.root? || (index? && user.company_ids.include?(record.company_id))
-  end
-
-  def new?
-    create?
+    super || (index? && user.company_ids.include?(record.company_id))
   end
 
   def create?
@@ -16,15 +12,11 @@ class PlaylistPolicy < ApplicationPolicy
   end
 
   def update?
-    show?
-  end
-
-  def edit?
-    update?
+    super || (index? && user.company_ids.include?(record.company_id))
   end
 
   def destroy?
-    update?
+    super || (index? && user.company_ids.include?(record.company_id))
   end
 
   class Scope < Scope
