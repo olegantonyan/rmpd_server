@@ -12,7 +12,10 @@ class MediaItem < ApplicationRecord
   mount_uploader :file, MediaItemUploader
   process_in_background :file
 
-  validates :file, presence: true
+  with_options presence: true do
+    validates :file
+    validates :company
+  end
   validates :description, length: { maximum: 130 }
 
   filterrific(available_filters: %i(search_query with_company_id with_type))

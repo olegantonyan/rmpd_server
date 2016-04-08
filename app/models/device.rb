@@ -17,9 +17,12 @@ class Device < ApplicationRecord
   end
   has_many :device_groups, through: :device_group_memberships, class_name: 'Device::Group'
 
-  validates :login, presence: true, uniqueness: true, length: { in: 4..100 }
+  with_options presence: true do
+    validates :login, uniqueness: true, length: { in: 4..100 }
+    validates :password, length: { in: 8..60 }, confirmation: true, if: -> { new_record? || !password.nil? }
+    validates :company
+  end
   validates :name, length:  { maximum: 130 }
-  validates :password, length: { in: 8..60 }, presence: true, confirmation: true, if: -> { new_record? || !password.nil? }
 
   after_destroy { send_to :clear_queue }
   around_save :update_setting

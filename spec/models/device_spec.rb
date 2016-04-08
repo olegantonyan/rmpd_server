@@ -6,5 +6,6 @@ RSpec.describe Device, type: :model do
   describe 'validations' do
     it { expect(build(:device, login: nil)).to be_invalid }
     it { expect(build(:device, password: nil)).to be_invalid }
+    it { expect(build(:device, company: nil)).to be_invalid }
   end
 end
