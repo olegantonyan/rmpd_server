@@ -33,7 +33,7 @@ class User < ApplicationRecord
   private
 
   def set_defaults
-    return if companies.any?
+    return if companies.exists?
     companies << Company.demo
   end
 end

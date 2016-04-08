@@ -7,8 +7,10 @@ class UserCompanyMembership < ApplicationRecord
   end
 
   validates :title, length: { maximum: 130 }
-
-  before_save :set_defaults
+  with_options presence: true do
+    validates :user
+    validates :company
+  end
 
   def to_s
     "#{user} in #{company}"

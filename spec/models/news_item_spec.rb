@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe NewsItem, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { expect(build(:news_item)).to be_valid }
+
+  describe 'validations' do
+    it { expect(build(:news_item, title: nil)).to be_invalid }
+    it { expect(build(:news_item, body: '')).to be_invalid }
+  end
 end

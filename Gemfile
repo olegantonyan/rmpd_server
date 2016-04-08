@@ -64,15 +64,14 @@ gem 'simple_form'
 gem 'font-awesome-sass', '~> 4.5.0'
 
 group :development, :test do
-  gem 'erb2haml', require: false
   gem 'bullet'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'faker'
-  gem 'launchy'
-  # gem 'listen'
+  gem 'listen'
+  gem 'erb2haml', require: false
   gem 'capistrano-rails-console', require: false
   gem 'capistrano-rails-tail-log', require: false
   gem 'rails-erd', require: false
@@ -80,4 +79,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rbenv', require: false
+  gem 'guard', require: false
+  gem 'guard-rspec', require: false
+  gem 'libnotify', require: false
 end

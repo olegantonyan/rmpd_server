@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Device::Group, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { expect(build(:device_group)).to be_valid }
+
+  describe 'validations' do
+    it { expect(build(:device_group, title: nil)).to be_invalid }
+  end
 end

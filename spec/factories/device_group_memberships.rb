@@ -1,8 +1,7 @@
 FactoryGirl.define do
-  factory :device_group_membership do
-    description "MyString"
-device nil
-device_group nil
+  factory :device_group_membership, class: 'Device::Group::Membership' do
+    description { Faker::Company.buzzword }
+    device
+    device_group
   end
-
 end
