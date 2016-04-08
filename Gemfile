@@ -82,4 +82,5 @@ group :development, :test do
   gem 'guard', require: false
   gem 'guard-rspec', require: false
   gem 'libnotify', require: false
+  gem 'brakeman', require: false
 end
