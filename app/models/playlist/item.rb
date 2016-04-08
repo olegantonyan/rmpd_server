@@ -27,6 +27,7 @@ class Playlist::Item < ApplicationRecord
   private
 
   def check_files_processing
+    return unless media_item
     errors.add(:media_item, I18n.t('activerecord.attributes.media_item.file_processing')) if media_item.file.video? && media_item.file_processing?
   end
 

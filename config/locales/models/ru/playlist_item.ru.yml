@@ -10,6 +10,7 @@ ru:
     attributes:
       playlist/item:
         file_identifier: Имя файла
+        position: Позиция
         size: Размер
         description: Описание
         type: Тип

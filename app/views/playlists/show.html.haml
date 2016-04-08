@@ -18,7 +18,8 @@
   .col-sm-12
     - playlist_items = present_collection(playlist.playlist_items)
     = render partial: 'shared/list', locals: { collection: playlist_items,
-      columns: [{attr: :file_identifier},
+      columns: [{attr: :position, heading: '#'},
+                {attr: :file_identifier},
                 {attr: :description},
                 {attr: :type },
                 {attr: :size} ],
