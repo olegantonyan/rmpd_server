@@ -16,6 +16,6 @@ class PlaylistPresenter < BasePresenter
   end
 
   def shuffle
-    I18n.t("views.shared.#{super}", default: super.to_s)
+    h.i18n_boolean(super)
   end
 end

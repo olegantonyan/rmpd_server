@@ -63,4 +63,8 @@ module UiHelper
     return '' unless object
     send(method, object)
   end
+
+  def i18n_boolean(arg)
+    I18n.t("views.shared.#{arg}", default: arg.to_s)
+  end
 end
