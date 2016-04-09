@@ -1,22 +1,10 @@
 class CompanyPolicy < ApplicationPolicy
   def index?
-    user.present?
+    super || user&.companies&.exists?
   end
 
   def show?
-    user.root? || user.company_ids.include?(record.id)
-  end
-
-  def create?
-    user.root?
-  end
-
-  def destroy?
-    user.root?
-  end
-
-  def update
-    user.root?
+    super || user.company_ids.include?(record.id)
   end
 
   class Scope < Scope
