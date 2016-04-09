@@ -48,11 +48,11 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
 
   def self.destroy_all_messages(key)
     logger.debug("Destroy all messages for '#{key}'")
-    destroy_all(key: key)
+    where(key: key).destroy_all
   end
 
   def self.destroy_messages_with_type(key, message_type)
-    destroy_all(key: key, message_type: message_type)
+    where(key: key, message_type: message_type).destroy_all
   end
 
   def self.message_type_for_sequence_number(sequence_number)

@@ -6,10 +6,6 @@ InitializerHelpers.skip_console_rake_generators do
   end
 
   def timeout_check
-    old_logger = ActiveRecord::Base.logger
-    ActiveRecord::Base.logger = nil
     Deviceapi::Timeouts.check
-  ensure
-    ActiveRecord::Base.logger = old_logger
   end
 end

@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready = ->
-  setup_select_all()
+  #setup_select_all()
 
 setup_select_all = ->
   $('#select-all-background-checkbox').click ->

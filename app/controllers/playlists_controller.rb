@@ -44,6 +44,7 @@ class PlaylistsController < BaseController
 
   # PATCH/PUT /playlists/1
   def update
+    sap playlist_params
     authorize @playlist
     sap playlist_params
     @playlist.assign_attributes(playlist_params)
@@ -64,10 +65,13 @@ class PlaylistsController < BaseController
   end
 
   def playlist_params
-    params.require(:playlist).permit(:name, :description, :company_id, :shuffle).tap do |res|
-      Playlist.media_items_attrs.each do |attr| # TODO: work with ActionController::Parameters
-        res[attr] = params[attr]
-      end
-    end.permit!
+    params.require(:playlist).permit(:name, :description, :company_id, :shuffle, playlist_items_background_attributes: [:_destroy,
+                                                                                                                        :id,
+                                                                                                                        :media_item_id,
+                                                                                                                        :position,
+                                                                                                                        :begin_time,
+                                                                                                                        :begin_date,
+                                                                                                                        :end_time,
+                                                                                                                        :end_date])
   end
 end

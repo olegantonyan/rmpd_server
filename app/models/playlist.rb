@@ -1,5 +1,4 @@
 class Playlist < ApplicationRecord
-  include PlaylistItemsCreation
   include ValidatesHasManyWithErrorMessages
 
   has_paper_trail
@@ -7,6 +6,10 @@ class Playlist < ApplicationRecord
   with_options inverse_of: :playlist do |a|
     a.has_many :playlist_items, -> { order(:position) }, dependent: :destroy, class_name: 'Playlist::Item'
     a.has_many :devices
+  end
+  with_options foreign_key: :playlist_id do |a|
+    a.has_many :playlist_items_background, -> { background.order(:position) }, class_name: 'Playlist::Item::Background'
+    a.has_many :playlist_items_advertising, -> { advertising }, class_name: 'Playlist::Item::Advertising'
   end
   has_many :media_items, -> { joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position') },
            through: :playlist_items
@@ -34,6 +37,9 @@ class Playlist < ApplicationRecord
     where('LOWER(name) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)', q, q)
   }
   scope :with_company_id, -> (companies_ids) { where(company_id: [*companies_ids]) }
+
+  accepts_nested_attributes_for :playlist_items_background, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :playlist_items_advertising, allow_destroy: true, reject_if: :all_blank
 
   def to_s
     (description.blank? ? name : "#{name} (#{description})")

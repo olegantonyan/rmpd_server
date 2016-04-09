@@ -1,6 +1,9 @@
 class Playlist::Item::Background < Playlist::Item
-  validates :position, presence: true
-  validates :position, inclusion: { in: -1_000_000..1_000_000 }
+  with_options presence: true do
+    validates :begin_time
+    validates :end_time
+    validates :position, inclusion: { in: -1_000_000..1_000_000 }
+  end
   validate :media_item_type
 
   private

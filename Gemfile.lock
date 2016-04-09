@@ -51,11 +51,11 @@ GEM
       execjs
     awesome_print (1.6.1)
     bcrypt (3.1.11)
-    bootstrap-datepicker-rails (1.6.0.1)
-      railties (>= 3.0)
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bootstrap3-datetimepicker-rails (4.17.37)
+      momentjs-rails (>= 2.8.1)
     brakeman (3.2.1)
       erubis (~> 2.6)
       haml (>= 3.0, < 5.0)
@@ -194,8 +194,6 @@ GEM
     listen (3.0.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9.7)
-    listjs-rails (1.1.1)
-      railties (>= 3.1.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.10)
@@ -207,8 +205,14 @@ GEM
     mime-types-data (3.2016.0221)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
+    momentjs-rails (2.11.0)
+      railties (>= 3.1)
     multi_json (1.11.2)
     nenv (0.3.0)
+    nested_form_fields (0.7.5)
+      coffee-rails (>= 3.2.1)
+      jquery-rails
+      rails (>= 3.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.1.1)
@@ -388,8 +392,8 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bcrypt
-  bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3.6)
+  bootstrap3-datetimepicker-rails (~> 4.17.37)
   brakeman
   bullet
   capistrano-rails
@@ -419,7 +423,8 @@ DEPENDENCIES
   jquery-rails
   libnotify
   listen
-  listjs-rails
+  momentjs-rails (>= 2.9.0)
+  nested_form_fields
   paper_trail
   pg
   pry-rails

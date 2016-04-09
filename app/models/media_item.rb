@@ -31,7 +31,11 @@ class MediaItem < ApplicationRecord
   delegate :path, to: :file, prefix: true
 
   def to_s
-    "#{file_identifier} in #{company}"
+    if description.blank?
+      "#{file_identifier} in #{company}"
+    else
+      "#{file_identifier} (#{description}) in #{company}"
+    end
   end
 
   def self.human_enum_name(enum_key)

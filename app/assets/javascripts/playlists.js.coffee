@@ -3,33 +3,19 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready = ->
-  setup_list_background()
-  setup_list_advertising()
-  setup_shuffle_checkbox()
+  setup_select2js_for_nested_form()
+  setup_datetimeppicker()
 
-setup_list_background = ->
-  options = {
-    valueNames: ['filename', 'description', 'company']
-    page: 1000
-  }
-  userList = new List('media-items-background', options)
-  $('#select-all-background-checkbox').click ->
-    $('.media-item-background-checkbox').prop('checked', @checked)
+$(document).on 'fields_added.nested_form_fields', (event, param) ->
+  setup_select2js_for_nested_form()
+  setup_datetimeppicker()
 
-setup_list_advertising = ->
-  options = {
-    valueNames: ['filename', 'description', 'company']
-    page: 1000
-  }
-  userList = new List('media-items-advertising', options)
-  $('#select-all-advertising-checkbox').click ->
-    $('.media-item-advertising-checkbox').prop('checked', @checked)
+setup_select2js_for_nested_form = ->
+  $('.select-media-item').select2({ width: '100%', theme: 'bootstrap' })
 
-setup_shuffle_checkbox = ->
-  if $('#playlists-shuffle-checkbox').attr('checked')
-    $('.media-item-background-position').prop('readonly', true)
-  $('#playlists-shuffle-checkbox').click ->
-    $('.media-item-background-position').prop('readonly', @checked)
+setup_datetimeppicker = ->
+  $('.datetime-picker-time').datetimepicker(format: 'HH:mm:ss')
+  $('.datetime-picker-date').datetimepicker(format: 'DD.MM.YYYY')
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

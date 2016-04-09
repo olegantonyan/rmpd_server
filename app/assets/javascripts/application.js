@@ -14,10 +14,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require nested_form_fields
 //= require select2
 //= require select2_locale_ru
 //= require filterrific/filterrific-jquery
-//= require bootstrap-datepicker/core
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
-//= require list
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .

@@ -7,18 +7,12 @@ class Playlist::Item::Advertising < Playlist::Item
     validates :end_date
   end
   validate :media_item_type
-  validate :begin_date_less_than_end_date
   validate :fit_to_time_period
 
   private
 
   def media_item_type
     errors.add(:media_item, "must be advertising type, got #{media_item.type}") unless media_item.advertising?
-  end
-
-  def begin_date_less_than_end_date
-    return if begin_date.nil? || end_date.nil?
-    errors.add(:begin_date, "#{begin_date} > end date #{end_date}") if begin_date > end_date
   end
 
   # rubocop: disable Metrics/AbcSize
