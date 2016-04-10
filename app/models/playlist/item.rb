@@ -25,6 +25,10 @@ class Playlist::Item < ApplicationRecord
     "#{media_item} @ #{playlist}"
   end
 
+  def self.policy_class
+    Playlist::ItemPolicy
+  end
+
   private
 
   def check_files_processing

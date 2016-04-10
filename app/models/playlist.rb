@@ -16,7 +16,7 @@ class Playlist < ApplicationRecord
   belongs_to :company, inverse_of: :playlists
 
   after_save :store_file
-  after_save :update_schedule
+  # after_save :update_schedule
   after_commit :notify_devices_delete, on: :destroy
   after_commit :notify_devices_update, on: %i(create update)
 

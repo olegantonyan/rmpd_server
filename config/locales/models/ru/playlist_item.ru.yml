@@ -14,3 +14,9 @@ ru:
         size: Размер
         description: Описание
         type: Тип
+        media_item: Медиафайл
+        begin_time: Время начала
+        end_time: Время окончания
+        begin_date: Дата начала
+        end_date: Дата окончания
+        playbacks_per_day: Воспроизведений в день

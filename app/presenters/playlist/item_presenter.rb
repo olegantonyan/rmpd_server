@@ -1,4 +1,8 @@
 class Playlist::ItemPresenter < BasePresenter
+  def self.policy_class
+    Playlist::Item.policy_class
+  end
+
   def size
     h.number_to_human_size(media_item.file.size, precision: 2)
   end
@@ -13,5 +17,21 @@ class Playlist::ItemPresenter < BasePresenter
     else
       super
     end
+  end
+
+  def begin_time
+    super.to_formatted_s(:rmpd_custom)
+  end
+
+  def end_time
+    super.to_formatted_s(:rmpd_custom)
+  end
+
+  def begin_date
+    super.to_formatted_s(:rmpd_custom_date)
+  end
+
+  def end_date
+    super.to_formatted_s(:rmpd_custom_date)
   end
 end
