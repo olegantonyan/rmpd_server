@@ -43,15 +43,17 @@ module FilterrificHelper
 
   def filter_form_datetime(f, attr, options = {})
     lbl = label_by_attr(attr, options)
+    id = "datetime-picker-#{attr}"
     capture do
       concat(content_tag(:div, class: 'row') do
         concat(content_tag(:div, class: 'col-sm-2') do
           concat f.label(lbl)
         end)
         concat(content_tag(:div, class: 'col-sm-10') do
-          concat f.text_field(attr, class: "form-control #{options.fetch(:class, '')}")
+          concat f.text_field(attr, class: "filterrific-periodically-observed form-control #{options.fetch(:class, '')}", id: id)
         end)
       end)
+      concat(datetime_picker_for_id(id, options.fetch(:format)))
     end
   end
 

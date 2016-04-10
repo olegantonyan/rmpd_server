@@ -9,19 +9,17 @@ $(document).on 'fields_added.nested_form_fields', (event, param) ->
   setup_datetimeppicker()
   switch param.object_class
     when 'playlist_items_background'
-      value = $("#select_media_item_background_id option:selected").val()
-      text = $("#select_media_item_background_id option:selected").text()
-      input_text =  $("#playlist_playlist_items_background_attributes_#{param.added_index}_media_item")
-      input_value = $("#playlist_playlist_items_background_attributes_#{param.added_index}_media_item_id")
-      input_text.val(text)
-      input_value.val(value)
+      set_playlist_item_value_and_text('background', param.added_index)
     when 'playlist_items_advertising'
-      value = $("#select_media_item_advertising_id option:selected").val()
-      text = $("#select_media_item_advertising_id option:selected").text()
-      input_text =  $("#playlist_playlist_items_advertising_attributes_#{param.added_index}_media_item")
-      input_value = $("#playlist_playlist_items_advertising_attributes_#{param.added_index}_media_item_id")
-      input_text.val(text)
-      input_value.val(value)
+      set_playlist_item_value_and_text('advertising', param.added_index)
+
+set_playlist_item_value_and_text = (type, added_index) ->
+  value = $("#select_media_item_#{type}_id option:selected").val()
+  text =  $("#select_media_item_#{type}_id option:selected").text()
+  input_text =  $("#playlist_playlist_items_#{type}_attributes_#{added_index}_media_item")
+  input_value = $("#playlist_playlist_items_#{type}_attributes_#{added_index}_media_item_id")
+  input_text.val(text)
+  input_value.val(value)
 
 setup_datetimeppicker = ->
   $('.datetime-picker-time').datetimepicker(format: 'HH:mm:ss')
