@@ -64,7 +64,7 @@ Rails.application.configure do
     Bullet.enable = true
     Bullet.alert = false
     Bullet.bullet_logger = true
-    Bullet.console = true
+    Bullet.console = false
   end
 
   config.generators do |g|

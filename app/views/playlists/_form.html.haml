@@ -16,13 +16,20 @@
       %th= ''
     = f.nested_fields_for :playlist_items_background, wrapper_tag: :tr do |ff|
       %td= ff.input :position, as: :integer, label: false
-      %td= ff.association :media_item, collection: policy_scope(MediaItem.includes(:company).not_processing.background), include_blank: false, input_html: { class: 'select-media-item' }, label: false
+      %td
+        = ff.input :media_item, as: :string, label: false, disabled: true
+        = ff.input :media_item_id, as: :hidden
       %td= ff.input :begin_time, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: ff.object.begin_time&.to_formatted_s(:rmpd_custom) }
       %td= ff.input :end_time, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: ff.object.end_time&.to_formatted_s(:rmpd_custom) }
       %td= ff.input :begin_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.begin_date&.to_formatted_s(:rmpd_custom_date) }
       %td= ff.input :end_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.end_date&.to_formatted_s(:rmpd_custom_date) }
       %td.pull-right= ff.remove_nested_fields_link icon('times'), class: 'btn btn-danger btn-sm', role: 'button'
-  = f.add_nested_fields_link :playlist_items_background, icon_text('plus', MediaItem.human_enum_name(:background)), class: 'btn btn-success', role: 'button'
+  .row
+    .col-sm-6
+      = collection_select(:select_media_item_background, :id, policy_scope(MediaItem.includes(:company).not_processing.background), :id, :to_s)
+      = select2js_for_id('select_media_item_background_id')
+    .col-sm-6
+      = f.add_nested_fields_link :playlist_items_background, icon_text('plus', MediaItem.human_enum_name(:background)), class: 'btn btn-success', role: 'button'
 
   %h4= MediaItem.human_enum_name(:advertising)
   %table.table.table-condensed
@@ -35,14 +42,21 @@
       %th= label_tag(f.object.playlist_items_advertising.human_attribute_name(:end_date))
       %th= ''
     = f.nested_fields_for :playlist_items_advertising, wrapper_tag: :tr do |ff|
-      %td= ff.association :media_item, collection: policy_scope(MediaItem.includes(:company).not_processing.advertising), include_blank: false, input_html: { class: 'select-media-item' }, label: false
+      %td
+        = ff.input :media_item, as: :string, label: false, disabled: true
+        = ff.input :media_item_id, as: :hidden
       %td= ff.input :begin_time, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: ff.object.begin_time&.to_formatted_s(:rmpd_custom) }
       %td= ff.input :end_time, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: ff.object.end_time&.to_formatted_s(:rmpd_custom) }
       %td= ff.input :playbacks_per_day, as: :integer, label: false
       %td= ff.input :begin_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.begin_date&.to_formatted_s(:rmpd_custom_date) }
       %td= ff.input :end_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.end_date&.to_formatted_s(:rmpd_custom_date) }
       %td.pull-right= ff.remove_nested_fields_link icon('times'), class: 'btn btn-danger btn-sm', role: 'button'
-  = f.add_nested_fields_link :playlist_items_advertising, icon_text('plus', MediaItem.human_enum_name(:advertising)), class: 'btn btn-success', role: 'button'
+  .row
+    .col-sm-6
+      = collection_select(:select_media_item_advertising, :id, policy_scope(MediaItem.includes(:company).not_processing.advertising), :id, :to_s)
+      = select2js_for_id('select_media_item_advertising_id')
+    .col-sm-6
+      = f.add_nested_fields_link :playlist_items_advertising, icon_text('plus', MediaItem.human_enum_name(:advertising)), class: 'btn btn-success', role: 'button'
 
   = tag :br
   = tag :br
