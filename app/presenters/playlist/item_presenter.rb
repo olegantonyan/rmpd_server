@@ -19,19 +19,21 @@ class Playlist::ItemPresenter < BasePresenter
     end
   end
 
+  # rubocop: disable Style/SpaceAroundKeyword
   def begin_time
-    super.to_formatted_s(:rmpd_custom)
+    super&.to_formatted_s(:rmpd_custom)
   end
 
   def end_time
-    super.to_formatted_s(:rmpd_custom)
+    super&.to_formatted_s(:rmpd_custom)
   end
 
   def begin_date
-    super.to_formatted_s(:rmpd_custom_date)
+    super&.to_formatted_s(:rmpd_custom_date)
   end
 
   def end_date
-    super.to_formatted_s(:rmpd_custom_date)
+    super&.to_formatted_s(:rmpd_custom_date)
   end
+  # rubocop: enable Style/SpaceAroundKeyword
 end
