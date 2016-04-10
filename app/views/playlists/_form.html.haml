@@ -16,7 +16,7 @@
       %th= ''
     = f.nested_fields_for :playlist_items_background, wrapper_tag: :tr do |ff|
       %td= ff.input :position, as: :integer, label: false
-      %td= ff.association :media_item, collection: policy_scope(MediaItem.not_processing.background), include_blank: false, input_html: { class: 'select-media-item' }, label: false
+      %td= ff.association :media_item, collection: policy_scope(MediaItem.includes(:company).not_processing.background), include_blank: false, input_html: { class: 'select-media-item' }, label: false
       %td= ff.input :begin_time, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: ff.object.begin_time&.to_formatted_s(:rmpd_custom) }
       %td= ff.input :end_time, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: ff.object.end_time&.to_formatted_s(:rmpd_custom) }
       %td= ff.input :begin_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.begin_date&.to_formatted_s(:rmpd_custom_date) }
@@ -35,7 +35,7 @@
       %th= label_tag(f.object.playlist_items_advertising.human_attribute_name(:end_date))
       %th= ''
     = f.nested_fields_for :playlist_items_advertising, wrapper_tag: :tr do |ff|
-      %td= ff.association :media_item, collection: policy_scope(MediaItem.not_processing.advertising), include_blank: false, input_html: { class: 'select-media-item' }, label: false
+      %td= ff.association :media_item, collection: policy_scope(MediaItem.includes(:company).not_processing.advertising), include_blank: false, input_html: { class: 'select-media-item' }, label: false
       %td= ff.input :begin_time, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: ff.object.begin_time&.to_formatted_s(:rmpd_custom) }
       %td= ff.input :end_time, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: ff.object.end_time&.to_formatted_s(:rmpd_custom) }
       %td= ff.input :playbacks_per_day, as: :integer, label: false
