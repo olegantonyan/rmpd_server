@@ -20,3 +20,17 @@ ru:
         types:
           background: Фоновый
           advertising: Рекламный
+
+  activemodel:
+    models:
+      media_item/create_multiple:
+        one: Медиафайлы
+        few: Медиафайлы
+        many: Медиафайлы
+        other: Медиафайлы
+    attributes:
+      media_item/create_multiple:
+        description: Описание
+        company_id: Компания
+        type: Тип
+        files: Файлы

@@ -2,6 +2,7 @@ class BaseService
   include ActiveModel::Model
   include ActiveModel::Validations
   include ActiveModel::Validations::Callbacks
+  extend ActiveModel::Translation
 
   def self.create!(attrs)
     new(attrs).save!
