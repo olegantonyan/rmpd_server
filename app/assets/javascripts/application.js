@@ -20,4 +20,5 @@
 //= require filterrific/filterrific-jquery
 //= require moment
 //= require bootstrap-datetimepicker
+//= require filterable_select
 //= require_tree .

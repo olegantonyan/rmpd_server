@@ -1,52 +1,73 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+class MultiselectButton
+  constructor: (@type) ->
+    $("#mediaitems-#{@type}-add-multiple-button").click =>
+      @_handle_click()
 
-class SelectMultipleMediaItems
-  constructor: (@textbox_id, @selectbox_id, @button_id, @onselected_element_id, @current_value_id, @current_text_id) ->
-    $("##{@selectbox_id}").filterByText($("##{@textbox_id}"), true)
-    $("##{@button_id}").click =>
-      @onclick()
+  _handle_click: =>
+    for i in $("#mediaitems-#{@type}-selectbox :selected")
+      (new CurrentInputHandler(@type, 'media_item_id')).call(i.value)
+      (new CurrentInputHandler(@type, 'media_item')).call(i.text)
 
-  onclick: ->
-    for i in $("##{@selectbox_id} :selected")
-      @append(i.value, i.text)
+      for j in ['begin_time', 'end_time', 'begin_date', 'end_date', 'playbacks_per_day']
+        v = $("#mediaitems-#{@type}-#{j}-textbox").val()
+        (new CurrentInputHandler(@type, j)).call(v)
 
-  append: (value, text) ->
-    $("##{@current_value_id}").val(value)
-    $("##{@current_text_id}").val(text)
-    $("##{@onselected_element_id}").click()
+      @_click_add_nested_button()
+
+  _click_add_nested_button: =>
+    $("#add-nested-#{@type}").click()
 
 
-ready = ->
-  setup_datetimeppicker()
-  for i in ['advertising', 'background']
-    new SelectMultipleMediaItems("filter-mediaitems-#{i}-textbox",
-                                 "mediaitems-#{i}-selectbox",
-                                 "mediaitems-#{i}-add-multiple-button",
-                                 "add-nested-#{i}",
-                                 "current-#{i}-mediaitem_id"
-                                 "current-#{i}-mediaitem")
+class CurrentInputHandler
+  constructor: (@type, @attr) ->
+  call: (value) =>
+    (new SetCurrentValue("current-#{@type}-#{@attr}")).call(value)
+
+
+class SetCurrentValue
+  constructor: (@id) ->
+  call: (value) =>
+    $("##{@id}").val(value)
+
+
+class SetPlaylistItemValues
+  constructor: (@type, @added_index) ->
+  call: =>
+    for i in ['media_item', 'media_item_id', 'begin_time', 'end_time', 'begin_date', 'end_date', 'playbacks_per_day']
+      @_set_attribute_value(i)
+
+  _set_attribute_value: (attr) =>
+    value = $("#current-#{@type}-#{attr}").val()
+    input_value = $("#playlist_playlist_items_#{@type}_attributes_#{@added_index}_#{attr}")
+    input_value.val(value)
+
 
 $(document).on 'fields_added.nested_form_fields', (event, param) ->
   setup_datetimeppicker()
+  type = null
   switch param.object_class
     when 'playlist_items_background'
-      set_playlist_item_value_and_text('background', param.added_index)
+      type = 'background'
     when 'playlist_items_advertising'
-      set_playlist_item_value_and_text('advertising', param.added_index)
+      type = 'advertising'
+  if type and param.added_index
+    (new SetPlaylistItemValues(type, param.added_index)).call()
 
-set_playlist_item_value_and_text = (type, added_index) ->
-  value = $("#current-#{type}-mediaitem_id").val()
-  text =  $("#current-#{type}-mediaitem").val()
-  input_text =  $("#playlist_playlist_items_#{type}_attributes_#{added_index}_media_item")
-  input_value = $("#playlist_playlist_items_#{type}_attributes_#{added_index}_media_item_id")
-  input_text.val(text)
-  input_value.val(value)
+
+setup_multiselect = ->
+  for i in ['advertising', 'background']
+    new MultiselectButton(i)
+
 
 setup_datetimeppicker = ->
   $('.datetime-picker-time').datetimepicker(format: 'HH:mm:ss')
   $('.datetime-picker-date').datetimepicker(format: 'DD.MM.YYYY')
+
+
+ready = ->
+  setup_datetimeppicker()
+  setup_multiselect()
+
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

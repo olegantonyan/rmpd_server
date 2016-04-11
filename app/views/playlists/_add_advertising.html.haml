@@ -1,0 +1,33 @@
+%div{style: 'display: none'}
+  = text_field_tag 'current-advertising-media_item'
+  = text_field_tag 'current-advertising-media_item_id'
+  = text_field_tag 'current-advertising-begin_time'
+  = text_field_tag 'current-advertising-end_time'
+  = text_field_tag 'current-advertising-begin_date'
+  = text_field_tag 'current-advertising-end_date'
+  = text_field_tag 'current-advertising-playbacks_per_day'
+
+  = f.add_nested_fields_link :playlist_items_advertising, '', id: 'add-nested-advertising'
+
+.row
+  .col-sm-9
+    = render partial: 'multiselect', locals: { collection: options_from_collection_for_select(policy_scope(MediaItem.includes(:company).not_processing.advertising), :id, :to_s),
+                                               textbox_id: 'filter-mediaitems-advertising-textbox',
+                                               selectbox_id: 'mediaitems-advertising-selectbox' }
+  .col-sm-3
+    = label_tag(f.object.playlist_items_advertising.human_attribute_name(:begin_time))
+    = text_field_tag 'mediaitems-advertising-begin_time-textbox', '', class: 'form-control datetime-picker-time'
+
+    = label_tag(f.object.playlist_items_advertising.human_attribute_name(:end_time))
+    = text_field_tag 'mediaitems-advertising-end_time-textbox', '', class: 'form-control datetime-picker-time'
+
+    = label_tag(f.object.playlist_items_advertising.human_attribute_name(:begin_date))
+    = text_field_tag 'mediaitems-advertising-begin_date-textbox', '', class: 'form-control datetime-picker-date'
+
+    = label_tag(f.object.playlist_items_advertising.human_attribute_name(:end_date))
+    = text_field_tag 'mediaitems-advertising-end_date-textbox', '', class: 'form-control datetime-picker-date'
+
+    = label_tag(f.object.playlist_items_advertising.human_attribute_name(:playbacks_per_day))
+    = number_field_tag 'mediaitems-advertising-playbacks_per_day-textbox', 1, min: 1, step: 1, class: 'form-control'
+
+%span.btn.btn-success{ id: 'mediaitems-advertising-add-multiple-button', role: 'button' }= icon_text('plus', MediaItem.human_enum_name(:advertising))
