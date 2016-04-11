@@ -32,7 +32,7 @@
         = text_field_tag 'current-background-mediaitem', '', id: 'current-background-mediaitem'
         = text_field_tag 'current-background-mediaitem_id', '', id: 'current-background-mediaitem_id'
         = f.add_nested_fields_link :playlist_items_background, 'hidden-add', id: 'add-nested-background'
-      = render partial: 'select_multiple', locals: { collection: options_from_collection_for_select(MediaItem.includes(:company).not_processing.background, :id, :to_s),
+      = render partial: 'select_multiple', locals: { collection: options_from_collection_for_select(policy_scope(MediaItem.includes(:company).not_processing.background), :id, :to_s),
                                                      textbox_id: 'filter-mediaitems-background-textbox',
                                                      selectbox_id: 'mediaitems-background-selectbox' ,
                                                      button_text: icon_text('plus', MediaItem.human_enum_name(:background)),
@@ -66,7 +66,7 @@
         = text_field_tag 'current-advertising-mediaitem', '', id: 'current-advertising-mediaitem'
         = text_field_tag 'current-advertising-mediaitem_id', '', id: 'current-advertising-mediaitem_id'
         = f.add_nested_fields_link :playlist_items_advertising, 'hidden-add', id: 'add-nested-advertising'
-      = render partial: 'select_multiple', locals: { collection: options_from_collection_for_select(MediaItem.includes(:company).not_processing.advertising, :id, :to_s),
+      = render partial: 'select_multiple', locals: { collection: options_from_collection_for_select(policy_scope(MediaItem.includes(:company).not_processing.advertising), :id, :to_s),
                                                      textbox_id: 'filter-mediaitems-advertising-textbox',
                                                      selectbox_id: 'mediaitems-advertising-selectbox' ,
                                                      button_text: icon_text('plus', MediaItem.human_enum_name(:advertising)),
