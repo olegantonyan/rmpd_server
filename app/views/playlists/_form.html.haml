@@ -24,12 +24,15 @@
       %td= ff.input :begin_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.begin_date&.to_formatted_s(:rmpd_custom_date) }
       %td= ff.input :end_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.end_date&.to_formatted_s(:rmpd_custom_date) }
       %td.pull-right= ff.remove_nested_fields_link icon('times'), class: 'btn btn-danger btn-sm', role: 'button'
-  .row
-    .col-sm-6
-      = collection_select(:select_media_item_background, :id, policy_scope(MediaItem.includes(:company).not_processing.background), :id, :to_s)
-      = select2js_for_id('select_media_item_background_id')
-    .col-sm-6
-      = f.add_nested_fields_link :playlist_items_background, icon_text('plus', MediaItem.human_enum_name(:background)), class: 'btn btn-success', role: 'button'
+  %div{style: 'display: none'}
+    = text_field_tag 'current-background-mediaitem', '', id: 'current-background-mediaitem'
+    = text_field_tag 'current-background-mediaitem_id', '', id: 'current-background-mediaitem_id'
+    = f.add_nested_fields_link :playlist_items_background, 'hidden-add', id: 'add-nested-background'
+  = render partial: 'select_multiple', locals: { collection: options_from_collection_for_select(MediaItem.includes(:company).not_processing.background, :id, :to_s),
+                                                 textbox_id: 'filter-mediaitems-background-textbox',
+                                                 selectbox_id: 'mediaitems-background-selectbox' ,
+                                                 button_text: icon_text('plus', MediaItem.human_enum_name(:background)),
+                                                 button_id: 'mediaitems-background-add-multiple-button' }
 
   %h4= MediaItem.human_enum_name(:advertising)
   %table.table.table-condensed
@@ -51,12 +54,15 @@
       %td= ff.input :begin_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.begin_date&.to_formatted_s(:rmpd_custom_date) }
       %td= ff.input :end_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.end_date&.to_formatted_s(:rmpd_custom_date) }
       %td.pull-right= ff.remove_nested_fields_link icon('times'), class: 'btn btn-danger btn-sm', role: 'button'
-  .row
-    .col-sm-6
-      = collection_select(:select_media_item_advertising, :id, policy_scope(MediaItem.includes(:company).not_processing.advertising), :id, :to_s)
-      = select2js_for_id('select_media_item_advertising_id')
-    .col-sm-6
-      = f.add_nested_fields_link :playlist_items_advertising, icon_text('plus', MediaItem.human_enum_name(:advertising)), class: 'btn btn-success', role: 'button'
+  %div{style: 'display: none'}
+    = text_field_tag 'current-advertising-mediaitem', '', id: 'current-advertising-mediaitem'
+    = text_field_tag 'current-advertising-mediaitem_id', '', id: 'current-advertising-mediaitem_id'
+    = f.add_nested_fields_link :playlist_items_advertising, 'hidden-add', id: 'add-nested-advertising'
+  = render partial: 'select_multiple', locals: { collection: options_from_collection_for_select(MediaItem.includes(:company).not_processing.advertising, :id, :to_s),
+                                                 textbox_id: 'filter-mediaitems-advertising-textbox',
+                                                 selectbox_id: 'mediaitems-advertising-selectbox' ,
+                                                 button_text: icon_text('plus', MediaItem.human_enum_name(:advertising)),
+                                                 button_id: 'mediaitems-advertising-add-multiple-button' }
 
   = tag :br
   = tag :br
