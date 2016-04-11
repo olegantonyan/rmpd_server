@@ -48,7 +48,6 @@ class SetPlaylistItemValues
 
 
 $(document).on 'fields_added.nested_form_fields', (event, param) ->
-  setup_datetimeppicker()
   type = null
   switch param.object_class
     when 'playlist_items_background'
@@ -57,6 +56,8 @@ $(document).on 'fields_added.nested_form_fields', (event, param) ->
       type = 'advertising'
   if type and param.added_index
     (new SetPlaylistItemValues(type, param.added_index)).call()
+  setup_datetimeppicker()
+  setup_shuffle_checkbox()
 
 
 setup_multiselect = ->
@@ -72,7 +73,7 @@ setup_datetimeppicker = ->
 setup_shuffle_checkbox = ->
   checkbox = $('#playlists-shuffle-checkbox')
   positions = $('.playlist_item_background-position')
-  if checkbox.attr('checked')
+  if checkbox.prop('checked')
     positions.prop('readonly', true)
   checkbox.click ->
     positions.prop('readonly', @checked)
