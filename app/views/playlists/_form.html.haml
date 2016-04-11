@@ -2,11 +2,11 @@
   = f.input :name
   = f.input :description, as: :string
   = render partial: 'shared/select_company_form', locals: { f: f }
-  = f.input :shuffle, input_html: { id: 'playlists-shuffle-checkbox' }
 
   .panel.panel-success
     .panel-heading
       %h4= MediaItem.human_enum_name(:background)
+      = f.input :shuffle, input_html: { id: 'playlists-shuffle-checkbox' }
     .panel-body
       %table.table.table-condensed
         %tr
