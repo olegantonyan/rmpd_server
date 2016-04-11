@@ -18,7 +18,7 @@
           %th= label_tag(f.object.playlist_items_background.human_attribute_name(:end_date))
           %th= ''
         = f.nested_fields_for :playlist_items_background, wrapper_tag: :tr do |ff|
-          %td= ff.input :position, as: :integer, label: false
+          %td= ff.input :position, as: :integer, label: false, input_html: { class: 'playlist_item_background-position' }
           %td
             = ff.input :media_item, as: :string, label: false, disabled: true
             = ff.input :media_item_id, as: :hidden

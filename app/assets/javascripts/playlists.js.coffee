@@ -69,10 +69,19 @@ setup_datetimeppicker = ->
   $('.datetime-picker-date').datetimepicker(format: 'DD.MM.YYYY')
 
 
+setup_shuffle_checkbox = ->
+  checkbox = $('#playlists-shuffle-checkbox')
+  positions = $('.playlist_item_background-position')
+  if checkbox.attr('checked')
+    positions.prop('readonly', true)
+  checkbox.click ->
+    positions.prop('readonly', @checked)
+
+
 ready = ->
   setup_datetimeppicker()
   setup_multiselect()
-
+  setup_shuffle_checkbox()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
