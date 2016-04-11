@@ -34,10 +34,15 @@ class SetPlaylistItemValues
   constructor: (@type, @added_index) ->
   call: =>
     for i in ['media_item', 'media_item_id', 'begin_time', 'end_time', 'begin_date', 'end_date', 'playbacks_per_day']
-      @_set_attribute_value(i)
+      val = @_get_attribute_value(i)
+      @_set_attribute_value(i, val)
+    if @type == 'background'
+      @_set_attribute_value('position', @added_index)
 
-  _set_attribute_value: (attr) =>
-    value = $("#current-#{@type}-#{attr}").val()
+  _get_attribute_value: (attr) =>
+    $("#current-#{@type}-#{attr}").val()
+
+  _set_attribute_value: (attr, value) =>
     input_value = $("#playlist_playlist_items_#{@type}_attributes_#{@added_index}_#{attr}")
     input_value.val(value)
 

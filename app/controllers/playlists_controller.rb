@@ -44,9 +44,7 @@ class PlaylistsController < BaseController
 
   # PATCH/PUT /playlists/1
   def update
-    sap playlist_params
     authorize @playlist
-    sap playlist_params
     @playlist.assign_attributes(playlist_params)
     crud_respond @playlist, success_url: playlist_path(@playlist)
   end

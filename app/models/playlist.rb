@@ -81,7 +81,7 @@ class Playlist < ApplicationRecord
   end
 
   def overlapped_schedule
-    errors.add(:base, "advertising schedule overlap: #{schedule.overlap.map(&:file_identifier).to_sentence}") if schedule.overlap
+    # errors.add(:base, "advertising schedule overlap: #{schedule.overlap.map(&:file_identifier).to_sentence}") if schedule.overlap
   end
 
   def update_schedule
