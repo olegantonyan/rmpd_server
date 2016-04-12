@@ -4,7 +4,7 @@ class MultiselectButton
       @_handle_click()
 
   _handle_click: =>
-    for i in $("#mediaitems-#{@type}-selectbox :selected") when i.value and i.value isnt ''
+    for i in $("#mediaitems-#{@type}-selectbox :selected")
       (new CurrentInputHandler(@type, 'media_item_id')).call(i.value)
       (new CurrentInputHandler(@type, 'media_item')).call(i.text)
 
@@ -54,8 +54,7 @@ $(document).on 'fields_added.nested_form_fields', (event, param) ->
       type = 'background'
     when 'playlist_items_advertising'
       type = 'advertising'
-  if type and param.added_index
-    (new SetPlaylistItemValues(type, param.added_index)).call()
+  (new SetPlaylistItemValues(type, param.added_index)).call() if type
   setup_datetimeppicker()
   setup_shuffle_checkbox()
 
