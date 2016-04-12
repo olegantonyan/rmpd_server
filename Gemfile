@@ -49,7 +49,7 @@ gem 'delayed_job_active_record'
 gem 'pundit'
 gem 'paper_trail'
 gem 'filterrific', github: 'olegantonyan/filterrific', branch: 'turbolinks5'#, path: "~/projects/github/filterrific"
-gem 'nested_form_fields'
+gem 'nested_form_fields', github: 'olegantonyan/nested_form_fields', branch: 'turbolinks5'
 gem 'carrierwave_backgrounder'
 gem 'pry-rails'
 gem 'super_awesome_print'

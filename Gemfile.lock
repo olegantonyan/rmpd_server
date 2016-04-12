@@ -12,6 +12,16 @@ GIT
   specs:
     initializer_helpers (0.1.1)
 
+GIT
+  remote: git://github.com/olegantonyan/nested_form_fields.git
+  revision: f44ef567b681a2878f9cc5d4e0107132cd442ad9
+  branch: turbolinks5
+  specs:
+    nested_form_fields (0.7.5)
+      coffee-rails (>= 3.2.1)
+      jquery-rails
+      rails (>= 3.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -215,10 +225,6 @@ GEM
       railties (>= 3.1)
     multi_json (1.11.2)
     nenv (0.3.0)
-    nested_form_fields (0.7.5)
-      coffee-rails (>= 3.2.1)
-      jquery-rails
-      rails (>= 3.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.1.1)
@@ -431,7 +437,7 @@ DEPENDENCIES
   libnotify
   listen
   momentjs-rails (>= 2.9.0)
-  nested_form_fields
+  nested_form_fields!
   paper_trail
   pg
   pry-rails
