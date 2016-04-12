@@ -1,43 +1,42 @@
 module PlaylistsHelper
-  def got_media_item?(playlist, item)
-    playlist.media_items.find_by_id(item.id)
+  def input_for_time(ff, attribute)
+    ff.input attribute, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: DefaultDateTimeValue.new(ff, attribute, :rmpd_custom).call }
   end
 
-  def media_item_position(playlist, item)
-    find_media_item(playlist, item).try(:position).to_i
+  def input_for_date(ff, attribute)
+    ff.input attribute, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: DefaultDateTimeValue.new(ff, attribute, :rmpd_custom_date).call }
   end
 
-  def media_item_begin_time(playlist, item)
-    find_media_item(playlist, item).try(:begin_time) || Time.zone.parse('09:00')
+  def input_for_media_item(ff)
+    capture do
+      concat ff.input(:media_item, as: :string, label: false, disabled: true)
+      concat ff.input(:media_item_id, as: :hidden)
+    end
   end
 
-  def media_item_end_time(playlist, item)
-    find_media_item(playlist, item).try(:end_time) || Time.zone.parse('18:00')
+  def label_for_input(ff, type, attribute)
+    label_tag(ff.object.public_send(type).human_attribute_name(attribute))
   end
 
-  def media_item_begin_date(playlist, item)
-    find_media_item(playlist, item).try(:begin_date) || Date.current
+  def advertising_title
+    MediaItem.human_enum_name(:advertising)
   end
 
-  def media_item_end_date(playlist, item)
-    find_media_item(playlist, item).try(:end_date) || Date.current + 1.month
+  def background_title
+    MediaItem.human_enum_name(:background)
   end
 
-  def media_items_advertising_playbacks_per_days(playlist, item)
-    find_media_item(playlist, item).try(:playbacks_per_day).to_i
-  end
+  class DefaultDateTimeValue
+    def initialize(ff, attribute, fmt)
+      @ff = ff
+      @attribute = attribute
+      @fmt = fmt
+    end
 
-  def media_items_background_begin_time(playlist)
-    playlist.playlist_items.background.first.try(:begin_time) || Time.zone.parse('09:00')
-  end
-
-  def media_items_background_end_time(playlist)
-    playlist.playlist_items.background.first.try(:end_time) || Time.zone.parse('18:00')
-  end
-
-  private
-
-  def find_media_item(playlist, item)
-    playlist.playlist_items.find_by(media_item_id: item.id)
+    def call
+      @ff.object.public_send(@attribute).to_formatted_s(@fmt)
+    rescue NoMethodError
+      ''
+    end
   end
 end

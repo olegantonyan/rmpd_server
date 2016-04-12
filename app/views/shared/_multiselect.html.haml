@@ -1,5 +1,5 @@
 = text_field_tag textbox_id, '', id: textbox_id, class: 'form-control'
-= select_tag selectbox_id, collection, multiple: true, size: 12, class: 'form-control'
+= select_tag selectbox_id, collection, multiple: true, size: (defined?(size) ? size : 12), class: 'form-control'
 
 :javascript
   $(document).ready(function() {

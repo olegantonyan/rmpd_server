@@ -5,53 +5,49 @@
 
   .panel.panel-success
     .panel-heading
-      %h4= MediaItem.human_enum_name(:background)
+      %h4= background_title
       = f.input :shuffle, input_html: { id: 'playlists-shuffle-checkbox' }
     .panel-body
       %table.table.table-condensed
         %tr
-          %th= label_tag(f.object.playlist_items_background.human_attribute_name(:position))
-          %th= label_tag(f.object.playlist_items_background.human_attribute_name(:media_item))
-          %th= label_tag(f.object.playlist_items_background.human_attribute_name(:begin_time))
-          %th= label_tag(f.object.playlist_items_background.human_attribute_name(:end_time))
-          %th= label_tag(f.object.playlist_items_background.human_attribute_name(:begin_date))
-          %th= label_tag(f.object.playlist_items_background.human_attribute_name(:end_date))
+          %th= label_for_input(f, :playlist_items_background, :position)
+          %th= label_for_input(f, :playlist_items_background, :media_item)
+          %th= label_for_input(f, :playlist_items_background, :begin_time)
+          %th= label_for_input(f, :playlist_items_background, :end_time)
+          %th= label_for_input(f, :playlist_items_background, :begin_date)
+          %th= label_for_input(f, :playlist_items_background, :end_date)
           %th= ''
         = f.nested_fields_for :playlist_items_background, wrapper_tag: :tr do |ff|
           %td= ff.input :position, as: :integer, label: false, input_html: { class: 'playlist_item_background-position' }
-          %td
-            = ff.input :media_item, as: :string, label: false, disabled: true
-            = ff.input :media_item_id, as: :hidden
-          %td= ff.input :begin_time, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: ff.object.begin_time&.to_formatted_s(:rmpd_custom) }
-          %td= ff.input :end_time, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: ff.object.end_time&.to_formatted_s(:rmpd_custom) }
-          %td= ff.input :begin_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.begin_date&.to_formatted_s(:rmpd_custom_date) }
-          %td= ff.input :end_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.end_date&.to_formatted_s(:rmpd_custom_date) }
+          %td= input_for_media_item(ff)
+          %td= input_for_time(ff, :begin_time)
+          %td= input_for_time(ff, :end_time)
+          %td= input_for_date(ff, :begin_date)
+          %td= input_for_date(ff, :end_date)
           %td.pull-right= ff.remove_nested_fields_link icon('times'), class: 'btn btn-danger btn-sm', role: 'button'
     .panel-footer
       = render partial: 'add_background', locals: { f: f }
 
   .panel.panel-info
     .panel-heading
-      %h4= MediaItem.human_enum_name(:advertising)
+      %h4= advertising_title
     .panel-body
       %table.table.table-condensed
         %tr
-          %th= label_tag(f.object.playlist_items_advertising.human_attribute_name(:media_item))
-          %th= label_tag(f.object.playlist_items_advertising.human_attribute_name(:begin_time))
-          %th= label_tag(f.object.playlist_items_advertising.human_attribute_name(:end_time))
-          %th= label_tag(f.object.playlist_items_advertising.human_attribute_name(:playbacks_per_day))
-          %th= label_tag(f.object.playlist_items_advertising.human_attribute_name(:begin_date))
-          %th= label_tag(f.object.playlist_items_advertising.human_attribute_name(:end_date))
+          %th= label_for_input(f, :playlist_items_advertising, :media_item)
+          %th= label_for_input(f, :playlist_items_advertising, :begin_time)
+          %th= label_for_input(f, :playlist_items_advertising, :end_time)
+          %th= label_for_input(f, :playlist_items_advertising, :playbacks_per_day)
+          %th= label_for_input(f, :playlist_items_advertising, :begin_date)
+          %th= label_for_input(f, :playlist_items_advertising, :end_date)
           %th= ''
         = f.nested_fields_for :playlist_items_advertising, wrapper_tag: :tr do |ff|
-          %td
-            = ff.input :media_item, as: :string, label: false, disabled: true
-            = ff.input :media_item_id, as: :hidden
-          %td= ff.input :begin_time, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: ff.object.begin_time&.to_formatted_s(:rmpd_custom) }
-          %td= ff.input :end_time, as: :string, label: false, input_html: { class: 'datetime-picker-time', value: ff.object.end_time&.to_formatted_s(:rmpd_custom) }
+          %td= input_for_media_item(ff)
+          %td= input_for_time(ff, :begin_time)
+          %td= input_for_time(ff, :end_time)
           %td= ff.input :playbacks_per_day, as: :integer, label: false
-          %td= ff.input :begin_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.begin_date&.to_formatted_s(:rmpd_custom_date) }
-          %td= ff.input :end_date, as: :string, label: false, input_html: { class: 'datetime-picker-date', value: ff.object.end_date&.to_formatted_s(:rmpd_custom_date) }
+          %td= input_for_date(ff, :begin_date)
+          %td= input_for_date(ff, :end_date)
           %td.pull-right= ff.remove_nested_fields_link icon('times'), class: 'btn btn-danger btn-sm', role: 'button'
     .panel-footer
       = render partial: 'add_advertising', locals: { f: f }

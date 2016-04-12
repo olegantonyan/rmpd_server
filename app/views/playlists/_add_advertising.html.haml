@@ -11,23 +11,25 @@
 
 .row
   .col-sm-9
-    = render partial: 'multiselect', locals: { collection: options_from_collection_for_select(policy_scope(MediaItem.includes(:company).not_processing.advertising), :id, :to_s),
-                                               textbox_id: 'filter-mediaitems-advertising-textbox',
-                                               selectbox_id: 'mediaitems-advertising-selectbox' }
+    - collection = policy_scope(MediaItem.includes(:company).not_processing.advertising)
+    = render partial: 'shared/multiselect', locals: { collection: options_from_collection_for_select(collection, :id, :to_s),
+                                                      textbox_id: 'filter-mediaitems-advertising-textbox',
+                                                      selectbox_id: 'mediaitems-advertising-selectbox',
+                                                      size: [collection.count, 15].min }
   .col-sm-3
-    = label_tag(f.object.playlist_items_advertising.human_attribute_name(:begin_time))
+    = label_for_input(f, :playlist_items_advertising, :begin_time)
     = text_field_tag 'mediaitems-advertising-begin_time-textbox', '', class: 'form-control datetime-picker-time'
 
-    = label_tag(f.object.playlist_items_advertising.human_attribute_name(:end_time))
+    = label_for_input(f, :playlist_items_advertising, :end_time)
     = text_field_tag 'mediaitems-advertising-end_time-textbox', '', class: 'form-control datetime-picker-time'
 
-    = label_tag(f.object.playlist_items_advertising.human_attribute_name(:begin_date))
+    = label_for_input(f, :playlist_items_advertising, :begin_date)
     = text_field_tag 'mediaitems-advertising-begin_date-textbox', '', class: 'form-control datetime-picker-date'
 
-    = label_tag(f.object.playlist_items_advertising.human_attribute_name(:end_date))
+    = label_for_input(f, :playlist_items_advertising, :end_date)
     = text_field_tag 'mediaitems-advertising-end_date-textbox', '', class: 'form-control datetime-picker-date'
 
-    = label_tag(f.object.playlist_items_advertising.human_attribute_name(:playbacks_per_day))
+    = label_for_input(f, :playlist_items_advertising, :playbacks_per_day)
     = number_field_tag 'mediaitems-advertising-playbacks_per_day-textbox', 1, min: 1, step: 1, class: 'form-control'
 
-%span.btn.btn-success{ id: 'mediaitems-advertising-add-multiple-button', role: 'button' }= icon_text('plus', MediaItem.human_enum_name(:advertising))
+%span.btn.btn-success{ id: 'mediaitems-advertising-add-multiple-button', role: 'button' }= icon_text('plus', advertising_title)

@@ -27,7 +27,7 @@ Style/ClassAndModuleChildren:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 162
+  Max: 170
 
 Style/Lambda:
   Enabled: false
