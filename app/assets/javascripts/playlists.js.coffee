@@ -4,9 +4,7 @@ class MultiselectButton
       @_handle_click()
 
   _handle_click: =>
-    for i in $("#mediaitems-#{@type}-selectbox :selected")
-      if not i.value or i.value == ''
-        continue
+    for i in $("#mediaitems-#{@type}-selectbox :selected") when i.value and i.value isnt ''
       (new CurrentInputHandler(@type, 'media_item_id')).call(i.value)
       (new CurrentInputHandler(@type, 'media_item')).call(i.text)
 
