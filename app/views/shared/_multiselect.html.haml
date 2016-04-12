@@ -2,9 +2,6 @@
 = select_tag selectbox_id, collection, multiple: true, size: (defined?(size) ? size : 12), class: 'form-control'
 
 :javascript
-  $(document).ready(function() {
-    return $("##{selectbox_id}").filterByText($("##{textbox_id}"), true);
-  });
-  $(document).on('page:load', function() {
+  $(document).on('turbolinks:load', function() {
     return $("##{selectbox_id}").filterByText($("##{textbox_id}"), true);
   });

@@ -83,5 +83,4 @@ ready = ->
   setup_multiselect()
   setup_shuffle_checkbox()
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+$(document).on('turbolinks:load', ready)
