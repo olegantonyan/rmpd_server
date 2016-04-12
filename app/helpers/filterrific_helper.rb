@@ -27,7 +27,7 @@ module FilterrificHelper
 
   def filter_form_select(f, attr, options = {})
     id = "select-#{attr}"
-    lbl = label_by_attr(attr, options)
+    lbl = LabelByAttr.call(attr, options)
     capture do
       concat(content_tag(:div, class: 'row') do
         concat(content_tag(:div, class: 'col-sm-2') do
@@ -42,7 +42,7 @@ module FilterrificHelper
   end
 
   def filter_form_datetime(f, attr, options = {})
-    lbl = label_by_attr(attr, options)
+    lbl = LabelByAttr.call(attr, options)
     id = "datetime-picker-#{attr}"
     capture do
       concat(content_tag(:div, class: 'row') do
@@ -57,7 +57,9 @@ module FilterrificHelper
     end
   end
 
-  def label_by_attr(attr, options = {})
-    options.fetch(:label) { t("activerecord.models.#{attr.to_s.sub(/^with_/, '').sub(/w*_id/, '')}.one", default: attr.to_s) }
+  class LabelByAttr
+    def self.call(attr, options = {})
+      options.fetch(:label) { I18n.t("activerecord.models.#{attr.to_s.sub(/^with_/, '').sub(/w*_id/, '')}.one", default: attr.to_s) }
+    end
   end
 end

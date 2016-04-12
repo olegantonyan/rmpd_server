@@ -12,7 +12,7 @@ module UiHelper
     end
   end
 
-  def attr_value(object, attr)
+  def attr_value(object, attr) # private
     if attr.is_a?(Symbol) || attr.is_a?(String)
       object.public_send(attr)
     else
