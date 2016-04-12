@@ -25,5 +25,10 @@ module RmpdServer
     # To silence this deprecation warning, add the following:
     #     config.active_record.time_zone_aware_types << :time
     config.active_record.time_zone_aware_types = [:datetime]
+
+    # bug with CSRF
+    # http://stackoverflow.com/questions/36112939/rails-5-0-0beta3-actioncontrollerinvalidauthenticitytoken-in-development
+    # https://github.com/rails/rails/issues/21948
+    config.action_dispatch.default_headers.merge!('Cache-Control' => 'no-store, no-cache')
   end
 end
