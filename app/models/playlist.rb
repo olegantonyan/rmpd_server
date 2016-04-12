@@ -1,6 +1,4 @@
 class Playlist < ApplicationRecord
-  include ValidatesHasManyWithErrorMessages
-
   has_paper_trail
 
   with_options inverse_of: :playlist do |a|
@@ -27,7 +25,6 @@ class Playlist < ApplicationRecord
     validates :playlist_items
   end
   validates :description, length: { maximum: 512 }
-  validates_has_many_with_error_messages :playlist_items
   validate :overlapped_schedule
 
   filterrific(available_filters: %i(search_query with_company_id))
