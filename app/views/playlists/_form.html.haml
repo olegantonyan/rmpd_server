@@ -10,13 +10,13 @@
     .panel-body
       %table.table.table-condensed
         %tr
-          %th= label_for_input(f, :playlist_items_background, :position)
+          %th.numeric= label_for_input(f, :playlist_items_background, :position)
           %th= label_for_input(f, :playlist_items_background, :media_item)
-          %th= label_for_input(f, :playlist_items_background, :begin_time)
-          %th= label_for_input(f, :playlist_items_background, :end_time)
-          %th= label_for_input(f, :playlist_items_background, :begin_date)
-          %th= label_for_input(f, :playlist_items_background, :end_date)
-          %th= ''
+          %th.datetime= label_for_input(f, :playlist_items_background, :begin_time)
+          %th.datetime= label_for_input(f, :playlist_items_background, :end_time)
+          %th.datetime= label_for_input(f, :playlist_items_background, :begin_date)
+          %th.datetime= label_for_input(f, :playlist_items_background, :end_date)
+          %th.controls= ''
         = f.nested_fields_for :playlist_items_background, wrapper_tag: :tr do |ff|
           %td= ff.input :position, as: :integer, label: false, input_html: { class: 'playlist_item_background-position' }
           %td= input_for_media_item(ff)
@@ -35,12 +35,12 @@
       %table.table.table-condensed
         %tr
           %th= label_for_input(f, :playlist_items_advertising, :media_item)
-          %th= label_for_input(f, :playlist_items_advertising, :begin_time)
-          %th= label_for_input(f, :playlist_items_advertising, :end_time)
-          %th= label_for_input(f, :playlist_items_advertising, :playbacks_per_day)
-          %th= label_for_input(f, :playlist_items_advertising, :begin_date)
-          %th= label_for_input(f, :playlist_items_advertising, :end_date)
-          %th= ''
+          %th.datetime= label_for_input(f, :playlist_items_advertising, :begin_time)
+          %th.datetime= label_for_input(f, :playlist_items_advertising, :end_time)
+          %th.numeric= label_for_input(f, :playlist_items_advertising, :playbacks_per_day)
+          %th.datetime= label_for_input(f, :playlist_items_advertising, :begin_date)
+          %th.datetime= label_for_input(f, :playlist_items_advertising, :end_date)
+          %th.controls= ''
         = f.nested_fields_for :playlist_items_advertising, wrapper_tag: :tr do |ff|
           %td= input_for_media_item(ff)
           %td= input_for_time(ff, :begin_time)
