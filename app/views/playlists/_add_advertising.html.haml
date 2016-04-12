@@ -1,11 +1,11 @@
 %div{style: 'display: none'}
-  = text_field_tag 'current-advertising-media_item'
-  = text_field_tag 'current-advertising-media_item_id'
-  = text_field_tag 'current-advertising-begin_time'
-  = text_field_tag 'current-advertising-end_time'
-  = text_field_tag 'current-advertising-begin_date'
-  = text_field_tag 'current-advertising-end_date'
-  = text_field_tag 'current-advertising-playbacks_per_day'
+  = text_field_tag 'current-advertising-media_item', ''
+  = text_field_tag 'current-advertising-media_item_id', ''
+  = text_field_tag 'current-advertising-begin_time', ''
+  = text_field_tag 'current-advertising-end_time', ''
+  = text_field_tag 'current-advertising-begin_date', ''
+  = text_field_tag 'current-advertising-end_date', ''
+  = text_field_tag 'current-advertising-playbacks_per_day', ''
 
   = f.add_nested_fields_link :playlist_items_advertising, '', id: 'add-nested-advertising'
 

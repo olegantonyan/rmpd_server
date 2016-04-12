@@ -1,10 +1,10 @@
 %div{style: 'display: none'}
-  = text_field_tag 'current-background-media_item'
-  = text_field_tag 'current-background-media_item_id'
-  = text_field_tag 'current-background-begin_time'
-  = text_field_tag 'current-background-end_time'
-  = text_field_tag 'current-background-begin_date'
-  = text_field_tag 'current-background-end_date'
+  = text_field_tag 'current-background-media_item', ''
+  = text_field_tag 'current-background-media_item_id', ''
+  = text_field_tag 'current-background-begin_time', ''
+  = text_field_tag 'current-background-end_time', ''
+  = text_field_tag 'current-background-begin_date', ''
+  = text_field_tag 'current-background-end_date', ''
 
   = f.add_nested_fields_link :playlist_items_background, '', id: 'add-nested-background'
 
