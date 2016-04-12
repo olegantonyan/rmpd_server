@@ -7,15 +7,15 @@ class ApplicationPolicy
   end
 
   def index?
-    user.root?
+    user&.root?
   end
 
   def show?
-    user.root?
+    user&.root?
   end
 
   def create?
-    user.root?
+    user&.root?
   end
 
   def new?
@@ -23,7 +23,7 @@ class ApplicationPolicy
   end
 
   def update?
-    user.root?
+    user&.root?
   end
 
   def edit?
@@ -31,7 +31,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    user.root?
+    user&.root?
   end
 
   def scope
