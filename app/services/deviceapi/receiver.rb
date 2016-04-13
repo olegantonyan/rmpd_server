@@ -2,6 +2,7 @@ module Deviceapi::Receiver
   def receive_from_device(device, data, user_agent, sequence_number)
     prepare_update_device_status(device, data)
     notify_status(device)
+    save_device_status(device) # prevent possible duplication of notification. in case of fast events received and multithereaded server
     write_device_log(device, data, user_agent)
     incomming_command_object(device, data, sequence_number).call
     save_device_status(device)
@@ -37,7 +38,7 @@ module Deviceapi::Receiver
   end
 
   def save_device_status(device)
-    device.device_status.save
+    device.device_status.save if device.device_status.changed?
   end
 
   def write_device_log(device, logdata, user_agent)
