@@ -7,12 +7,6 @@ GIT
       rails (>= 3.1.0)
 
 GIT
-  remote: git://github.com/olegantonyan/initializer_helpers.git
-  revision: caf3301bd487a8b577af7ee72714b14b25166c18
-  specs:
-    initializer_helpers (0.1.1)
-
-GIT
   remote: git://github.com/olegantonyan/nested_form_fields.git
   revision: f44ef567b681a2878f9cc5d4e0107132cd442ad9
   branch: turbolinks5
@@ -443,7 +437,6 @@ DEPENDENCIES
   guard
   guard-rspec
   haml-rails
-  initializer_helpers!
   jquery-rails
   libnotify
   listen
