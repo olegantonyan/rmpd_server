@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
     #   127.0.0.1 application.it
     #   127.0.0.1 application.pl
     # in your /etc/hosts file to try this out locally
-    parsed_locale = request.host.split('.').last
-    I18n.available_locales.map(&:to_s).include?(parsed_locale) ? parsed_locale : nil
+    request.host.split('.').last.presence_in(I18n.available_locales.map(&:to_s))
   end
 end
