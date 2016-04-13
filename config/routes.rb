@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  require 'sidekiq/web'
+  authenticate :user, -> (u) { u.root? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   concern :playlist_assignable do
     resource :playlist_assignment, only: [:update]
   end

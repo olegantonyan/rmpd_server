@@ -22,6 +22,15 @@ GIT
       jquery-rails
       rails (>= 3.2.0)
 
+GIT
+  remote: git://github.com/sinatra/sinatra.git
+  revision: 4c7d38eb1b2cc02ce51029f28e0c3c34ca12ccfd
+  specs:
+    sinatra (2.0.0.pre.alpha)
+      rack (= 2.0.0.alpha)
+      rack-protection (~> 1.5)
+      tilt (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -250,6 +259,8 @@ GEM
       activesupport (>= 3.0.0)
     rack (2.0.0.alpha)
       json
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.0.beta3)
@@ -455,6 +466,7 @@ DEPENDENCIES
   select2-rails
   sidekiq
   simple_form
+  sinatra!
   slack-notifier
   super_awesome_print
   therubyracer
