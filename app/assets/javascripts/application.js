@@ -19,6 +19,7 @@
 //= require select2_locale_ru
 //= require filterrific/filterrific-jquery
 //= require moment
+//= require moment/ru
 //= require bootstrap-datetimepicker
 //= require filterable_select
 //= require_tree .

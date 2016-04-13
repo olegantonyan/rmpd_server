@@ -66,7 +66,7 @@ setup_multiselect = ->
 
 setup_datetimeppicker = ->
   $('.datetime-picker-time').datetimepicker(format: 'HH:mm:ss')
-  $('.datetime-picker-date').datetimepicker(format: 'DD.MM.YYYY')
+  $('.datetime-picker-date').datetimepicker(format: 'DD.MM.YYYY', locale: I18n?.locale || 'en')
 
 
 setup_shuffle_checkbox = ->

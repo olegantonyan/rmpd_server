@@ -1,14 +1,20 @@
 !!!
 %html
   %head
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
-    %title= app_title + (content_for?(:page_title) ? " | " + yield(:page_title) : "")
-    %meta{:content => content_for?(:description) ? yield(:description) : "App_Name", :name => "description"}
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1'}
+    %title= app_title + (content_for?(:page_title) ? ' | ' + yield(:page_title) : '')
+    %meta{content: content_for?(:description) ? yield(:description) : 'App_Name', name: 'description'}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = favicon_link_tag 'favicon.ico'
     = csrf_meta_tags
     = yield(:head)
+    :javascript
+      if(!window.I18n) {
+        window.I18n = {};
+      };
+      window.I18n.locale = "#{I18n.locale}";
+
   %body
     #main{:role => "main"}
       = render 'layouts/navbar'
