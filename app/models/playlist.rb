@@ -2,13 +2,13 @@ class Playlist < ApplicationRecord
   has_paper_trail
 
   with_options inverse_of: :playlist do |a|
-    a.has_many :playlist_items, -> { order(:position) }, dependent: :destroy, class_name: 'Playlist::Item'
     a.has_many :devices
+    a.with_options foreign_key: :playlist_id, dependent: :destroy do |aa|
+      aa.has_many :playlist_items_background, -> { background.order(:position) }, class_name: 'Playlist::Item::Background'
+      aa.has_many :playlist_items_advertising, -> { advertising }, class_name: 'Playlist::Item::Advertising'
+    end
   end
-  with_options foreign_key: :playlist_id do |a|
-    a.has_many :playlist_items_background, -> { background.order(:position) }, class_name: 'Playlist::Item::Background'
-    a.has_many :playlist_items_advertising, -> { advertising }, class_name: 'Playlist::Item::Advertising'
-  end
+  has_many :playlist_items, class_name: 'Playlist::Item'
   has_many :media_items, -> { joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position') },
            through: :playlist_items
   belongs_to :company, inverse_of: :playlists
@@ -20,12 +20,9 @@ class Playlist < ApplicationRecord
 
   mount_uploader :file, PlaylistFileUploader
 
-  with_options presence: true do
-    validates :name, length: { maximum: 128 }
-    validates :playlist_items
-  end
+  validates :name, presence: true, length: { maximum: 128 }
   validates :description, length: { maximum: 512 }
-  validate :overlapped_schedule
+  # validate :overlapped_schedule
 
   filterrific(available_filters: %i(search_query with_company_id))
 
@@ -35,8 +32,10 @@ class Playlist < ApplicationRecord
   }
   scope :with_company_id, -> (companies_ids) { where(company_id: [*companies_ids]) }
 
-  accepts_nested_attributes_for :playlist_items_background, allow_destroy: true, reject_if: :all_blank
-  accepts_nested_attributes_for :playlist_items_advertising, allow_destroy: true, reject_if: :all_blank
+  with_options allow_destroy: true, reject_if: :all_blank do
+    accepts_nested_attributes_for :playlist_items_background
+    accepts_nested_attributes_for :playlist_items_advertising
+  end
 
   def to_s
     (description.blank? ? name : "#{name} (#{description})")
@@ -78,7 +77,7 @@ class Playlist < ApplicationRecord
   end
 
   def overlapped_schedule
-    # errors.add(:base, "advertising schedule overlap: #{schedule.overlap.map(&:file_identifier).to_sentence}") if schedule.overlap
+    errors.add(:base, "advertising schedule overlap: #{schedule.overlap.map(&:file_identifier).to_sentence}") if schedule.overlap
   end
 
   def update_schedule

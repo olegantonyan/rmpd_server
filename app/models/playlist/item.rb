@@ -5,8 +5,9 @@ class Playlist::Item < ApplicationRecord
 
   with_options inverse_of: :playlist_items do |a|
     a.belongs_to :media_item
-    a.belongs_to :playlist
   end
+
+  belongs_to :playlist
 
   with_options presence: true do
     validates :media_item

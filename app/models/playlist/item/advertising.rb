@@ -1,4 +1,6 @@
 class Playlist::Item::Advertising < Playlist::Item
+  belongs_to :playlist, inverse_of: :playlist_items_advertising
+
   with_options presence: true do
     validates :begin_time
     validates :end_time

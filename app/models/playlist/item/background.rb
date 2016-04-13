@@ -1,4 +1,6 @@
 class Playlist::Item::Background < Playlist::Item
+  belongs_to :playlist, inverse_of: :playlist_items_background
+
   with_options presence: true do
     validates :begin_time
     validates :end_time
