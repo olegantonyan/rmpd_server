@@ -116,7 +116,7 @@ namespace :deploy do
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
-  after  :finishing,    'delayed_job:restart'
+  after  :finishing,    'sidekiq:restart'
 
   task :put_branch do
     on roles(:app) do
