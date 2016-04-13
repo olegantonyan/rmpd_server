@@ -71,12 +71,12 @@ namespace :deploy do
     end
   end
 
-  namespace :delayed_job do
-    desc 'Commands for Delayed::Job'
+  namespace :sidekiq do
+    desc 'Commands for Sidekiq'
     %w(start stop restart).each do |command|
       task command do
         on roles(:app)  do
-          execute "cd #{release_path} && bin/delayed_job.sh #{command} #{fetch(:rails_env)}"
+          execute "cd #{release_path} && bin/sidekiq.sh #{command} #{fetch(:rails_env)}"
         end
       end
     end

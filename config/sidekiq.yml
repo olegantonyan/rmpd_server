@@ -1,0 +1,7 @@
+---
+:logfile: ./log/sidekiq.log
+:concurrency: 4
+:queues:
+  - default
+  - mailers
+  - carrierwave
