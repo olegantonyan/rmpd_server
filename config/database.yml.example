@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 64
+
+development:
+  <<: *default
+  database: rmpd_server_development
+  username: rmpd_server_development_user
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: rmpd_server_test
+  username: rmpd_server_test_user
+
+production:
+  <<: *default
+  database: rmpd_server_production
+  username: rmpd_server_production_user

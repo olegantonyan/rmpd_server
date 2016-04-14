@@ -1,0 +1,31 @@
+development: &development
+  app_title: SLON-DS Cloud Dev
+  email:
+    host_for_url: localhost
+    port_for_url: 3000
+    address: localhost
+    port: 1025 # use mailcatcher gem
+    sender: cloud.slon-ds@localhost
+    #address: smtp.yandex.ru
+    #port: 587
+    #sender: cloud.slon-ds@yandex.ru
+    #user_name: cloud.slon-ds@yandex.ru
+    #password: e99ee341f4453f03c4680a9e0b78b0d00959d491470d6c99f548fa23faa1404a
+    #authentication: login
+    #enable_starttls_auto: true
+  slack:
+    webhook_url: #https://hooks.slack.com/services/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
+
+test:
+  <<: *development
+
+production:
+  app_title: SLON-DS Cloud
+  email:
+    address: mx.slon-ds.ru
+    port: 25
+    #authentication: plain
+    #user_name: user
+    #password: pass
+    sender: no-reply@slon-ds.ru
+    host_for_url: cloud.slon-ds.ru
