@@ -18,7 +18,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'turbolinks'
-gem 'turbolinks', '~> 5.0.0.beta'
+gem 'turbolinks', '~> 5.0.0.beta2'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -48,7 +48,7 @@ gem 'devise', '~> 4.0.0.rc2'
 gem 'pundit'
 gem 'paper_trail'
 gem 'filterrific', github: 'olegantonyan/filterrific', branch: 'turbolinks5'#, path: "~/projects/github/filterrific"
-gem 'nested_form_fields', github: 'olegantonyan/nested_form_fields', branch: 'turbolinks5'
+gem 'nested_form_fields'
 gem 'carrierwave_backgrounder'
 gem 'pry-rails'
 gem 'super_awesome_print'
