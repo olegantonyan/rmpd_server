@@ -23,16 +23,16 @@
     = label_for_input(f, :playlist_items_advertising, :end_time)
     = text_field_tag 'mediaitems-advertising-end_time-textbox', '', class: 'form-control datetime-picker-time'
 
-    = label_for_input(f, :playlist_items_advertising, :begin_date)
-    = text_field_tag 'mediaitems-advertising-begin_date-textbox', '', class: 'form-control datetime-picker-date'
-
-    = label_for_input(f, :playlist_items_advertising, :end_date)
-    = text_field_tag 'mediaitems-advertising-end_date-textbox', '', class: 'form-control datetime-picker-date'
-
     .well
       = label_for_input(f, :playlist_items_advertising, :playbacks_per_day)
       = number_field_tag 'mediaitems-advertising-playbacks_per_day-textbox', 1, min: 1, step: 1, class: 'form-control'
       = label_for_input(f, :playlist_items_advertising, :playbacks_per_hour)
       = number_field_tag 'mediaitems-advertising-playbacks_per_hour-textbox', 1, min: 1, step: 1, class: 'form-control'
+
+    = label_for_input(f, :playlist_items_advertising, :begin_date)
+    = text_field_tag 'mediaitems-advertising-begin_date-textbox', '', class: 'form-control datetime-picker-date'
+
+    = label_for_input(f, :playlist_items_advertising, :end_date)
+    = text_field_tag 'mediaitems-advertising-end_date-textbox', '', class: 'form-control datetime-picker-date'
 
 %span.btn.btn-success{ id: 'mediaitems-advertising-add-multiple-button', role: 'button' }= icon_text('plus', advertising_title)
