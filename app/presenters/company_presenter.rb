@@ -1,9 +1,9 @@
 class CompanyPresenter < BasePresenter
-  def users
-    super.map(&:to_s).to_sentence
-  end
-
   def devices
     h.collection_links(super, :name, :device_path)
+  end
+
+  def users
+    h.collection_links(super, :to_s, :user_path)
   end
 end

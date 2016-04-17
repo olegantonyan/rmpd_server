@@ -1,0 +1,7 @@
+= page_title(@users)
+
+= render_filter_form do |f|
+  = filter_form_search_query(f)
+  = filter_form_select(f, :with_company_id)
+
+= render 'collection'

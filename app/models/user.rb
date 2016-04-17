@@ -12,11 +12,17 @@ class User < ApplicationRecord
 
   validates :displayed_name, length: { maximum: 130 }
 
-  before_save :set_defaults
+  before_create :set_defaults
 
   scope :available_for_notifications, -> {
     where.not(confirmed_at: nil, allow_notifications: false)
   }
+  scope :search_query, -> (query) {
+    q = "%#{query}%"
+    where('LOWER(email) LIKE LOWER(?) OR LOWER(displayed_name) LIKE LOWER(?)', q, q)
+  }
+  scope :with_company_id, -> (*ids) { joins(:companies).where(companies: { id: [*ids] }) }
+  filterrific(available_filters: %i(search_query with_company_id))
 
   def to_s
     displayed_name || email

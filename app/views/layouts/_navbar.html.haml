@@ -16,6 +16,8 @@
         %li{class: active_class_for('devices')}= link_to icon_link_to('hdd', Device.model_name.human(count: 2)), devices_path
         %li{class: active_class_for('device_groups')}= link_to icon_link_to('tags', Device::Group.model_name.human(count: 2)), device_groups_path
         %li{class: active_class_for('companies')}= link_to icon_text('building', Company.model_name.human(count: 2)), companies_path
+        - if policy(:user).index?
+          %li{class: active_class_for('users')}= link_to icon_text('users', User.model_name.human(count: 2)), users_path
       %ul.nav.navbar-right.nav
         %li
         - if user_signed_in?

@@ -39,11 +39,11 @@ RSpec.describe CompanyPolicy, type: :policy do
     it 'returns only belonging records to company' do
       pundit_policy_scope(create(:user, companies: [company_1]),
                           object_class.all,
-                          object_class.where(title: [company_1.title, object_class.demo.title])
+                          object_class.where(title: [company_1.title])
                           )
       pundit_policy_scope(create(:user, companies: [company_2]),
                           object_class.all,
-                          object_class.where(title: [company_2.title, object_class.demo.title])
+                          object_class.where(title: [company_2.title])
                           )
     end
   end

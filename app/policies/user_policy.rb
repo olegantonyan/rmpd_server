@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def show?
-    super || user == record
+    super || user == record || (user.company_ids & record.company_ids).any?
   end
 
   def update?

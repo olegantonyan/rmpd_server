@@ -1,0 +1,9 @@
+= page_title(@user)
+- user = present(@user)
+
+= render partial: 'shared/show', locals: { object: user,
+  edit_path: edit_user_path(user),
+  destroy_path: user_path(user),
+  attrs: [{attr: :email},
+          {attr: :displayed_name},
+          {attr: :companies} ] }

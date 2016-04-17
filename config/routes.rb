@@ -9,11 +9,11 @@ Rails.application.routes.draw do
   end
 
   concern :playlist_assignable do
-    resource :playlist_assignment, only: [:update]
+    resource :playlist_assignment, only: %i(update)
   end
 
   resources :news_items, path: :news
-  resources :media_items, except: [:edit, :update, :create] do
+  resources :media_items, except: %i(edit update create) do
     collection do
       post :create_multiple
       delete :destroy_multiple
@@ -21,13 +21,14 @@ Rails.application.routes.draw do
   end
   resources :device_groups, concerns: :playlist_assignable
   resources :devices, concerns: :playlist_assignable do
-    resources :device_log_messages, only: [:index]
-    resources :ssh_tunnels, only: [:new, :create]
+    resources :device_log_messages, only: %i(index)
+    resources :ssh_tunnels, only: %i(new create)
   end
   resources :playlists
   resources :companies
+  resources :users, only: %i(index show edit update destroy)
 
-  namespace :deviceapi, defaults: {format: :json} do
-    resources :status, only: [:create]
+  namespace :deviceapi, defaults: { format: :json } do
+    resources :status, only: %i(create)
   end
 end
