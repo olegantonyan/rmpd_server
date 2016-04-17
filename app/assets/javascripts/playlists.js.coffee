@@ -47,6 +47,37 @@ class SetPlaylistItemValues
     input_value.val(value)
 
 
+class PlaybacksPerHour
+  constructor: (@begin_time, @end_time, @prd, @prh) ->
+    $(@prh).change =>
+      hours = @_recalc()
+      @_set_prd(hours)
+
+    $(@prd).change =>
+      hours = @_recalc()
+      @_set_prh(hours)
+
+    $(@end_time).change =>
+      hours = @_recalc()
+      @_set_prh(hours)
+
+    $(@begin_time).change =>
+      hours = @_recalc()
+      @_set_prh(hours)
+
+  _set_prh: (hours) =>
+    $(@prh).val(Math.round(+$(@prd).val() / hours))
+
+  _set_prd: (hours) =>
+    $(@prd).val(hours * +$(@prh).val())
+
+  _recalc: =>
+    end = moment($(@end_time).val(), 'HH:mm:ss')
+    begin = moment($(@begin_time).val(), 'HH:mm:ss')
+    dur = moment.duration(end.diff(begin))
+    Math.round(dur.asHours())
+
+
 $(document).on 'fields_added.nested_form_fields', (event, param) ->
   type = null
   switch param.object_class
@@ -82,5 +113,9 @@ ready = ->
   setup_datetimeppicker()
   setup_multiselect()
   setup_shuffle_checkbox()
+  new PlaybacksPerHour('#mediaitems-advertising-begin_time-textbox',
+                       '#mediaitems-advertising-end_time-textbox',
+                       '#mediaitems-advertising-playbacks_per_day-textbox',
+                       '#mediaitems-advertising-playbacks_per_hour-textbox')
 
 $(document).on('turbolinks:load', ready)

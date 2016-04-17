@@ -20,3 +20,4 @@ ru:
         begin_date: Дата начала
         end_date: Дата окончания
         playbacks_per_day: Воспроизведений в день
+        playbacks_per_hour: Воспроизведений в час
