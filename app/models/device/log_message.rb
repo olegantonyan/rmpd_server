@@ -25,6 +25,10 @@ class Device::LogMessage < ApplicationRecord
     "#{device} | #{command} | #{localtime} | #{message}"
   end
 
+  def self.latest
+    ordered.first
+  end
+
   def self.write!(device, logdata, user_agent)
     create!(device: device,
             localtime: Time.zone.parse(logdata[:localtime]),

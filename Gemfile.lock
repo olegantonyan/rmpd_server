@@ -7,6 +7,12 @@ GIT
       rails (>= 3.1.0)
 
 GIT
+  remote: git://github.com/olegantonyan/initializer_helpers.git
+  revision: caf3301bd487a8b577af7ee72714b14b25166c18
+  specs:
+    initializer_helpers (0.1.1)
+
+GIT
   remote: git://github.com/sinatra/sinatra.git
   revision: 84e76b839b8e356e36397c5395db0fa39a6d5642
   specs:
@@ -431,6 +437,7 @@ DEPENDENCIES
   guard
   guard-rspec
   haml-rails
+  initializer_helpers!
   jquery-rails
   libnotify
   listen

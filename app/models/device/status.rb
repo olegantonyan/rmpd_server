@@ -8,4 +8,8 @@ class Device::Status < ApplicationRecord
   def to_s
     "#{device} #{online ? 'online' : 'offline'}"
   end
+
+  def client_version
+    device.device_log_messages.latest.user_agent
+  end
 end
