@@ -19,7 +19,7 @@
     #main{role: 'main'}
       = render 'layouts/navbar'
       .container-fluid
-        .content{style: 'margin-right: 1em; margin-left: 1em;'}
+        .content#main-content
           .row
             %h1.page-header= yield(:page_title)
             .col-md-12
