@@ -18,9 +18,9 @@
             %span{title: 'Gravatar'}
               = image_tag current_user.gravatar_url, size: "32x32", alt: 'gravatar', class: 'img-rounded'
             %span{title: t('views.shared.my_account', default: 'My account')}
-              = link_to icon_link_to('user', current_user.to_s), edit_user_registration_path, class: 'btn btn-success navbar-btn'
+              = link_to icon_text('user', current_user.to_s), edit_user_registration_path, class: 'btn btn-success navbar-btn'
             %span{title: t('views.shared.logout', default: 'Logout')}
-              = link_to icon_link_to('log-out', ''), destroy_user_session_path, method: :delete, class: 'btn btn-warning navbar-btn'
+              = link_to icon_text('sign-out', ''), destroy_user_session_path, method: :delete, class: 'btn btn-warning navbar-btn'
         - else
-          = link_to icon_link_to('user', t('views.shared.sign_up', default: 'Sign up')), new_user_registration_path, class: 'btn btn-default navbar-btn'
-          = link_to icon_link_to('log-in', t('views.shared.login', default: 'Login')), new_user_session_path, class: 'btn btn-success navbar-btn'
+          = link_to icon_text('user-plus', t('views.shared.sign_up', default: 'Sign up')), new_user_registration_path, class: 'btn btn-default navbar-btn'
+          = link_to icon_text('sign-in', t('views.shared.login', default: 'Login')), new_user_session_path, class: 'btn btn-success navbar-btn'

@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def icon_text(icon, text = '')
-    icon(icon) + ' ' + text
+    icon(icon) + ' ' + text # font-awesome icon()
   end
 
   def flash_class(level)
@@ -27,9 +27,5 @@ module ApplicationHelper
 
   def active_class_for(*controller)
     controller.include?(params[:controller]) ? 'active' : ''
-  end
-
-  def icon_link_to(icon, text)
-    raw("<i class='glyphicon glyphicon-#{icon}'></i> #{text}")
   end
 end
