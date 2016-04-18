@@ -16,7 +16,7 @@
           - columns.each do |column|
             %td= attr_link_show(item, column[:attr], column[:link])
           - if defined?(details_link)
-            - if policy(item).show?
+            - if policy_presenter(item).show?
               %td{class: 'text-right'}= attr_link_show(item, nil, details_link, link_class: 'btn btn-default btn-sm', link_text: icon_text('ellipsis-h'))
             - else
               %td{class: 'text-right'}= icon('ban')
@@ -24,7 +24,7 @@
     - if defined?(destroy_multiple_path)
       = submit_tag t('views.shared.delete_selected', default: 'Delete selected'), data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }, class: 'btn btn-danger'
 
-    - if defined?(new_path) && policy(collection).new?
+    - if defined?(new_path) && policy_presenter(collection).new?
       .pull-right
         = link_to icon_text('plus', t('views.shared.new', default: 'Add new')), new_path, class: 'btn btn-success'
 

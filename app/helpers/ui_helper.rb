@@ -67,4 +67,12 @@ module UiHelper
   def i18n_boolean(arg)
     I18n.t("views.shared.#{arg}", default: arg.to_s)
   end
+
+  def policy_presenter(object)
+    if object.is_a?(BasePresenter)
+      policy(object.model)
+    else
+      policy(object)
+    end
+  end
 end
