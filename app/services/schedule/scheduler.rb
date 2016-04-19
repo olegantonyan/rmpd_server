@@ -9,8 +9,8 @@ class Schedule::Scheduler
     end
   end
 
-  def items_with_times(key = :schedule_seconds, value = nil)
-    items.each_with_object([]) { |e, a| e.public_send(key).each { |ss| a << [ss, value ? e.public_send(value) : e] } }.sort_by(&:first)
+  def items_with_times
+    items.each_with_object([]) { |e, a| e.schedule_seconds.each { |ss| a << [ss, e] } }.sort_by(&:first)
   end
 
   def overlap
@@ -26,7 +26,7 @@ class Schedule::Scheduler
   attr_writer :items
 
   def optimize
-    items_with_times(:schedule_seconds).each_cons(2) do |i|
+    items_with_times.each_cons(2) do |i|
       crnt, nxt = *i
       next unless near?(crnt, nxt)
       shift_time(crnt.second, nxt.second)

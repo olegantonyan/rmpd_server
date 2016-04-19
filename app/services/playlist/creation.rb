@@ -17,8 +17,8 @@ class Playlist::Creation < BaseService
       raise ActiveRecord::RecordInvalid unless playlist.save
       validate_overlapped_schedule
       update_schedule
-      true
     end
+    true
   rescue ActiveRecord::RecordInvalid
     copy_errors(playlist)
     false
