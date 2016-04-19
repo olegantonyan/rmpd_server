@@ -27,7 +27,6 @@ class PlaylistsController < BaseController
   def new
     @playlist = Playlist.new
     authorize @playlist
-    @playlist_items = Playlist::Item.includes(:playlist).all
   end
 
   # GET /playlists/1/edit
@@ -39,14 +38,14 @@ class PlaylistsController < BaseController
   def create
     @playlist = Playlist.new(playlist_params)
     authorize @playlist
-    crud_respond @playlist, success_url: playlists_path
+    crud_respond Playlist::Creation.new(playlist: @playlist), success_url: playlists_path
   end
 
   # PATCH/PUT /playlists/1
   def update
     authorize @playlist
     @playlist.assign_attributes(playlist_params)
-    crud_respond @playlist, success_url: playlist_path(@playlist)
+    crud_respond Playlist::Creation.new(playlist: @playlist), success_url: playlist_path(@playlist)
   end
 
   # DELETE /playlists/1

@@ -11,6 +11,8 @@
           {attr: :media_items_and_size },
           {attr: :devices} ] }
 
+= tag :br
+
 %h4= MediaItem.human_enum_name(:background)
 - playlist_items = present_collection(playlist.playlist_items_background)
 = render partial: 'shared/list', locals: { collection: playlist_items,
