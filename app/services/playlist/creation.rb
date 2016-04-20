@@ -15,8 +15,8 @@ class Playlist::Creation < BaseService
   def save
     ActiveRecord::Base.transaction do
       raise ActiveRecord::RecordInvalid unless playlist.save
-      validate_overlapped_schedule
-      update_schedule
+      # validate_overlapped_schedule
+      # update_schedule
     end
     true
   rescue ActiveRecord::RecordInvalid
