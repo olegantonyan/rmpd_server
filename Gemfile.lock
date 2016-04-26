@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: git://github.com/olegantonyan/will_paginate.git
-  revision: fad961bdc5fbf5d1791cec0560c355b4a9f6b382
+  revision: f178429060d842cebf9269e69017c0b2bbe1b179
   branch: rails5
   specs:
     will_paginate (3.1.0)
