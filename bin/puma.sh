@@ -20,7 +20,7 @@ puma_start()
 {
     echo "Starting puma server"
     mkdir -p tmp/pids
-    RACK_MULTIPART_LIMIT=0 bundle exec puma --config $PUMA_CONFIG_FILE -e $ENVIROMENT --pidfile $PUMA_PID_FILE
+    RACK_MULTIPART_PART_LIMIT=32768 bundle exec puma --config $PUMA_CONFIG_FILE -e $ENVIROMENT --pidfile $PUMA_PID_FILE
 }
 
 puma_stop()
