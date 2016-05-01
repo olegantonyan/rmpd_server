@@ -7,11 +7,6 @@ class Device::LogMessage < ApplicationRecord
     validates :command
     validates :localtime
   end
-  with_options length: { maximum: 32_768 } do
-    validates :user_agent
-    validates :message
-    validates :command
-  end
 
   scope :ordered, -> { order(created_at: :desc) }
   scope :with_since_date, -> (date) { where('date(created_at) >= ?', Date.parse(date.to_s)) }
