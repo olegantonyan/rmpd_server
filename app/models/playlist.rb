@@ -33,6 +33,7 @@ class Playlist < ApplicationRecord
     where('LOWER(name) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)', q, q)
   }
   scope :with_company_id, -> (companies_ids) { where(company_id: [*companies_ids]) }
+  scope :without_device, -> { includes(:devices).where(devices: { playlist_id: nil }) }
 
   def to_s
     (description.blank? ? name : "#{name} (#{description})")

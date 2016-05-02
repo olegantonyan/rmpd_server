@@ -28,6 +28,7 @@ class MediaItem < ApplicationRecord
   scope :with_type, -> (type) { where(type: types[type]) }
   scope :processing, -> { where(file_processing: true) }
   scope :not_processing, -> { where(file_processing: false) }
+  scope :without_playlist, -> { includes(:playlist_items).where(playlist_items: { media_item_id: nil }) }
 
   delegate :path, to: :file, prefix: true
 
