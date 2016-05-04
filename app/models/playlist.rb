@@ -15,7 +15,7 @@ class Playlist < ApplicationRecord
            through: :playlist_items
   belongs_to :company, inverse_of: :playlists
 
-  after_commit :notify_devices_delete, on: :destroy
+  # after_commit :notify_devices_delete, on: :destroy
   after_commit :notify_devices_update, on: %i(create update)
 
   validates :name, presence: true, length: { maximum: 128 }
@@ -53,7 +53,7 @@ class Playlist < ApplicationRecord
     devices.each { |d| d.send_to :update_playlist }
   end
 
-  def notify_devices_delete
-    devices.each { |d| d.send_to :delete_playlist }
-  end
+  # def notify_devices_delete
+  #   devices.each { |d| d.send_to :delete_playlist }
+  # end
 end
