@@ -4,43 +4,35 @@ class MultiselectButton
       @_handle_click()
 
   _handle_click: =>
-    for i in $("#mediaitems-#{@type}-selectbox :selected")
-      (new CurrentInputHandler(@type, 'media_item_id')).call(i.value)
-      (new CurrentInputHandler(@type, 'media_item')).call(i.text)
+    items = $("#mediaitems-#{@type}-selectbox :selected").toArray()
 
-      for j in ['begin_time', 'end_time', 'begin_date', 'end_date', 'playbacks_per_day']
-        v = $("#mediaitems-#{@type}-#{j}-textbox").val()
-        (new CurrentInputHandler(@type, j)).call(v)
+    next_item = (i) =>
+      if i
+        @_handle_single_item(i)
+        setTimeout ->
+          next_item(items.pop())
+        , 4
 
-      @_click_add_nested_button()
+    next_item(items.pop())
 
-  _click_add_nested_button: =>
-    $("#add-nested-#{@type}").click()
+  _handle_single_item: (i) =>
+    data =
+      media_item_id: i.value
+      media_item:    i.text
+    for j in ['begin_time', 'end_time', 'begin_date', 'end_date', 'playbacks_per_day']
+      data[j] = $("#mediaitems-#{@type}-#{j}-textbox").val()
 
-
-class CurrentInputHandler
-  constructor: (@type, @attr) ->
-  call: (value) =>
-    (new SetCurrentValue("current-#{@type}-#{@attr}")).call(value)
-
-
-class SetCurrentValue
-  constructor: (@id) ->
-  call: (value) =>
-    $("##{@id}").val(value)
+    $("#add-nested-#{@type}").trigger('click', [data])
 
 
 class SetPlaylistItemValues
-  constructor: (@type, @added_index) ->
+  constructor: (@type, @added_index, @data) ->
   call: =>
     for i in ['media_item', 'media_item_id', 'begin_time', 'end_time', 'begin_date', 'end_date', 'playbacks_per_day']
-      val = @_get_attribute_value(i)
+      val = @data[i]
       @_set_attribute_value(i, val)
     if @type == 'background'
       @_set_attribute_value('position', @added_index)
-
-  _get_attribute_value: (attr) =>
-    $("#current-#{@type}-#{attr}").val()
 
   _set_attribute_value: (attr, value) =>
     input_value = $("#playlist_playlist_items_#{@type}_attributes_#{@added_index}_#{attr}")
@@ -85,7 +77,7 @@ $(document).on 'fields_added.nested_form_fields', (event, param) ->
       type = 'background'
     when 'playlist_items_advertising'
       type = 'advertising'
-  (new SetPlaylistItemValues(type, param.added_index)).call() if type
+  (new SetPlaylistItemValues(type, param.added_index, param.additional_data)).call() if type
   setup_datetimeppicker()
   setup_shuffle_checkbox()
 
