@@ -1,0 +1,13 @@
+= simple_form_for(resource, url: create_multiple_media_items_path, html: { id: 'ajax-fileupload' }) do |f|
+  = f.input :description, as: :string, input_html: { value: f.object.description.blank? ? Date.current.to_formatted_s(:rmpd_custom_date) : f.object.description }
+  = f.input :files, as: :file, input_html: { multiple: true }
+  = f.input :type, collection: MediaItem.types, label_method: -> (i) { MediaItem.human_enum_name(i.first) }, value_method: -> (i) { i.first }, include_blank: false, as: :radio_buttons
+  = render partial: 'shared/select_company_form', locals: { f: f }
+
+.button.btn.btn-default.hidden#submit-ajax-fileupload= icon_text('cloud-upload', t('views.media_items.upload_multiple', default: 'Upload mediafiles'))
+.pull-right
+  .button.btn.btn-danger.btn-xs.hidden#cancel-ajax-fileupload= icon_text('ban', t('views.media_items.cancel_upload', default: 'Cancel upload'))
+.progress
+  .progress-bar#progressall-ajax-fileupload{'role' => 'progressbar', 'aria-valuenow' => '0', 'aria-valuemin' => '0', 'aria-valuemax' => '100', 'style' => 'width: 0%'}
+    0%
+%ul#uploaded-ajax-fileupload

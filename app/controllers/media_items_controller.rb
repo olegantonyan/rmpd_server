@@ -30,12 +30,22 @@ class MediaItemsController < BaseController
     authorize @media_item_multiple
   end
 
-  # POST /media_items/create_multiple
+  # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
   def create_multiple
     @media_item_multiple = MediaItem::CreateMultiple.new(media_item_create_multiple_params)
     authorize @media_item_multiple, :create?
-    crud_respond @media_item_multiple
+    respond_to do |format|
+      format.json do
+        if @media_item_multiple.save
+          render json: {}
+        else
+          render json: { error: @media_item_multiple.errors.full_messages.to_sentence, files: @media_item_multiple.files.map(&:original_filename) }, status: 422
+        end
+      end
+      format.html { crud_respond(@media_item_multiple) }
+    end
   end
+  # rubocop: enable Metrics/MethodLength, Metrics/AbcSize
 
   # DELETE /media_items/1
   def destroy
@@ -47,6 +57,10 @@ class MediaItemsController < BaseController
     media_items = MediaItem.find(params[:media_item_ids])
     media_items.each { |m| authorize m, :destroy? }
     crud_respond MediaItem::DestroyMultiple.new(media_items: media_items)
+  end
+
+  def ajax_redirect
+    redirect_to media_items_path
   end
 
   private

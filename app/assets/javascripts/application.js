@@ -22,6 +22,7 @@
 //= require moment/ru
 //= require bootstrap-datetimepicker
 //= require filterable_select
+//= require jquery-fileupload/basic
 //= require_tree .
 
 $(document).on('turbolinks:load', function() { Turbolinks.clearCache(); })

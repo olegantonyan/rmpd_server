@@ -7,6 +7,12 @@ class MediaItem::CreateMultiple < BaseService
 
   validates :files, presence: true
 
+  def initialize(*args)
+    super
+    self.description ||= ''
+    self.type ||= MediaItem.types.key(0)
+  end
+
   def save
     return false unless valid?
     ActiveRecord::Base.transaction do
@@ -23,6 +29,10 @@ class MediaItem::CreateMultiple < BaseService
   private
 
   def type_indifferent
-    MediaItem.types.key(type.to_i) || type
+    if type.is_a? String
+      type
+    else
+      MediaItem.types.key(type.to_i)
+    end
   end
 end

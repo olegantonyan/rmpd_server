@@ -66,6 +66,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 gem 'sidekiq'
 gem 'sinatra', github: 'sinatra/sinatra', require: false
 gem 'initializer_helpers', github: 'olegantonyan/initializer_helpers'
+gem 'jquery-fileupload-rails'
 
 group :development, :test do
   gem 'bullet'
