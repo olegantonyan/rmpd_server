@@ -59,10 +59,6 @@ class MediaItemsController < BaseController
     crud_respond MediaItem::DestroyMultiple.new(media_items: media_items)
   end
 
-  def ajax_redirect
-    redirect_to media_items_path
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
