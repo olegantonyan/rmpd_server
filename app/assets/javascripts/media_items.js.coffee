@@ -5,7 +5,7 @@ setup_ajax_fileupload = ->
   $('#submit-ajax-fileupload').click ->
     $('#submit-ajax-fileupload').addClass('hidden')
     $('#cancel-ajax-fileupload').removeClass('hidden')
-    $("#ajax-fileupload input").prop("disabled", true)
+    $("#ajax-fileupload input").prop('readonly', true)
     xhrs = []
     for file in pending_files
       xhr = file.submit()
@@ -44,7 +44,7 @@ setup_ajax_fileupload = ->
 
 set_upload_done = ->
   $('#cancel-ajax-fileupload').addClass('hidden')
-  $("#ajax-fileupload input").prop('disabled', false)
+  $("#ajax-fileupload input").prop('readonly', false)
 
 set_progress = (progress) ->
   pgbar = $('#progressall-ajax-fileupload')
