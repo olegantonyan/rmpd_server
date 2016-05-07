@@ -10,10 +10,10 @@ class MultiselectButton
       return unless i
       @_handle_single_item(i)
       setTimeout ->
-        next_item(items.pop())
+        next_item(items.shift())
       , 4
 
-    next_item(items.pop())
+    next_item(items.shift())
 
   _handle_single_item: (i) =>
     data =
