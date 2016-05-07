@@ -43,6 +43,7 @@ RSpec.configure do |config|
     load "#{Rails.root}/db/seeds.rb"
   end
 
+# rubocop: disable Style/BlockComments
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin

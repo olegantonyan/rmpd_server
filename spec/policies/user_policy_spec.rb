@@ -20,12 +20,12 @@ RSpec.describe UserPolicy, type: :policy do
 
   context 'for everyone else' do
     let(:object) { create(:user) }
-    let(:user) {
+    let(:user) do
       u = create(:user)
       u.companies = []
       u.save!
       u
-    }
+    end
 
     pundit_forbid(*%i(index create new edit update destroy show))
   end

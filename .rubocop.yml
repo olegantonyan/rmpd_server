@@ -10,7 +10,6 @@ AllCops:
     - 'config/**/*'
     - 'script/**/*'
     - 'bin/**/*'
-    - 'spec/**/*'
 
   TargetRubyVersion: 2.3
 

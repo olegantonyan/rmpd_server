@@ -40,11 +40,11 @@ RSpec.describe CompanyPolicy, type: :policy do
       pundit_policy_scope(create(:user, companies: [company_1]),
                           object_class.all,
                           object_class.where(title: [company_1.title])
-                          )
+                         )
       pundit_policy_scope(create(:user, companies: [company_2]),
                           object_class.all,
                           object_class.where(title: [company_2.title])
-                          )
+                         )
     end
   end
 end

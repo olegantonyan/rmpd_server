@@ -41,8 +41,8 @@ RSpec.describe Device::GroupPolicy, type: :policy do
     end
 
     it 'returns only belonging records to company' do
-      pundit_policy_scope(create(:user, companies: [device_1.company]), object_class.all, object_class.joins(:devices).where(devices: { company: device_1.company } ))
-      pundit_policy_scope(create(:user, companies: [device_2.company]), object_class.all, object_class.joins(:devices).where(devices: { company: device_2.company } ))
+      pundit_policy_scope(create(:user, companies: [device_1.company]), object_class.all, object_class.joins(:devices).where(devices: { company: device_1.company }))
+      pundit_policy_scope(create(:user, companies: [device_2.company]), object_class.all, object_class.joins(:devices).where(devices: { company: device_2.company }))
     end
   end
 end
