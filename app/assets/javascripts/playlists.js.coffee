@@ -7,11 +7,11 @@ class MultiselectButton
     items = $("#mediaitems-#{@type}-selectbox :selected").toArray()
 
     next_item = (i) =>
-      if i
-        @_handle_single_item(i)
-        setTimeout ->
-          next_item(items.pop())
-        , 4
+      return unless i
+      @_handle_single_item(i)
+      setTimeout ->
+        next_item(items.pop())
+      , 4
 
     next_item(items.pop())
 
