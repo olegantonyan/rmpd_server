@@ -13,16 +13,6 @@ GIT
     initializer_helpers (0.1.1)
 
 GIT
-  remote: git://github.com/olegantonyan/nested_form_fields.git
-  revision: 770a784fa12e57ad8e206b1a5c67ce15ca47a001
-  branch: additional_data_event
-  specs:
-    nested_form_fields (0.7.7)
-      coffee-rails (>= 3.2.1)
-      jquery-rails
-      rails (>= 3.2.0)
-
-GIT
   remote: git://github.com/olegantonyan/will_paginate.git
   revision: 6109360ba604edf080aa5ac56536ed81ab537694
   branch: rails5
@@ -242,6 +232,10 @@ GEM
     mustermann (0.4.0)
       tool (~> 0.2)
     nenv (0.3.0)
+    nested_form_fields (0.7.8)
+      coffee-rails (>= 3.2.1)
+      jquery-rails
+      rails (>= 3.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.1.1)
@@ -453,7 +447,7 @@ DEPENDENCIES
   libnotify
   listen
   momentjs-rails (>= 2.9.0)
-  nested_form_fields!
+  nested_form_fields
   paper_trail
   pg
   pry-rails
