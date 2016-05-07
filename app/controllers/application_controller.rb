@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    I18n.locale = extract_locale_from_tld || I18n.default_locale
+    loc = extract_locale_from_tld
+    I18n.locale = loc if loc
   end
 
   def extract_locale_from_tld

@@ -41,7 +41,7 @@ class MediaItem < ApplicationRecord
   end
 
   def self.human_enum_name(enum_key)
-    I18n.t("activerecord.attributes.media_item.types.#{enum_key}")
+    I18n.t("activerecord.attributes.media_item.types.#{enum_key}", default: enum_key.to_s.titleize)
   end
 
   def duration
