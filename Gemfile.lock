@@ -29,6 +29,12 @@ GIT
       rack-protection (~> 1.5)
       tilt (~> 2.0)
 
+GIT
+  remote: git@bitbucket.org:antlabs_dev/rmpd_adschedule.git
+  revision: 0d59d4ad6fd4210cbb06b2837f27a22087856f10
+  specs:
+    rmpd_adschedule (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -456,6 +462,7 @@ DEPENDENCIES
   rails (>= 5.0.0.beta3, < 5.1)
   rails-erd
   rails-i18n (>= 5.0.0.beta3, < 5.1)
+  rmpd_adschedule!
   rollbar (~> 2.8.1)
   rspec-rails
   rubocop

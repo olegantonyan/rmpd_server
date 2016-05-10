@@ -67,6 +67,7 @@ gem 'sidekiq'
 gem 'sinatra', github: 'sinatra/sinatra', require: false
 gem 'initializer_helpers', github: 'olegantonyan/initializer_helpers'
 gem 'jquery-fileupload-rails'
+gem 'rmpd_adschedule', git: 'git@bitbucket.org:antlabs_dev/rmpd_adschedule.git'
 
 group :development, :test do
   gem 'bullet'
