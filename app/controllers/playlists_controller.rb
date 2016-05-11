@@ -58,7 +58,7 @@ class PlaylistsController < BaseController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_playlist
-    @playlist = Playlist.find(params[:id])
+    @playlist = Playlist.includes(playlist_items_advertising: { media_item: :company }, playlist_items_background: { media_item: :company }).find(params[:id])
   end
 
   def playlist_params

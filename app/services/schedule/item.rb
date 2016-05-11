@@ -1,52 +1,22 @@
-class Schedule::Item < Delegator
-  attr_reader :playlist_item
-  attr_accessor :time_shift
-  alias __getobj__ playlist_item
+class Schedule::Item
+  attr_reader :scheduled_item, :id, :begin_date, :end_date, :overlap
 
-  def initialize(playlist_item)
-    raise ArgumentError, 'expected advertising playlist item' unless playlist_item&.advertising?
-    self.playlist_item = playlist_item
-    self.time_shift = 0
+  delegate :file_identifier, to: :playlist_item
+
+  def initialize(scheduled_item)
+    @scheduled_item = scheduled_item
+    @id = scheduled_item.id
+    @begin_date = scheduled_item.begin_date
+    @end_date = scheduled_item.end_date
+    @overlap = scheduled_item.overlap
+    @schedule = scheduled_item.schedule
   end
 
-  def schedule_seconds
-    return [] if playbacks_per_day.zero?
-    (0..playbacks_per_day).map { |i| begin_time_seconds + time_shift + i * period_seconds }
+  def playlist_item
+    @_playlist_item ||= Playlist::Item::Advertising.find(id)
   end
 
-  def schedule_times
-    schedule_seconds.map { |i| Time.at(i).utc }
+  def schedule
+    @schedule.map { |i| Time.zone.parse(i).utc }
   end
-
-  def begin_time_seconds
-    begin_time.seconds_since_midnight
-  end
-
-  def end_time_seconds
-    end_time.seconds_since_midnight
-  end
-
-  def period_seconds
-    (end_time_seconds - begin_time_seconds) / (playbacks_per_day + 1)
-  end
-
-  def appropriate_at?(time_seconds)
-    begin_time_seconds <= time_seconds && time_seconds <= end_time_seconds
-  end
-
-  def to_s
-    "#{file_identifier} (#{schedule_times.join(', ')})"
-  end
-
-  def max_positive_allowed_shift
-    end_time_seconds - schedule_seconds.last
-  end
-
-  def max_negative_allowed_shift
-    schedule_seconds.first - begin_time_seconds
-  end
-
-  private
-
-  attr_writer :playlist_item
 end

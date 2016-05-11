@@ -1,3 +1,6 @@
+require 'schedule/scheduler'
+require 'schedule/item'
+
 class Playlist < ApplicationRecord
   include PlaylistLegacy
 

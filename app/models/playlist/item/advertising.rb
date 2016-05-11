@@ -11,6 +11,8 @@ class Playlist::Item::Advertising < Playlist::Item
   validate :media_item_type
   validate :fit_to_time_period
 
+  serialize :schedule
+
   private
 
   def media_item_type
@@ -29,6 +31,6 @@ class Playlist::Item::Advertising < Playlist::Item
   end
 
   def total_time
-    end_time - begin_time
+    end_time.to_time.utc - begin_time.to_time.utc
   end
 end

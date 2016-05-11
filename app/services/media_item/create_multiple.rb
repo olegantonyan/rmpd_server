@@ -3,7 +3,8 @@ class MediaItem::CreateMultiple < BaseService
     MediaItemPolicy
   end
 
-  attr_accessor :description, :company_id, :type, :files
+  attr_accessor :description, :company_id, :type
+  attr_reader :files
 
   validates :files, presence: true
 
@@ -24,6 +25,10 @@ class MediaItem::CreateMultiple < BaseService
   rescue ActiveRecord::RecordInvalid => e
     errors.add(:base, e.to_s)
     false
+  end
+
+  def files=(arg)
+    @files = arg.reject(&:blank?)
   end
 
   private

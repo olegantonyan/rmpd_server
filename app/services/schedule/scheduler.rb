@@ -1,53 +1,26 @@
 class Schedule::Scheduler
-  attr_reader :items
+  attr_reader :items, :prepared_items
 
-  def initialize(itms)
-    self.items = itms.select(&:advertising?).map { |i| Schedule::Item.new(i) }
-    1.upto(items.size * 2) do
-      optimize
-      break unless overlap
+  def initialize(playlist_items)
+    self.prepared_items = playlist_items.map do |i|
+      raise ArgumentError, "expected advertising items only (#{i} is not)" unless i.advertising?
+      RmpdAdschedule::Item.new(i.id, i.begin_date, i.end_date, i.begin_time, i.end_time, i.playbacks_per_day)
     end
+    run!
   end
 
-  def items_with_times
-    items.each_with_object([]) { |e, a| e.schedule_seconds.each { |ss| a << [ss, e] } }.sort_by(&:first)
+  def run!
+    self.items = RmpdAdschedule.calculate(prepared_items).map do |i|
+      Schedule::Item.new(i)
+    end
+    items
   end
 
   def overlap
-    items_with_times.each_cons(2) do |i|
-      crnt, nxt = *i
-      return crnt.second, nxt.second if near?(crnt, nxt)
-    end
-    nil
+    items.select { |i| i.overlap.any? }
   end
 
   private
 
-  attr_writer :items
-
-  def optimize
-    items_with_times.each_cons(2) do |i|
-      crnt, nxt = *i
-      next unless near?(crnt, nxt)
-      shift_time(crnt.second, nxt.second)
-      break
-    end
-  end
-
-  def near?(one, two)
-    delta = base_time_shift
-    ((one.first - delta)..(one.first + delta)).cover?(two.first)
-  end
-
-  def shift_time(one, two)
-    if two.max_positive_allowed_shift >= base_time_shift
-      two.time_shift += base_time_shift
-    elsif one.max_negative_allowed_shift >= base_time_shift
-      one.time_shift -= base_time_shift
-    end
-  end
-
-  def base_time_shift
-    @_base_time_shift ||= items.map { |i| i.duration&.total || 180 }.max
-  end
+  attr_writer :items, :prepared_items
 end
