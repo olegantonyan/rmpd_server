@@ -24,7 +24,7 @@
             {attr: :end_time},
             {attr: :begin_date},
             {attr: :end_date} ],
-  details_link: -> (i) { media_item_path(i.media_item) } }
+  details_link: -> (i) { playlist_playlist_item_path(playlist, i) } }
 
 %h4= MediaItem.human_enum_name(:advertising)
 - playlist_items = present_collection(playlist.playlist_items_advertising)
@@ -37,4 +37,4 @@
             {attr: :playbacks_per_day},
             {attr: :begin_date},
             {attr: :end_date} ],
-  details_link: -> (i) { media_item_path(i.media_item) } }
+  details_link: -> (i) { playlist_playlist_item_path(playlist, i) } }

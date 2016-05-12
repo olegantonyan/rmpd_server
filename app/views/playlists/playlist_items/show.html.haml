@@ -1,0 +1,17 @@
+= page_title(@playlist_item)
+- playlist_item = present(@playlist_item)
+
+= render partial: 'shared/show', locals: { object: playlist_item,
+  attrs: [{attr: :media_item},
+          {attr: :playlist}] }
+
+- if playlist_item.advertising?
+  %h4= Playlist::Item.human_attribute_name(:schedule)
+  %table.table
+    %tr
+      %th= t('views.playlist_items.date_interval', default: 'Date interval')
+      %th= t('views.playlist_items.ether_time', default: 'Ether time')
+    - playlist_item.schedule.sort_by { |j| j[:date_interval][:begin] }.each do |i|
+      %tr
+        %td= "#{i[:date_interval][:begin]} - #{i[:date_interval][:end]}"
+        %td= i[:schedule].map { |j| j.to_formatted_s(:rmpd_custom) }.to_sentence

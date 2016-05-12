@@ -10,6 +10,7 @@ ru:
     attributes:
       playlist/item:
         file_identifier: Имя файла
+        playlist: Плейлист
         position: Позиция
         size: Размер
         description: Описание
@@ -21,3 +22,4 @@ ru:
         end_date: Дата окончания
         playbacks_per_day: Воспроизведений в день
         playbacks_per_hour: Воспроизведений в час
+        schedule: Расписание

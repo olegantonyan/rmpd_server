@@ -4,19 +4,27 @@ class Playlist::ItemPresenter < BasePresenter
   end
 
   def size
-    h.number_to_human_size(media_item.file.size, precision: 2)
+    h.number_to_human_size(model.media_item.file.size, precision: 2)
   end
 
   def type
-    media_item.class.human_enum_name(super)
+    model.media_item.class.human_enum_name(super)
   end
 
   def file_identifier
-    if media_item.file_processing?
+    if model.media_item.file_processing?
       "#{h.sanitize(super.to_s)} #{h.icon('cogs')}".html_safe
     else
       super
     end
+  end
+
+  def media_item
+    h.link_to(super.to_s, h.safe_path_to(:media_item_path, super))
+  end
+
+  def playlist
+    h.link_to(super.to_s, h.safe_path_to(:playlist_path, super))
   end
 
   # rubocop: disable Style/SpaceAroundKeyword

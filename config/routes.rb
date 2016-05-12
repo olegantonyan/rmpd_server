@@ -24,7 +24,9 @@ Rails.application.routes.draw do
     resources :device_log_messages, only: %i(index)
     resources :ssh_tunnels, only: %i(new create)
   end
-  resources :playlists
+  resources :playlists do
+    resources :playlist_items, only: %i(show)
+  end
   resources :companies
   resources :users, only: %i(index show edit update destroy)
 
