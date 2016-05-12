@@ -35,12 +35,13 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
       description: i.description,
       type: i.type,
       position: i.position,
-      begin_time: i.begin_time.try(:strftime, time_format),
-      end_time: i.end_time.try(:strftime, time_format),
-      end_date: i.end_date.try(:strftime, date_format),
-      begin_date: i.begin_date.try(:strftime, date_format),
+      begin_time: i.begin_time&.strftime(time_format),
+      end_time: i.end_time&.strftime(time_format),
+      end_date: i.end_date&.strftime(date_format),
+      begin_date: i.begin_date&.strftime(date_format),
       playbacks_per_day: i.playbacks_per_day,
-      schedule: serialized_schedule(i)
+      schedule_intervals: serialized_schedule(i),
+      schedule: [] # legacy
     }
   end
   # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
@@ -48,7 +49,9 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
   def serialized_schedule(item)
     return [] unless item.advertising?
     return [] unless item.schedule
-    item.schedule.map { |j| j.strftime(time_format) }
+    item.schedule.map do |j|
+      { date_interval: j[:date_interval], schedule: j[:schedule].map { |s| s.strftime(time_format) } }
+    end
   end
 
   def legacy_items

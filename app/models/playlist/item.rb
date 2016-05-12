@@ -20,6 +20,8 @@ class Playlist::Item < ApplicationRecord
 
   delegate :file_url, :type, :description, :file_identifier, :background?, :advertising?, :duration, to: :media_item
 
+  serialize :schedule
+
   def to_s
     "#{media_item} @ #{playlist}"
   end

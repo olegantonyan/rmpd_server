@@ -11,8 +11,6 @@ class Playlist::Item::Advertising < Playlist::Item
   validate :media_item_type
   validate :fit_to_time_period
 
-  serialize :schedule
-
   private
 
   def media_item_type
