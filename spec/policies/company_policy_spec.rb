@@ -14,16 +14,16 @@ RSpec.describe CompanyPolicy, type: :policy do
     let(:object) { create(:company) }
     let(:user) { create(:user, companies: [object]) }
 
-    pundit_permit(*%i(index show))
-    pundit_forbid(*%i(new edit create update destroy))
+    pundit_permit(*%i(index show new edit create update))
+    pundit_forbid(*%i(destroy))
   end
 
   context 'for everyone else' do
     let(:object) { create(:company) }
-    let(:user) { create(:user) }
+    let(:user) { create(:user_registrations) }
 
-    pundit_forbid(*%i(create new edit update destroy show))
-    pundit_permit(*%i(index))
+    pundit_forbid(*%i(edit update destroy show))
+    pundit_permit(*%i(index create new))
   end
 
   describe 'scope' do

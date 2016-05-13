@@ -29,7 +29,7 @@ class CompaniesController < BaseController
   end
 
   def create
-    @company = Company.new(company_params)
+    @company = Company.new(company_params_for_create)
     authorize @company
     crud_respond @company, success_url: companies_path
   end
@@ -52,6 +52,16 @@ class CompaniesController < BaseController
   end
 
   def company_params
-    params.require(:company).permit(:title, user_ids: [])
+    if current_user&.root?
+      params.require(:company).permit(:title, user_ids: [])
+    else
+      params.require(:company).permit(:title)
+    end
+  end
+
+  def company_params_for_create
+    c_params = company_params
+    c_params[:user_ids] = [current_user.id] unless current_user.root?
+    c_params
   end
 end

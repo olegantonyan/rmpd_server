@@ -12,8 +12,6 @@ class User < ApplicationRecord
 
   validates :displayed_name, length: { maximum: 130 }
 
-  before_create :set_defaults
-
   scope :available_for_notifications, -> {
     where.not(confirmed_at: nil, allow_notifications: false)
   }
@@ -26,12 +24,5 @@ class User < ApplicationRecord
 
   def to_s
     displayed_name.blank? ? email : displayed_name
-  end
-
-  private
-
-  def set_defaults
-    return if companies.exists?
-    companies << Company.demo
   end
 end

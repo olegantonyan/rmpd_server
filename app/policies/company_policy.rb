@@ -7,10 +7,18 @@ class CompanyPolicy < ApplicationPolicy
     super || user.company_ids.include?(record.id)
   end
 
+  def update?
+    super || user.company_ids.include?(record.id)
+  end
+
+  def create?
+    user.present?
+  end
+
   class Scope < Scope
     def resolve
       return scope.all if user.root?
-      scope.joins(:user_company_memberships).where('user_company_memberships.user_id = ?', user.id).where.not(id: Company.demo.id)
+      scope.joins(:user_company_memberships).where('user_company_memberships.user_id = ?', user.id)
     end
   end
 end
