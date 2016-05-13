@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions:       'devise_users/sessions',
+    confirmations:  'devise_users/confirmations',
+    passwords:      'devise_users/passwords',
+    registrations:  'devise_users/registrations',
+    unlocks:        'devise_users/unlocks'
+  }
 
   require 'sidekiq/web'
   authenticate :user, -> (u) { u.root? } do

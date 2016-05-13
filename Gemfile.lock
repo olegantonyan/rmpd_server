@@ -451,7 +451,6 @@ DEPENDENCIES
   jquery-fileupload-rails
   jquery-rails
   libnotify
-  listen
   momentjs-rails (>= 2.9.0)
   nested_form_fields
   paper_trail

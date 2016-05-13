@@ -9,10 +9,8 @@ class Company < ApplicationRecord
   end
   has_many :users, through: :user_company_memberships
 
-  validates :title, presence: true, length: { in: 4..100 }, uniqueness: true
-
-  def self.demo
-    find_by!(title: 'Demo')
+  with_options presence: true do
+    validates :title, length: { in: 4..100 }, uniqueness: true
   end
 
   filterrific(available_filters: %i(search_query))
