@@ -3,7 +3,7 @@
     %table.table.table-striped.table-hover.table-responsive.table-condensed
       %tr
         - if defined?(destroy_multiple_path)
-          %th= ' '
+          %th= check_box_tag "select_multiple_#{collection.model_name.name.underscore.gsub('/', '_')}"
         - columns.each do |column|
           %th= column[:heading] || localized_heading(collection, column[:attr])
         - if defined?(details_link)
@@ -12,7 +12,7 @@
       - collection.each do |item|
         %tr{class: (defined?(row_class) ? row_class.call(item) : '')}
           - if defined?(destroy_multiple_path)
-            %td= check_box_tag "#{collection.model_name.name.underscore}_ids[]", item.id, false
+            %td= check_box_tag "#{collection.model_name.name.underscore}_ids[]", item.id, false, class: "check_box_#{collection.model_name.name.underscore.gsub('/', '_')}_ids"
           - columns.each do |column|
             %td= attr_link_show(item, column[:attr], column[:link])
           - if defined?(details_link)
@@ -30,3 +30,11 @@
 
     = tag :br
     = render partial: 'shared/paginate', locals: { collection: collection }
+
+:javascript
+  (function() {
+    var select_multiple_element = $("#select_multiple_#{collection.model_name.name.underscore.gsub('/', '_')}")
+    select_multiple_element.on('change', function() {
+      $(".check_box_#{collection.model_name.name.underscore.gsub('/', '_')}_ids").prop('checked', this.checked);
+    });
+  })();
