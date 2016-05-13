@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: git://github.com/sinatra/sinatra.git
-  revision: d51513d094d1fe01543e546d07ef48663ecc2d8f
+  revision: b7dbfc4cfa1ad7236b2d5160ac4d6e3e0b45822d
   specs:
     sinatra (2.0.0.pre.alpha)
       mustermann (~> 0.4)
@@ -210,8 +210,8 @@ GEM
     libnotify (0.9.1)
       ffi (>= 1.0.11)
     libv8 (3.16.14.15)
-    listen (3.1.3)
-      rb-fsevent (~> 0.9, >= 0.9.7)
+    listen (3.1.4)
+      rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
     loofah (2.0.3)
@@ -388,7 +388,7 @@ GEM
       ref
     thor (0.19.1)
     thread_safe (0.3.5)
-    tilt (2.0.2)
+    tilt (2.0.3)
     tool (0.2.3)
     turbolinks (5.0.0.beta2)
       turbolinks-source
