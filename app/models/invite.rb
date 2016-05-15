@@ -9,7 +9,7 @@ class Invite < ApplicationRecord
     validates :user
     validates :email
   end
-  validates :email, format: { with: Devise.email_regexp }, uniqueness: { scope: :pending }
+  validates :email, format: { with: Devise.email_regexp }
 
   scope :accepted, -> { joins('INNER JOIN users ON users.email = invites.email') }
   scope :pending, -> { joins('LEFT JOIN users ON users.email = invites.email').where('users.id IS NULL') }
