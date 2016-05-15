@@ -31,7 +31,9 @@ Rails.application.routes.draw do
     resources :ssh_tunnels, only: %i(new create)
   end
   resources :playlists
-  resources :companies
+  resources :companies do
+    post 'leave', on: :member
+  end
   resources :users, only: %i(index show edit update destroy)
 
   namespace :deviceapi, defaults: { format: :json } do

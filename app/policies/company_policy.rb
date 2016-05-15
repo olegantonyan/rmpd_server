@@ -15,6 +15,10 @@ class CompanyPolicy < ApplicationPolicy
     user.present?
   end
 
+  def leave?
+    record.includes_user?(user)
+  end
+
   class Scope < Scope
     def resolve
       return scope.all if user.root?

@@ -7,3 +7,6 @@
   attrs: [{attr: :title},
           {attr: :users},
           {attr: :devices} ] }
+
+- if policy(company).leave?
+  = link_to t('views.companies.leave', default: 'Leave this company'), leave_company_path, method: :post, class: 'btn btn-warning', data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }
