@@ -5,7 +5,10 @@ class Company < ApplicationRecord
     a.has_many :devices
     a.has_many :playlists
     a.has_many :media_items
-    a.has_many :user_company_memberships, dependent: :destroy
+    a.with_options dependent: :destroy do |aa|
+      aa.has_many :user_company_memberships
+      aa.has_many :invites
+    end
   end
   has_many :users, through: :user_company_memberships
 

@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :playlists
   resources :companies do
     post 'leave', on: :member
+    resources :invites, only: %i(create destroy)
   end
   resources :users, only: %i(index show edit update destroy)
 

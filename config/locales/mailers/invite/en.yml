@@ -1,0 +1,5 @@
+en:
+  mailers:
+    invite:
+      subject: "%{inviter} invites you join his company on %{app_title}"
+      body: "User %{inviter} invites you join his company %{company} on %{app_title}. Please, follow link bellow to accept the invitation"

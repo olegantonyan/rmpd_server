@@ -10,3 +10,7 @@
 
 - if policy(company).leave?
   = link_to t('views.companies.leave', default: 'Leave this company'), leave_company_path, method: :post, class: 'btn btn-warning', data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }
+
+%h4= company.invites.model_name.human(count: 2)
+= render partial: 'companies/invites/collection_pending', locals: { collection: company.invites.pending }
+= render partial: 'companies/invites/form', locals: { resource: company.invites.build, url: company_invites_path(company) }

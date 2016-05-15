@@ -4,8 +4,9 @@ class User < ApplicationRecord
 
   has_paper_trail
 
-  with_options inverse_of: :user do |a|
-    a.has_many :user_company_memberships, dependent: :destroy
+  with_options inverse_of: :user, dependent: :destroy do |a|
+    a.has_many :user_company_memberships
+    a.has_many :invites
   end
   has_many :companies, -> { group('companies.id') }, through: :user_company_memberships
   has_many :devices, through: :companies
