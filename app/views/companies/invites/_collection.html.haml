@@ -4,6 +4,7 @@
     %th= localized_heading(collection, :email)
     %th= localized_heading(collection, :user)
     %th= localized_heading(collection, :created_at)
+    %th= localized_heading(collection, :accepted)
     %th
       .pull-right= t('views.invites.cancel', default: 'Cancel')
   - collection.each do |i|
@@ -11,5 +12,6 @@
       %td= i.email
       %td= i.user
       %td= i.created_at
+      %td= i.accepted
       %td
         .pull-right= link_to icon_text('remove'), company_invite_path(i.company, i), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }

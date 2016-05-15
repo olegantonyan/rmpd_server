@@ -11,8 +11,8 @@ class Invite < ApplicationRecord
   end
   validates :email, format: { with: Devise.email_regexp }
 
-  scope :accepted, -> { joins('INNER JOIN users ON users.email = invites.email') }
-  scope :pending, -> { joins('LEFT JOIN users ON users.email = invites.email').where('users.id IS NULL') }
+  scope :accepted, -> { where(accepted: true) }
+  scope :pending, -> { where(accepted: false) }
 
   before_create :generate_token
   after_create :send_notification

@@ -10,4 +10,6 @@ ru:
     attributes:
       invite:
         email: Почта
-        user: Пригласивший пользователь
+        user: Пригласил
+        company: Компания
+        accepted: Принято

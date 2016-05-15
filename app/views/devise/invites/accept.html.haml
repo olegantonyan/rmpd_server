@@ -1,0 +1,8 @@
+- page_title(@invite)
+.well
+  = render partial: 'shared/show', locals: { object: @invite, attrs: [{attr: :email}, {attr: :user}, {attr: :company} ] }
+- if @invite.company.includes_user?(@user)
+  = t('views.invites.already_in_the_company', default: 'You are already a member of this company')
+  = link_to 'Return to home page', root_path
+- else
+  = link_to t('views.invites.accept_invite', default: 'Accept invite to this company'), users_sign_up_via_invite_accept_path(invitation_token: params[:invitation_token]), method: :post, class: 'btn btn-lg btn-success'

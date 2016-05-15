@@ -3,7 +3,7 @@ class User::Registration < User
 
   before_validation do
     if invite
-      companies << invite.company
+      Invite::Accept.create!(invite: invite, user: self)
       skip_confirmation!
     else
       company = companies.build(title: company_title.blank? ? "#{self}'s company" : company_title)

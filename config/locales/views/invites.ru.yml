@@ -3,3 +3,5 @@ ru:
     invites:
       cancel: Отменить
       create: Отправить приглашение
+      already_in_the_company: Вы уже состоите в этой компании
+      accept_invite: Принять приглашение в эту компанию
