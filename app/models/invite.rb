@@ -1,4 +1,6 @@
 class Invite < ApplicationRecord
+  has_paper_trail
+
   with_options inverse_of: :invites do |a|
     a.belongs_to :company
     a.belongs_to :user

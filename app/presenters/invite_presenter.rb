@@ -6,4 +6,8 @@ class InvitePresenter < BasePresenter
   def email
     h.mail_to(super)
   end
+
+  def accepted
+    h.i18n_boolean(super)
+  end
 end
