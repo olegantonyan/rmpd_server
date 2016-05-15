@@ -1,0 +1,15 @@
+ru:
+  activerecord:
+    models:
+      invite:
+        one: Приглашение
+        few: Приглашения
+        many: Приглашения
+        other: Приглашения
+
+    attributes:
+      invite:
+        email: Почта
+        user: Пригласил
+        company: Компания
+        accepted: Принято

@@ -2,6 +2,7 @@ class DeviseUsers::RegistrationsController < Devise::RegistrationsController
   include AuthorizationSkipable
 
   def build_resource(hash_params = {})
+    hash_params[:invitation_token] = params[:invitation_token] if params[:invitation_token]
     self.resource = User::Registration.new(hash_params)
   end
 
@@ -46,7 +47,7 @@ class DeviseUsers::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    keys = %i(displayed_name allow_notifications company_title)
+    keys = %i(displayed_name allow_notifications company_title invitation_token)
     devise_parameter_sanitizer.permit(:sign_up, keys: keys)
   end
 

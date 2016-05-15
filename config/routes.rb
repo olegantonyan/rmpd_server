@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     registrations:  'devise_users/registrations',
     unlocks:        'devise_users/unlocks'
   }
+  get '/users/sign_up_via_invite', to: 'devise_users/invites#sign_up'
+  post '/users/sign_up_via_invite/accept', to: 'devise_users/invites#create'
 
   require 'sidekiq/web'
   authenticate :user, -> (u) { u.root? } do
@@ -35,6 +37,7 @@ Rails.application.routes.draw do
   end
   resources :companies do
     post 'leave', on: :member
+    resources :invites, only: %i(create destroy)
   end
   resources :users, only: %i(index show edit update destroy)
 

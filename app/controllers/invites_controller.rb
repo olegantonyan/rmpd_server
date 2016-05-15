@@ -1,0 +1,30 @@
+class InvitesController < BaseController
+  def create
+    invite = build_invite
+    authorize invite
+    crud_respond invite, success_url: :back, error_url: :back
+  end
+
+  def destroy
+    invite = Invite.find(params[:id])
+    authorize invite
+    crud_respond invite, success_url: :back, error_url: :back
+  end
+
+  private
+
+  def company
+    Company.find(params[:company_id])
+  end
+
+  def build_invite
+    Invite.new(invite_params).tap do |i|
+      i.user = current_user
+      i.company = company
+    end
+  end
+
+  def invite_params
+    params.require(:invite).permit(:email)
+  end
+end
