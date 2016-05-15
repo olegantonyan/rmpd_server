@@ -23,4 +23,8 @@ class Company < ApplicationRecord
   def to_s
     title
   end
+
+  def includes_user?(user)
+    user_ids.include?(user&.id)
+  end
 end

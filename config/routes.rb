@@ -33,7 +33,9 @@ Rails.application.routes.draw do
   resources :playlists do
     resources :playlist_items, only: %i(show)
   end
-  resources :companies
+  resources :companies do
+    post 'leave', on: :member
+  end
   resources :users, only: %i(index show edit update destroy)
 
   namespace :deviceapi, defaults: { format: :json } do
