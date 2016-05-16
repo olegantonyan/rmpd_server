@@ -4,11 +4,7 @@ class DevicePolicy < ApplicationPolicy
   end
 
   def show?
-    user.root? || (index? && user.company_ids.include?(record.company_id))
-  end
-
-  def create?
-    user.present?
+    super || (index? && user.company_ids.include?(record.company_id))
   end
 
   def update?

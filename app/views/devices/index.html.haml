@@ -6,3 +6,5 @@
   = filter_form_select(f, :with_device_group_id, label: Device::Group.model_name.human)
 
 = render 'collection'
+
+= link_to icon_text('link', t('views.devices.bind', default: 'Bind new device')), new_device_binds_path, class: 'btn btn-success'

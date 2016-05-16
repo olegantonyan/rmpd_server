@@ -1,0 +1,13 @@
+ru:
+  activemodel:
+    models:
+      device/bind:
+        one: Привязка устройства
+
+    attributes:
+      device/bind:
+        company_id: Компания
+        login: Идентификатор устройства
+        name: Название
+        device_group_ids: Группы устройств
+        time_zone: Часовой пояс
