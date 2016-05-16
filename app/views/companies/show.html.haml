@@ -9,7 +9,7 @@
           {attr: :devices} ] }
 
 - if policy(company).leave?
-  = link_to t('views.companies.leave', default: 'Leave this company'), leave_company_path, method: :post, class: 'btn btn-warning', data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }
+  = link_to icon_text('sign-out', t('views.companies.leave', default: 'Leave this company')), leave_company_path, method: :post, class: 'btn btn-warning', data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }
 
 %h4= company.invites.model_name.human(count: 2)
 = render partial: 'companies/invites/collection', locals: { collection: company.invites }
