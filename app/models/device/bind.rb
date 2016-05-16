@@ -11,9 +11,13 @@ class Device::Bind < ApplicationModel
   def save
     return false if invalid?
     d = assign_to_device
-    return true if d.save
-    copy_errors(d)
-    false
+    if d.save
+      notify
+      true
+    else
+      copy_errors(d)
+      false
+    end
   end
 
   def device
@@ -42,5 +46,9 @@ class Device::Bind < ApplicationModel
   def device_not_bound_already
     return unless device
     errors.add(:login, 'already bound to a company') if device.bound_to_company?
+  end
+
+  def notify
+    Notifiers::DeviceBindNotifierJob.perform_later(device)
   end
 end
