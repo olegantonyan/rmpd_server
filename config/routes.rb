@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     resources :invites, only: %i(create destroy)
   end
   resources :users, only: %i(index show edit update destroy)
+  resource :device_binds, only: %i(create new)
 
   namespace :deviceapi, defaults: { format: :json } do
     resources :status, only: %i(create)

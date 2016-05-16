@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: git://github.com/sinatra/sinatra.git
-  revision: faeffd76ee3772af78fa01c0da54d6bcd05a9fad
+  revision: 2136ad4d0b1b603fa43457c57ab37e8681524fee
   specs:
     sinatra (2.0.0.pre.alpha)
       mustermann (~> 0.4)
@@ -394,7 +394,7 @@ GEM
       ref
     thor (0.19.1)
     thread_safe (0.3.5)
-    tilt (2.0.3)
+    tilt (2.0.4)
     tool (0.2.3)
     turbolinks (5.0.0.beta2)
       turbolinks-source

@@ -14,15 +14,16 @@ RSpec.describe DevicePolicy, type: :policy do
     let(:object) { create(:device) }
     let(:user) { create(:user, companies: [object.company]) }
 
-    pundit_permit(*%i(index show new edit create update destroy))
+    pundit_permit(*%i(index show edit update destroy))
+    pundit_forbid(*%i(create new))
   end
 
   context 'for everyone else' do
     let(:object) { create(:device) }
     let(:user) { create(:user) }
 
-    pundit_forbid(*%i(edit update destroy show))
-    pundit_permit(*%i(index create new))
+    pundit_forbid(*%i(edit update destroy show create new))
+    pundit_permit(*%i(index))
   end
 
   describe 'scope' do

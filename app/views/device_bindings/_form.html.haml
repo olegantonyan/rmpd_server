@@ -1,0 +1,10 @@
+= simple_form_for resource do |f|
+  = f.input :login
+  = f.input :name
+  - device_groups = policy_scope(Device::Group.order(title: :asc))
+  = f.association :device_groups, collection: device_groups, as: :check_boxes unless device_groups.empty?
+  = render partial: 'shared/select_company_form', locals: { f: f }
+  = f.input :time_zone, input_html: { id: 'select-timezone' }
+  = f.button :submit
+
+= select2js_for_id('select-timezone')

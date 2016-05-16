@@ -6,5 +6,4 @@
             {attr: :company},
             {attr: :playlist} ],
   details_link: -> (i) { device_path(i) },
-  new_path: new_device_path,
   row_class: -> (i) { i.online? ? 'success' : 'danger' } }

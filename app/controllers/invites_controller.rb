@@ -2,13 +2,13 @@ class InvitesController < BaseController
   def create
     invite = build_invite
     authorize invite
-    crud_respond invite, success_url: :back, error_url: :back
+    crud_respond invite
   end
 
   def destroy
     invite = Invite.find(params[:id])
     authorize invite
-    crud_respond invite, success_url: :back, error_url: :back
+    crud_respond invite
   end
 
   private
@@ -26,5 +26,9 @@ class InvitesController < BaseController
 
   def invite_params
     params.require(:invite).permit(:email)
+  end
+
+  def crud_responder_default_options
+    { success_url: :back, error_url: :back }
   end
 end

@@ -13,14 +13,13 @@ class Device < ApplicationRecord
   end
   with_options inverse_of: :devices do |a|
     a.belongs_to :playlist
-    a.belongs_to :company
+    a.belongs_to :company, optional: true
   end
   has_many :device_groups, through: :device_group_memberships, class_name: 'Device::Group'
 
   with_options presence: true do
     validates :login, uniqueness: true, length: { in: 4..100 }
     validates :password, length: { in: 8..60 }, confirmation: true, if: -> { new_record? || !password.nil? }
-    validates :company
   end
   validates :name, length:  { maximum: 130 }
 
@@ -51,6 +50,10 @@ class Device < ApplicationRecord
 
   def synchronizing?
     Deviceapi::MessageQueue.find_by(key: login, message_type: :update_playlist)
+  end
+
+  def bound_to_company?
+    company.present?
   end
 
   private
