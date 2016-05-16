@@ -71,7 +71,9 @@ class MediaItemsController < BaseController
   end
 
   def media_item_create_multiple_params
-    params.require(:media_item_create_multiple).permit(:description, :company_id, :type, files: [])
+    params.require(:media_item_create_multiple).permit(:description, :company_id, :type, files: []).tap do |i|
+      i[:files] = i[:files].reject(&:blank?)
+    end
   end
 
   def crud_responder_default_options
