@@ -21,7 +21,7 @@ class Invite::Accept < BaseService
   def invite_for_this_user
     return unless user
     return unless invite
-    errors.add(:user, "invited user's email does'n match with invited (#{user.email} != #{invite.email})") unless user.email == invite.email
+    errors.add(:user, "invited user's email doesn't match with invited (#{user.email} != #{invite.email})") unless user.email == invite.email
   end
 
   def user_already_a_member
