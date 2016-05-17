@@ -13,19 +13,8 @@ class Invite < ApplicationRecord
   end
   validates :email, format: { with: Devise.email_regexp }
 
-  scope :accepted, -> { where(accepted: true) }
-  scope :pending, -> { where(accepted: false) }
-
   before_create :generate_token
   after_create :send_notification
-
-  def accepted_by
-    User.find_by(email: email)
-  end
-
-  def accepted?
-    self.class.accepted.exists?(id: id)
-  end
 
   def to_s
     "#{email} -> #{company}"
