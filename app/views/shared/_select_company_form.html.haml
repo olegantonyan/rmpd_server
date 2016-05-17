@@ -1,9 +1,11 @@
 - if current_user
-  - if many_companies? || current_user.root?
+  - if current_user.companies.size > 1 || current_user.root?
     - if f.object.respond_to?(:company)
       = f.association :company, collection: policy_scope(Company), include_blank: false, input_html: { id: 'select-company' }
     - else
       = f.input :company_id, collection: policy_scope(Company), include_blank: false, input_html: { id: 'select-company' }
     = select2js_for_id('select-company')
+  - elsif !current_user.companies.exists?
+    %p.lead.text-danger= t('views.shared.select_company_form.no_companies', default: 'You are not a member of any company, thus you cannot create any associated content')
   - else
-    = f.input :company_id, input_html: { value: current_user.companies.first&.id }, as: :hidden
+    = f.input :company_id, input_html: { value: current_user.companies.first.id }, as: :hidden

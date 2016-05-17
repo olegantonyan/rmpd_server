@@ -16,7 +16,7 @@ class CompanyPolicy < ApplicationPolicy
   end
 
   def leave?
-    record.includes_user?(user)
+    record.includes_user?(user) && user.companies.size > 1
   end
 
   class Scope < Scope
