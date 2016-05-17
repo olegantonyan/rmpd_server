@@ -23,3 +23,6 @@ ru:
 
       playlist_assignment_form:
         assign: Назначить
+
+      select_company_form:
+        no_companies: Вы не состоите ни в одной компании поэтому не сможете создавать связанный с компаниями контент
