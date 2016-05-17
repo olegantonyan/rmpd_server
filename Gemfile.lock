@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: git://github.com/sinatra/sinatra.git
-  revision: 2136ad4d0b1b603fa43457c57ab37e8681524fee
+  revision: 5e9e23621c1f6abbd793b46452cb11ae8ca1277e
   specs:
     sinatra (2.0.0.pre.alpha)
       mustermann (~> 0.4)
@@ -231,7 +231,7 @@ GEM
     mime-types-data (3.2016.0221)
     mimemagic (0.3.1)
     mini_portile2 (2.0.0)
-    minitest (5.8.4)
+    minitest (5.9.0)
     momentjs-rails (2.11.1)
       railties (>= 3.1)
     multi_json (1.12.0)

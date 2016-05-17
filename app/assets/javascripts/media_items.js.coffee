@@ -38,9 +38,10 @@ setup_ajax_fileupload = ->
         set_upload_done()
         pending_files = []
         return
-      console.log e.responseJSON.error
-      console.log e
-      $('#uploaded-ajax-fileupload').append("<li class='text-danger'>[ERROR] #{e.responseJSON.files}: #{e?.responseJSON.error}</li>")
+      $('#uploaded-ajax-fileupload').append("<li class='text-danger'>[ERROR] #{e?.responseJSON?.files or e.statusText}: #{e?.responseJSON?.error or e.responseText}</li>")
+      pending_files.pop()
+      if pending_files.length is 0
+        set_upload_done()
 
 set_upload_done = ->
   $('#cancel-ajax-fileupload').addClass('hidden')
