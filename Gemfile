@@ -75,7 +75,6 @@ group :development, :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'faker'
-  # gem 'listen'
   gem 'erb2haml', require: false
   gem 'capistrano-rails-console', require: false
   gem 'capistrano-rails-tail-log', require: false
