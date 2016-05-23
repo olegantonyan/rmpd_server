@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    loc = extract_locale_from_tld
+    loc = params[:lang] || extract_locale_from_tld
     I18n.locale = loc if loc
   end
 
