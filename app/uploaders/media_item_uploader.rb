@@ -3,7 +3,7 @@
 class MediaItemUploader < CarrierWave::Uploader::Base
   include ::CarrierWave::Backgrounder::Delay
 
-  process :encode_video_for_device
+  process :process_file
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -56,13 +56,18 @@ class MediaItemUploader < CarrierWave::Uploader::Base
   # end
 
   def video?
-    videofile? file
+    videofile?(file)
   end
 
   private
 
+  def process_file
+    encode_video_for_device
+    normalize_audio_volume
+  end
+
   def videofile?(f)
-    if video_extensions.find { |ext| f.path.ends_with? ext }
+    if video_extensions.find { |ext| f.path.ends_with?(ext) }
       true
     else
       false
@@ -71,8 +76,12 @@ class MediaItemUploader < CarrierWave::Uploader::Base
 
   def encode_video_for_device
     return unless video?
-    tmp_path = File.join File.dirname(current_path), "#{SecureRandom.hex}.mp4"
+    tmp_path = File.join(File.dirname(current_path), "#{SecureRandom.hex}.mp4")
     MediafilesUtils.convert_to_h264(current_path, tmp_path)
-    File.rename tmp_path, current_path
+    File.rename(tmp_path, current_path)
+  end
+
+  def normalize_audio_volume
+    MediafilesUtils.normalize_volume(current_path)
   end
 end
