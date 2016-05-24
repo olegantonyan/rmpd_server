@@ -10,6 +10,6 @@ class Device::Status < ApplicationRecord
   end
 
   def client_version
-    device.device_log_messages.latest.user_agent
+    device.device_log_messages.latest&.user_agent
   end
 end
