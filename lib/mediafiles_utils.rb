@@ -11,7 +11,8 @@ module MediafilesUtils
   end
 
   def normalize_volume(file)
-    max_volume = `ffmpeg -i '#{file}' -af "volumedetect" -f null /dev/null 2>&1 | grep max_volume`.strip.split(':').last.strip.split(' ').first.to_f
+    max_volume = `ffmpeg -i '#{file}' -af "volumedetect" -f null /dev/null 2>&1 | grep max_volume`.strip&.split(':')&.last&.strip&.split(' ')&.first&.to_f
+    return unless max_volume
     return if max_volume.zero?
     output_file = "/tmp/#{File.basename(file)}"
     result = system(*['ffmpeg', '-i', file, '-af', "volume=#{-max_volume}dB", '-c:v', 'copy', output_file])
