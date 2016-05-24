@@ -25,4 +25,4 @@
 //= require jquery-fileupload/basic
 //= require_tree .
 
-//$(document).on('turbolinks:load', function() { Turbolinks.clearCache(); })
+$(document).on('turbolinks:load', function() { Turbolinks.clearCache(); })
