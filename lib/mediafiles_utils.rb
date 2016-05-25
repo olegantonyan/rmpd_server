@@ -10,13 +10,21 @@ module MediafilesUtils
     Duration.new(hours: result.first, minutes: result.second, seconds: result.third.to_f.round)
   end
 
+  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength, Style/SpecialGlobalVars, Lint/UselessAssignment
   def normalize_volume(file)
-    max_volume = `ffmpeg -i '#{file}' -af "volumedetect" -f null /dev/null 2>&1 | grep max_volume`.strip&.split(':')&.last&.strip&.split(' ')&.first&.to_f
-    return unless max_volume
-    return if max_volume.zero?
+    output = `ffmpeg -i '#{file}' -af "volumedetect" -f null /dev/null 2>&1`
+    raise "Error getting audio volume from #{file} (#{$?})" unless $?.success?
+    max_volume = output.scan(/max_volume: ([\-\d\.]+) dB/).flatten.first
+    mean_volume = output.scan(/mean_volume: ([\-\d\.]+) dB/).flatten.first
+    return if !max_volume || !mean_volume
+    max_volume = max_volume.to_f
+    mean_volume = mean_volume.to_f
+    target_volume = -14.0
+    adjustment = target_volume - mean_volume
     output_file = "/tmp/#{File.basename(file)}"
-    result = system(*['ffmpeg', '-i', file, '-af', "volume=#{-max_volume}dB", '-c:v', 'copy', output_file])
-    raise 'Error normalizing audio volume' unless result
+    result = system(*['ffmpeg', '-i', file, '-af', "volume=#{adjustment}dB", '-c:v', 'copy', output_file])
+    raise "Error normalizing audio volume of #{file}" unless result
     File.rename(output_file, file)
   end
+  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength, Style/SpecialGlobalVars, Lint/UselessAssignment
 end
