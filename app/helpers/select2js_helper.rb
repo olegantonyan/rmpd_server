@@ -4,14 +4,16 @@ module Select2jsHelper
     js = <<-JS
     (function() {
       $(document).on('turbolinks:before-cache', function() {
-        if($('##{id}').data('select2') !== undefined) {
-          $('##{id}').select2('destroy');
+        elem = $('##{id}');
+        if(elem.data('select2') !== undefined) {
+          elem.select2('destroy');
         };
       });
-      if($('##{id}').data('select2') !== undefined) {
+      elem = $('##{id}');
+      if(elem.data('select2') !== undefined) {
         return;
       };
-      $('##{id}').select2({ width: '100%', theme: 'bootstrap' });
+      elem.select2({ width: '100%', theme: 'bootstrap' });
     })();
     JS
     javascript_tag(js)
