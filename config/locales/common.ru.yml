@@ -1,0 +1,8 @@
+ru:
+  errors:
+    messages:
+      carrierwave_processing_error: "Не удалось изменить размер изображения."
+      carrierwave_integrity_error: "Не является изображением."
+      carrierwave_download_error: "Не удалось загрузить изображение."
+      extension_white_list_error: "Недопустимое расширение файла %{extension}, допустимые: %{allowed_types}"
+      extension_blacklist_error: "Недопустимое расширение файла %{extension}, запрещённые: %{prohibited_types}"
