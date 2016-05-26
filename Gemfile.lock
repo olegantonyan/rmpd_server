@@ -31,9 +31,9 @@ GIT
 
 GIT
   remote: git@bitbucket.org:antlabs_dev/rmpd_adschedule.git
-  revision: c83f9b565e74beccabd67330af62f9664a5cd20f
+  revision: 9369300623f3c9c7aee7df8a17823c24d6794034
   specs:
-    rmpd_adschedule (0.1.0)
+    rmpd_adschedule (0.1.1)
 
 GEM
   remote: https://rubygems.org/
@@ -300,7 +300,7 @@ GEM
       ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails-i18n (5.0.0.beta3)
+    rails-i18n (5.0.0.beta4)
       i18n (~> 0.7)
       railties (~> 5.0.0.beta1)
     railties (5.0.0.rc1)
