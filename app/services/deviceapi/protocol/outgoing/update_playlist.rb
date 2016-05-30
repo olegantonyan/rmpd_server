@@ -22,16 +22,17 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
       created_at: playlist.created_at,
       updated_at: playlist.updated_at,
       shuffle: playlist.shuffle,
-      items: playlist.playlist_items.includes(:media_item).map { |i| serialized_media_item(i) }
+      items: playlist.playlist_items.includes(:media_item).map { |i| serialized_playlist_item(i) }
     }
   end
 
   # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
-  def serialized_media_item(i)
+  def serialized_playlist_item(i)
     {
       url: i.file_url,
       filename: i.file_identifier,
-      id: i.media_item_id,
+      id: i.id,
+      media_item_id: i.media_item_id,
       description: i.description,
       type: i.type,
       position: i.position,
