@@ -49,7 +49,7 @@ gem 'devise', '~> 4.0.0.rc2'
 gem 'pundit'
 gem 'paper_trail'
 gem 'filterrific', github: 'olegantonyan/filterrific', branch: 'turbolinks5'#, path: "~/projects/github/filterrific"
-gem 'nested_form_fields'#, github: 'olegantonyan/nested_form_fields', branch: 'additional_data_event'
+gem 'nested_form_fields'
 gem 'carrierwave_backgrounder'
 gem 'pry-rails'
 gem 'super_awesome_print'
