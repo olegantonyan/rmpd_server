@@ -31,9 +31,9 @@ GIT
 
 GIT
   remote: git@bitbucket.org:antlabs_dev/rmpd_adschedule.git
-  revision: 9369300623f3c9c7aee7df8a17823c24d6794034
+  revision: 2ea463955256278dea3c8341206c8515598827f1
   specs:
-    rmpd_adschedule (0.1.1)
+    rmpd_adschedule (0.1.2)
 
 GEM
   remote: https://rubygems.org/
