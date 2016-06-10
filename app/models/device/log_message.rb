@@ -23,11 +23,13 @@ class Device::LogMessage < ApplicationRecord
   end
 
   def self.write!(device, logdata, user_agent)
+    message = logdata[:message] || logdata[:track]
+    message = message.to_h if message.respond_to?(:to_h) && message.present?
     create!(device: device,
             localtime: Time.zone.parse(logdata[:localtime]),
             user_agent: user_agent,
             command: logdata[:command] || "#{logdata[:type]}_#{logdata[:status]}",
-            message: logdata[:message] || logdata[:track])
+            message: message)
   end
 
   def self.to_csv
