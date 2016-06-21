@@ -1,7 +1,7 @@
 class MediaItem < ApplicationRecord
   self.inheritance_column = 'sti_type'
 
-  attr_accessor :skip_file_processing
+  attr_accessor :skip_file_processing # candidate for service extraction
 
   has_paper_trail
 
