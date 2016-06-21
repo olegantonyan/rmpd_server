@@ -50,7 +50,6 @@ gem 'pundit'
 gem 'paper_trail'
 gem 'filterrific', github: 'olegantonyan/filterrific', branch: 'turbolinks5'#, path: "~/projects/github/filterrific"
 gem 'nested_form_fields'
-gem 'carrierwave_backgrounder'
 gem 'pry-rails'
 gem 'super_awesome_print'
 gem 'crud_responder'

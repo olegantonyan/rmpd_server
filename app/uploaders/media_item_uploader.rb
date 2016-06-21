@@ -1,10 +1,6 @@
 # encoding: utf-8
 
 class MediaItemUploader < CarrierWave::Uploader::Base
-  include ::CarrierWave::Backgrounder::Delay
-
-  process :process_file
-
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -45,43 +41,9 @@ class MediaItemUploader < CarrierWave::Uploader::Base
     %w(mp3 mp4 avi wav ogg ogv webm mpeg mpg mov mkv)
   end
 
-  def video_extensions
-    %w(mp4 avi ogv webm mpeg mpg mov mkv)
-  end
-
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # def filename
   #   "something.jpg" if original_filename
   # end
-
-  def video?
-    videofile?(file)
-  end
-
-  private
-
-  def process_file
-    encode_video_for_device
-    normalize_audio_volume
-  end
-
-  def videofile?(f)
-    if video_extensions.find { |ext| f.path.ends_with?(ext) }
-      true
-    else
-      false
-    end
-  end
-
-  def encode_video_for_device
-    return unless video?
-    tmp_path = File.join(File.dirname(current_path), "#{SecureRandom.hex}.mp4")
-    MediafilesUtils.convert_to_h264(current_path, tmp_path)
-    File.rename(tmp_path, current_path)
-  end
-
-  def normalize_audio_volume
-    MediafilesUtils.normalize_volume(current_path)
-  end
 end

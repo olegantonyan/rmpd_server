@@ -1,8 +1,8 @@
 ---
 :logfile: ./log/sidekiq.log
-:concurrency: 2
+:concurrency: 3
 :queues:
   - default
   - mailers
-  - carrierwave
   - notifiers
+  - files_processing

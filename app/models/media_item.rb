@@ -1,6 +1,8 @@
 class MediaItem < ApplicationRecord
   self.inheritance_column = 'sti_type'
 
+  attr_accessor :skip_file_processing
+
   has_paper_trail
 
   has_many :playlist_items, dependent: :destroy, inverse_of: :media_item, class_name: 'Playlist::Item'
@@ -10,7 +12,10 @@ class MediaItem < ApplicationRecord
   enum type: %w(background advertising)
 
   mount_uploader :file, MediaItemUploader
-  process_in_background :file
+  with_options unless: :skip_file_processing do
+    before_create :mark_file_processing
+    after_commit :process_file, on: :create
+  end
 
   with_options presence: true do
     validates :file
@@ -46,5 +51,15 @@ class MediaItem < ApplicationRecord
 
   def duration
     @_duration ||= MediafilesUtils.duration(file.path)
+  end
+
+  private
+
+  def process_file
+    MediaItemProcessingJob.perform_later(self)
+  end
+
+  def mark_file_processing
+    self.file_processing = true
   end
 end
