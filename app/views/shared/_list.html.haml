@@ -22,7 +22,7 @@
               %td{class: 'text-right'}= icon('ban')
 
     - if defined?(destroy_multiple_path)
-      = submit_tag t('views.shared.delete_selected', default: 'Delete selected'), data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }, class: 'btn btn-danger'
+      = submit_tag t('views.shared.delete_selected', default: 'Delete selected'), data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }, class: 'btn btn-danger', id: 'delete-multiple-button'
 
     - if defined?(new_path) && policy_presenter(collection).new?
       .pull-right
@@ -34,7 +34,30 @@
 :javascript
   (function() {
     var select_multiple_element = $("#select_multiple_#{collection.model_name.name.underscore.gsub('/', '_')}")
+    var checkboxes = $(".check_box_#{collection.model_name.name.underscore.gsub('/', '_')}_ids");
+    var delete_selected_button = $('#delete-multiple-button');
+
+    var check_deldete_all_button_state = function() {
+      var any_checked = false;
+      checkboxes.each(function(index) {
+        if(this.checked) {
+          any_checked = true;
+        }
+      });
+      if(any_checked) {
+        delete_selected_button.show();
+      } else {
+        delete_selected_button.hide();
+      }
+    };
+
     select_multiple_element.on('change', function() {
-      $(".check_box_#{collection.model_name.name.underscore.gsub('/', '_')}_ids").prop('checked', this.checked);
+      checkboxes.prop('checked', this.checked);
+      check_deldete_all_button_state();
     });
+
+    checkboxes.on('change', function() {
+      check_deldete_all_button_state();
+    });
+    check_deldete_all_button_state();
   })();
