@@ -21,7 +21,11 @@ class MediaItemPresenter < BasePresenter
   end
 
   def file_processing
-    I18n.t("views.shared.#{super}", default: super.to_s)
+    h.i18n_boolean(super)
+  end
+
+  def volume_normalized
+    h.i18n_boolean(super)
   end
 
   def company

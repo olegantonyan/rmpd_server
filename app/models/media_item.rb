@@ -1,7 +1,7 @@
 class MediaItem < ApplicationRecord
   self.inheritance_column = 'sti_type'
 
-  attr_accessor :skip_file_processing # candidate for service extraction
+  attr_accessor :skip_file_processing, :skip_volume_normalization # candidate for service extraction
 
   has_paper_trail
 
@@ -56,7 +56,7 @@ class MediaItem < ApplicationRecord
   private
 
   def process_file
-    MediaItemProcessingJob.perform_later(self)
+    MediaItemProcessingJob.perform_later(self, skip_volume_normalization)
   end
 
   def mark_file_processing

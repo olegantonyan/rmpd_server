@@ -1,12 +1,12 @@
 class MediaItem::Processing < BaseService
-  attr_accessor :media_item
+  attr_accessor :media_item, :skip_volume_normalization
 
   delegate :file, to: :media_item
 
   def call
     begin_process
     encode_video_for_device if video?
-    normalize_audio_volume
+    normalize_audio_volume unless skip_volume_normalization
     finish_process
   end
 
@@ -36,5 +36,6 @@ class MediaItem::Processing < BaseService
 
   def normalize_audio_volume
     MediafilesUtils.normalize_volume(file.current_path)
+    media_item.update(volume_normalized: true)
   end
 end

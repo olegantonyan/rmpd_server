@@ -3,7 +3,7 @@ class MediaItem::CreateMultiple < BaseService
     MediaItemPolicy
   end
 
-  attr_accessor :description, :company_id, :type
+  attr_accessor :description, :company_id, :type, :skip_volume_normalization
   attr_reader :files
 
   validates :files, presence: true
@@ -18,7 +18,7 @@ class MediaItem::CreateMultiple < BaseService
     return false unless valid?
     ActiveRecord::Base.transaction do
       files.each do |file|
-        MediaItem.create!(description: description, company_id: company_id, type: type_indifferent, file: file)
+        MediaItem.create!(description: description, company_id: company_id, type: type_indifferent, file: file, skip_volume_normalization: skip_volume_normalization)
       end
     end
     true

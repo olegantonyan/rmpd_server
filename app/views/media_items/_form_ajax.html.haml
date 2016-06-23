@@ -3,6 +3,7 @@
   = f.input :files, as: :file, input_html: { multiple: true }
   = f.input :type, collection: MediaItem.types, label_method: -> (i) { MediaItem.human_enum_name(i.first) }, value_method: -> (i) { i.first }, include_blank: false, as: :radio_buttons
   = render partial: 'shared/select_company_form', locals: { f: f }
+  = f.input :skip_volume_normalization, as: :boolean
 
 .button.btn.btn-default.hidden#submit-ajax-fileupload= icon_text('cloud-upload', t('views.media_items.upload_multiple', default: 'Upload mediafiles'))
 .pull-right

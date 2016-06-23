@@ -17,6 +17,7 @@ ru:
         type: Тип
         file_processing: Идёт обработка файла
         playlists: Плейлисты
+        volume_normalized: Уровень громкости нормализован
         types:
           background: Фоновый
           advertising: Рекламный
@@ -34,3 +35,4 @@ ru:
         company_id: Компания
         type: Тип
         files: Файлы
+        skip_volume_normalization: Не выравнивать уровень громкости
