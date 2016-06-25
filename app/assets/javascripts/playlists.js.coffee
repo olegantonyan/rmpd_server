@@ -32,12 +32,19 @@ class SetPlaylistItemValues
       val = @data[i]
       @_set_attribute_value(i, val)
     if @type == 'background'
-      @_set_attribute_value('position', @added_index)
+      @_set_attribute_value('position', @_max_background_position() + 1)
 
   _set_attribute_value: (attr, value) =>
     input_value = $("#playlist_playlist_items_#{@type}_attributes_#{@added_index}_#{attr}")
     input_value.val(value)
 
+  _max_background_position: () ->
+    positions_elements = $(".playlist_item_background-position:visible")
+    max_value = 0
+    positions_elements.each ->
+      value = +$(this).val()
+      max_value = value if value > max_value
+    max_value
 
 class PlaybacksPerHour
   constructor: (@begin_time, @end_time, @prd, @prh) ->
