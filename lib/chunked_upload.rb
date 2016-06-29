@@ -38,6 +38,7 @@ class ChunkedUpload
   end
 
   def offset
+    return 0 unless @content_range
     @_offset ||= @content_range.split('/').first.split('-').first.gsub('bytes ', '').to_i
   end
 end
