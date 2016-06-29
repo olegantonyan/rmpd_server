@@ -32,20 +32,29 @@ class MediaItemsController < BaseController
 
   # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
   def create_multiple
-    sap request.headers['Content-Disposition']
-    sap request.headers['Content-Range']
-    sap params[:media_item_create_multiple][:files]
-    @media_item_multiple = MediaItem::CreateMultiple.new(media_item_create_multiple_params)
-    authorize @media_item_multiple, :create?
-    respond_to do |format|
-      format.json do
-        if @media_item_multiple.save
-          render json: {}
-        else
-          render json: { error: @media_item_multiple.errors.full_messages.to_sentence, files: @media_item_multiple.files.map(&:original_filename) }, status: 422
+    uploads = media_item_create_multiple_params[:files].map do |file|
+      ChunkedUpload.new(file, request.headers['Content-Range'], File.join(Rails.root, 'public', 'uploads', 'tmp', 'chunked', current_user&.id&.to_s || 'anonymous'))
+    end
+    uploads.map(&:save)
+    done_uploads = uploads.select(&:done?)
+    if done_uploads.any?
+      current_params = media_item_create_multiple_params.merge(files: done_uploads.map(&:file))
+      @media_item_multiple = MediaItem::CreateMultiple.new(current_params)
+      authorize @media_item_multiple, :create?
+      respond_to do |format|
+        format.json do
+          if @media_item_multiple.save
+            render json: {}
+          else
+            render json: { error: @media_item_multiple.errors.full_messages.to_sentence, files: @media_item_multiple.files.map(&:original_filename) }, status: 422
+          end
         end
+        format.html { crud_respond(@media_item_multiple) }
       end
-      format.html { crud_respond(@media_item_multiple) }
+      done_uploads.map(&:cleanup)
+    else
+      skip_authorization
+      render json: {}
     end
   end
   # rubocop: enable Metrics/MethodLength, Metrics/AbcSize

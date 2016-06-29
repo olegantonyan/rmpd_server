@@ -18,6 +18,7 @@ setup_ajax_fileupload = ->
   $('#ajax-fileupload').fileupload
     maxChunkSize: 1000000
     sequentialUploads: true
+    #limitConcurrentUploads: 3
     dataType: 'json'
     add: (e, data) ->
       pending_files.push(data)
