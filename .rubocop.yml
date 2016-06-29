@@ -19,6 +19,9 @@ Style/FrozenStringLiteralComment:
 Rails:
   Enabled: true
 
+Rails/OutputSafety:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 

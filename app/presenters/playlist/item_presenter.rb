@@ -27,7 +27,6 @@ class Playlist::ItemPresenter < BasePresenter
     h.link_to(super.to_s, h.safe_path_to(:playlist_path, super))
   end
 
-  # rubocop: disable Style/SpaceAroundKeyword
   def begin_time
     super&.to_formatted_s(:rmpd_custom)
   end
@@ -43,5 +42,4 @@ class Playlist::ItemPresenter < BasePresenter
   def end_date
     super&.to_formatted_s(:rmpd_custom_date)
   end
-  # rubocop: enable Style/SpaceAroundKeyword
 end
