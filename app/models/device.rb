@@ -40,7 +40,11 @@ class Device < ApplicationRecord
   end
 
   def to_s
-    "#{login} (#{name} in #{company})"
+    if name.blank?
+      login
+    else
+      "#{login} (#{name})"
+    end
   end
 
   def time_zone_formatted_offset

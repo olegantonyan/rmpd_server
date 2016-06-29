@@ -1,6 +1,6 @@
 class CompanyPresenter < BasePresenter
   def devices
-    h.collection_links(super, :name, :device_path)
+    h.collection_links(super, :to_s, :device_path)
   end
 
   def users
