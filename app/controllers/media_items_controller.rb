@@ -32,8 +32,8 @@ class MediaItemsController < BaseController
 
   # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
   def create_multiple
-    sap request.headers["Content-Disposition"]
-    sap request.headers["Content-Range"]
+    sap request.headers['Content-Disposition']
+    sap request.headers['Content-Range']
     sap params[:media_item_create_multiple][:files]
     @media_item_multiple = MediaItem::CreateMultiple.new(media_item_create_multiple_params)
     authorize @media_item_multiple, :create?
