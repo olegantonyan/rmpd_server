@@ -1,8 +1,4 @@
-class SshTunnel
-  include ActiveModel::Model
-  include ActiveModel::Validations
-  include ActiveModel::Validations::Callbacks
-
+class SshTunnel < ApplicationModel
   validates :server, :username, :server_port, :external_port, :internal_port, :open_duration, :device, presence: true
   validates :server, :username, length: { maximum: 130 }
   validates :server_port, :external_port, :external_port, :internal_port, :open_duration, numericality: true
