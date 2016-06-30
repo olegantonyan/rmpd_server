@@ -4,7 +4,7 @@ class Deviceapi::Protocol::Incoming::AckOk < Deviceapi::Protocol::Incoming::Base
     original_message = mq.remove(sequence_number)
     case original_message&.message_type
     when 'request_ssh_tunnel'
-      Notifiers::SshTunnelNotifierJob.perform_later(device)
+      Notifiers::SshTunnelNotifierJob1.perform_later(device)
     end
   end
   # rubocop: enable Lint/UnusedMethodArgument

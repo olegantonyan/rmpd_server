@@ -17,12 +17,13 @@ class Deviceapi::StatusController < Deviceapi::BaseController
   private
 
   def json(msg)
-    JSON.parse(msg)
-  rescue JSON::ParserError, TypeError
+    JSON.parse(msg || '')
+  rescue JSON::ParserError
     {}
   end
 
   def log_error(err)
     logger.error("error processing message from device #{device.login}: #{err}\n#{err.backtrace}")
+    Rollbar.error(err, "error processing message from device #{device.login}")
   end
 end
