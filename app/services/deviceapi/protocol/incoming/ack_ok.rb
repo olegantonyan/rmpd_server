@@ -6,6 +6,7 @@ class Deviceapi::Protocol::Incoming::AckOk < Deviceapi::Protocol::Incoming::Base
     when 'request_ssh_tunnel'
       SshTunnelNotifierJob.perform_later
     end
+    original_message
   end
   # rubocop: enable Lint/UnusedMethodArgument
 end
