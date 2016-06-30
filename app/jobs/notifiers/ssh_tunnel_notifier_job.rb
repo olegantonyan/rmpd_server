@@ -3,7 +3,7 @@ class Notifiers::SshTunnelNotifierJob < Notifiers::BaseNotifierJob
     text = "SSH tunnel open for device #{device}"
     a = {
       fields: [{ title: 'Device login', value: device.login, short: true }],
-      color: 'warning',
+      color: 'good',
       fallback: text,
       author_name: device.to_s,
       author_link: device_url(device)
