@@ -18,7 +18,7 @@ class Deviceapi::StatusController < Deviceapi::BaseController
 
   def json(msg)
     JSON.parse(msg)
-  rescue JSON::ParserError
+  rescue JSON::ParserError, TypeError
     {}
   end
 
