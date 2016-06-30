@@ -37,7 +37,7 @@
     var checkboxes = $(".check_box_#{collection.model_name.name.underscore.gsub('/', '_')}_ids");
     var delete_selected_button = $('#delete-multiple-button');
 
-    var check_deldete_all_button_state = function() {
+    var check_delete_all_button_state = function() {
       var any_checked = false;
       checkboxes.each(function(index) {
         if(this.checked) {
@@ -53,11 +53,11 @@
 
     select_multiple_element.on('change', function() {
       checkboxes.prop('checked', this.checked);
-      check_deldete_all_button_state();
+      check_delete_all_button_state();
     });
 
     checkboxes.on('change', function() {
-      check_deldete_all_button_state();
+      check_delete_all_button_state();
     });
-    check_deldete_all_button_state();
+    check_delete_all_button_state();
   })();
