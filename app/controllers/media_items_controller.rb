@@ -1,5 +1,6 @@
 class MediaItemsController < BaseController
   include Filterrificable
+  include ChunkedUploadable
 
   before_action :set_media_item, only: %i(show edit update destroy)
 
@@ -32,9 +33,7 @@ class MediaItemsController < BaseController
 
   # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
   def create_multiple
-    uploads = media_item_create_multiple_params[:files].map do |file|
-      ChunkedUpload.new(file, request.headers['Content-Range'], File.join(Rails.root, 'public', 'uploads', 'tmp', 'chunked', current_user&.id&.to_s || 'anonymous'))
-    end
+    uploads = media_item_create_multiple_params[:files].map { |file| chunked_upload(file) }
     uploads.map(&:save)
     done_uploads = uploads.select(&:done?)
     if done_uploads.any?
