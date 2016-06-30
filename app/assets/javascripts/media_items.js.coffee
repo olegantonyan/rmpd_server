@@ -58,9 +58,11 @@ set_progress = (progress) ->
 
 disable_form = ->
   $("#ajax-fileupload input").prop('readonly', true)
+  $('.fileinput-button').hide()
 
 enable_form = ->
   $("#ajax-fileupload input").prop('readonly', false)
+  $('.fileinput-button').show()
 
 ready = ->
   setup_ajax_fileupload()
