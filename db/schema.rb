@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160623073052) do
+ActiveRecord::Schema.define(version: 20160701150922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20160623073052) do
     t.string   "password_digest"
     t.integer  "company_id"
     t.string   "time_zone",       default: "", null: false
+    t.string   "wallpaper",       default: "", null: false
     t.index ["company_id"], name: "index_devices_on_company_id", using: :btree
     t.index ["login"], name: "index_devices_on_login", using: :btree
     t.index ["playlist_id"], name: "index_devices_on_playlist_id", using: :btree
