@@ -50,7 +50,7 @@ class MediaItemsController < BaseController
         end
         format.html { crud_respond(@media_item_multiple) }
       end
-      done_uploads.map(&:cleanup)
+      # done_uploads.map(&:cleanup) # don't need this, thanks to `move_to_cache` and `move_to_store`
     else
       skip_authorization
       render json: {}
