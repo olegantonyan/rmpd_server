@@ -1,6 +1,6 @@
 class InvitePolicy < ApplicationPolicy
   def create?
-    record.company.includes_user?(user)
+    super || record.company.includes_user?(user)
   end
 
   def destroy?
