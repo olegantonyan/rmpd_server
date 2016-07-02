@@ -1,5 +1,5 @@
 - if current_user
-  - if current_user.companies.size > 1 || current_user.root?
+  - if current_user_has_many_companies? || current_user.root?
     - if f.object.respond_to?(:company)
       = f.association :company, collection: policy_scope(Company), include_blank: false, input_html: { id: 'select-company' }
     - else
