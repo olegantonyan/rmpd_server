@@ -4,6 +4,8 @@ class Device < ApplicationRecord
   has_secure_password
   has_paper_trail
 
+  mount_uploader :wallpaper, WallpaperUploader
+
   with_options dependent: :destroy do |a|
     a.with_options inverse_of: :device do |aa|
       aa.has_one :device_status, class_name: 'Device::Status', autosave: true
@@ -22,9 +24,11 @@ class Device < ApplicationRecord
     validates :password, length: { in: 8..60 }, confirmation: true, if: -> { new_record? || !password.nil? }
   end
   validates :name, length:  { maximum: 130 }
+  validate :wallpaper_max_size, if: 'wallpaper.present?'
 
   after_destroy { send_to :clear_queue }
   around_save :update_setting
+  after_commit -> { send_to(:update_wallpaper) }, if: 'previous_changes[:wallpaper]'
 
   filterrific(available_filters: %i(search_query with_company_id with_device_group_id))
 
@@ -61,6 +65,11 @@ class Device < ApplicationRecord
   end
 
   private
+
+  def wallpaper_max_size
+    limit = 1.5
+    errors.add(:wallpaper, "cannot be greater than #{limit}Mb") if wallpaper.file.size.to_f / (1024 * 1024) > limit
+  end
 
   def update_setting
     changed_attrs = changed.map(&:to_sym).dup

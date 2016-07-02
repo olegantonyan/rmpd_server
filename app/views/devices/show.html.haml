@@ -11,8 +11,8 @@
               {attr: :company},
               {attr: :playlist},
               {attr: :device_groups },
-              {attr: :time_zone} ] }
-
+              {attr: :time_zone},
+              {attr: :wallpaper} ] }
 .row
   .col-sm-12
     = render partial: 'shared/playlist_assignment_form', locals: { resource: Playlist::Assignment.new(playlist_id: device.playlist_id), url: device_playlist_assignment_path(device_id: device.id) }

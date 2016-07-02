@@ -3,7 +3,7 @@
 class WallpaperUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -43,11 +43,19 @@ class WallpaperUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  def filename
-    'wallpaper.png' if original_filename
-  end
+  # def filename
+  #  'wallpaper.png' if original_filename
+  # end
 
   def content_type_whitelist
     %r{image\/}
+  end
+
+  # version :png do
+  #  process efficient_conversion: [1366, 768]
+  # end
+
+  version :thumb do
+    process resize_to_fill: [200, 200]
   end
 end

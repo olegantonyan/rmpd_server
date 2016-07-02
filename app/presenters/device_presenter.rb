@@ -22,4 +22,12 @@ class DevicePresenter < BasePresenter
   def company
     h.link_to(super.to_s, h.safe_path_to(:company_path, super))
   end
+
+  def wallpaper
+    if super.present?
+      h.link_to(h.image_tag(super.thumb.url, size: '100x100', class: 'img img-thumbnail'), wallpaper_url)
+    else
+      ''
+    end
+  end
 end
