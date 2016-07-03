@@ -5,7 +5,7 @@ setup_ajax_fileupload = ->
   $('#submit-ajax-fileupload').click ->
     $('#submit-ajax-fileupload').addClass('hidden')
     $('#cancel-ajax-fileupload').removeClass('hidden')
-    disable_form()
+    (new Form).disable()
     xhrs = []
     for file in pending_files
       xhr = file.submit()
@@ -24,7 +24,9 @@ setup_ajax_fileupload = ->
       pending_files.push(data)
       $('#submit-ajax-fileupload').removeClass('hidden')
       $('#uploaded-ajax-fileupload li').remove()
-      set_progress(0)
+      (new Progress).set(0)
+      for i in pending_files
+        console.log(i)
 
     done: (e, data) ->
       $('#uploaded-ajax-fileupload').append("<li class='text-success'>#{[i.name for i in data.files]}</li>")
@@ -34,7 +36,7 @@ setup_ajax_fileupload = ->
 
     progressall: (e, data) ->
       progress = data.loaded / data.total * 100
-      set_progress(progress)
+      (new Progress).set(progress)
 
     error: (e, data, error_t) ->
       if error_t is 'abort'
@@ -48,21 +50,39 @@ setup_ajax_fileupload = ->
 
 set_upload_done = ->
   $('#cancel-ajax-fileupload').addClass('hidden')
-  enable_form()
+  (new Form).enable()
 
-set_progress = (progress) ->
-  pgbar = $('#progressall-ajax-fileupload')
-  pgbar.css('width', "#{progress}%")
-  pgbar.attr('aria-valuenow', progress)
-  pgbar.text("#{Math.round(progress)}%")
 
-disable_form = ->
-  $("#ajax-fileupload input").prop('readonly', true)
-  $('.fileinput-button').hide()
+class AjaxFileupload
+  constructor: ->
+    @submit_element = $('#submit-ajax-fileupload')
+    @cancel_element = $('#cancel-ajax-fileupload')
+    @form_element = $('#ajax-fileupload')
 
-enable_form = ->
-  $("#ajax-fileupload input").prop('readonly', false)
-  $('.fileinput-button').show()
+
+class Progress
+  constructor: ->
+    @progressbar_element = $('#progressall-ajax-fileupload')
+
+  set: (progress) ->
+    @progressbar_element.css('width', "#{progress}%")
+    @progressbar_element.attr('aria-valuenow', progress)
+    @progressbar_element.text("#{Math.round(progress)}%")
+
+
+class Form
+  constructor: ->
+    @form_element = $("#ajax-fileupload input")
+    @fileinput_element = $('.fileinput-button')
+
+  enable: ->
+    @form_element.prop('readonly', false)
+    @fileinput_element.show()
+
+  disable: ->
+    @form_element.prop('readonly', true)
+    @fileinput_element.hide()
+
 
 ready = ->
   setup_ajax_fileupload()
