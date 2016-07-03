@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20160701150922) do
     t.string   "password_digest"
     t.integer  "company_id"
     t.string   "time_zone",       default: "", null: false
-    t.string   "wallpaper",       default: "", null: false
+    t.string   "wallpaper"
     t.index ["company_id"], name: "index_devices_on_company_id", using: :btree
     t.index ["login"], name: "index_devices_on_login", using: :btree
     t.index ["playlist_id"], name: "index_devices_on_playlist_id", using: :btree
