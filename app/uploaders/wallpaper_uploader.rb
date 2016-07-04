@@ -59,7 +59,7 @@ class WallpaperUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [200, 200]
   end
 
-  process resize_to_fill: [1366, 768]
+  process resize_to_limit: [1366, 768]
 
   convert :jpg
 end
