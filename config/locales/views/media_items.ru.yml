@@ -3,3 +3,5 @@ ru:
     media_items:
       upload_multiple: Загрузить медиафайлы
       cancel_upload: Отмена
+      files_selected: Выбрано
+      add_files: Добавить

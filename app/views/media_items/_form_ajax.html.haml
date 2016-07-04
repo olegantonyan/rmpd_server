@@ -1,9 +1,16 @@
 = simple_form_for(resource, url: create_multiple_media_items_path, html: { id: 'ajax-fileupload' }) do |f|
   = f.input :description, as: :string, input_html: { value: f.object.description.blank? ? Date.current.to_formatted_s(:rmpd_custom_date) : f.object.description }
-  = f.input :files, as: :file, input_html: { multiple: true, class: 'fileinput-button' }
   = f.input :type, collection: MediaItem.types, label_method: -> (i) { MediaItem.human_enum_name(i.first) }, value_method: -> (i) { i.first }, include_blank: false, as: :radio_buttons
   = render partial: 'shared/select_company_form', locals: { f: f }
   = f.input :skip_volume_normalization, as: :boolean
+
+  = f.input :files, as: :file, input_html: { multiple: true, class: 'fileinput-button hidden' }
+  %span.btn.btn-success#fakefileinput-button{onclick: "$('.fileinput-button').click();"}= icon_text('plus', t('views.media_items.add_files', default: 'Add files'))
+  %em
+    %span= t('views.media_items.files_selected', default: 'Files selected')
+    %span#queued-ajax-fileupload= '0'
+
+= tag :br
 
 .button.btn.btn-default.hidden#submit-ajax-fileupload= icon_text('cloud-upload', t('views.media_items.upload_multiple', default: 'Upload mediafiles'))
 .pull-right

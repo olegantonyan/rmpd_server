@@ -1,4 +1,5 @@
 setup_ajax_fileupload = ->
+  console.log(I18n?.translations)
   pending_files = []
   xhrs = []
   submit_element = $('#submit-ajax-fileupload')
@@ -27,8 +28,7 @@ setup_ajax_fileupload = ->
       (new HideableElement(submit_element)).show()
       $('#uploaded-ajax-fileupload li').remove()
       (new Progress).set(0)
-      for i in pending_files
-        console.log(i)
+      $('#queued-ajax-fileupload').text(pending_files.length)
 
     done: (e, data) ->
       $('#uploaded-ajax-fileupload').append("<li class='text-success'>#{[i.name for i in data.files]}</li>")
@@ -53,6 +53,7 @@ setup_ajax_fileupload = ->
   set_upload_done = ->
     (new HideableElement(cancel_element)).hide()
     (new Form).enable()
+    $('#queued-ajax-fileupload').text(0)
 
 
 class HideableElement
@@ -78,7 +79,7 @@ class Progress
 class Form
   constructor: ->
     @form_element = $("#ajax-fileupload input")
-    @fileinput_element = $('.fileinput-button')
+    @fileinput_element = $('#fakefileinput-button') # $('.fileinput-button')
 
   enable: ->
     @form_element.prop('readonly', false)
