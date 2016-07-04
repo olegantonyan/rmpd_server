@@ -1,17 +1,19 @@
 setup_ajax_fileupload = ->
   pending_files = []
   xhrs = []
+  submit_element = $('#submit-ajax-fileupload')
+  cancel_element = $('#cancel-ajax-fileupload')
 
-  $('#submit-ajax-fileupload').click ->
-    $('#submit-ajax-fileupload').addClass('hidden')
-    $('#cancel-ajax-fileupload').removeClass('hidden')
+  submit_element.click ->
+    (new HideableElement(submit_element)).hide()
+    (new HideableElement(cancel_element)).show()
     (new Form).disable()
     xhrs = []
     for file in pending_files
       xhr = file.submit()
       xhrs.push(xhr)
 
-  $('#cancel-ajax-fileupload').click ->
+  cancel_element.click ->
     for xhr in xhrs
       xhr.abort()
 
@@ -22,7 +24,7 @@ setup_ajax_fileupload = ->
     dataType: 'json'
     add: (e, data) ->
       pending_files.push(data)
-      $('#submit-ajax-fileupload').removeClass('hidden')
+      (new HideableElement(submit_element)).show()
       $('#uploaded-ajax-fileupload li').remove()
       (new Progress).set(0)
       for i in pending_files
@@ -48,16 +50,19 @@ setup_ajax_fileupload = ->
       if pending_files.length is 0
         set_upload_done()
 
-set_upload_done = ->
-  $('#cancel-ajax-fileupload').addClass('hidden')
-  (new Form).enable()
+  set_upload_done = ->
+    (new HideableElement(cancel_element)).hide()
+    (new Form).enable()
 
 
-class AjaxFileupload
-  constructor: ->
-    @submit_element = $('#submit-ajax-fileupload')
-    @cancel_element = $('#cancel-ajax-fileupload')
-    @form_element = $('#ajax-fileupload')
+class HideableElement
+  constructor: (@element) ->
+
+  hide: ->
+    @element.addClass('hidden')
+
+  show: ->
+    @element.removeClass('hidden')
 
 
 class Progress
