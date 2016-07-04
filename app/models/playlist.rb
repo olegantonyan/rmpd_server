@@ -38,6 +38,10 @@ class Playlist < ApplicationRecord
   scope :with_company_id, -> (companies_ids) { where(company_id: [*companies_ids]) }
   scope :without_device, -> { includes(:devices).where(devices: { playlist_id: nil }) }
 
+  def uniq_media_items
+    media_items.distinct
+  end
+
   def to_s
     (description.blank? ? name : "#{name} (#{description})")
   end
