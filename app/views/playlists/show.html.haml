@@ -12,29 +12,38 @@
           {attr: :devices} ] }
 
 = tag :br
+= tag :br
 
-%h4= MediaItem.human_enum_name(:background)
-- playlist_items = present_collection(playlist.playlist_items_background)
-= render partial: 'shared/list', locals: { collection: playlist_items,
-  columns: [{attr: :position, heading: '#'},
-            {attr: :file_identifier},
-            {attr: :description},
-            {attr: :size},
-            {attr: :begin_time},
-            {attr: :end_time},
-            {attr: :begin_date},
-            {attr: :end_date} ],
-  details_link: -> (i) { playlist_playlist_item_path(playlist, i) } }
+.panel.panel-success
+  .panel-heading
+    %strong= MediaItem.human_enum_name(:background)
+    %span.pull-right.btn.btn-default.btn-xs#background-items-collapse-button{'data-toggle' => 'collapse', 'data-target' => '#background-items', 'aria-expanded' => 'false'}= icon_text('eye-slash')
+  #background-items.collapse.in
+    - playlist_items = present_collection(playlist.playlist_items_background)
+    = render partial: 'shared/list', locals: { collection: playlist_items,
+      columns: [{attr: :position, heading: '#'},
+                {attr: :file_identifier},
+                {attr: :description},
+                {attr: :size},
+                {attr: :begin_time},
+                {attr: :end_time},
+                {attr: :begin_date},
+                {attr: :end_date} ],
+      details_link: -> (i) { playlist_playlist_item_path(playlist, i) } }
 
-%h4= MediaItem.human_enum_name(:advertising)
-- playlist_items = present_collection(playlist.playlist_items_advertising)
-= render partial: 'shared/list', locals: { collection: playlist_items,
-  columns: [{attr: :file_identifier},
-            {attr: :description},
-            {attr: :size},
-            {attr: :begin_time},
-            {attr: :end_time},
-            {attr: :playbacks_per_day},
-            {attr: :begin_date},
-            {attr: :end_date} ],
-  details_link: -> (i) { playlist_playlist_item_path(playlist, i) } }
+.panel.panel-info
+  .panel-heading
+    %strong= MediaItem.human_enum_name(:advertising)
+    %span.pull-right.btn.btn-default.btn-xs#advertising-items-collapse-button{'data-toggle' => 'collapse', 'data-target' => '#advertising-items', 'aria-expanded' => 'false'}= icon_text('eye-slash')
+  #advertising-items.collapse.in
+    - playlist_items = present_collection(playlist.playlist_items_advertising)
+    = render partial: 'shared/list', locals: { collection: playlist_items,
+      columns: [{attr: :file_identifier},
+                {attr: :description},
+                {attr: :size},
+                {attr: :begin_time},
+                {attr: :end_time},
+                {attr: :playbacks_per_day},
+                {attr: :begin_date},
+                {attr: :end_date} ],
+      details_link: -> (i) { playlist_playlist_item_path(playlist, i) } }

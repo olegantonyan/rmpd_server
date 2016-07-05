@@ -1,5 +1,4 @@
 setup_ajax_fileupload = ->
-  console.log(I18n?.translations)
   pending_files = []
   xhrs = []
   submit_element = $('#submit-ajax-fileupload')

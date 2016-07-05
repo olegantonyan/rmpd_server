@@ -108,6 +108,19 @@ setup_shuffle_checkbox = ->
     positions.prop('readonly', @checked)
 
 
+class Collapseable
+  constructor: (@trigger_selector, @aria_selector) ->
+    @shown_class = 'btn-default'
+    @collapsed_class = 'btn-info'
+    $(@aria_selector).on 'shown.bs.collapse', =>
+      $(@trigger_selector).removeClass(@collapsed_class)
+      $(@trigger_selector).addClass(@shown_class)
+
+    $(@aria_selector).on 'hidden.bs.collapse', =>
+      $(@trigger_selector).removeClass(@shown_class)
+      $(@trigger_selector).addClass(@collapsed_class)
+
+
 ready = ->
   setup_datetimeppicker()
   setup_multiselect()
@@ -116,5 +129,8 @@ ready = ->
                        '#mediaitems-advertising-end_time-textbox',
                        '#mediaitems-advertising-playbacks_per_day-textbox',
                        '#mediaitems-advertising-playbacks_per_hour-textbox')
+
+  new Collapseable('#background-items-collapse-button', '#background-items')
+  new Collapseable('#advertising-items-collapse-button', '#advertising-items')
 
 $(document).on('turbolinks:load', ready)
