@@ -75,4 +75,14 @@ module UiHelper
       policy(object)
     end
   end
+
+  def collapse_button(collapseable_area_id, button_text = icon_text('eye-slash', t('views.shared.show_hide', default: 'Show / Hide')))
+    capture do
+      concat(content_tag(:span, data: { toggle: 'button' }) do
+        concat(content_tag(:span, class: 'btn btn-default btn-xs', data: { toggle: 'collapse', target: collapseable_area_id }, 'aria-expanded' => 'false') do
+          button_text
+        end)
+      end)
+    end
+  end
 end

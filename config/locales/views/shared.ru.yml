@@ -20,6 +20,7 @@ ru:
       delete_selected: Удалить выбранные
       language: Язык
       home_page: Домашняя страница
+      show_hide: Развернуть / Скрыть
 
       playlist_assignment_form:
         assign: Назначить

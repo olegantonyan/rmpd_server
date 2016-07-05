@@ -10,7 +10,7 @@
           %h4= background_title
           = f.input :shuffle, input_html: { id: 'playlists-shuffle-checkbox' }
         .col-sm-6
-          %span.pull-right.btn.btn-default.btn-xs#background-items-collapse-button{'data-toggle' => 'collapse', 'data-target' => '#background-items', 'aria-expanded' => 'false'}= icon_text('eye-slash', t('views.playlists.show_hide', default: 'Show / Hide'))
+          .pull-right= collapse_button('#background-items')
     #background-items.collapse.in
       .panel-body
         %table.table.table-condensed#background-items-table
@@ -39,7 +39,7 @@
         .col-sm-6
           %h4= advertising_title
         .col-sm-6
-          %span.pull-right.btn.btn-default.btn-xs#advertising-items-collapse-button{'data-toggle' => 'collapse', 'data-target' => '#advertising-items', 'aria-expanded' => 'false'}= icon_text('eye-slash', t('views.playlists.show_hide', default: 'Show / Hide'))
+          .pull-right= collapse_button('#advertising-items')
     #advertising-items.collapse.in
       .panel-body
         %table.table.table-condensed#advertising-items-table

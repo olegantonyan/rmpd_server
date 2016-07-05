@@ -17,7 +17,7 @@
 .panel.panel-success
   .panel-heading
     %strong= MediaItem.human_enum_name(:background)
-    %span.pull-right.btn.btn-default.btn-xs#background-items-collapse-button{'data-toggle' => 'collapse', 'data-target' => '#background-items', 'aria-expanded' => 'false'}= icon_text('eye-slash', t('views.playlists.show_hide', default: 'Show / Hide'))
+    .pull-right= collapse_button('#background-items')
   #background-items.collapse.in
     - playlist_items = present_collection(playlist.playlist_items_background)
     = render partial: 'shared/list', locals: { collection: playlist_items,
@@ -34,7 +34,7 @@
 .panel.panel-info
   .panel-heading
     %strong= MediaItem.human_enum_name(:advertising)
-    %span.pull-right.btn.btn-default.btn-xs#advertising-items-collapse-button{'data-toggle' => 'collapse', 'data-target' => '#advertising-items', 'aria-expanded' => 'false'}= icon_text('eye-slash', t('views.playlists.show_hide', default: 'Show / Hide'))
+    .pull-right= collapse_button('#advertising-items')
   #advertising-items.collapse.in
     - playlist_items = present_collection(playlist.playlist_items_advertising)
     = render partial: 'shared/list', locals: { collection: playlist_items,

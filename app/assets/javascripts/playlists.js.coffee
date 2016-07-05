@@ -121,18 +121,6 @@ setup_midnight_rollover = ->
     for i in [0 ... rows - 1] by 1
       new MidnightRollover("#playlist_playlist_items_#{type}_attributes_#{i}_begin_time", "#playlist_playlist_items_#{type}_attributes_#{i}_end_time")
 
-class Collapseable
-  constructor: (@trigger_selector, @aria_selector) ->
-    @shown_class = 'btn-default'
-    @collapsed_class = 'btn-info'
-    $(@aria_selector).on 'shown.bs.collapse', =>
-      $(@trigger_selector).removeClass(@collapsed_class)
-      $(@trigger_selector).addClass(@shown_class)
-
-    $(@aria_selector).on 'hidden.bs.collapse', =>
-      $(@trigger_selector).removeClass(@shown_class)
-      $(@trigger_selector).addClass(@collapsed_class)
-
 
 class MidnightRollover
   constructor: (begin_time_selector, end_time_selector) ->
@@ -161,7 +149,5 @@ ready = ->
                        '#mediaitems-advertising-playbacks_per_day-textbox',
                        '#mediaitems-advertising-playbacks_per_hour-textbox')
 
-  new Collapseable('#background-items-collapse-button', '#background-items')
-  new Collapseable('#advertising-items-collapse-button', '#advertising-items')
 
 $(document).on('turbolinks:load', ready)
