@@ -15,7 +15,7 @@ class Playlist::Creation < BaseService
   def save
     ActiveRecord::Base.transaction do
       playlist.save!
-      check_midnight_rollover
+      midnight_rollover
       validate_overlapped_schedule
       update_schedule
     end
@@ -28,7 +28,7 @@ class Playlist::Creation < BaseService
   private
 
   # rubocop: disable Metrics/AbcSize
-  def check_midnight_rollover
+  def midnight_rollover
     playlist.playlist_items_background.begin_time_greater_than_end_time.find_each do |i|
       next_day = i.dup
       next_day.begin_time = Time.zone.parse('00:00:00').to_formatted_s(:rmpd_custom)
