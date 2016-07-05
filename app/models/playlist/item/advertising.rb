@@ -10,6 +10,7 @@ class Playlist::Item::Advertising < Playlist::Item
   end
   validate :media_item_type
   validate :fit_to_time_period
+  validate :begin_time_less_than_end_time
 
   private
 
@@ -30,5 +31,10 @@ class Playlist::Item::Advertising < Playlist::Item
 
   def total_time
     end_time.to_time.utc - begin_time.to_time.utc
+  end
+
+  def begin_time_less_than_end_time
+    return if begin_time.nil? || end_time.nil?
+    errors.add(:begin_time, "#{begin_time.to_formatted_s(:rmpd_custom)} >= end time #{end_time.to_formatted_s(:rmpd_custom)}") if begin_time >= end_time
   end
 end

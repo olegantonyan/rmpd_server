@@ -14,7 +14,8 @@ class Playlist::Creation < BaseService
 
   def save
     ActiveRecord::Base.transaction do
-      raise ActiveRecord::RecordInvalid unless playlist.save
+      playlist.save!
+      check_midnight_rollover
       validate_overlapped_schedule
       update_schedule
     end
@@ -25,6 +26,17 @@ class Playlist::Creation < BaseService
   end
 
   private
+
+  def check_midnight_rollover
+    playlist.playlist_items_background.begin_time_greater_than_end_time.each do |i|
+      next_day = i.dup
+      next_day.begin_time = '00:00:00'
+      next_day.end_date += 1.day
+      i.end_time = '23:59:59'
+      i.save!
+      next_day.save!
+    end
+  end
 
   def validate_overlapped_schedule
     overlap = schedule.overlap
