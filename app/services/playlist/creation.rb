@@ -27,16 +27,18 @@ class Playlist::Creation < BaseService
 
   private
 
+  # rubocop: disable Metrics/AbcSize
   def check_midnight_rollover
-    playlist.playlist_items_background.begin_time_greater_than_end_time.each do |i|
+    playlist.playlist_items_background.begin_time_greater_than_end_time.find_each do |i|
       next_day = i.dup
-      next_day.begin_time = '00:00:00'
-      next_day.end_date += 1.day
-      i.end_time = '23:59:59'
+      next_day.begin_time = Time.zone.parse('00:00:00').to_formatted_s(:rmpd_custom)
+      next_day.end_date += 1.day if next_day.end_date
+      i.end_time = Time.zone.parse('23:59:59').to_formatted_s(:rmpd_custom)
       i.save!
       next_day.save!
     end
   end
+  # rubocop: enable Metrics/AbcSize
 
   def validate_overlapped_schedule
     overlap = schedule.overlap
