@@ -33,6 +33,7 @@ class SetPlaylistItemValues
       @_set_attribute_value(i, val)
     if @type == 'background'
       @_set_attribute_value('position', @_max_background_position() + 1)
+    # @_set_midnight_rollover()
 
   _set_attribute_value: (attr, value) =>
     input_value = $("#playlist_playlist_items_#{@type}_attributes_#{@added_index}_#{attr}")
@@ -45,6 +46,9 @@ class SetPlaylistItemValues
       value = +$(this).val()
       max_value = value if value > max_value
     max_value
+
+  _set_midnight_rollover: ->
+    new MidnightRollover("#playlist_playlist_items_#{@type}_attributes_#{@added_index}_begin_time", "#playlist_playlist_items_#{@type}_attributes_#{@added_index}_end_time")
 
 class PlaybacksPerHour
   constructor: (@begin_time, @end_time, @prd, @prh) ->
@@ -108,6 +112,15 @@ setup_shuffle_checkbox = ->
     positions.prop('readonly', @checked)
 
 
+setup_midnight_rollover = ->
+  new MidnightRollover('#mediaitems-advertising-begin_time-textbox', '#mediaitems-advertising-end_time-textbox')
+  new MidnightRollover('#mediaitems-background-begin_time-textbox', '#mediaitems-background-end_time-textbox')
+
+  for type in ['advertising', 'background']
+    rows = $("##{type}-items-table tr").length
+    for i in [0 ... rows - 1] by 1
+      new MidnightRollover("#playlist_playlist_items_#{type}_attributes_#{i}_begin_time", "#playlist_playlist_items_#{type}_attributes_#{i}_end_time")
+
 class Collapseable
   constructor: (@trigger_selector, @aria_selector) ->
     @shown_class = 'btn-default'
@@ -121,10 +134,28 @@ class Collapseable
       $(@trigger_selector).addClass(@collapsed_class)
 
 
+class MidnightRollover
+  constructor: (begin_time_selector, end_time_selector) ->
+    @begin_time = $(begin_time_selector)
+    @end_time = $(end_time_selector)
+
+    @begin_time.on 'dp.change', =>
+      @_changed()
+    @end_time.on 'dp.change', =>
+      @_changed()
+
+  _changed: ->
+    end = moment(@end_time.val(), 'HH:mm:ss')
+    begin = moment(@begin_time.val(), 'HH:mm:ss')
+    # if begin > end
+      # TODO
+
+
 ready = ->
   setup_datetimeppicker()
   setup_multiselect()
   setup_shuffle_checkbox()
+  # setup_midnight_rollover()
   new PlaybacksPerHour('#mediaitems-advertising-begin_time-textbox',
                        '#mediaitems-advertising-end_time-textbox',
                        '#mediaitems-advertising-playbacks_per_day-textbox',

@@ -13,7 +13,7 @@
           %span.pull-right.btn.btn-default.btn-xs#background-items-collapse-button{'data-toggle' => 'collapse', 'data-target' => '#background-items', 'aria-expanded' => 'false'}= icon_text('eye-slash', t('views.playlists.show_hide', default: 'Show / Hide'))
     #background-items.collapse.in
       .panel-body
-        %table.table.table-condensed
+        %table.table.table-condensed#background-items-table
           %tr
             %th.numeric= label_for_input(f, :playlist_items_background, :position)
             %th= label_for_input(f, :playlist_items_background, :media_item)
@@ -42,7 +42,7 @@
           %span.pull-right.btn.btn-default.btn-xs#advertising-items-collapse-button{'data-toggle' => 'collapse', 'data-target' => '#advertising-items', 'aria-expanded' => 'false'}= icon_text('eye-slash', t('views.playlists.show_hide', default: 'Show / Hide'))
     #advertising-items.collapse.in
       .panel-body
-        %table.table.table-condensed
+        %table.table.table-condensed#advertising-items-table
           %tr
             %th= label_for_input(f, :playlist_items_advertising, :media_item)
             %th.datetime= label_for_input(f, :playlist_items_advertising, :begin_time)
