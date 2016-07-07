@@ -5,6 +5,11 @@ class Deviceapi::Protocol::Outgoing::RequestSshTunnel < Deviceapi::Protocol::Out
     enqueue(json(tunnel))
   end
 
+  def ack(ok, sequence_number, _data = {})
+    super
+    Notifiers::SshTunnelNotifierJob.perform_later(device) if ok
+  end
+
   private
 
   def json(tunnel)
