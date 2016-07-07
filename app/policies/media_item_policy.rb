@@ -16,7 +16,7 @@ class MediaItemPolicy < ApplicationPolicy
   end
 
   def destroy?
-    super || (index? && user.company_ids.include?(record.company_id))
+    (super || (index? && user.company_ids.include?(record.company_id))) && !record.playlists.exists?
   end
 
   class Scope < Scope

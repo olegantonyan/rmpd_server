@@ -67,7 +67,7 @@ class MediaItemsController < BaseController
   def destroy_multiple
     media_items = MediaItem.find(params[:media_item_ids])
     media_items.each { |m| authorize m, :destroy? }
-    crud_respond MediaItem::DestroyMultiple.new(media_items: media_items)
+    crud_respond MediaItem::DestroyMultiple.new(media_items: media_items), error_url: media_items_path
   end
 
   private
