@@ -2,7 +2,7 @@ module MediafilesUtils
   module_function
 
   def convert_to_h264(src, dst)
-    system(*['ffmpeg', '-i', src, '-vcodec', 'libx264', '-acodec', 'aac', '-strict', '-2', dst])
+    system(*['ffmpeg', '-i', src, '-vcodec', 'libx264', '-vprofile', 'main', '-pix_fmt', 'yuv420p', '-acodec', 'aac', '-strict', '-2', dst])
   end
 
   def duration(file)
