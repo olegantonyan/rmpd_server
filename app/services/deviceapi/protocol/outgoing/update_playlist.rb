@@ -22,6 +22,7 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
       created_at: playlist.created_at,
       updated_at: playlist.updated_at,
       shuffle: playlist.shuffle,
+      total_size: playlist.total_size,
       items: playlist.playlist_items.includes(:media_item).map { |i| serialized_playlist_item(i) }
     }
   end

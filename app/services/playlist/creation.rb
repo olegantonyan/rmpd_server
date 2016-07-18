@@ -12,18 +12,21 @@ class Playlist::Creation < BaseService
     PlaylistPolicy
   end
 
+  # rubocop: disable Metrics/MethodLength
   def save
     ActiveRecord::Base.transaction do
       playlist.save!
       midnight_rollover
       validate_overlapped_schedule
       update_schedule
+      notify_devices
     end
     true
   rescue ActiveRecord::RecordInvalid
     copy_errors(playlist)
     false
   end
+  # rubocop: enable Metrics/MethodLength
 
   private
 
@@ -59,4 +62,14 @@ class Playlist::Creation < BaseService
     playlist_items_advertising.update(qry.keys, qry.values)
   end
   # rubocop: enable Metrics/AbcSize
+
+  def notify_devices
+    playlist.devices.each do |d|
+      assignment = Playlist::Assignment.new(assignable: d, playlist: playlist, force: true)
+      unless assignment.save
+        errors.add(:base, assignment.errors.full_messages.to_sentence)
+        raise ActiveRecord::RecordInvalid
+      end
+    end
+  end
 end

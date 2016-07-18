@@ -35,6 +35,7 @@ module Deviceapi::Receiver
     device.device_status.devicetime = Time.zone.parse(data[:localtime]) if data[:localtime]
     device.device_status.online = true
     device.device_status.updated_at = Time.current
+    device.device_status.free_space = data[:free_space] if data[:free_space]
   end
 
   def save_device_status(device)

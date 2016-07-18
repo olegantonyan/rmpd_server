@@ -8,7 +8,7 @@ class Playlist < ApplicationRecord
 
   with_options inverse_of: :playlist do |a|
     a.has_many :devices
-    a.with_options foreign_key: :playlist_id, dependent: :destroy do |aa|
+    a.with_options foreign_key: :playlist_id, dependent: :destroy, after_add: :append_added_playlist_item do |aa|
       aa.has_many :playlist_items_background, -> { background.order(:position) }, class_name: 'Playlist::Item::Background'
       aa.has_many :playlist_items_advertising, -> { advertising }, class_name: 'Playlist::Item::Advertising'
     end
@@ -17,9 +17,6 @@ class Playlist < ApplicationRecord
   has_many :media_items, -> { joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position') },
            through: :playlist_items
   belongs_to :company, inverse_of: :playlists
-
-  # after_commit :notify_devices_delete, on: :destroy
-  after_commit :notify_devices_update, on: %i(create update)
 
   validates :name, presence: true, length: { maximum: 128 }
   validates :description, length: { maximum: 512 }
@@ -54,13 +51,18 @@ class Playlist < ApplicationRecord
     media_items.processing
   end
 
-  private
-
-  def notify_devices_update
-    devices.each { |d| d.send_to :update_playlist }
+  def total_size
+    uniq_media_items.inject(0) { |a, e| a + e.file.size.to_i }
   end
 
-  # def notify_devices_delete
-  #   devices.each { |d| d.send_to :delete_playlist }
-  # end
+  def added_playlist_items
+    @_added_playlist_items || []
+  end
+
+  private
+
+  def append_added_playlist_item(item)
+    @_added_playlist_items ||= []
+    @_added_playlist_items << item
+  end
 end
