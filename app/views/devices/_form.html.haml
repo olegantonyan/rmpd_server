@@ -14,7 +14,7 @@
       = f.input :wallpaper, as: :file
       = f.input :wallpaper_cache, as: :hidden
     .col-sm-8
-      - if resource.wallpaper.present?
+      - if resource.wallpaper&.thumb&.url.present?
         = image_tag(resource.wallpaper.thumb.url, size: '100x100', class: 'img img-thumbnail')
         = f.check_box :remove_wallpaper
         = f.label :remove_wallpaper, t('views.devices.remove_wallpaper', default: 'Remove this image')
