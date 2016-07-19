@@ -5,7 +5,7 @@ class Notifiers::PlaybackErrorNotifierJob < Notifiers::BaseNotifierJob
 
   private
 
-  def attachments(device, playlist_item_id, text)
+  def attachments(device, playlist_item_id, filename, text)
     playlist_item = Playlist::Item.find_by_id(playlist_item_id)
     [{
       fields: [{ title: 'Device login', value: device.login, short: false },
