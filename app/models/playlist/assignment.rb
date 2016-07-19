@@ -21,7 +21,7 @@ class Playlist::Assignment < ApplicationModel
   end
 
   def playlist_id=(arg)
-    self.playlist = Playlist.find(arg)
+    self.playlist = Playlist.find_by(id: arg)
   end
 
   # rubocop: disable Rails/Delegate
@@ -69,6 +69,8 @@ class Playlist::Assignment < ApplicationModel
 
   # rubocop: disable Metrics/AbcSize
   def new_items_to_download(device)
+    return [] unless playlist
+    return playlist.uniq_media_items.to_a unless device.playlist
     if device.playlist_id == playlist.id
       playlist.added_playlist_items.map(&:media_item)
     else
