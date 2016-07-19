@@ -7,6 +7,8 @@ class Playlist::Assignment < ApplicationModel
 
   validates :assignable, presence: true
 
+  delegate :id, to: :playlist, prefix: true, allow_nil: true
+
   def save
     return false unless valid?
     @_notifications ||= []
@@ -23,12 +25,6 @@ class Playlist::Assignment < ApplicationModel
   def playlist_id=(arg)
     self.playlist = Playlist.find_by(id: arg)
   end
-
-  # rubocop: disable Rails/Delegate
-  def playlist_id
-    playlist&.id
-  end
-  # rubocop: enable Rails/Delegate
 
   def to_s
     "#{playlist} to #{assignable}"
