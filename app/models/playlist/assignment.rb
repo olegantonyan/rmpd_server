@@ -24,6 +24,12 @@ class Playlist::Assignment < ApplicationModel
     self.playlist = Playlist.find(arg)
   end
 
+  # rubocop: disable Rails/Delegate
+  def playlist_id
+    playlist&.id
+  end
+  # rubocop: enable Rails/Delegate
+
   def to_s
     "#{playlist} to #{assignable}"
   end
