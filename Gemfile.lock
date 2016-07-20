@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: git://github.com/sinatra/sinatra.git
-  revision: a5da6fa82c46436f59ae482d07c1752ab908c852
+  revision: 03c03d7e169954185b008253f8bf2f9068198ca3
   specs:
     sinatra (2.0.0.pre.alpha)
       mustermann (~> 0.4)
@@ -78,7 +78,7 @@ GEM
     addressable (2.4.0)
     airbrussh (1.0.2)
       sshkit (>= 1.6.1, != 1.7.0)
-    arel (7.0.0)
+    arel (7.1.0)
     ast (2.3.0)
     autoprefixer-rails (6.3.7)
       execjs
