@@ -17,7 +17,7 @@
 
   %body
     #main{role: 'main'}
-      - unless params[:invitation_token] # hide navbar for those idiots who can't register via invite
+      - unless hide_navbar?
         = render 'layouts/navbar'
       .container-fluid
         .content#main-content
