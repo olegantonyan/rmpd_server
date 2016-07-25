@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: git://github.com/sinatra/sinatra.git
-  revision: 751f2a7a8f26a01f984cecbfe1385ecc0feda9e0
+  revision: 88a1ba7bfb2262b68391d2490dbb440184b9f838
   specs:
     sinatra (2.0.0.pre.alpha)
       mustermann (~> 0.4)
@@ -267,7 +267,7 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    puma (3.5.2)
+    puma (3.6.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.1)
