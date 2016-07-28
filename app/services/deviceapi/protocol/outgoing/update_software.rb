@@ -5,6 +5,10 @@ class Deviceapi::Protocol::Outgoing::UpdateSoftware < Deviceapi::Protocol::Outgo
     enqueue(json(options[:distribution_url]))
   end
 
+  def max_retries
+    1
+  end
+
   private
 
   def json(url)
