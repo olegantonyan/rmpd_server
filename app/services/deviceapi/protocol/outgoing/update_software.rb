@@ -7,7 +7,7 @@ class Deviceapi::Protocol::Outgoing::UpdateSoftware < Deviceapi::Protocol::Outgo
 
   def ack(ok, sequence_number, data = {})
     super
-    Notifiers::SoftwareUpdateNotifierJob.perform_later(device, ok, data.to_s)
+    Notifiers::SoftwareUpdateNotifierJob.perform_later(device, ok, data[:message])
   end
 
   def max_retries
