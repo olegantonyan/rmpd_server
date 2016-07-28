@@ -11,7 +11,7 @@ class Deviceapi::Protocol::Outgoing::UpdateSoftware < Deviceapi::Protocol::Outgo
   end
 
   def max_retries
-    1
+    0
   end
 
   def self.reenquable
