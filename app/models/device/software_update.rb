@@ -19,4 +19,10 @@ class Device::SoftwareUpdate < ApplicationModel
     send_to_device(:update_software, device, distribution_url: distribution_url)
     true
   end
+
+  def supported?
+    return false unless device
+    rmpd_version = device.device_status.client_version.split(' ')[1]
+    Gem::Version.new(rmpd_version) >= Gem::Version.new('0.4.16')
+  end
 end

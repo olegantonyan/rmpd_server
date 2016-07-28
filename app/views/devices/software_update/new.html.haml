@@ -1,5 +1,8 @@
 = page_title(@software_update, template: 'new')
 
-= simple_form_for(@software_update, url: device_software_update_path(@device)) do |f|
-  = f.input :distribution, as: :file
-  = f.button :submit
+- if @software_update.supported?
+  = simple_form_for(@software_update, url: device_software_update_path(@device)) do |f|
+    = f.input :distribution, as: :file
+    = f.button :submit
+- else
+  %p.text-danger= 'Sorry, this client does not support self update'
