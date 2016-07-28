@@ -5,6 +5,11 @@ class Deviceapi::Protocol::Outgoing::UpdateSoftware < Deviceapi::Protocol::Outgo
     enqueue(json(options[:distribution_url]))
   end
 
+  def ack(ok, sequence_number, data = {})
+    super
+    Notifiers::SoftwareUpdateNotifierJob.perform_later(device, ok, data.to_s)
+  end
+
   def max_retries
     1
   end
