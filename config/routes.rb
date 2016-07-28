@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   resources :devices, concerns: :playlist_assignable do
     resources :device_log_messages, only: %i(index)
     resources :ssh_tunnels, only: %i(new create)
+    resource :software_update, only: %i(new create)
   end
   resources :playlists do
     resources :playlist_items, only: %i(show)

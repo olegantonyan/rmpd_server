@@ -1,6 +1,10 @@
 class SshTunnelsController < BaseController
   before_action :set_device
 
+  def self.controller_path
+    'devices/ssh_tunnels'
+  end
+
   def new
     @ssh_tunnel = SshTunnel.new_default(request.host)
     authorize @ssh_tunnel

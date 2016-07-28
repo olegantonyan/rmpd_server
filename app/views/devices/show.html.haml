@@ -35,3 +35,6 @@
 
 - if policy(:ssh_tunnel).index?
   = link_to 'Request SSH tunnel', new_device_ssh_tunnel_path(device), class: 'btn btn-default'
+
+- if current_user&.root?
+  = link_to 'Software update', new_device_software_update_path(device), class: 'btn btn-default'

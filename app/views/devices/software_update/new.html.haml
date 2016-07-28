@@ -1,0 +1,5 @@
+= page_title(@software_update, template: 'new')
+
+= simple_form_for(@software_update, url: device_software_update_path(@device)) do |f|
+  = f.input :distribution, as: :file
+  = f.button :submit
