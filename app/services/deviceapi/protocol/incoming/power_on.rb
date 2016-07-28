@@ -1,8 +1,6 @@
 class Deviceapi::Protocol::Incoming::PowerOn < Deviceapi::Protocol::Incoming::BaseCommand
-  # rubocop: disable Lint/UnusedMethodArgument
-  def call(options = {})
+  def call(_options = {})
     device.device_status.poweredon_at = Time.current
-    mq.reenqueue_all(device.login)
+    mq.reenqueue_all(device.login, Deviceapi::Util.reenquable_on_poweron_commands)
   end
-  # rubocop: enable Lint/UnusedMethodArgument
 end

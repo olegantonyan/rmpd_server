@@ -1,11 +1,9 @@
 class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgoing::BaseCommand
-  # rubocop: disable Lint/UnusedMethodArgument
-  def call(options = {})
+  def call(_options = {})
     return unless device.playlist
     clean_previous_commands
     enqueue(json)
   end
-  # rubocop: enable Lint/UnusedMethodArgument
 
   private
 

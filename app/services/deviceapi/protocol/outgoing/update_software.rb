@@ -9,6 +9,10 @@ class Deviceapi::Protocol::Outgoing::UpdateSoftware < Deviceapi::Protocol::Outgo
     1
   end
 
+  def self.reenquable
+    false
+  end
+
   private
 
   def json(url)

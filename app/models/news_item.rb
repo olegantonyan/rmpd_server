@@ -2,7 +2,7 @@ class NewsItem < ApplicationRecord
   has_paper_trail
 
   with_options presence: true do
-    validates :title, length: { in: 4..100 }
+    validates :title, length: { in: 4..200 }
     validates :body, length: { in: 4..6000 }
   end
 

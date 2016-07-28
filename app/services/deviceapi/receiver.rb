@@ -4,7 +4,7 @@ module Deviceapi::Receiver
     notify_status(device)
     save_device_status(device) # prevent possible duplication of notification. in case of fast events received and multithereaded server
     write_device_log(device, data, user_agent)
-    incomming_command_object(device, data, sequence_number).call
+    Deviceapi::Util.incomming_command_object(device, data, sequence_number).call
     save_device_status(device)
   end
 
@@ -21,14 +21,6 @@ module Deviceapi::Receiver
   end
 
   private
-
-  def incomming_command_object(device, data, sequence_number)
-    if data[:command]
-      "Deviceapi::Protocol::Incoming::#{data[:command].to_s.classify}"
-    else
-      "Deviceapi::Protocol::Incoming::Legacy::#{data[:type].to_s.classify}"
-    end.constantize.new(device, data, sequence_number)
-  end
 
   def prepare_update_device_status(device, data)
     device.build_device_status unless device.device_status

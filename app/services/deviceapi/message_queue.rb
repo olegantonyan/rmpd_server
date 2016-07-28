@@ -41,9 +41,13 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
     find_by(id: sequence_number).try(:reenqueue_retries) || 0
   end
 
-  def self.reenqueue_all(key)
+  def self.reenqueue_all(key, only_types = nil)
     Rails.logger&.debug("Reenqueue all dequed messages for '#{key}'")
-    where(key: key, dequeued: true).update_all(['reenqueue_retries = reenqueue_retries + 1, dequeued = ?', false])
+    if only_types
+      where(key: key, dequeued: true, message_type: only_types)
+    else
+      where(key: key, dequeued: true)
+    end.update_all(['reenqueue_retries = reenqueue_retries + 1, dequeued = ?', false])
   end
 
   def self.destroy_all_messages(key)

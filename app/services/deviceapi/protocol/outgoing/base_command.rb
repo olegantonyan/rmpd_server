@@ -22,6 +22,10 @@ class Deviceapi::Protocol::Outgoing::BaseCommand
     15
   end
 
+  def self.reenquable
+    true
+  end
+
   protected
 
   def enqueue(json = {})
