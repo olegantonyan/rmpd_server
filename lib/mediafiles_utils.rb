@@ -26,7 +26,7 @@ module MediafilesUtils
     target_volume = -14.0
     adjustment = target_volume - mean_volume
     output_file = "/tmp/#{File.basename(file)}"
-    _, e, r = Open3.capture3(*['ffmpeg', '-i', file, '-af', "volume=#{adjustment}dB", '-c:v', 'copy', output_file])
+    _, e, r = Open3.capture3(*['ffmpeg', '-y', '-i', file, '-af', "volume=#{adjustment}dB", '-c:v', 'copy', output_file])
     # result = system(*['ffmpeg', '-i', file, '-af', "volume=#{adjustment}dB", '-c:v', 'copy', output_file])
     raise "Error normalizing audio volume of #{file} (#{e})" unless r.success?
     File.rename(output_file, file)
