@@ -42,4 +42,8 @@ class Playlist::ItemPresenter < BasePresenter
   def end_date
     super&.to_formatted_s(:rmpd_custom_date)
   end
+
+  def wait_for_the_end
+    h.i18n_boolean(super)
+  end
 end

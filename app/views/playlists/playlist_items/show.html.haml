@@ -3,7 +3,8 @@
 
 = render partial: 'shared/show', locals: { object: playlist_item,
   attrs: [{attr: :media_item},
-          {attr: :playlist}] }
+          {attr: :playlist},
+          {attr: :wait_for_the_end}] }
 
 - if playlist_item.advertising?
   %h4= Playlist::Item.human_attribute_name(:schedule)
