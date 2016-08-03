@@ -19,6 +19,7 @@ class Playlist::Creation < BaseService
       midnight_rollover
       validate_overlapped_schedule
       update_schedule
+      update_wait_for_the_end
       notify_devices
     end
     true
@@ -30,18 +31,17 @@ class Playlist::Creation < BaseService
 
   private
 
-  # rubocop: disable Metrics/AbcSize
   def midnight_rollover
     playlist.playlist_items_background.begin_time_greater_than_end_time.find_each do |i|
       next_day = i.dup
-      next_day.begin_time = Time.zone.parse('00:00:00').to_formatted_s(:rmpd_custom)
+      next_day.begin_time = midnight
       next_day.end_date += 1.day if next_day.end_date
-      i.end_time = Time.zone.parse('23:59:59').to_formatted_s(:rmpd_custom)
+      i.end_time = second_before_midnight
+      i.wait_for_the_end = true
       i.save!
       next_day.save!
     end
   end
-  # rubocop: enable Metrics/AbcSize
 
   def validate_overlapped_schedule
     overlap = schedule.overlap
@@ -71,5 +71,16 @@ class Playlist::Creation < BaseService
         raise ActiveRecord::RecordInvalid
       end
     end
+  end
+
+  def update_wait_for_the_end
+  end
+
+  def midnight
+    Time.zone.parse('00:00:00').to_formatted_s(:rmpd_custom)
+  end
+
+  def second_before_midnight
+    Time.zone.parse('23:59:59').to_formatted_s(:rmpd_custom)
   end
 end

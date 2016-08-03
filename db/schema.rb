@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718074051) do
+ActiveRecord::Schema.define(version: 20160803044005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,8 +121,8 @@ ActiveRecord::Schema.define(version: 20160718074051) do
   create_table "playlist_items", force: :cascade do |t|
     t.integer  "playlist_id"
     t.integer  "media_item_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "position",          default: 0
     t.time     "begin_time"
     t.time     "end_time"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20160718074051) do
     t.date     "begin_date"
     t.date     "end_date"
     t.text     "schedule"
+    t.boolean  "wait_for_the_end",  default: false, null: false
     t.index ["playlist_id", "media_item_id"], name: "index_playlist_items_on_playlist_id_and_media_item_id", using: :btree
   end
 
