@@ -63,3 +63,13 @@
         = render partial: 'add_advertising', locals: { f: f }
 
   = f.button :submit
+
+.modal.fade{role: 'dialog', tabindex: '-1', id: 'midnight-rollover-modal'}
+  .modal-dialog{role: 'document'}
+    .modal-content
+      .modal-body#midnight-rollover-modal-body= I18n.t('views.playlists.midnight_rollover_warning', default: 'Begin time > end time. 2 records will be created')
+      .modal-footer
+        %label
+          = check_box_tag 'dont_show_anymore', true
+          = I18n.t('views.shared.dont_show_anymore', default: 'Do not show anymore')
+        %button.btn.btn-primary{'data-dismiss' => 'modal', 'type' => 'button'} OK

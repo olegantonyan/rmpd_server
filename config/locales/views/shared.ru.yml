@@ -21,6 +21,7 @@ ru:
       language: Язык
       home_page: Домашняя страница
       show_hide: Развернуть / Скрыть
+      dont_show_anymore: Больше не показывать
 
       playlist_assignment_form:
         assign: Назначить

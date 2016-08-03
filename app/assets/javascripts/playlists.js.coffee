@@ -33,7 +33,7 @@ class SetPlaylistItemValues
       @_set_attribute_value(i, val)
     if @type == 'background'
       @_set_attribute_value('position', @_max_background_position() + 1)
-    # @_set_midnight_rollover()
+      @_set_midnight_rollover()
 
   _set_attribute_value: (attr, value) =>
     input_value = $("#playlist_playlist_items_#{@type}_attributes_#{@added_index}_#{attr}")
@@ -126,6 +126,7 @@ class MidnightRollover
   constructor: (begin_time_selector, end_time_selector) ->
     @begin_time = $(begin_time_selector)
     @end_time = $(end_time_selector)
+    @_time_format = 'HH:mm:ss'
 
     @begin_time.on 'dp.change', =>
       @_changed()
@@ -133,17 +134,25 @@ class MidnightRollover
       @_changed()
 
   _changed: ->
-    end = moment(@end_time.val(), 'HH:mm:ss')
-    begin = moment(@begin_time.val(), 'HH:mm:ss')
-    # if begin > end
-      # TODO
+    end_string = @end_time.val()
+    end = moment(end_string, @_time_format)
+    begin = moment(@begin_time.val(), @_time_format)
+    if begin > end && end_string != '00:00:00'
+      (new MidnightRolloverAlert).show()
+
+
+class MidnightRolloverAlert
+  constructor: ->
+  show: ->
+    unless $('#dont_show_anymore').is(':checked') # optimize maybe? dont even check if we are not going to show it anymore
+      $('#midnight-rollover-modal').modal('show')
 
 
 ready = ->
   setup_datetimeppicker()
   setup_multiselect()
   setup_shuffle_checkbox()
-  # setup_midnight_rollover()
+  setup_midnight_rollover()
   new PlaybacksPerHour('#mediaitems-advertising-begin_time-textbox',
                        '#mediaitems-advertising-end_time-textbox',
                        '#mediaitems-advertising-playbacks_per_day-textbox',
