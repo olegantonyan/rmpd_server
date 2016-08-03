@@ -63,7 +63,7 @@ gem 'font-awesome-sass', '~> 4.5.0'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 gem 'sidekiq'
-gem 'sinatra', github: 'sinatra/sinatra', require: false
+gem 'sinatra', github: 'sinatra/sinatra', require: false, ref: '88a1ba7bfb2262b68391d2490dbb440184b9f838'
 gem 'initializer_helpers', github: 'olegantonyan/initializer_helpers'
 gem 'jquery-fileupload-rails'
 gem 'rmpd_adschedule', git: 'git@bitbucket.org:antlabs_dev/rmpd_adschedule.git'
