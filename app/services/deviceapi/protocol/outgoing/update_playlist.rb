@@ -41,6 +41,7 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
       begin_date: i.begin_date&.strftime(date_format),
       playbacks_per_day: i.playbacks_per_day,
       schedule_intervals: serialized_schedule(i),
+      wait_for_the_end: i.wait_for_the_end,
       schedule: [] # legacy
     }
   end

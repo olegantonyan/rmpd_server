@@ -19,7 +19,6 @@ class Playlist::Creation < BaseService
       midnight_rollover
       validate_overlapped_schedule
       update_schedule
-      update_wait_for_the_end
       notify_devices
     end
     true
@@ -71,9 +70,6 @@ class Playlist::Creation < BaseService
         raise ActiveRecord::RecordInvalid
       end
     end
-  end
-
-  def update_wait_for_the_end
   end
 
   def midnight

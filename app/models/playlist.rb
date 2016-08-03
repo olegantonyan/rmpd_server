@@ -35,8 +35,6 @@ class Playlist < ApplicationRecord
   scope :with_company_id, -> (companies_ids) { where(company_id: [*companies_ids]) }
   scope :without_device, -> { includes(:devices).where(devices: { playlist_id: nil }) }
 
-  attr_accessor :wait_for_the_end
-
   def uniq_media_items
     media_items.distinct
   end
@@ -59,10 +57,6 @@ class Playlist < ApplicationRecord
 
   def added_playlist_items
     @_added_playlist_items || []
-  end
-
-  def wait_for_the_end
-    playlist_items_background.where(wait_for_the_end: true).exists?
   end
 
   private
