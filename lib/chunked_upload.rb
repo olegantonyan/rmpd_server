@@ -7,7 +7,7 @@ class ChunkedUpload
   end
 
   def save
-    File.open(@filepath, offset == 0 ? 'wb' : 'ab') do |f|
+    File.open(@filepath, offset.zero? ? 'wb' : 'ab') do |f|
       f.write(@input_file.read)
     end
   end
