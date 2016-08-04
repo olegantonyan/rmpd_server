@@ -48,6 +48,7 @@
             %th.datetime= label_for_input(f, :playlist_items_advertising, :begin_time)
             %th.datetime= label_for_input(f, :playlist_items_advertising, :end_time)
             %th.numeric= label_for_input(f, :playlist_items_advertising, :playbacks_per_day)
+            %th.numeric= label_for_input(f, :playlist_items_advertising, :playbacks_per_hour)
             %th.datetime= label_for_input(f, :playlist_items_advertising, :begin_date)
             %th.datetime= label_for_input(f, :playlist_items_advertising, :end_date)
             %th.controls= ''
@@ -56,6 +57,7 @@
             %td= input_for_time(ff, :begin_time)
             %td= input_for_time(ff, :end_time)
             %td= ff.input :playbacks_per_day, as: :integer, label: false
+            %td= ff.input :playbacks_per_hour, as: :integer, label: false
             %td= input_for_date(ff, :begin_date)
             %td= input_for_date(ff, :end_date)
             %td.pull-right= ff.remove_nested_fields_link icon('times'), class: 'btn btn-danger btn-sm', role: 'button'

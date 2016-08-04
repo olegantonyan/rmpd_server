@@ -34,6 +34,8 @@ class SetPlaylistItemValues
     if @type == 'background'
       @_set_attribute_value('position', @_max_background_position() + 1)
       @_set_midnight_rollover()
+    else if @type == 'advertising'
+      @_set_playbacks_per_hour()
 
   _set_attribute_value: (attr, value) =>
     input_value = $("#playlist_playlist_items_#{@type}_attributes_#{@added_index}_#{attr}")
@@ -48,7 +50,15 @@ class SetPlaylistItemValues
     max_value
 
   _set_midnight_rollover: ->
-    new MidnightRollover("#playlist_playlist_items_#{@type}_attributes_#{@added_index}_begin_time", "#playlist_playlist_items_#{@type}_attributes_#{@added_index}_end_time")
+    new MidnightRollover("#playlist_playlist_items_#{@type}_attributes_#{@added_index}_begin_time",
+                         "#playlist_playlist_items_#{@type}_attributes_#{@added_index}_end_time")
+
+  _set_playbacks_per_hour: ->
+    new PlaybacksPerHour("#playlist_playlist_items_#{@type}_attributes_#{@added_index}_begin_time",
+                         "#playlist_playlist_items_#{@type}_attributes_#{@added_index}_end_time",
+                         "#playlist_playlist_items_#{@type}_attributes_#{@added_index}_playbacks_per_day",
+                         "#playlist_playlist_items_#{@type}_attributes_#{@added_index}_playbacks_per_hour")
+
 
 class PlaybacksPerHour
   constructor: (@begin_time, @end_time, @prd, @prh) ->
@@ -113,13 +123,28 @@ setup_shuffle_checkbox = ->
 
 
 setup_midnight_rollover = ->
-  new MidnightRollover('#mediaitems-advertising-begin_time-textbox', '#mediaitems-advertising-end_time-textbox')
+  # new MidnightRollover('#mediaitems-advertising-begin_time-textbox', '#mediaitems-advertising-end_time-textbox')
   new MidnightRollover('#mediaitems-background-begin_time-textbox', '#mediaitems-background-end_time-textbox')
 
-  for type in ['advertising', 'background']
+  for type in ['background']
     rows = $("##{type}-items-table tr").length
     for i in [0 ... rows - 1] by 1
       new MidnightRollover("#playlist_playlist_items_#{type}_attributes_#{i}_begin_time", "#playlist_playlist_items_#{type}_attributes_#{i}_end_time")
+
+
+setup_playbacks_per_hour = ->
+  new PlaybacksPerHour('#mediaitems-advertising-begin_time-textbox',
+                       '#mediaitems-advertising-end_time-textbox',
+                       '#mediaitems-advertising-playbacks_per_day-textbox',
+                       '#mediaitems-advertising-playbacks_per_hour-textbox')
+
+  for type in ['advertising']
+    rows = $("##{type}-items-table tr").length
+    for i in [0 ... rows - 1] by 1
+      new PlaybacksPerHour("#playlist_playlist_items_#{type}_attributes_#{i}_begin_time",
+                           "#playlist_playlist_items_#{type}_attributes_#{i}_end_time",
+                           "#playlist_playlist_items_#{type}_attributes_#{i}_playbacks_per_day",
+                           "#playlist_playlist_items_#{type}_attributes_#{i}_playbacks_per_hour")
 
 
 class MidnightRollover
@@ -153,10 +178,7 @@ ready = ->
   setup_multiselect()
   setup_shuffle_checkbox()
   setup_midnight_rollover()
-  new PlaybacksPerHour('#mediaitems-advertising-begin_time-textbox',
-                       '#mediaitems-advertising-end_time-textbox',
-                       '#mediaitems-advertising-playbacks_per_day-textbox',
-                       '#mediaitems-advertising-playbacks_per_hour-textbox')
+  setup_playbacks_per_hour()
 
 
 $(document).on('turbolinks:load', ready)
