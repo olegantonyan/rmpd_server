@@ -6,4 +6,8 @@ class UserPresenter < BasePresenter
   def email
     h.mail_to(super)
   end
+
+  def allow_notifications
+    h.i18n_boolean(super)
+  end
 end
