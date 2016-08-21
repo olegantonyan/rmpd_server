@@ -9,5 +9,5 @@
 
 .pull-right
   = link_to icon_text('plus', t('views.devices.bind', default: 'Bind new device')), new_device_binds_path, class: 'btn btn-success'
-- if policy(@devices)
+- if policy(@devices).new?
   = link_to icon_text('plus', t('views.shared.new', default: 'Add new')), new_device_path, class: 'btn btn-default'
