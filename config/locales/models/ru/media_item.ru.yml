@@ -21,6 +21,7 @@ ru:
         types:
           background: Фоновый
           advertising: Рекламный
+        duration: Длительность
 
   activemodel:
     models:

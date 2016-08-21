@@ -31,4 +31,8 @@ class MediaItemPresenter < BasePresenter
   def company
     h.link_to(super.to_s, h.safe_path_to(:company_path, super))
   end
+
+  def duration
+    super.format('%H:%M:%S')
+  end
 end
