@@ -14,7 +14,7 @@ class Invite < ApplicationRecord
   validates :email, format: { with: Devise.email_regexp }
 
   before_create :generate_token
-  after_create :send_notification
+  after_commit :send_notification, on: :create
 
   def to_s
     "#{email} -> #{company}"
