@@ -8,7 +8,7 @@ class DeviceLogMessagesController < BaseController
       params[:filterrific]
     ) || (on_reset; return)
     filtered = @filterrific.find.page(page).per_page(per_page)
-    @device_log_messages = policy_scope(filtered.where(device_id: params[:device_id])).ordered
+    @device_log_messages = policy_scope(filtered.where(device_id: params[:device_id])).ordered.includes(:device)
     authorize @device_log_messages
 
     respond_to do |format|

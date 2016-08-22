@@ -48,7 +48,7 @@ gem 'will_paginate-bootstrap'
 gem 'devise', '~> 4.0.0.rc2'
 gem 'pundit'
 gem 'paper_trail'
-gem 'filterrific', github: 'olegantonyan/filterrific', branch: 'turbolinks5'#, path: "~/projects/github/filterrific"
+gem 'filterrific', github: 'olegantonyan/filterrific', branch: 'turbolinks5'#path: "~/projects/github/filterrific"
 gem 'nested_form_fields'
 gem 'pry-rails'
 gem 'super_awesome_print'
