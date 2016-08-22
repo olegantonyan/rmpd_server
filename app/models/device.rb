@@ -57,7 +57,7 @@ class Device < ApplicationRecord
   end
 
   def synchronizing?
-    Deviceapi::MessageQueue.find_by(key: login, message_type: :update_playlist)
+    Deviceapi::MessageQueue.find_by(key: login)
   end
 
   def bound_to_company?
