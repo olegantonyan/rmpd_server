@@ -1,4 +1,4 @@
 = simple_form_for(resource) do |f|
   = f.input :title
-  = f.association :devices, collection: policy_scope(Device).order(name: :asc), as: :check_boxes
+  = f.association :devices, collection: policy_scope(Device).order(name: :asc), as: :check_boxes, label_method: :to_s
   = f.button :submit
