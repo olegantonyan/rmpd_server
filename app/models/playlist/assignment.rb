@@ -56,7 +56,7 @@ class Playlist::Assignment < ApplicationModel
   end
 
   def check_free_space!(device)
-    free_space = device.device_status.free_space
+    free_space = device&.device_status&.free_space
     return unless free_space
     size_of_new_items = new_items_to_download(device).inject(0) { |a, e| a + e.file.size.to_i }
     msg = "Device #{device} has not enough free space (#{free_space}) to update playlist (requires #{size_of_new_items})"
