@@ -21,8 +21,6 @@ class Device::SoftwareUpdate < ApplicationModel
   end
 
   def supported?
-    return false unless device
-    rmpd_version = device.device_status.client_version.split(' ')[1]
-    Gem::Version.new(rmpd_version) >= Gem::Version.new('0.4.16')
+    device&.client_version&.self_update_support?
   end
 end

@@ -1,0 +1,9 @@
+= page_title(@service_uploads)
+
+= render partial: 'shared/list', locals: { collection: present_collection(@service_uploads),
+  columns: [{attr: :created_at},
+            {attr: :reason},
+            {attr: :file_identifier} ] }
+
+- if policy(@new_service_upload).manual_request?
+  = link_to icon_text('plus', 'Request new'),  manual_request_device_device_service_uploads_path(@new_service_upload.device), method: :post, class: 'btn btn-default'

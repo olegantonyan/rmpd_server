@@ -32,6 +32,9 @@ Rails.application.routes.draw do
     resources :device_log_messages, only: %i(index)
     resources :ssh_tunnels, only: %i(new create)
     resource :software_update, only: %i(new create)
+    resources :device_service_uploads, only: %i(index) do
+      post 'manual_request', on: :collection
+    end
   end
   resources :playlists do
     resources :playlist_items, only: %i(show)
@@ -45,5 +48,6 @@ Rails.application.routes.draw do
 
   namespace :deviceapi, defaults: { format: :json } do
     resources :status, only: %i(create)
+    resource :service_upload, only: %i(create)
   end
 end

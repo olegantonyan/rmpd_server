@@ -11,6 +11,7 @@ class Device < ApplicationRecord
       aa.has_one :device_status, class_name: 'Device::Status', autosave: true
       aa.has_many :device_group_memberships, class_name: 'Device::Group::Membership'
       aa.has_many :device_log_messages, class_name: 'Device::LogMessage'
+      aa.has_many :device_service_uploads, -> { order(created_at: :desc) }, class_name: 'Device::ServiceUpload'
     end
   end
   with_options inverse_of: :devices do |a|
@@ -62,6 +63,10 @@ class Device < ApplicationRecord
 
   def bound_to_company?
     company.present?
+  end
+
+  def client_version
+    ClientVersion.new(device_log_messages.latest&.user_agent)
   end
 
   private

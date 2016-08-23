@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803044005) do
+ActiveRecord::Schema.define(version: 20160822160206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,15 @@ ActiveRecord::Schema.define(version: 20160803044005) do
     t.datetime "updated_at", null: false
     t.string   "user_agent"
     t.index ["message"], name: "index_device_log_messages_on_message", using: :btree
+  end
+
+  create_table "device_service_uploads", force: :cascade do |t|
+    t.string   "file"
+    t.string   "reason",     default: "", null: false
+    t.integer  "device_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["device_id"], name: "index_device_service_uploads_on_device_id", using: :btree
   end
 
   create_table "device_statuses", force: :cascade do |t|
@@ -196,6 +205,7 @@ ActiveRecord::Schema.define(version: 20160803044005) do
     t.index ["transaction_id"], name: "index_versions_on_transaction_id", using: :btree
   end
 
+  add_foreign_key "device_service_uploads", "devices"
   add_foreign_key "invites", "companies"
   add_foreign_key "invites", "users"
   add_foreign_key "playlist_items", "media_items"

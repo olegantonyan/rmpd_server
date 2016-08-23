@@ -5,11 +5,9 @@ class Device::Status < ApplicationRecord
 
   scope :online, -> { where(online: true) }
 
+  delegate :client_version, to: :device, allow_nil: true
+
   def to_s
     "#{device} #{online ? 'online' : 'offline'}"
-  end
-
-  def client_version
-    device.device_log_messages.latest&.user_agent
   end
 end

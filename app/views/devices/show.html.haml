@@ -33,8 +33,11 @@
 
 = link_to localized_heading(device, :device_log_messages), device_device_log_messages_path(device), class: 'btn btn-default'
 
-- if policy(:ssh_tunnel).index?
+- if policy(:ssh_tunnel).new?
   = link_to 'Request SSH tunnel', new_device_ssh_tunnel_path(device), class: 'btn btn-default'
 
-- if current_user&.root?
+- if policy(:'device/software_update').new?
   = link_to 'Software update', new_device_software_update_path(device), class: 'btn btn-default'
+
+- if policy(:'device/service_upload').index?
+  = link_to 'Service upload', device_device_service_uploads_path(device), class: 'btn btn-default'
