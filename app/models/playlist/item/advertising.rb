@@ -12,12 +12,12 @@ class Playlist::Item::Advertising < Playlist::Item
   validate :fit_to_time_period
   validate :begin_time_less_than_end_time
 
-  # rubocop: disable Metrics/AbcSize
   def playbacks_per_hour
-    return 0 if begin_time.nil? || end_time.nil? || playbacks_per_day.nil? || (end_time - begin_time).to_i.zero?
+    return 0 if begin_time.nil? || end_time.nil? || playbacks_per_day.nil?
     playbacks_per_day / ((end_time - begin_time) / 1.hour).round
+  rescue
+    0
   end
-  # rubocop: enable Metrics/AbcSize
 
   private
 
