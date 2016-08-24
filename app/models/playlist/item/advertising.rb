@@ -14,7 +14,7 @@ class Playlist::Item::Advertising < Playlist::Item
 
   # rubocop: disable Metrics/AbcSize
   def playbacks_per_hour
-    return 0 if begin_time.nil? || end_time.nil? || playbacks_per_day.nil? || (end_time - begin_time).zero?
+    return 0 if begin_time.nil? || end_time.nil? || playbacks_per_day.nil? || (end_time - begin_time).to_i.zero?
     playbacks_per_day / ((end_time - begin_time) / 1.hour).round
   end
   # rubocop: enable Metrics/AbcSize
