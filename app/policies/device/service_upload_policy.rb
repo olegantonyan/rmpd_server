@@ -4,6 +4,6 @@ class Device::ServiceUploadPolicy < ApplicationPolicy
   end
 
   def manual_request?
-    user&.root?
+    user&.root? || user.devices.include?(record&.device)
   end
 end
