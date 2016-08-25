@@ -13,7 +13,7 @@ class MediaItemPresenter < BasePresenter
 
   def file_identifier
     text = if file_processing?
-             "#{h.sanitize(super.to_s)} #{h.icon('cogs')}".html_safe
+             "#{h.icon('cogs')} #{h.sanitize(super.to_s)}".html_safe
            else
              super.to_s
            end
