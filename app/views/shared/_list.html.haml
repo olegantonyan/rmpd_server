@@ -1,5 +1,13 @@
+- content_for :buttons do
+  - if defined?(destroy_multiple_path)
+    = submit_tag t('views.shared.delete_selected', default: 'Delete selected'), data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }, class: 'btn btn-danger', id: 'delete-multiple-button'
+
+  - if defined?(new_path) && policy_presenter(collection).new?
+    .pull-right
+      = link_to icon_text('plus', t('views.shared.new', default: 'Add new')), new_path, class: 'btn btn-success'
+
 #filterrific_results
-  = form_tag(defined?(destroy_multiple_path) ? destroy_multiple_path : nil, method: :delete)do
+  = form_tag(defined?(destroy_multiple_path) ? destroy_multiple_path : nil, method: :delete) do
     %table.table.table-striped.table-hover.table-responsive.table-condensed
       %tr
         - if defined?(destroy_multiple_path)
@@ -21,12 +29,7 @@
             - else
               %td{class: 'text-right'}= icon('ban')
 
-    - if defined?(destroy_multiple_path)
-      = submit_tag t('views.shared.delete_selected', default: 'Delete selected'), data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }, class: 'btn btn-danger', id: 'delete-multiple-button'
-
-    - if defined?(new_path) && policy_presenter(collection).new?
-      .pull-right
-        = link_to icon_text('plus', t('views.shared.new', default: 'Add new')), new_path, class: 'btn btn-success'
+    = yield :buttons
 
     = tag :br
     = render partial: 'shared/paginate', locals: { collection: collection }
