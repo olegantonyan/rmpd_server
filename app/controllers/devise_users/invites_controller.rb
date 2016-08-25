@@ -3,12 +3,14 @@ class DeviseUsers::InvitesController < BaseController
 
   skip_before_action :authenticate_user!, only: :sign_up
 
-  # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop: disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
   def sign_up
     if user_signed_in?
       @invite = invite
       @user = current_user
-      if @user.email == @invite.email
+      if @invite.blank?
+        redirect_to root_path, alert: t('views.invites.not_found', default: 'Could not find invite. It may be cancelled')
+      elsif @user.email == @invite.email
         render template: 'devise/invites/accept'
       elsif user_exists?
         sign_out @user
@@ -23,7 +25,7 @@ class DeviseUsers::InvitesController < BaseController
       redirect_to_sign_up_page
     end
   end
-  # rubocop: enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop: enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
 
   def create
     srv = Invite::Accept.new(user: current_user, invite: invite)
@@ -37,7 +39,7 @@ class DeviseUsers::InvitesController < BaseController
   end
 
   def invite
-    Invite.find_by!(token: params[:invitation_token])
+    Invite.find_by(token: params[:invitation_token])
   end
 
   def user_exists?
