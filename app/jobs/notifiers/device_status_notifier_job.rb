@@ -16,4 +16,8 @@ class Notifiers::DeviceStatusNotifierJob < Notifiers::BaseNotifierJob
     notify(text, icon_emoji: ':squirrel:', attachments: [a])
   end
   # rubocop: enable Metrics/MethodLength
+
+  def slack_channel
+    '#device_status'
+  end
 end

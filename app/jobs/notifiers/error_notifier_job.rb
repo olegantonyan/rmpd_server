@@ -3,6 +3,10 @@ class Notifiers::ErrorNotifierJob < Notifiers::BaseNotifierJob
     notify(text, icon_emoji: ':hurtrealbad:', attachments: attachments(device, text))
   end
 
+  def slack_channel
+    '#device_errors'
+  end
+
   private
 
   def attachments(device, text)

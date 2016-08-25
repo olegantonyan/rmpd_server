@@ -3,6 +3,10 @@ class Notifiers::PlaybackErrorNotifierJob < Notifiers::BaseNotifierJob
     notify(text, icon_emoji: ':hurtrealbad:', attachments: attachments(device, playlist_item_id, filename, text))
   end
 
+  def slack_channel
+    '#device_errors'
+  end
+
   private
 
   def attachments(device, playlist_item_id, filename, text)
