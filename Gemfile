@@ -66,7 +66,7 @@ gem 'sidekiq'
 gem 'sinatra', github: 'sinatra/sinatra', require: false, ref: '88a1ba7bfb2262b68391d2490dbb440184b9f838'
 gem 'initializer_helpers', github: 'olegantonyan/initializer_helpers'
 gem 'jquery-fileupload-rails'
-gem 'rmpd_adschedule', git: 'git@bitbucket.org:antlabs_dev/rmpd_adschedule.git'
+gem 'rmpd_adschedule', git: 'git@bitbucket.org:slon-ds/rmpd_adschedule.git'
 gem 'mini_magick'
 
 group :development, :test do

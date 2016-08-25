@@ -2,7 +2,7 @@
 lock '3.6.0'
 
 set :application, 'rmpd_server'
-set :repo_url, 'git@bitbucket.org:antlabs_dev/rmpd_server.git'
+set :repo_url, 'git@bitbucket.org:slon-ds/rmpd_server.git'
 set :user, 'badmotherfucker'
 set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
