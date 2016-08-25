@@ -16,6 +16,7 @@ class MediaItemPolicy < ApplicationPolicy
   end
 
   def destroy?
+    return false if record.file_processing?
     (super || (index? && user.company_ids.include?(record.company_id))) && !record.playlists.exists?
   end
 

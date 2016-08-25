@@ -12,12 +12,13 @@ class MediaItemPresenter < BasePresenter
   end
 
   def file_identifier
+    filename = truncate_filename(super.to_s)
     text = if file_processing?
-             "#{h.icon('cogs')} #{h.sanitize(super.to_s)}".html_safe
+             "#{h.icon('cogs')} #{h.sanitize(filename)}".html_safe
            else
-             super.to_s
+             filename
            end
-    h.link_to(truncate_filename(text), file_url).html_safe
+    h.link_to(text, file_url).html_safe
   end
 
   def file_processing
