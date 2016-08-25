@@ -56,8 +56,8 @@
             %td= input_for_media_item(ff)
             %td= input_for_time(ff, :begin_time)
             %td= input_for_time(ff, :end_time)
-            %td= ff.input :playbacks_per_day, as: :integer, label: false
-            %td= ff.input :playbacks_per_hour, as: :integer, label: false
+            %td= ff.input :playbacks_per_day, as: :integer, label: false, input_html: { min: 1, step: 1}
+            %td= ff.input :playbacks_per_hour, as: :integer, label: false, input_html: { min: 1, step: 1}
             %td= input_for_date(ff, :begin_date)
             %td= input_for_date(ff, :end_date)
             %td.pull-right= ff.remove_nested_fields_link icon('times'), class: 'btn btn-danger btn-sm', role: 'button'

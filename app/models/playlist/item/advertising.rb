@@ -4,7 +4,7 @@ class Playlist::Item::Advertising < Playlist::Item
   with_options presence: true do
     validates :begin_time
     validates :end_time
-    validates :playbacks_per_day
+    validates :playbacks_per_day, numericality: { greater_than_or_equal_to: 1 }
     validates :begin_date
     validates :end_date
   end
