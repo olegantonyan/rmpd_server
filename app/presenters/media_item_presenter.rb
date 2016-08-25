@@ -17,7 +17,7 @@ class MediaItemPresenter < BasePresenter
            else
              super.to_s
            end
-    h.link_to(text, file_url).html_safe
+    h.link_to(truncate_filename(text), file_url).html_safe
   end
 
   def file_processing
@@ -34,5 +34,11 @@ class MediaItemPresenter < BasePresenter
 
   def duration
     super.format('%H:%M:%S')
+  end
+
+  private
+
+  def truncate_filename(text)
+    h.truncate(text, length: 50, omission: "...#{File.extname(text)}")
   end
 end
