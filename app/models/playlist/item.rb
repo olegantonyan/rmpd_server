@@ -10,6 +10,7 @@ class Playlist::Item < ApplicationRecord
   with_options presence: true do
     validates :media_item
     validates :playlist
+    validates :duration, numericality: { greater_than_or_equal_to: 1 }, if: 'media_item&.image?'
   end
   validate :check_files_processing
   validate :begin_date_less_than_end_date

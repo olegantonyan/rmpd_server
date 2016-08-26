@@ -1,6 +1,13 @@
 = page_title(@media_item)
 - media_item = present(@media_item)
 
+- if media_item.image?
+  - content_for :aside_block do
+    = image_tag(media_item.file_url, size: '300x300', class: 'img img-thumbnail')
+- else
+  - content_for :aside_block do
+    = video_tag(media_item.file_url, size: '300x300', controls: true, class: 'img img-thumbnail')
+
 = render partial: 'shared/show', locals: { object: media_item,
   destroy_path: media_item_path(media_item),
   attrs: [{attr: :file_identifier},

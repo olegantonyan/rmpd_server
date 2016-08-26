@@ -5,8 +5,12 @@ class MediaItem::Processing < BaseService
 
   def call
     begin_process
-    encode_video_for_device if video?
-    normalize_audio_volume unless skip_volume_normalization
+    if media_item.image?
+      convert_image
+    else
+      encode_video_for_device if video?
+      normalize_audio_volume unless skip_volume_normalization
+    end
     finish_process
   end
 
@@ -37,5 +41,15 @@ class MediaItem::Processing < BaseService
   def normalize_audio_volume
     MediafilesUtils.normalize_volume(file.current_path)
     media_item.update(volume_normalized: true)
+  end
+
+  def convert_image
+    image = MiniMagick::Image.new(media_item.file_path)
+    image.resize '1360x768>'
+    image.format 'jpg'
+    image.colors 65_536
+    image.depth 16
+    image.colorspace 'RGB'
+    image.write(media_item.file_path)
   end
 end

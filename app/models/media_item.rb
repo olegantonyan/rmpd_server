@@ -36,6 +36,7 @@ class MediaItem < ApplicationRecord
   scope :without_playlist, -> { includes(:playlist_items).where(playlist_items: { media_item_id: nil }) }
 
   delegate :path, to: :file, prefix: true
+  delegate :content_type, to: :file, allow_nil: true
 
   def to_s
     if description.blank?
@@ -50,7 +51,17 @@ class MediaItem < ApplicationRecord
   end
 
   def duration
-    @_duration ||= MediafilesUtils.duration(file.path)
+    @_duration ||= begin
+      if image?
+        Duration.new
+      else
+        MediafilesUtils.duration(file.path)
+      end
+    end
+  end
+
+  def image?
+    content_type.starts_with? 'image/'
   end
 
   private

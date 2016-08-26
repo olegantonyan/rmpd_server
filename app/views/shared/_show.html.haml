@@ -1,15 +1,22 @@
-%dl.dl-horizontal
-  - attrs.each do |a|
-    %dt= a[:heading] || localized_heading(object, a[:attr])
-    %dd= attr_link_show(object, a[:attr], a[:link])
-  - if !defined?(disable_timestamps) || !disable_timestamps
-    - if object.respond_to?(:created_at)
-      %dt= localized_heading(object, :created_at)
-      %dd= object.created_at
-    - if object.respond_to?(:updated_at)
-      %dt= localized_heading(object, :updated_at)
-      %dd= object.updated_at
+- content_for :attributes_block do
+  %dl.dl-horizontal
+    - attrs.each do |a|
+      %dt= a[:heading] || localized_heading(object, a[:attr])
+      %dd= attr_link_show(object, a[:attr], a[:link])
+    - if !defined?(disable_timestamps) || !disable_timestamps
+      - if object.respond_to?(:created_at)
+        %dt= localized_heading(object, :created_at)
+        %dd= object.created_at
+      - if object.respond_to?(:updated_at)
+        %dt= localized_heading(object, :updated_at)
+        %dd= object.updated_at
 
+- if content_for?(:aside_block)
+  .row
+    .col-sm-6= yield :attributes_block
+    .col-sm-6= yield :aside_block
+- else
+  = yield :attributes_block
 
 .pull-right
   - if defined?(edit_path) && policy_presenter(object).edit?
