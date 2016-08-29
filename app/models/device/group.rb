@@ -5,6 +5,7 @@ class Device::Group < ApplicationRecord
   has_many :devices, through: :device_group_memberships
 
   validates :title, presence: true, length: { in: 4..100 }, uniqueness: true
+  validates :devices, presence: true
 
   filterrific(available_filters: %i(search_query with_device_id))
 
