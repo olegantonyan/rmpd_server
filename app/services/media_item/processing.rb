@@ -45,7 +45,7 @@ class MediaItem::Processing < BaseService
 
   def convert_image
     image = MiniMagick::Image.new(media_item.file_path)
-    image.resize '1360x768>'
+    image.resize '1920x1080>'
     image.format 'jpg'
     image.colors 65_536
     image.depth 16
