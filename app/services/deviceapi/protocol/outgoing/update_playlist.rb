@@ -35,7 +35,7 @@ class Deviceapi::Protocol::Outgoing::UpdatePlaylist < Deviceapi::Protocol::Outgo
       description: i.description,
       type: i.type,
       position: i.position,
-      content_type: i.media_item.content_type,
+      content_type: i.content_type,
       show_duration: i.show_duration,
       begin_time: i.begin_time&.strftime(time_format),
       end_time: i.end_time&.strftime(time_format),

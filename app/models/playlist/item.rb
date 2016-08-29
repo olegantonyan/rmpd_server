@@ -20,7 +20,7 @@ class Playlist::Item < ApplicationRecord
   scope :begin_time_greater_than_end_time, -> { where('begin_time > end_time') }
 
   with_options to: :media_item do
-    delegate :file_url, :type, :description, :file_identifier, :background?, :advertising?, :duration
+    delegate :file_url, :type, :description, :file_identifier, :background?, :advertising?, :duration, :content_type
     delegate :image?, allow_nil: true
   end
 
