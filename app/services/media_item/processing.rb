@@ -8,14 +8,10 @@ class MediaItem::Processing < BaseService
     if media_item.image?
       convert_image
     else
-      encode_video_for_device if video?
+      encode_video_for_device if media_item.video?
       normalize_audio_volume unless skip_volume_normalization
     end
     finish_process
-  end
-
-  def video_extensions
-    %w(mp4 avi ogv webm mpeg mpg mov mkv)
   end
 
   private
@@ -26,10 +22,6 @@ class MediaItem::Processing < BaseService
 
   def finish_process
     media_item.update(file_processing: false)
-  end
-
-  def video?
-    video_extensions.find { |ext| file.path.ends_with?(ext) }
   end
 
   def encode_video_for_device

@@ -64,6 +64,14 @@ class MediaItem < ApplicationRecord
     content_type.starts_with? 'image/'
   end
 
+  def video?
+    content_type.starts_with? 'video/'
+  end
+
+  def audio?
+    content_type.starts_with? 'image/'
+  end
+
   private
 
   def process_file
