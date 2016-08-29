@@ -21,6 +21,7 @@ ru:
         begin_date: Дата начала
         end_date: Дата окончания
         playbacks_per_day: Проигрываний в день
-        playbacks_per_hour: Проигрываний в час  
+        playbacks_per_hour: Проигрываний в час
         schedule: Расписание
         wait_for_the_end: Дожидаться окончания после наступления времени окончания
+        show_duration: Длительность показа (картинки)

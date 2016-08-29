@@ -63,8 +63,8 @@ class PlaylistsController < BaseController
 
   def playlist_params
     attrs = %i(name description company_id shuffle)
-    attrs_bg = [playlist_items_background_attributes: %i(_destroy id media_item_id position begin_time begin_date end_time end_date)]
-    attrs_ad = [playlist_items_advertising_attributes: %i(_destroy id media_item_id playbacks_per_day begin_time begin_date end_time end_date)]
+    attrs_bg = [playlist_items_background_attributes: %i(_destroy id media_item_id position begin_time begin_date end_time end_date show_duration)]
+    attrs_ad = [playlist_items_advertising_attributes: %i(_destroy id media_item_id playbacks_per_day begin_time begin_date end_time end_date show_duration)]
     params.require(:playlist).permit(*(attrs + attrs_bg + attrs_ad))
   end
 end

@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 20160826161759) do
     t.date     "end_date"
     t.text     "schedule"
     t.boolean  "wait_for_the_end",  default: false, null: false
-    t.integer  "duration"
+    t.integer  "show_duration"
     t.index ["playlist_id", "media_item_id"], name: "index_playlist_items_on_playlist_id_and_media_item_id", using: :btree
   end
 

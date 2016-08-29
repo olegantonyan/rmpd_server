@@ -10,7 +10,7 @@ class Playlist::Item < ApplicationRecord
   with_options presence: true do
     validates :media_item
     validates :playlist
-    validates :duration, numericality: { greater_than_or_equal_to: 1 }, if: 'media_item&.image?'
+    validates :show_duration, numericality: { greater_than_or_equal_to: 1 }, if: 'image?'
   end
   validate :check_files_processing
   validate :begin_date_less_than_end_date
@@ -19,7 +19,10 @@ class Playlist::Item < ApplicationRecord
   scope :advertising, -> { joins(:media_item).where('media_items.type = ?', MediaItem.types['advertising']) }
   scope :begin_time_greater_than_end_time, -> { where('begin_time > end_time') }
 
-  delegate :file_url, :type, :description, :file_identifier, :background?, :advertising?, :duration, to: :media_item
+  with_options to: :media_item do
+    delegate :file_url, :type, :description, :file_identifier, :background?, :advertising?, :duration
+    delegate :image?, allow_nil: true
+  end
 
   serialize :schedule
 
@@ -29,6 +32,10 @@ class Playlist::Item < ApplicationRecord
 
   def self.policy_class
     Playlist::ItemPolicy
+  end
+
+  def show_duration=(arg)
+    super if image?
   end
 
   private
