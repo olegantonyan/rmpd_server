@@ -3,7 +3,6 @@
 
 .row
   .col-sm-9
-    - collection = policy_scope(MediaItem.includes(:company).not_processing.background)
     = render partial: 'shared/multiselect', locals: { collection: options_from_collection_for_select(collection, :id, :to_s),
                                                       textbox_id: 'filter-mediaitems-background-textbox',
                                                       selectbox_id: 'mediaitems-background-selectbox',

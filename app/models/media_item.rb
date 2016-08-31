@@ -33,6 +33,8 @@ class MediaItem < ApplicationRecord
   scope :with_type, -> (type) { where(type: types[type]) }
   scope :processing, -> { where(file_processing: true) }
   scope :not_processing, -> { where(file_processing: false) }
+  scope :failed, -> { where.not(file_processing_failed_message: nil) }
+  scope :successfull, -> { where(file_processing_failed_message: nil) }
   scope :without_playlist, -> { includes(:playlist_items).where(playlist_items: { media_item_id: nil }) }
 
   delegate :path, to: :file, prefix: true
@@ -69,13 +71,26 @@ class MediaItem < ApplicationRecord
   end
 
   def audio?
-    content_type.starts_with? 'image/'
+    content_type.starts_with? 'audio/'
+  end
+
+  def file_processing_failed!(message)
+    update(file_processing_failed_message: message)
+  end
+
+  def file_processing_failed?
+    !file_processing_failed_message.nil?
+  end
+
+  def rename_file_attribute!(new_name)
+    self.class.where(self.class.primary_key => id).limit(1).update_all(file: new_name)
+    reload
   end
 
   private
 
   def process_file
-    MediaItemProcessingJob.perform_later(self, skip_volume_normalization)
+    MediaItemProcessingWorker.perform_async(id, skip_volume_normalization)
   end
 
   def mark_file_processing

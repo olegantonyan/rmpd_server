@@ -23,6 +23,7 @@ ru:
           advertising: Рекламный
         duration: Длительность
         content_type: Тип файла
+        file_processing_failed_message: Текст ошибки преобразования файла
 
   activemodel:
     models:

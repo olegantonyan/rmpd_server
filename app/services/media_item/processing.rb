@@ -8,8 +8,8 @@ class MediaItem::Processing < BaseService
     if media_item.image?
       convert_image
     else
-      encode_video_for_device if media_item.video?
       normalize_audio_volume unless skip_volume_normalization
+      encode_video_for_device if media_item.video?
     end
     finish_process
   end
@@ -25,9 +25,11 @@ class MediaItem::Processing < BaseService
   end
 
   def encode_video_for_device
-    tmp_path = File.join(File.dirname(file.current_path), "#{SecureRandom.hex}.mp4")
-    MediafilesUtils.convert_to_h264(file.current_path, tmp_path)
-    File.rename(tmp_path, file.current_path)
+    old_path = file.current_path
+    new_path = old_path + '.mp4'
+    MediafilesUtils.convert_to_h264(old_path, new_path)
+    media_item.rename_file_attribute!(File.basename(new_path))
+    File.delete(old_path)
   end
 
   def normalize_audio_volume

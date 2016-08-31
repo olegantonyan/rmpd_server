@@ -42,7 +42,8 @@ class Playlist::Item < ApplicationRecord
 
   def check_files_processing
     return unless media_item
-    errors.add(:media_item, I18n.t('activerecord.attributes.media_item.file_processing')) if media_item.file_processing?
+    errors.add(:media_item, I18n.t('activerecord.attributes.media_item.file_processing')) if media_item.file_processing? || media_item.file_processing_failed?
+    errors.add(:media_item, 'file processing failed') if media_item.file_processing_failed?
   end
 
   def begin_date_less_than_end_date

@@ -3,7 +3,6 @@
 
 .row
   .col-sm-9
-    - collection = policy_scope(MediaItem.includes(:company).not_processing.advertising)
     = render partial: 'shared/multiselect', locals: { collection: options_from_collection_for_select(collection, :id, :to_s),
                                                       textbox_id: 'filter-mediaitems-advertising-textbox',
                                                       selectbox_id: 'mediaitems-advertising-selectbox',

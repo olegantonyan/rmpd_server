@@ -11,15 +11,19 @@ class MediaItemPresenter < BasePresenter
     model.class.human_enum_name(super)
   end
 
+  # rubocop: disable Metrics/AbcSize
   def file_identifier
     filename = truncate_filename(super.to_s)
-    text = if file_processing?
+    text = if file_processing_failed?
+             "#{h.icon('exclamation-triangle')} #{h.sanitize(filename)}".html_safe
+           elsif file_processing?
              "#{h.icon('cogs')} #{h.sanitize(filename)}".html_safe
            else
              filename
            end
     h.link_to(text, file_url).html_safe
   end
+  # rubocop: enable Metrics/AbcSize
 
   def file_processing
     h.i18n_boolean(super)

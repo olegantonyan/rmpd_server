@@ -2,6 +2,7 @@ class PlaylistsController < BaseController
   include Filterrificable
 
   before_action :set_playlist, only: %i(show edit update destroy)
+  before_action :set_media_items, only: %i(new edit)
 
   # GET /playlists
   # rubocop: disable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
@@ -59,6 +60,11 @@ class PlaylistsController < BaseController
   # Use callbacks to share common setup or constraints between actions.
   def set_playlist
     @playlist = Playlist.includes(playlist_items_advertising: { media_item: :company }, playlist_items_background: { media_item: :company }).find(params[:id])
+  end
+
+  def set_media_items
+    @media_items_background = policy_scope(MediaItem.includes(:company).not_processing.successfull.background)
+    @media_items_advertising = policy_scope(MediaItem.includes(:company).not_processing.successfull.advertising)
   end
 
   def playlist_params

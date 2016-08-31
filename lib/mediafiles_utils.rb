@@ -4,7 +4,9 @@ module MediafilesUtils
   module_function
 
   def convert_to_h264(src, dst)
-    system(*['ffmpeg', '-i', src, '-vcodec', 'libx264', '-vprofile', 'main', '-pix_fmt', 'yuv420p', '-acodec', 'aac', '-strict', '-2', dst])
+    ok = system(*['ffmpeg', '-i', src, '-vcodec', 'libx264', '-vprofile', 'main', '-pix_fmt', 'yuv420p', '-acodec', 'aac', '-strict', '-2', dst])
+    raise 'Error converting file to h264' unless ok
+    ok
   end
 
   def duration(file)
