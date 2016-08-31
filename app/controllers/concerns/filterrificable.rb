@@ -17,4 +17,8 @@ module Filterrificable
   def default_per_page
     20
   end
+
+  def boolean_select
+    [[helpers.i18n_boolean(true), true], [helpers.i18n_boolean(false), false]]
+  end
 end

@@ -23,7 +23,7 @@ class MediaItem < ApplicationRecord
   end
   validates :description, length: { maximum: 130 }
 
-  filterrific(available_filters: %i(search_query with_company_id with_type))
+  filterrific(available_filters: %i(search_query with_company_id with_type with_file_processing))
 
   scope :search_query, -> (query) {
     q = "%#{query}%"
@@ -31,6 +31,7 @@ class MediaItem < ApplicationRecord
   }
   scope :with_company_id, -> (companies_ids) { where(company_id: [*companies_ids]) }
   scope :with_type, -> (type) { where(type: types[type]) }
+  scope :with_file_processing, -> (state) { where(file_processing: state) }
   scope :processing, -> { where(file_processing: true) }
   scope :not_processing, -> { where(file_processing: false) }
   scope :failed, -> { where.not(file_processing_failed_message: nil) }
