@@ -16,3 +16,9 @@
 
   - if policy(:user).index?
     %li{class: active_class_for('users')}= link_to icon_text('users', User.model_name.human(count: 2)), users_path
+
+  - if show_file_processing_navbar?
+    %li.dropdown
+      %a{'type' => 'button', 'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', 'id' => 'media_items_dropdown'}=icon('cogs')
+      %ul.dropdown-menu{'aria-labelledby' => 'media_items_dropdown'}
+        %li= link_to(file_processing_navbar_text, media_items_path('filterrific[with_file_processing]' => true))

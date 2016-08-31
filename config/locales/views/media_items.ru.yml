@@ -5,3 +5,4 @@ ru:
       cancel_upload: Отмена
       files_selected: Выбрано
       add_files: Добавить
+      files_processing_navbar: "%{count} файлов обрабатывается"
