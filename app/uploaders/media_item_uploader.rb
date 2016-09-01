@@ -4,7 +4,7 @@ class MediaItemUploader < ApplicationUploader
   end
 
   # def content_type_whitelist
-  #  %r{^(image\/|video\/|audio\/)} # does not work for some reason
+  #  %r{^(image\/|video\/|audio\/)} # does not work for some reason but brakes tests
   # end
 
   def move_to_cache
