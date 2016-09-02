@@ -72,7 +72,7 @@ class Device < ApplicationRecord
   private
 
   def wallpaper_max_size
-    limit = 1.5
+    limit = 2.5
     errors.add(:wallpaper, "cannot be greater than #{limit}Mb") if wallpaper.file.size.to_f / (1024 * 1024) > limit
   end
 
