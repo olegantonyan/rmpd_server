@@ -26,7 +26,12 @@ class ClientVersion
   end
 
   def self_update_support?
-    return false unless platform.linux?
-    Gem::Version.new(version) >= Gem::Version.new('0.4.16')
+    if platform.linux?
+      Gem::Version.new(version) >= Gem::Version.new('0.4.16')
+    elsif platform.android?
+      Gem::Version.new(version) >= Gem::Version.new('0.0.15')
+    else
+      false
+    end
   end
 end
