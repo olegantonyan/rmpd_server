@@ -2,7 +2,7 @@ class PlaylistsController < BaseController
   include Filterrificable
 
   before_action :set_playlist, only: %i(show edit update destroy)
-  before_action :set_media_items, only: %i(new edit)
+  before_action :set_media_items, only: %i(new edit update create)
 
   # GET /playlists
   # rubocop: disable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
