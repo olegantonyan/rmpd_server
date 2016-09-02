@@ -63,8 +63,9 @@ class PlaylistsController < BaseController
   end
 
   def set_media_items
-    @media_items_background = policy_scope(MediaItem.includes(:company).not_processing.successfull.background)
-    @media_items_advertising = policy_scope(MediaItem.includes(:company).not_processing.successfull.advertising)
+    items = policy_scope(MediaItem.includes(:company).not_processing.successfull)
+    @media_items_background = items.background
+    @media_items_advertising = items.advertising
   end
 
   def playlist_params
