@@ -4,11 +4,6 @@ class Deviceapi::Protocol::Outgoing::RequestServiceUpload < Deviceapi::Protocol:
     enqueue(json)
   end
 
-  def ack(ok, sequence_number, _data = {})
-    super
-    Notifiers::ServiceUploadNotifierJob.perform_later(device) if ok
-  end
-
   private
 
   def json

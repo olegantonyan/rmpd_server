@@ -7,13 +7,16 @@ class Device::ServiceUpload < ApplicationRecord
 
   validates :file, presence: true
 
+  after_commit :notify, on: :create
+
   def request
     return false unless device
     device.send_to(:request_service_upload)
   end
 
-  # def generate_filename
-  #   cv = device.client_version
-  #   "#{reason}-#{cv.rmpd}-#{cv.version}-#{Time.current.to_formatted_s(:rmpd_custom_date_time)}"
-  # end
+  private
+
+  def notify
+    Notifiers::ServiceUploadNotifierJob.perform_later(device)
+  end
 end
