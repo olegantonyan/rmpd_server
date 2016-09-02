@@ -1,14 +1,7 @@
 class Notifiers::ServiceUploadNotifierJob < Notifiers::BaseNotifierJob
   def perform(device)
-    text = "Service upload from #{device}"
-    a = {
-      fields: [{ title: 'Device login', value: device.login, short: true }],
-      color: 'warning',
-      fallback: text,
-      author_name: device.to_s,
-      author_link:  device_device_service_uploads_path(device)
-    }
-    notify(text, icon_emoji: ':bowtie:', attachments: [a])
+    text = "Service upload from #{device} (<#{device_device_service_uploads_url(device)}>)"
+    notify(text, icon_emoji: ':bowtie:')
   end
 
   def slack_channel
