@@ -29,7 +29,8 @@ class ClientVersion
     if platform.linux?
       Gem::Version.new(version) >= Gem::Version.new('0.4.16')
     elsif platform.android?
-      Gem::Version.new(version) >= Gem::Version.new('0.0.15')
+      # Gem::Version.new(version) >= Gem::Version.new('0.0.15')
+      false
     else
       false
     end
