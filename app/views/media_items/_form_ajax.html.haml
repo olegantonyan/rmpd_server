@@ -1,6 +1,6 @@
 = simple_form_for(resource, url: create_multiple_media_items_path, html: { id: 'ajax-fileupload' }) do |f|
   = f.input :description, as: :string, input_html: { value: f.object.description.blank? ? Date.current.to_formatted_s(:rmpd_custom_date) : f.object.description }
-  = f.input :type, collection: MediaItem.types, label_method: -> (i) { MediaItem.human_enum_name(i.first) }, value_method: -> (i) { i.first }, include_blank: false, as: :radio_buttons
+  = render partial: 'type_form_element', locals: { f: f }
   = render partial: 'shared/select_company_form', locals: { f: f }
   = f.input :skip_volume_normalization, as: :boolean
 

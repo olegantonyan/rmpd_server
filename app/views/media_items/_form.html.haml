@@ -1,6 +1,5 @@
-= simple_form_for(resource, url: create_multiple_media_items_path) do |f|
+= simple_form_for(resource) do |f|
   = f.input :description
-  = f.input :files, input_html: { multiple: true }, as: :file
-  = f.input :type, collection: MediaItem.types, label_method: -> (i) { MediaItem.human_enum_name(i.first) }, include_blank: false, as: :radio_buttons
+  = render partial: 'type_form_element', locals: { f: f }
   = render partial: 'shared/select_company_form', locals: { f: f }
   = f.button :submit

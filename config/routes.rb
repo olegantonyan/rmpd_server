@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :news_items, path: :news
-  resources :media_items, except: %i(edit update create) do
+  resources :media_items, except: %i(create) do
     collection do
       post :create_multiple
       delete :destroy_multiple

@@ -12,15 +12,13 @@ class MediaItemPolicy < ApplicationPolicy
   end
 
   def update?
-    super || (index? && user.company_ids.include?(record.company_id))
-  end
-
-  # rubocop: disable Metrics/AbcSize
-  def destroy?
-    return false if record.file_processing? && !record.file_processing_failed?
     (super || (index? && user.company_ids.include?(record.company_id))) && !record.playlists.exists?
   end
-  # rubocop: enable Metrics/AbcSize
+
+  def destroy?
+    return false if record.file_processing? && !record.file_processing_failed?
+    update?
+  end
 
   class Scope < Scope
     def resolve

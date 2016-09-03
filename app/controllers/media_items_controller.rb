@@ -32,6 +32,16 @@ class MediaItemsController < BaseController
     authorize @media_item_multiple
   end
 
+  def edit
+    authorize @media_item
+  end
+
+  def update
+    authorize @media_item
+    @media_item.assign_attributes(media_item_params)
+    crud_respond @media_item
+  end
+
   # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
   def create_multiple
     uploads = media_item_create_multiple_params[:files].map { |file| chunked_upload(file) }
@@ -79,7 +89,7 @@ class MediaItemsController < BaseController
   end
 
   def media_item_params
-    params.require(:media_item).permit(:description, :company_id, :type, :file)
+    params.require(:media_item).permit(:description, :company_id, :type)
   end
 
   def media_item_create_multiple_params

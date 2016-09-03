@@ -1,0 +1,1 @@
+= f.input :type, collection: MediaItem.types, label_method: -> (i) { MediaItem.human_enum_name(i.first) }, include_blank: false, value_method: -> (i) { i.first }, as: :radio_buttons

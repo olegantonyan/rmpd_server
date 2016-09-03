@@ -13,8 +13,10 @@
           %dd= object.updated_at
   .col-sm-6= yield :aside_block
 
-.pull-right
-  - if defined?(edit_path) && policy_presenter(object).edit?
-    = link_to icon_text('pencil', t('views.shared.edit', default: 'Edit')), edit_path, class: 'btn btn-primary'
-  - if defined?(destroy_path) && policy_presenter(object).destroy?
-    = link_to icon_text('trash', t('views.shared.delete', default: 'Delete')), destroy_path, method: :delete, class: 'btn btn-danger', data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }
+.row
+  .col-sm-12
+    .pull-right
+      - if defined?(edit_path) && policy_presenter(object).edit?
+        = link_to icon_text('pencil', t('views.shared.edit', default: 'Edit')), edit_path, class: 'btn btn-primary'
+      - if defined?(destroy_path) && policy_presenter(object).destroy?
+        = link_to icon_text('trash', t('views.shared.delete', default: 'Delete')), destroy_path, method: :delete, class: 'btn btn-danger', data: { confirm: t('views.shared.are_you_sure', default: 'Are you sure?') }
