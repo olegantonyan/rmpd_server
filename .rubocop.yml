@@ -33,3 +33,6 @@ Metrics/LineLength:
 
 Style/Lambda:
   Enabled: false
+
+Lint/UnneededSplatExpansion:
+  Enabled: false

@@ -94,7 +94,7 @@ class MediaItemsController < BaseController
 
   def media_item_create_multiple_params
     params.require(:media_item_create_multiple).permit(:description, :company_id, :type, :skip_volume_normalization, files: []).tap do |i|
-      i[:files] = i[:files].reject(&:blank?)
+      i[:files] = i[:files]&.reject(&:blank?)
       i[:skip_volume_normalization] = i[:skip_volume_normalization] == '1'
     end
   end

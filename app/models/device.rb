@@ -41,7 +41,7 @@ class Device < ApplicationRecord
   scope :with_device_group_id, -> (ids) { joins(:device_groups).where(device_groups: { id: [*ids] }) }
 
   def online?
-    device_status && device_status.online
+    device_status&.online
   end
 
   def to_s
