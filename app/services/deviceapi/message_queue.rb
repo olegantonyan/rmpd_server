@@ -21,20 +21,18 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
 
   def self.remove(sequence_number)
     d = find_by(id: sequence_number)
-    if d
-      Rails.logger&.debug("Remove message for '#{d.key}': '#{d.data}', sequence '#{d.id}'")
-      d.destroy
-    end
+    return unless d
+    Rails.logger&.debug("Remove message for '#{d.key}': '#{d.data}', sequence '#{d.id}'")
+    d.destroy
   end
 
   def self.reenqueue(sequence_number)
     d = find_by(id: sequence_number)
-    unless d.nil?
-      Rails.logger&.debug("Reenqueue message for '#{d.key}': '#{d.data}', sequence '#{d.id}'")
-      d.dequeued = false
-      d.reenqueue_retries += 1
-      d.save
-    end
+    return unless d
+    Rails.logger&.debug("Reenqueue message for '#{d.key}': '#{d.data}', sequence '#{d.id}'")
+    d.dequeued = false
+    d.reenqueue_retries += 1
+    d.save
   end
 
   def self.retries(sequence_number)

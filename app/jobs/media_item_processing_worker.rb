@@ -8,7 +8,7 @@ class MediaItemProcessingWorker # becasuse I need `sidekiq_retries_exhausted`
   end
 
   sidekiq_retries_exhausted do |msg|
-    media_item = MediaItem.find_by_id(msg['args'].first)
+    media_item = MediaItem.find_by(id: msg['args'].first)
     error_message = msg['error_message'].blank? ? 'unkown error' : msg['error_message']
     media_item&.file_processing_failed!(error_message)
   end

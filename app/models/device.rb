@@ -24,7 +24,7 @@ class Device < ApplicationRecord
     validates :login, uniqueness: true, length: { in: 4..100 }
     validates :password, length: { in: 8..60 }, confirmation: true, if: -> { new_record? || !password.nil? }
   end
-  validates :name, length:  { maximum: 40 }
+  validates :name, length: { maximum: 40 }
   validate :wallpaper_max_size, if: 'wallpaper.present?'
 
   after_destroy { send_to :clear_queue }
