@@ -202,6 +202,13 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.0.2)
+    jsonapi-authorization (0.8.1)
+      jsonapi-resources (~> 0.8.0.beta1)
+      pundit (~> 1.0)
+    jsonapi-resources (0.8.1)
+      concurrent-ruby
+      rails (>= 4.0)
+    jwt (1.5.6)
     libnotify (0.9.1)
       ffi (>= 1.0.11)
     libv8 (3.16.14.15)
@@ -435,6 +442,9 @@ DEPENDENCIES
   initializer_helpers!
   jquery-fileupload-rails
   jquery-rails
+  jsonapi-authorization
+  jsonapi-resources
+  jwt
   libnotify
   mini_magick
   momentjs-rails (>= 2.9.0)

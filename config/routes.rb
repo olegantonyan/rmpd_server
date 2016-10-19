@@ -50,4 +50,9 @@ Rails.application.routes.draw do
     resources :status, only: %i(create)
     resource :service_upload, only: %i(create)
   end
+
+  namespace :api do
+    post 'login', to: 'sessions#create'
+    jsonapi_resources :media_items
+  end
 end

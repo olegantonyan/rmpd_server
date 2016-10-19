@@ -67,6 +67,9 @@ gem 'initializer_helpers', github: 'olegantonyan/initializer_helpers'
 gem 'jquery-fileupload-rails'
 gem 'rmpd_adschedule', git: 'git@bitbucket.org:slon-ds/rmpd_adschedule.git'
 gem 'mini_magick'
+gem 'jsonapi-resources'
+gem 'jsonapi-authorization'
+gem 'jwt'
 
 group :development, :test do
   gem 'bullet'
