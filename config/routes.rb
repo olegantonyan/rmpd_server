@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     resource :service_upload, only: %i(create)
   end
 
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     post 'login', to: 'sessions#create'
     jsonapi_resources :media_items
   end

@@ -70,6 +70,7 @@ gem 'mini_magick'
 gem 'jsonapi-resources'
 gem 'jsonapi-authorization'
 gem 'jwt'
+gem 'rack-cors'
 
 group :development, :test do
   gem 'bullet'

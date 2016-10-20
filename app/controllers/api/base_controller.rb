@@ -5,7 +5,7 @@ class Api::BaseController < JSONAPI::ResourceController
 
   before_action :authenticate_user
 
-  attr_accessor :current_user
+  attr_reader :current_user
 
   private
 
@@ -13,7 +13,7 @@ class Api::BaseController < JSONAPI::ResourceController
     token = request.env['HTTP_AUTHORIZATION']&.scan(/Bearer (.*)$/)&.flatten&.last
     unauthorized! unless token
     auth = Authentication.new.decode(token)
-    self.current_user = User.find_by(id: auth['user_id'])
+    @current_user = User.find_by(id: auth['user_id'])
     unauthorized! unless current_user
   end
 end
