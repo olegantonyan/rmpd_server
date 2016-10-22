@@ -4,7 +4,7 @@ class MediaItemPresenter < BasePresenter
   end
 
   def size
-    h.number_to_human_size(file.size, precision: 2)
+    h.number_to_human_size(super, precision: 2)
   end
 
   def type

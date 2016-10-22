@@ -38,8 +38,13 @@ class MediaItem < ApplicationRecord
   scope :successfull, -> { where(file_processing_failed_message: nil) }
   scope :without_playlist, -> { includes(:playlist_items).where(playlist_items: { media_item_id: nil }) }
 
-  delegate :path, to: :file, prefix: true
-  delegate :content_type, to: :file, allow_nil: true
+  with_options to: :file do
+    delegate :path, prefix: true
+    with_options allow_nil: true do
+      delegate :content_type
+      delegate :size
+    end
+  end
 
   def to_s
     if description.blank?

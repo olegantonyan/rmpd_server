@@ -54,5 +54,6 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     post 'login', to: 'sessions#create'
     jsonapi_resources :media_items
+    jsonapi_resources :companies
   end
 end
