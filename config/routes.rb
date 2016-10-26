@@ -52,8 +52,12 @@ Rails.application.routes.draw do
   end
 
   namespace :api, defaults: { format: :json } do
-    post 'login', to: 'sessions#create'
+    post 'login', to: 'auth#login'
+    post 'refresh_token', to: 'auth#refresh'
+    post 'registration', to: 'auth#registration'
+
     jsonapi_resources :media_items
     jsonapi_resources :companies
+    jsonapi_resources :users
   end
 end

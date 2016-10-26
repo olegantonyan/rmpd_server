@@ -11,6 +11,10 @@ module Api::Concerns::Errors
     rescue_from 'UnauthorizedError' do |exception|
       json_error(exception, 401)
     end
+
+    rescue_from 'Pundit::NotAuthorizedError' do |exception|
+      json_error(exception, 401)
+    end
   end
 
   def unauthorized!
