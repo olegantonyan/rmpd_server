@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160831100239) do
+ActiveRecord::Schema.define(version: 20161106051013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20160831100239) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "user_agent"
+    t.index ["localtime", "device_id", "message", "command"], name: "uniq_message", unique: true, using: :btree
     t.index ["message"], name: "index_device_log_messages_on_message", using: :btree
   end
 
@@ -187,7 +188,6 @@ ActiveRecord::Schema.define(version: 20160831100239) do
     t.string   "displayed_name",         default: "",    null: false
     t.boolean  "allow_notifications",    default: false, null: false
     t.boolean  "root",                   default: false, null: false
-    t.string   "authentication_token"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
