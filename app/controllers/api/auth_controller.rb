@@ -18,7 +18,7 @@ class Api::AuthController < ActionController::API
   end
 
   def registration
-    reg = User::Registration.new(registration_params)
+    reg = User::RegistrationService.new(registration_params)
     if reg.save
       render json: { result: 'ok' }
     else
@@ -33,6 +33,6 @@ class Api::AuthController < ActionController::API
   end
 
   def registration_params
-    params.permit(:email, :password, :password_confirmation, :displayed_name, :company_title)
+    params.permit(*User::RegistrationService.attributes)
   end
 end

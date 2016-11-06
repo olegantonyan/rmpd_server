@@ -8,7 +8,12 @@ class ActiveModelBase
     new(attrs).save!
   end
 
+  def self.create(attrs)
+    new(attrs).tap(&:save)
+  end
+
   def copy_errors(object)
+    return unless object
     object.errors.each do |k, v|
       errors.add(k, v)
     end
