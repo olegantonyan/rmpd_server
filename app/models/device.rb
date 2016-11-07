@@ -33,12 +33,12 @@ class Device < ApplicationRecord
 
   filterrific(available_filters: %i(search_query with_company_id with_device_group_id))
 
-  scope :search_query, -> (query) {
+  scope :search_query, ->(query) {
     q = "%#{query}%"
     where('LOWER(name) LIKE LOWER(?) OR LOWER(login) LIKE LOWER(?)', q, q)
   }
-  scope :with_company_id, -> (ids) { where(company_id: [*ids]) }
-  scope :with_device_group_id, -> (ids) { joins(:device_groups).where(device_groups: { id: [*ids] }) }
+  scope :with_company_id, ->(ids) { where(company_id: [*ids]) }
+  scope :with_device_group_id, ->(ids) { joins(:device_groups).where(device_groups: { id: [*ids] }) }
 
   def online?
     device_status&.online

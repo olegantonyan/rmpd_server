@@ -25,13 +25,13 @@ class MediaItem < ApplicationRecord
 
   filterrific(available_filters: %i(search_query with_company_id with_type with_file_processing))
 
-  scope :search_query, -> (query) {
+  scope :search_query, ->(query) {
     q = "%#{query}%"
     where('LOWER(file) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)', q, q)
   }
-  scope :with_company_id, -> (companies_ids) { where(company_id: [*companies_ids]) }
-  scope :with_type, -> (type) { where(type: types[type]) }
-  scope :with_file_processing, -> (state) { where(file_processing: state) }
+  scope :with_company_id, ->(companies_ids) { where(company_id: [*companies_ids]) }
+  scope :with_type, ->(type) { where(type: types[type]) }
+  scope :with_file_processing, ->(state) { where(file_processing: state) }
   scope :processing, -> { where(file_processing: true) }
   scope :not_processing, -> { where(file_processing: false) }
   scope :failed, -> { where.not(file_processing_failed_message: nil) }

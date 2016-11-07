@@ -8,7 +8,7 @@ class NewsItem < ApplicationRecord
 
   after_create :notify_users
 
-  scope :latest, -> (count = 6) { order(created_at: :desc).limit(count) }
+  scope :latest, ->(count = 6) { order(created_at: :desc).limit(count) }
 
   def to_s
     title

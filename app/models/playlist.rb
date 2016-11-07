@@ -28,11 +28,11 @@ class Playlist < ApplicationRecord
 
   filterrific(available_filters: %i(search_query with_company_id))
 
-  scope :search_query, -> (query) {
+  scope :search_query, ->(query) {
     q = "%#{query}%"
     where('LOWER(name) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)', q, q)
   }
-  scope :with_company_id, -> (companies_ids) { where(company_id: [*companies_ids]) }
+  scope :with_company_id, ->(companies_ids) { where(company_id: [*companies_ids]) }
   scope :without_device, -> { includes(:devices).where(devices: { playlist_id: nil }) }
 
   def uniq_media_items
@@ -52,7 +52,7 @@ class Playlist < ApplicationRecord
   end
 
   def total_size
-    uniq_media_items.inject(0) { |a, e| a + e.file.size.to_i }
+    uniq_media_items.inject(0) { |acc, elem| acc + elem.file.size.to_i }
   end
 
   def added_playlist_items

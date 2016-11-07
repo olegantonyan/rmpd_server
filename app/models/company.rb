@@ -18,7 +18,7 @@ class Company < ApplicationRecord
 
   filterrific(available_filters: %i(search_query))
 
-  scope :search_query, -> (query) {
+  scope :search_query, ->(query) {
     q = "%#{query}%"
     where('LOWER(title) LIKE LOWER(?)', q)
   }
