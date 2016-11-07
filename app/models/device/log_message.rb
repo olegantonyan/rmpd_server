@@ -30,6 +30,8 @@ class Device::LogMessage < ApplicationRecord
             user_agent: user_agent,
             command: logdata[:command] || "#{logdata[:type]}_#{logdata[:status]}",
             message: message)
+  rescue ActiveRecord::RecordNotUnique, PG::UniqueViolation
+    Rails.logger&.debug("duplicate message from #{device}")
   end
 
   def self.to_csv
