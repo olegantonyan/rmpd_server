@@ -9,6 +9,8 @@
   = f.association :device_groups, collection: device_groups, as: :check_boxes unless device_groups.empty?
   = render partial: 'shared/select_company_form', locals: {:f => f}
   = f.input :time_zone, input_html: { id: 'select-timezone' }
+  - if current_user.root?
+    = f.input :message_queue_sync_period, collection: Device.message_queue_sync_periods, label_method: :label, value_method: :value
   .row
     .col-sm-4
       = f.input :wallpaper, as: :file

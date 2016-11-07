@@ -69,6 +69,12 @@ class Device < ApplicationRecord
     ClientVersion.new(device_log_messages.latest&.user_agent)
   end
 
+  def self.message_queue_sync_periods
+    o = Struct.new(:label, :value)
+    [o.new('3 hours', 3), o.new('6 hours', 6), o.new('12 hours (defult)', 12), o.new('24 hours', 24), o.new('3 days', 72),
+     o.new('1 week', 168), o.new('1 month', 744), o.new('never', 0)]
+  end
+
   private
 
   def wallpaper_max_size
@@ -79,6 +85,6 @@ class Device < ApplicationRecord
   def update_setting
     changed_attrs = changed.map(&:to_sym).dup
     yield
-    send_to(:update_setting, changed_attrs: changed_attrs) if changed_attrs.include?(:time_zone)
+    send_to(:update_setting, changed_attrs: changed_attrs) if changed_attrs & %i(time_zone message_queue_sync_period)
   end
 end

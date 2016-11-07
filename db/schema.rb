@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161106051013) do
+ActiveRecord::Schema.define(version: 20161106055206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,13 +85,14 @@ ActiveRecord::Schema.define(version: 20161106051013) do
   create_table "devices", force: :cascade do |t|
     t.string   "login"
     t.string   "name"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "playlist_id"
     t.string   "password_digest"
     t.integer  "company_id"
-    t.string   "time_zone",       default: "", null: false
+    t.string   "time_zone",                 default: "", null: false
     t.string   "wallpaper"
+    t.integer  "message_queue_sync_period"
     t.index ["company_id"], name: "index_devices_on_company_id", using: :btree
     t.index ["login"], name: "index_devices_on_login", using: :btree
     t.index ["playlist_id"], name: "index_devices_on_playlist_id", using: :btree
