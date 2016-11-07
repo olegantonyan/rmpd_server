@@ -9,11 +9,11 @@ class Device::Group < ApplicationRecord
 
   filterrific(available_filters: %i(search_query with_device_id))
 
-  scope :search_query, -> (query) {
+  scope :search_query, ->(query) {
     q = "%#{query}%"
     where('LOWER(title) LIKE LOWER(?)', q)
   }
-  scope :with_device_id, -> (ids) { joins(:devices).where(devices: { id: [*ids] }) }
+  scope :with_device_id, ->(ids) { joins(:devices).where(devices: { id: [*ids] }) }
 
   def to_s
     title
