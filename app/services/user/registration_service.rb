@@ -34,9 +34,9 @@ class User::RegistrationService < BaseService
   # rubocop: disable Metrics/AbcSize
   def create_user!(skip_confirmation = false)
     self.user = User.new(email: email, password: password, password_confirmation: password_confirmation)
-    user.displayed_name = displayed_name if displayed_name
-    user.allow_notifications = allow_notifications if allow_notifications
-    user.skip_confirmation! if skip_confirmation
+    assign_if(user, :skip_confirmation, skip_confirmation)
+    assign_if(user, :displayed_name, displayed_name)
+    assign_if(user, :allow_notifications, allow_notifications)
     user.save!
   rescue ActiveRecord::RecordInvalid
     copy_errors(user)
