@@ -56,6 +56,8 @@ Rails.application.routes.draw do
     post 'refresh_token', to: 'auth#refresh'
     post 'registration', to: 'auth#registration'
 
+    resources :uploads, only: %i(create)
+
     jsonapi_resources :media_items
     jsonapi_resources :companies
     jsonapi_resources :users

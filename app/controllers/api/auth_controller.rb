@@ -1,4 +1,4 @@
-class Api::AuthController < ActionController::API
+class Api::AuthController < Api::BaseController
   include Api::Concerns::Errors
   include Api::Concerns::Authenticatable
 
