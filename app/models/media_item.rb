@@ -1,4 +1,6 @@
 class MediaItem < ApplicationRecord
+  include UploadableModel
+
   self.inheritance_column = 'sti_type'
 
   attr_accessor :skip_file_processing, :skip_volume_normalization # candidate for service extraction

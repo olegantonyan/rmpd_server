@@ -1,4 +1,4 @@
-module Api::Concerns::AuthorizableResource
+module Api::Concerns::UploadableResource
   extend ActiveSupport::Concern
 
   included do
