@@ -3,12 +3,14 @@ module Api::Concerns::AuthorizableResource
 
   included do
     include JSONAPI::Authorization::PunditScopedResource
+
+    attribute :acl
   end
 
-  def meta(_options)
-    acl = %i(show update destroy).each_with_object({}) do |e, a|
-      a[e] = Pundit.policy!(context[:user], model).public_send("#{e}?")
+  def acl
+    policy = Pundit.policy!(context[:user], model)
+    %i(show update destroy).each_with_object({}) do |e, a|
+      a[e] = policy.public_send("#{e}?")
     end
-    { acl: acl }
   end
 end
