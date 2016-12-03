@@ -8,7 +8,7 @@ class Api::BaseResource < JSONAPI::Resource
   attr_reader :model
 
   def self.updatable_fields(context)
-    super - %i(created_at updated_at id)
+    super - %i(created_at updated_at id acl)
   end
 
   def self.creatable_fields(context)
