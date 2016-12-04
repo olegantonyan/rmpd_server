@@ -61,5 +61,6 @@ Rails.application.routes.draw do
     jsonapi_resources :media_items
     jsonapi_resources :companies
     jsonapi_resources :users
+    jsonapi_resources :playlists
   end
 end
