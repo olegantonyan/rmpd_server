@@ -1,4 +1,8 @@
 class UserPolicy < ApplicationPolicy
+  def index?
+    super || user.companies.includes(:users).map(&:users).flatten.uniq.count > 1
+  end
+
   def show?
     super || user == record || (user.company_ids & record.company_ids).any?
   end
