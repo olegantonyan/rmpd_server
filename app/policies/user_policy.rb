@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def index?
-    super || user&.companies&.includes(:users)&.map(&:users)&.flatten&.uniq&.count > 1
+    super || user&.companies&.includes(:users)&.map(&:users)&.flatten&.uniq&.count&.to_i > 1
   end
 
   def show?
