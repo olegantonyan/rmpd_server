@@ -62,5 +62,6 @@ Rails.application.routes.draw do
     jsonapi_resources :companies
     jsonapi_resources :users, except: %i(create)
     jsonapi_resources :playlists
+    jsonapi_resource :main_menu, only: %i(show); get 'main-menus/:dontcare', to: 'main_menu#show' # hack for ember-data
   end
 end

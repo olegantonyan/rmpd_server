@@ -14,4 +14,12 @@ class Api::BaseResource < JSONAPI::Resource
   def self.creatable_fields(context)
     updatable_fields(context)
   end
+
+  def self.model_klass
+    _model_class
+  end
+
+  def model_klass
+    self.class.model_klass
+  end
 end

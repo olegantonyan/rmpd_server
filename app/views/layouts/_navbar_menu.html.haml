@@ -1,20 +1,22 @@
 %ul.nav.navbar-nav
-  - if policy(:media_item).index?
+  - menu = MainMenu.new(user: current_user)
+
+  - if menu.media_items
     %li{class: active_class_for('media_items')}= link_to icon_text('play', MediaItem.model_name.human(count: 2)), media_items_path
 
-  - if policy(:playlist).index?
+  - if menu.playlists
     %li{class: active_class_for('playlists')}= link_to icon_text('list', Playlist.model_name.human(count: 2)), playlists_path
 
-  - if policy(:device).index?
+  - if menu.devices
     %li{class: active_class_for('devices')}= link_to icon_text('hdd-o', Device.model_name.human(count: 2)), devices_path
 
-  - if policy(Device::Group).index?
+  - if menu.device_groups
     %li{class: active_class_for('device_groups')}= link_to icon_text('tags', Device::Group.model_name.human(count: 2)), device_groups_path
 
-  - if policy(:company).index?
+  - if menu.companies
     %li{class: active_class_for('companies')}= link_to icon_text('building', Company.model_name.human(count: 2)), companies_path
 
-  - if policy(:user).index?
+  - if menu.users
     %li{class: active_class_for('users')}= link_to icon_text('users', User.model_name.human(count: 2)), users_path
 
   - if show_file_processing_navbar?
