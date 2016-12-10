@@ -9,7 +9,6 @@ class MainMenu < ApplicationModel
 
   def initialize(*args)
     super
-    raise ArgumentError, 'you have to provide user' unless user
     self.class.items.each do |i|
       policy = policy_by_item(i)
       send("#{i}=", policy.index?)
