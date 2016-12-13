@@ -36,3 +36,6 @@ Style/Lambda:
 
 Lint/UnneededSplatExpansion:
   Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
