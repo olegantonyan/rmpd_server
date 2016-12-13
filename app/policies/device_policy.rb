@@ -12,7 +12,7 @@ class DevicePolicy < ApplicationPolicy
   end
 
   def destroy?
-    update?
+    user.root?
   end
 
   class Scope < Scope

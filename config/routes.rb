@@ -58,10 +58,13 @@ Rails.application.routes.draw do
 
     resources :uploads, only: %i(create)
 
+    # jsonapi_resource :main_menu, only: %i(show);
+    get 'main-menus/:dontcare', to: 'main_menu#show' # hack for ember-data
+
     jsonapi_resources :media_items
     jsonapi_resources :companies
     jsonapi_resources :users, except: %i(create)
     jsonapi_resources :playlists
-    jsonapi_resource :main_menu, only: %i(show); get 'main-menus/:dontcare', to: 'main_menu#show' # hack for ember-data
+    jsonapi_resources :devices, except: %i(create)
   end
 end
