@@ -3,6 +3,7 @@ class Api::DeviceResource < Api::BaseResource
 
   has_one :company
   has_one :playlist
+  has_many :device_groups, class_name: 'DeviceGroup'
 
   def self.updatable_fields(context)
     super - %i(login)

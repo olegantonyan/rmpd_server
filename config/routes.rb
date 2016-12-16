@@ -66,5 +66,6 @@ Rails.application.routes.draw do
     jsonapi_resources :users, except: %i(create)
     jsonapi_resources :playlists
     jsonapi_resources :devices, except: %i(create)
+    jsonapi_resources :device_groups
   end
 end
