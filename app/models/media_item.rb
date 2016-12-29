@@ -43,7 +43,6 @@ class MediaItem < ApplicationRecord
   with_options to: :file do
     delegate :path, prefix: true
     with_options allow_nil: true do
-      delegate :content_type
       delegate :size
     end
   end
@@ -68,6 +67,10 @@ class MediaItem < ApplicationRecord
         MediafilesUtils.duration(file.path)
       end
     end
+  end
+
+  def content_type
+    file&.content_type&.gsub('application/mp4', 'video/mp4') # broke after update to rails 5.0.1
   end
 
   def image?
