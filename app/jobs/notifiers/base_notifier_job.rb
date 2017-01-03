@@ -23,6 +23,6 @@ class Notifiers::BaseNotifierJob < ApplicationJob
   end
 
   def notify(text, options = {})
-    notifier&.ping(text, options)
+    notifier&.ping(text || '<NO ERROR MESSAGE>', options)
   end
 end
