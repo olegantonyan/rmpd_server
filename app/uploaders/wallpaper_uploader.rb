@@ -13,12 +13,10 @@ class WallpaperUploader < ApplicationUploader
 
   private
 
-  # rubocop: disable Metrics/MethodLength
   def resize_and_convert
     manipulate! do |img|
       img.format('jpg') do |c|
         c.fuzz '3%'
-        c.trim '+repage'
         c.resize '1920x1080>'
         c.colorspace 'RGB'
         c.colors 65_536
@@ -27,5 +25,4 @@ class WallpaperUploader < ApplicationUploader
       img
     end
   end
-  # rubocop: enable Metrics/MethodLength
 end
