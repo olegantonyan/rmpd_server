@@ -16,7 +16,6 @@ class WallpaperUploader < ApplicationUploader
   def resize_and_convert
     manipulate! do |img|
       img.format('jpg') do |c|
-        c.fuzz '3%'
         c.resize '1920x1080>'
         c.colorspace 'RGB'
         c.colors 65_536
