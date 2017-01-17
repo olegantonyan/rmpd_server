@@ -1,5 +1,7 @@
 class Notifiers::PlaybackErrorNotifierJob < Notifiers::BaseNotifierJob
   def perform(device, playlist_item_id, filename, text)
+    filename ||= '<unknown filename>'
+    text ||= '<no error message given>'
     notify(text, icon_emoji: ':hurtrealbad:', attachments: attachments(device, playlist_item_id, filename, text))
   end
 
