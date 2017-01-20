@@ -61,7 +61,7 @@ class Playlist::Assignment < ApplicationModel
     return if free_space.zero?
     size_of_new_items = new_items_to_download(device).inject(0) { |acc, elem| acc + elem.file.size.to_i }
     msg = "Device #{device} has not enough free space (#{free_space}) to update playlist (requires #{size_of_new_items})"
-    raise NotEnoughSpaceError, msg if free_space < size_of_new_items * 1.1
+    raise NotEnoughSpaceError, msg if free_space < size_of_new_items + 10_000_000
   end
 
   # rubocop: disable Metrics/AbcSize
