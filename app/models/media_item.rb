@@ -93,10 +93,12 @@ class MediaItem < ApplicationRecord
     !file_processing_failed_message.nil?
   end
 
+  # rubocop: disable Rails/SkipsModelValidations
   def rename_file_attribute!(new_name)
     self.class.where(self.class.primary_key => id).limit(1).update_all(file: new_name)
     reload
   end
+  # rubocop: enable Rails/SkipsModelValidations
 
   private
 

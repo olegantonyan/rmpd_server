@@ -36,7 +36,7 @@ class Upload
   end
 
   def self.tmp_path
-    File.join(Rails.root, 'public', 'uploads', 'tmp', 'uploads').freeze
+    Rails.root.join('public', 'uploads', 'tmp', 'uploads').freeze
   end
 
   def self.filepath_by_uuid(uuid)

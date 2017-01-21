@@ -39,6 +39,7 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
     find_by(id: sequence_number).try(:reenqueue_retries) || 0
   end
 
+  # rubocop: disable Rails/SkipsModelValidations
   def self.reenqueue_all(key, only_types = nil)
     Rails.logger&.debug("Reenqueue all dequed messages for '#{key}'")
     if only_types
@@ -47,6 +48,7 @@ class Deviceapi::MessageQueue < ActiveRecord::Base
       where(key: key, dequeued: true)
     end.update_all(['reenqueue_retries = reenqueue_retries + 1, dequeued = ?', false])
   end
+  # rubocop: enable Rails/SkipsModelValidations
 
   def self.destroy_all_messages(key)
     Rails.logger&.debug("Destroy all messages for '#{key}'")

@@ -4,7 +4,7 @@ class DevicesController < BaseController
   before_action :set_device, only: %i(show edit update destroy)
 
   # GET /devices
-  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength, Style/RedundantParentheses
+  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength
   def index
     @filterrific = initialize_filterrific(
       Device,
@@ -18,7 +18,7 @@ class DevicesController < BaseController
     @devices = policy_scope(filtered).includes(:device_status, :playlist, :company).order(name: :asc)
     authorize @devices
   end
-  # rubocop: eanble Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength, Style/RedundantParentheses
+  # rubocop: eanble Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength
 
   # GET /devices/1
   def show

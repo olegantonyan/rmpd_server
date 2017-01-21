@@ -40,7 +40,7 @@ RSpec.configure do |config|
 
   # load seed data
   config.before(:all) do
-    load "#{Rails.root}/db/seeds.rb"
+    load Rails.root.join('db', 'seeds.rb')
   end
 
 # rubocop: disable Style/BlockComments

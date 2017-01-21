@@ -5,7 +5,7 @@ class DeviceGroupsController < BaseController
 
   # GET /device_groups
   # GET /device_groups.json
-  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
+  # rubocop: disable Metrics/AbcSize, Style/Semicolon
   def index
     @filterrific = initialize_filterrific(
       Device::Group,
@@ -18,7 +18,7 @@ class DeviceGroupsController < BaseController
     @device_groups = policy_scope(filtered).order(created_at: :asc).page(page).per_page(per_page)
     authorize @device_groups
   end
-  # rubocop: enable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
+  # rubocop: enable Metrics/AbcSize, Style/Semicolon
 
   # GET /device_groups/1
   # GET /device_groups/1.json

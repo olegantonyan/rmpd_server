@@ -1,4 +1,5 @@
 class Deviceapi::Timeouts
+  # rubocop: disable Rails/SkipsModelValidations
   def self.check
     statuses = Device::Status.where('online = ? AND updated_at <= ?', true, Time.current - 60)
     return unless statuses.exists?
@@ -9,4 +10,5 @@ class Deviceapi::Timeouts
     end
     statuses.update_all(online: new_online_status, now_playing: '')
   end
+  # rubocop: enable Rails/SkipsModelValidations
 end

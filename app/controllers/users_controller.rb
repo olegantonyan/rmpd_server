@@ -3,7 +3,7 @@ class UsersController < BaseController
 
   before_action :set_user, only: %i(show edit update destroy)
 
-  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
+  # rubocop: disable Metrics/AbcSize, Style/Semicolon
   def index
     @filterrific = initialize_filterrific(
       User,
@@ -15,7 +15,7 @@ class UsersController < BaseController
     @users = policy_scope(@filterrific.find.page(page).per_page(per_page)).order(created_at: :desc)
     authorize @users
   end
-  # rubocop: enable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
+  # rubocop: enable Metrics/AbcSize, Style/Semicolon
 
   def show
     authorize @user

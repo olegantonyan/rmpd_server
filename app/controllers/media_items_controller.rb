@@ -5,7 +5,7 @@ class MediaItemsController < BaseController
   before_action :set_media_item, only: %i(show edit update destroy)
 
   # GET /media_items
-  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses, Metrics/MethodLength
+  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength
   def index
     @filterrific = initialize_filterrific(
       MediaItem,
@@ -19,7 +19,7 @@ class MediaItemsController < BaseController
     @media_items = policy_scope(@filterrific.find.page(page).per_page(per_page)).order(created_at: :desc)
     authorize @media_items
   end
-  # rubocop: enable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses, Metrics/MethodLength
+  # rubocop: enable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength
 
   # GET /media_items/1
   def show

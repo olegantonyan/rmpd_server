@@ -1,7 +1,7 @@
 class DeviceLogMessagesController < BaseController
   include Filterrificable
 
-  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength, Style/Semicolon, Style/RedundantParentheses
+  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength, Style/Semicolon
   def index
     @filterrific = initialize_filterrific(
       Device::LogMessage,
@@ -17,7 +17,7 @@ class DeviceLogMessagesController < BaseController
       format.csv { render text: @device_log_messages.to_csv }
     end
   end
-  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength, Style/Semicolon, Style/RedundantParentheses
+  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength, Style/Semicolon
 
   private
 

@@ -5,7 +5,7 @@ class PlaylistsController < BaseController
   before_action :set_media_items, only: %i(new edit update create)
 
   # GET /playlists
-  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
+  # rubocop: disable Metrics/AbcSize, Style/Semicolon
   def index
     @filterrific = initialize_filterrific(
       Playlist,
@@ -17,7 +17,7 @@ class PlaylistsController < BaseController
     @playlists = policy_scope(@filterrific.find.page(page).per_page(per_page)).order(created_at: :desc)
     authorize @playlists
   end
-  # rubocop: enable Metrics/AbcSize, Style/Semicolon, Style/RedundantParentheses
+  # rubocop: enable Metrics/AbcSize, Style/Semicolon
 
   # GET /playlists/1
   def show

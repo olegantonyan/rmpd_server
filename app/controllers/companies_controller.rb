@@ -3,7 +3,7 @@ class CompaniesController < BaseController
 
   before_action :set_company, only: %i(show edit update destroy leave)
 
-  # rubocop: disable Style/Semicolon, Style/RedundantParentheses
+  # rubocop: disable Style/Semicolon
   def index
     @filterrific = initialize_filterrific(
       Company,
@@ -13,7 +13,7 @@ class CompaniesController < BaseController
     @companies = policy_scope(filtered)
     authorize @companies
   end
-  # rubocop: eanble Style/Semicolon, Style/RedundantParentheses
+  # rubocop: eanble Style/Semicolon
 
   def show
     authorize @company
