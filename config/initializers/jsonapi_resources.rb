@@ -13,3 +13,35 @@ JSONAPI.configure do |config|
 
   config.raise_if_parameters_not_allowed = false
 end
+
+class CustomNonePaginator < JSONAPI::Paginator
+  def initialize
+  end
+
+  def apply(relation, _order_options)
+    relation
+  end
+
+  def calculate_page_count(record_count)
+    record_count
+  end
+end
+
+module PaginationHack
+  def parse_pagination(page)
+    if disable_pagination?
+      @paginator = CustomNonePaginator.new
+    else
+      super
+    end
+  end
+
+  def disable_pagination?
+     # your logic here
+     # request params are available through @params or @context variables
+     # so you get your action, path or any context data
+     @params[:action] == 'get_related_resources'
+  end
+end
+
+JSONAPI::RequestParser.send(:prepend, PaginationHack)
