@@ -5,6 +5,11 @@ class Api::BaseResource < JSONAPI::Resource
 
   attributes :created_at, :updated_at
 
+  filter :search_query, apply: ->(records, value, _options) {
+    raise NotImplementedError, "no search_query scope for #{records.class} model" unless records.respond_to?(:search_query)
+    records.search_query(value[0])
+  }
+
   attr_reader :model
 
   def self.updatable_fields(context)
