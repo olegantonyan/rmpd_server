@@ -1,5 +1,5 @@
 class Api::UserResource < Api::BaseResource
-  attributes :email, :displayed_name, :allow_notifications, :root
+  attributes :email, :displayed_name, :full_name, :allow_notifications, :root
 
   has_many :companies
 
@@ -9,5 +9,9 @@ class Api::UserResource < Api::BaseResource
 
   def self.creatable_fields(context)
     updatable_fields(context) + %i(email)
+  end
+
+  def full_name
+    model.to_s
   end
 end
