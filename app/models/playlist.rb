@@ -39,6 +39,10 @@ class Playlist < ApplicationRecord
     media_items.distinct
   end
 
+  def media_items_count
+    uniq_media_items.count
+  end
+
   def to_s
     (description.blank? ? name : "#{name} (#{description})")
   end
