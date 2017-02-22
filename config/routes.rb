@@ -67,5 +67,6 @@ Rails.application.routes.draw do
     jsonapi_resources :playlists
     jsonapi_resources :devices, except: %i(create)
     jsonapi_resources :device_groups
+    jsonapi_resources :time_zones, only: %i(index)
   end
 end
