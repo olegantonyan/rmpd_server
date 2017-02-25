@@ -3,6 +3,7 @@ class Api::PlaylistResource < Api::BaseResource
 
   has_one :company
   has_many :devices
+  has_many :playlist_items, class_name: 'PlaylistItem' # NOTE: PlaylistItem is a resource class
 
   def self.updatable_fields(context)
     super - %i(total_size media_items_count)

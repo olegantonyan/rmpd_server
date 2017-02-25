@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     jsonapi_resources :companies
     jsonapi_resources :users, except: %i(create)
     jsonapi_resources :playlists
+    jsonapi_resources :playlist_items, only: %i(index)
     jsonapi_resources :devices, except: %i(create)
     jsonapi_resources :device_groups
     jsonapi_resources :time_zones, only: %i(index)
