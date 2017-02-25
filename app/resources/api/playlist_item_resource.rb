@@ -5,4 +5,8 @@ class Api::PlaylistItemResource < Api::BaseResource
 
   has_one :media_item
   has_one :playlist
+
+  filter :media_item_type, apply: ->(records, value, _options) {
+    records.with_media_item_type(value[0])
+  }
 end

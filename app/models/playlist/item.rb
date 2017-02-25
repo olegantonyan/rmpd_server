@@ -15,8 +15,9 @@ class Playlist::Item < ApplicationRecord
   validate :check_files_processing
   validate :begin_date_less_than_end_date
 
-  scope :background, -> { joins(:media_item).where('media_items.type = ?', MediaItem.types['background']) }
-  scope :advertising, -> { joins(:media_item).where('media_items.type = ?', MediaItem.types['advertising']) }
+  scope :with_media_item_type, ->(tp) { joins(:media_item).where('media_items.type = ?', MediaItem.types[tp.to_s]) }
+  scope :background, -> { with_media_item_type('background') }
+  scope :advertising, -> { with_media_item_type('advertising') }
   scope :begin_time_greater_than_end_time, -> { where('begin_time > end_time') }
 
   with_options to: :media_item do
