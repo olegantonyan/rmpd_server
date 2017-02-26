@@ -9,4 +9,5 @@ class Api::PlaylistItemResource < Api::BaseResource
   filter :media_item_type, apply: ->(records, value, _options) {
     records.with_media_item_type(value[0])
   }
+  filter :playlist_id
 end
