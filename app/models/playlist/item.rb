@@ -19,6 +19,10 @@ class Playlist::Item < ApplicationRecord
   scope :background, -> { with_media_item_type('background') }
   scope :advertising, -> { with_media_item_type('advertising') }
   scope :begin_time_greater_than_end_time, -> { where('begin_time > end_time') }
+  scope :search_query, ->(query) {
+    q = "%#{query}%"
+    joins(:media_item).where('LOWER(media_items.file) LIKE LOWER(?) OR LOWER(media_items.description) LIKE LOWER(?)', q, q)
+  }
 
   with_options to: :media_item do
     delegate :file_url, :type, :description, :file_identifier, :background?, :advertising?, :duration, :content_type
