@@ -6,6 +6,8 @@ class Api::MediaItemResource < Api::BaseResource
 
   has_one :company
 
+  filter :type
+
   def duration
     model.duration.total
   end
