@@ -4,6 +4,7 @@
             {attr: :login},
             {attr: :device_groups },
             {attr: :company},
-            {attr: :playlist} ],
+            {attr: :playlist},
+            {attr: :now_playing}],
   details_link: -> (i) { device_path(i) },
   row_class: -> (i) { i.online? ? 'success' : 'danger' } }
