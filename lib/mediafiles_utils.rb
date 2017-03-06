@@ -30,7 +30,9 @@ module MediafilesUtils
     output_file = "/tmp/#{File.basename(file)}"
     _, e, r = Open3.capture3(*['ffmpeg', '-y', '-i', file, '-af', "volume=#{adjustment}dB", '-c:v', 'copy', output_file])
     raise "Error normalizing audio volume of #{file} (#{e})" unless r.success?
-    File.rename(output_file, file)
+    FileUtils.rm(file)
+    FileUtils.cp(output_file, file)
+    FileUtils.rm(output_file)
   end
   # rubocop: enable Metrics/AbcSize, Metrics/MethodLength, Style/SpecialGlobalVars, Lint/UselessAssignment
 
