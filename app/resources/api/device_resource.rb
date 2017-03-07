@@ -18,4 +18,8 @@ class Api::DeviceResource < Api::BaseResource
   status_attributes.each do |a|
     define_method(a) { model.device_status.public_send(a) }
   end
+
+  def self.records(_options = {})
+    super.ordered
+  end
 end

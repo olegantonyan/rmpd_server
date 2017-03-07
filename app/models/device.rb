@@ -25,11 +25,11 @@ class Device < ApplicationRecord
     validates :password, length: { in: 8..60 }, confirmation: true, if: -> { new_record? || !password.nil? }
   end
   validates :name, length: { maximum: 40 }
-  validate :wallpaper_max_size, if: 'wallpaper.present?'
+  validate :wallpaper_max_size, if: -> { wallpaper.present? }
 
   after_destroy { send_to :clear_queue }
   around_save :update_setting
-  after_commit -> { send_to(:update_wallpaper) }, if: 'previous_changes[:wallpaper]'
+  after_commit -> { send_to(:update_wallpaper) }, if: -> { previous_changes[:wallpaper] }
 
   filterrific(available_filters: %i(search_query with_company_id with_device_group_id))
 
@@ -39,6 +39,7 @@ class Device < ApplicationRecord
   }
   scope :with_company_id, ->(ids) { where(company_id: [*ids]) }
   scope :with_device_group_id, ->(ids) { joins(:device_groups).where(device_groups: { id: [*ids] }) }
+  scope :ordered, -> { joins(:device_status).order('device_statuses.online DESC') }
 
   delegate :now_playing, to: :device_status, allow_nil: true
 
