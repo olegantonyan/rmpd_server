@@ -40,6 +40,7 @@ class Device < ApplicationRecord
   scope :with_company_id, ->(ids) { where(company_id: [*ids]) }
   scope :with_device_group_id, ->(ids) { joins(:device_groups).where(device_groups: { id: [*ids] }) }
   scope :ordered, -> { joins(:device_status).order('device_statuses.online DESC') }
+  scope :online, -> { joins(:device_status).merge(Device::Status.online) }
 
   delegate :now_playing, to: :device_status, allow_nil: true
 
