@@ -15,7 +15,7 @@ class DevicesController < BaseController
       }
     ) || (on_reset; return)
     filtered = @filterrific.find.page(page).per_page(per_page)
-    @devices = policy_scope(filtered).includes(:device_status, :playlist, :company).ordered
+    @devices = policy_scope(filtered).includes(:device_status, :playlist, :company).ordered_by_online
     authorize @devices
   end
   # rubocop: eanble Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength

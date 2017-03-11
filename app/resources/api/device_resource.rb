@@ -19,7 +19,21 @@ class Api::DeviceResource < Api::BaseResource
     define_method(a) { model.device_status.public_send(a) }
   end
 
-  def self.records(_options = {})
-    super.ordered
+  def self.sortable_fields(_context)
+    %i(online)
+  end
+
+  def self.apply_sort(records, order_options, context = {})
+    order_options = order_options.with_indifferent_access
+    direction = order_options[:online]
+    if direction
+      records = records.ordered_by_online(direction)
+      order_options.delete(:online)
+    end
+    super(records, order_options, context)
+  end
+
+  def self.default_sort
+    [{ field: :online, direction: :desc }]
   end
 end
