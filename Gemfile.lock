@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git@bitbucket.org:slon-ds/rmpd_adschedule.git
-  revision: af9835182abfe0daee09427b0571a9220540c265
+  revision: ce1dbeca740eadcc7d2ff78585a73c4cbca72544
   specs:
     rmpd_adschedule (0.1.4)
 
