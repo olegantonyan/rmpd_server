@@ -35,7 +35,7 @@ class Device < ApplicationRecord
 
   scope :search_query, ->(query) {
     q = "%#{query}%"
-    where('LOWER(name) LIKE LOWER(?) OR LOWER(login) LIKE LOWER(?)', q, q)
+    where('LOWER(devices.name) LIKE LOWER(?) OR LOWER(devices.login) LIKE LOWER(?)', q, q)
   }
   scope :with_company_id, ->(ids) { where(company_id: [*ids]) }
   scope :with_device_group_id, ->(ids) { joins(:device_groups).where(device_groups: { id: [*ids] }) }
