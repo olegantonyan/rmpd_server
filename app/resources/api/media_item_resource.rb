@@ -1,7 +1,7 @@
 class Api::MediaItemResource < Api::BaseResource
   include Api::Concerns::UploadableResource
 
-  attributes :description, :file_identifier, :file_processing, :volume_normalized, :file_processing_failed_message, :content_type, :size, :duration, :file_url
+  attributes :description, :file_identifier, :file_processing, :volume_normalized, :file_processing_failed_message, :content_type, :size, :file_url
   attribute :_type, delegate: :type
 
   has_one :company
