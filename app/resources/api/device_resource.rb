@@ -16,7 +16,7 @@ class Api::DeviceResource < Api::BaseResource
   end
 
   status_attributes.each do |a|
-    define_method(a) { model.device_status.public_send(a) }
+    define_method(a) { model.device_status&.public_send(a) }
   end
 
   def self.sortable_fields(_context)
