@@ -18,6 +18,7 @@ class MediaItem < ApplicationRecord
     before_create :mark_file_processing
     after_commit :process_file, on: :create
   end
+  before_save :cache_duration
 
   with_options presence: true do
     validates :file
@@ -59,16 +60,6 @@ class MediaItem < ApplicationRecord
     I18n.t("activerecord.attributes.media_item.types.#{enum_key}", default: enum_key.to_s.titleize)
   end
 
-  def duration
-    @_duration ||= begin
-      if image?
-        Duration.new
-      else
-        MediafilesUtils.duration(file.path)
-      end
-    end
-  end
-
   def content_type
     file&.content_type&.gsub('application/mp4', 'video/mp4') # broke after update to rails 5.0.1
   end
@@ -108,5 +99,13 @@ class MediaItem < ApplicationRecord
 
   def mark_file_processing
     self.file_processing = true
+  end
+
+  def cache_duration
+    self.duration = if image?
+                      0
+                    else
+                      MediafilesUtils.duration(file.path).total
+                    end
   end
 end

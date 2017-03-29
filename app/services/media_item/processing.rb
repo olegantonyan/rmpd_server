@@ -1,7 +1,7 @@
 class MediaItem::Processing < BaseService
   attr_accessor :media_item, :skip_volume_normalization
 
-  delegate :file, to: :media_item
+  delegate :file, :image?, to: :media_item
 
   def call
     begin_process

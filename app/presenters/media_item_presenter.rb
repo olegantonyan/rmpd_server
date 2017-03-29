@@ -38,7 +38,7 @@ class MediaItemPresenter < BasePresenter
   end
 
   def duration
-    super.format('%H:%M:%S')
+    (Time.mktime(0) + super).strftime('%H:%M:%S')
   end
 
   private
