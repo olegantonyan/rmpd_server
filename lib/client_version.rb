@@ -22,7 +22,7 @@ class ClientVersion
   end
 
   def platform
-    (rmpd =~ /android/ ? 'android' : 'linux').inquiry
+    (rmpd.match?(/android/) ? 'android' : 'linux').inquiry
   end
 
   def self_update_support?

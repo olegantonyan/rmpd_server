@@ -10,8 +10,15 @@ AllCops:
     - 'config/**/*'
     - 'script/**/*'
     - 'bin/**/*'
+    - 'Guardfile'
 
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
+
+Rails/Blank:
+  Enabled: false # causes error
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
