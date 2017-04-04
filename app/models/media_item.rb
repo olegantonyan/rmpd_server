@@ -1,5 +1,6 @@
 class MediaItem < ApplicationRecord
   include UploadableModel
+  include Taggable
 
   self.inheritance_column = 'sti_type'
 
