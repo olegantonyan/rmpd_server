@@ -1,5 +1,7 @@
 = simple_form_for(resource) do |f|
   = f.input :description
   = render partial: 'type_form_element', locals: { f: f }
+  = render partial: 'tag_form_element', locals: { f: f }
   = render partial: 'shared/select_company_form', locals: { f: f }
+
   = f.button :submit

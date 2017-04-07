@@ -11,6 +11,10 @@ class MediaItemPresenter < BasePresenter
     model.class.human_enum_name(super)
   end
 
+  def tags
+    super.pluck(:name).join(', ')
+  end
+
   # rubocop: disable Metrics/AbcSize
   def file_identifier
     filename = truncate_filename(super.to_s)

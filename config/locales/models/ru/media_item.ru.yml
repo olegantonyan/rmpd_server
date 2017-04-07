@@ -24,6 +24,8 @@ ru:
         duration: Длительность
         content_type: Тип файла
         file_processing_failed_message: Текст ошибки преобразования файла
+        tags: Теги
+        tag_ids: Теги
 
   activemodel:
     models:
@@ -39,3 +41,4 @@ ru:
         type: Тип
         files: Файлы
         skip_volume_normalization: Не выравнивать уровень громкости
+        tag_ids: Теги

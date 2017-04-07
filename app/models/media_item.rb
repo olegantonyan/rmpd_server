@@ -27,7 +27,7 @@ class MediaItem < ApplicationRecord
   end
   validates :description, length: { maximum: 130 }
 
-  filterrific(available_filters: %i(search_query with_company_id with_type with_file_processing))
+  filterrific(available_filters: %i(search_query with_company_id with_type with_file_processing with_tag_id))
 
   scope :search_query, ->(query) {
     q = "%#{query}%"

@@ -13,7 +13,8 @@ class MediaItemsController < BaseController
       select_options: {
         with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] },
         with_type: MediaItem.types.map { |k, _| [MediaItem.human_enum_name(k), k] },
-        with_file_processing: boolean_select
+        with_file_processing: boolean_select,
+        with_tag_id: policy_scope(Tag.all).map { |e| [e.name, e.id] }
       }
     ) || (on_reset; return)
     @media_items = policy_scope(@filterrific.find.page(page).per_page(per_page)).order(created_at: :desc)
@@ -89,11 +90,11 @@ class MediaItemsController < BaseController
   end
 
   def media_item_params
-    params.require(:media_item).permit(:description, :company_id, :type)
+    params.require(:media_item).permit(:description, :company_id, :type, tag_ids: [])
   end
 
   def media_item_create_multiple_params
-    params.require(:media_item_create_multiple).permit(:description, :company_id, :type, :skip_volume_normalization, files: []).tap do |i|
+    params.require(:media_item_create_multiple).permit(:description, :company_id, :type, :skip_volume_normalization, files: [], tag_ids: []).tap do |i|
       i[:files] = i[:files]&.reject(&:blank?)
       i[:skip_volume_normalization] = i[:skip_volume_normalization] == '1'
     end
