@@ -106,7 +106,7 @@ class MediaItem < ApplicationRecord
     self.duration = if image?
                       0
                     else
-                      MediafilesUtils.duration(file.path).total
+                      MediafilesUtils.duration(file.path)
                     end
   end
 end

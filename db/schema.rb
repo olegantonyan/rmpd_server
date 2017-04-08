@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406045244) do
+ActiveRecord::Schema.define(version: 20170408045014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20170406045244) do
     t.boolean  "volume_normalized",              default: false, null: false
     t.string   "file_processing_failed_message"
     t.integer  "duration",                       default: 0,     null: false
+    t.boolean  "library_shared",                 default: false, null: false
     t.index ["company_id"], name: "index_media_items_on_company_id", using: :btree
     t.index ["description"], name: "index_media_items_on_description", using: :btree
     t.index ["file"], name: "index_media_items_on_file", using: :btree

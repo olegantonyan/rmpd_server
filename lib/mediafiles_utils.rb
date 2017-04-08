@@ -12,7 +12,7 @@ module MediafilesUtils
   def duration(file)
     output = `ffmpeg -i '#{file}' 2>&1 | grep Duration | awk '{print $2}' | tr -d ,`
     result = fix_invalid_byte_sequence(output).strip.split(':')
-    Duration.new(hours: result.first, minutes: result.second, seconds: result.third.to_f.round)
+    result.first.to_i * 3600 + result.second.to_i * 60 + result.third.to_f.round
   end
 
   # rubocop: disable Metrics/AbcSize, Metrics/MethodLength, Style/SpecialGlobalVars, Lint/UselessAssignment

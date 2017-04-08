@@ -90,11 +90,11 @@ class MediaItemsController < BaseController
   end
 
   def media_item_params
-    params.require(:media_item).permit(:description, :company_id, :type, tag_ids: [])
+    params.require(:media_item).permit(policy(@media_item).permitted_attributes)
   end
 
   def media_item_create_multiple_params
-    params.require(:media_item_create_multiple).permit(:description, :company_id, :type, :skip_volume_normalization, files: [], tag_ids: []).tap do |i|
+    params.require(:media_item_create_multiple).permit(policy(:media_item).permitted_attributes).tap do |i|
       i[:files] = i[:files]&.reject(&:blank?)
       i[:skip_volume_normalization] = i[:skip_volume_normalization] == '1'
     end

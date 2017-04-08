@@ -25,7 +25,7 @@ class InvitesController < BaseController
   end
 
   def invite_params
-    params.require(:invite).permit(:email)
+    params.require(:invite).permit(policy(:invite).permitted_attributes)
   end
 
   def crud_responder_default_options

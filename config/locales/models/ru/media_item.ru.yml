@@ -26,6 +26,7 @@ ru:
         file_processing_failed_message: Текст ошибки преобразования файла
         tags: Теги
         tag_ids: Теги
+        library_shared: Общая библиотека
 
   activemodel:
     models:
@@ -42,3 +43,4 @@ ru:
         files: Файлы
         skip_volume_normalization: Не выравнивать уровень громкости
         tag_ids: Теги
+        library_shared: Общая библиотека

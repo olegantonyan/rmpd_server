@@ -3,5 +3,7 @@
   = render partial: 'type_form_element', locals: { f: f }
   = render partial: 'tag_form_element', locals: { f: f }
   = render partial: 'shared/select_company_form', locals: { f: f }
+  - if current_user&.root?
+    = f.input :library_shared
 
   = f.button :submit

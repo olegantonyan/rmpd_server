@@ -6,4 +6,8 @@ class InvitePolicy < ApplicationPolicy
   def destroy?
     record.user == user
   end
+
+  def permitted_attributes
+    [:email]
+  end
 end

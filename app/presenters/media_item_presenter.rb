@@ -37,6 +37,10 @@ class MediaItemPresenter < BasePresenter
     h.i18n_boolean(super)
   end
 
+  def library_shared
+    h.i18n_boolean(super)
+  end
+
   def company
     h.link_to(super.to_s, h.safe_path_to(:company_path, super))
   end

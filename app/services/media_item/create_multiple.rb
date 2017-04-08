@@ -3,7 +3,7 @@ class MediaItem::CreateMultiple < BaseService
     MediaItemPolicy
   end
 
-  attr_accessor :description, :company_id, :type, :skip_volume_normalization, :tag_ids
+  attr_accessor :description, :company_id, :type, :skip_volume_normalization, :tag_ids, :library_shared
   attr_reader :files
 
   validates :files, presence: true
@@ -39,7 +39,8 @@ class MediaItem::CreateMultiple < BaseService
                       type: type_indifferent,
                       file: file,
                       skip_volume_normalization: skip_volume_normalization,
-                      tag_ids: tag_ids)
+                      tag_ids: tag_ids,
+                      library_shared: library_shared)
   end
 
   def type_indifferent

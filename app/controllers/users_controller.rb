@@ -44,6 +44,6 @@ class UsersController < BaseController
   end
 
   def user_params
-    params.require(:user).permit(:displayed_name, :allow_notifications, company_ids: [])
+    params.require(:user).permit(policy(@user).permitted_attributes)
   end
 end

@@ -58,11 +58,7 @@ class CompaniesController < BaseController
   end
 
   def company_params
-    if current_user&.root?
-      params.require(:company).permit(:title, user_ids: [])
-    else
-      params.require(:company).permit(:title)
-    end
+    params.require(:company).permit(policy(:company).permitted_attributes)
   end
 
   def company_params_for_create

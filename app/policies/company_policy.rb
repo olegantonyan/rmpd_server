@@ -25,4 +25,12 @@ class CompanyPolicy < ApplicationPolicy
       scope.joins(:user_company_memberships).where('user_company_memberships.user_id = ?', user.id)
     end
   end
+
+  def permitted_attributes
+    if user&.root?
+      [:title, user_ids: []]
+    else
+      [:title]
+    end
+  end
 end
