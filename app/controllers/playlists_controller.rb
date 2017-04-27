@@ -69,6 +69,6 @@ class PlaylistsController < BaseController
   end
 
   def playlist_params
-    params.require(:playlist).permit(policy(@playlist).permitted_attributes)
+    params.require(:playlist).permit(policy(:playlist).permitted_attributes)
   end
 end
