@@ -1,5 +1,6 @@
 class MediaItem < ApplicationRecord
   include UploadableModel
+  include Taggable
 
   self.inheritance_column = 'sti_type'
 
@@ -26,7 +27,7 @@ class MediaItem < ApplicationRecord
   end
   validates :description, length: { maximum: 130 }
 
-  filterrific(available_filters: %i(search_query with_company_id with_type with_file_processing))
+  filterrific(available_filters: %i(search_query with_company_id with_type with_file_processing with_tag_id))
 
   scope :search_query, ->(query) {
     q = "%#{query}%"
@@ -105,7 +106,7 @@ class MediaItem < ApplicationRecord
     self.duration = if image?
                       0
                     else
-                      MediafilesUtils.duration(file.path).total
+                      MediafilesUtils.duration(file.path)
                     end
   end
 end
