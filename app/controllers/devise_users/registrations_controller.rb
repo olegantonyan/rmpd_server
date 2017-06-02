@@ -47,13 +47,13 @@ class DeviseUsers::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    keys = %i(displayed_name allow_notifications company_title invitation_token)
+    keys = %i[displayed_name allow_notifications company_title invitation_token]
     devise_parameter_sanitizer.permit(:sign_up, keys: keys)
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    keys = %i(displayed_name allow_notifications)
+    keys = %i[displayed_name allow_notifications]
     devise_parameter_sanitizer.permit(:sign_up, keys: keys)
     devise_parameter_sanitizer.permit(:account_update, keys: keys)
   end

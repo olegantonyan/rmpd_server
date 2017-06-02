@@ -64,7 +64,7 @@ set :rollbar_role, Proc.new { :app }
 
 namespace :deploy do
   desc 'Commands for Puma'
-  %w(start stop restart).each do |command|
+  %w[start stop restart].each do |command|
     task command do
       on roles(:app)  do
         execute "cd #{release_path} && bin/puma.sh #{command}"
@@ -74,7 +74,7 @@ namespace :deploy do
 
   namespace :sidekiq do
     desc 'Commands for Sidekiq'
-    %w(start stop restart).each do |command|
+    %w[start stop restart].each do |command|
       task command do
         on roles(:app)  do
           execute "cd #{release_path} && bin/sidekiq.sh #{command} #{fetch(:rails_env)}"

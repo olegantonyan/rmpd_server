@@ -2,7 +2,7 @@ class MediaItemsController < BaseController
   include Filterrificable
   include ChunkedUploadable
 
-  before_action :set_media_item, only: %i(show edit update destroy)
+  before_action :set_media_item, only: %i[show edit update destroy]
 
   # GET /media_items
   # rubocop: disable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength

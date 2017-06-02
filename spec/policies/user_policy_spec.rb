@@ -7,7 +7,7 @@ RSpec.describe UserPolicy, type: :policy do
     let(:object) { create(:user) }
     let(:user) { create(:user_root) }
 
-    pundit_permit(*%i(index show new edit create update destroy))
+    pundit_permit(*%i[index show new edit create update destroy])
   end
 
   context 'for member of the company' do
@@ -15,7 +15,7 @@ RSpec.describe UserPolicy, type: :policy do
     let(:object) { create(:user, companies: [company]) }
     let(:user) { create(:user, companies: [company]) }
 
-    pundit_permit(*%i(show))
+    pundit_permit(*%i[show])
   end
 
   context 'for everyone else' do
@@ -27,6 +27,6 @@ RSpec.describe UserPolicy, type: :policy do
       u
     end
 
-    pundit_forbid(*%i(index create new edit update destroy show))
+    pundit_forbid(*%i[index create new edit update destroy show])
   end
 end

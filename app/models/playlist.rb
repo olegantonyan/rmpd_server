@@ -26,7 +26,7 @@ class Playlist < ApplicationRecord
     accepts_nested_attributes_for :playlist_items_advertising
   end
 
-  filterrific(available_filters: %i(search_query with_company_id))
+  filterrific(available_filters: %i[search_query with_company_id])
 
   scope :search_query, ->(query) {
     q = "%#{query}%"

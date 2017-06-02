@@ -6,6 +6,6 @@ module Api::Concerns::UploadableResource
   end
 
   def fetchable_fields
-    super - %i(upload_uuid upload_original_filename upload_content_type)
+    super - %i[upload_uuid upload_original_filename upload_content_type]
   end
 end

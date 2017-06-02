@@ -17,7 +17,7 @@ class Api::BaseJsonapiController < Api::BaseController
     model_class = JSONAPI::Resource.resource_for(params[:controller])._model_class
     return super unless model_class
     policy = Pundit.policy!(context[:user], model_class)
-    acl = %i(create).each_with_object({}) do |e, a|
+    acl = %i[create].each_with_object({}) do |e, a|
       a[e] = policy.public_send("#{e}?")
     end
     super.merge(acl: acl)

@@ -50,7 +50,7 @@ class Api::TimeZoneResource < Api::BaseResource
   paginator :none
 
   def fetchable_fields
-    %i(id offset tzinfo_name)
+    %i[id offset tzinfo_name]
   end
 
   def self.updatable_fields(_context)

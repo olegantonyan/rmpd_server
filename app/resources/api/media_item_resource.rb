@@ -9,7 +9,7 @@ class Api::MediaItemResource < Api::BaseResource
   filter :type
 
   def self.updatable_fields(context)
-    super - %i(file_identifier file_processing file_processing_failed_message content_type size duration volume_normalized file_url)
+    super - %i[file_identifier file_processing file_processing_failed_message content_type size duration volume_normalized file_url]
   end
 
   def self.creatable_fields(context)

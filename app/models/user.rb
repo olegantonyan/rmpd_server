@@ -21,7 +21,7 @@ class User < ApplicationRecord
     where('LOWER(email) LIKE LOWER(?) OR LOWER(displayed_name) LIKE LOWER(?)', q, q)
   }
   scope :with_company_id, ->(*ids) { joins(:companies).where(companies: { id: [*ids] }) }
-  filterrific(available_filters: %i(search_query with_company_id))
+  filterrific(available_filters: %i[search_query with_company_id])
 
   def to_s
     displayed_name.blank? ? email : displayed_name

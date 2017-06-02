@@ -1,7 +1,7 @@
 class PlaylistItemsController < BaseController
   prepend_view_path 'app/views/playlists'
 
-  before_action :set_playlist_item, only: %i(show edit update destroy)
+  before_action :set_playlist_item, only: %i[show edit update destroy]
 
   def show
     authorize @playlist_item

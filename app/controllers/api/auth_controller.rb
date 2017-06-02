@@ -2,7 +2,7 @@ class Api::AuthController < Api::BaseController
   include Api::Concerns::Errors
   include Api::Concerns::Authenticatable
 
-  skip_before_action :authenticate_user, except: %i(refresh)
+  skip_before_action :authenticate_user, except: %i[refresh]
 
   def login
     user = User.find_by(email: login_params[:login])

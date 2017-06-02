@@ -7,23 +7,23 @@ RSpec.describe DevicePolicy, type: :policy do
     let(:object) { create(:device) }
     let(:user) { create(:user_root) }
 
-    pundit_permit(*%i(index show new edit create update destroy))
+    pundit_permit(*%i[index show new edit create update destroy])
   end
 
   context 'for member of the company' do
     let(:object) { create(:device) }
     let(:user) { create(:user, companies: [object.company]) }
 
-    pundit_permit(*%i(index show edit update))
-    pundit_forbid(*%i(create new destroy))
+    pundit_permit(*%i[index show edit update])
+    pundit_forbid(*%i[create new destroy])
   end
 
   context 'for everyone else' do
     let(:object) { create(:device) }
     let(:user) { create(:user) }
 
-    pundit_forbid(*%i(edit update destroy show create new))
-    pundit_permit(*%i(index))
+    pundit_forbid(*%i[edit update destroy show create new])
+    pundit_permit(*%i[index])
   end
 
   describe 'scope' do

@@ -16,7 +16,7 @@ class Company < ApplicationRecord
     validates :title, length: { in: 4..100 }, uniqueness: true
   end
 
-  filterrific(available_filters: %i(search_query))
+  filterrific(available_filters: %i[search_query])
 
   scope :search_query, ->(query) {
     q = "%#{query}%"

@@ -4,7 +4,7 @@ class Api::MainMenuResource < Api::BaseResource
   attribute :menu
 
   def fetchable_fields
-    %i(menu)
+    %i[menu]
   end
 
   def menu

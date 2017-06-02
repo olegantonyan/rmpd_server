@@ -12,7 +12,7 @@ class MediaItem < ApplicationRecord
   has_many :playlists, -> { distinct }, through: :playlist_items
   belongs_to :company, inverse_of: :media_items
 
-  enum type: %w(background advertising)
+  enum type: %w[background advertising]
 
   mount_uploader :file, MediaItemUploader
   with_options unless: :skip_file_processing do
@@ -27,7 +27,7 @@ class MediaItem < ApplicationRecord
   end
   validates :description, length: { maximum: 130 }
 
-  filterrific(available_filters: %i(search_query with_company_id with_type with_file_processing with_tag_id))
+  filterrific(available_filters: %i[search_query with_company_id with_type with_file_processing with_tag_id])
 
   scope :search_query, ->(query) {
     q = "%#{query}%"

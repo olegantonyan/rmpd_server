@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.4.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '>= 5.0.0.beta3'#, '< 5.1'
+gem 'rails', '~> 5.1.0'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -55,7 +55,7 @@ gem 'super_awesome_print'
 gem 'crud_responder'
 gem 'slack-notifier'
 gem 'rollbar'
-gem 'rails-i18n', '>= 5.0.0.beta3', '< 5.1'
+gem 'rails-i18n', '>= 5.0.0.beta3'
 gem 'devise-i18n'
 gem 'simple_form'
 gem 'font-awesome-sass', '~> 4.5.0'

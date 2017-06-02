@@ -1,7 +1,7 @@
 class DevicesController < BaseController
   include Filterrificable
 
-  before_action :set_device, only: %i(show edit update destroy)
+  before_action :set_device, only: %i[show edit update destroy]
 
   # GET /devices
   # rubocop: disable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength

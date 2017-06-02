@@ -1,7 +1,7 @@
 class CompaniesController < BaseController
   include Filterrificable
 
-  before_action :set_company, only: %i(show edit update destroy leave)
+  before_action :set_company, only: %i[show edit update destroy leave]
 
   # rubocop: disable Style/Semicolon
   def index

@@ -1,7 +1,7 @@
 class UsersController < BaseController
   include Filterrificable
 
-  before_action :set_user, only: %i(show edit update destroy)
+  before_action :set_user, only: %i[show edit update destroy]
 
   # rubocop: disable Metrics/AbcSize, Style/Semicolon
   def index

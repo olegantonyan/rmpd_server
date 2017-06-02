@@ -17,11 +17,11 @@ Rails.application.routes.draw do
   end
 
   concern :playlist_assignable do
-    resource :playlist_assignment, only: %i(update)
+    resource :playlist_assignment, only: %i[update]
   end
 
   resources :news_items, path: :news
-  resources :media_items, except: %i(create) do
+  resources :media_items, except: %i[create] do
     collection do
       post :create_multiple
       delete :destroy_multiple
@@ -29,26 +29,26 @@ Rails.application.routes.draw do
   end
   resources :device_groups, concerns: :playlist_assignable
   resources :devices, concerns: :playlist_assignable do
-    resources :device_log_messages, only: %i(index)
-    resources :ssh_tunnels, only: %i(new create)
-    resource :software_update, only: %i(new create)
-    resources :device_service_uploads, only: %i(index) do
+    resources :device_log_messages, only: %i[index]
+    resources :ssh_tunnels, only: %i[new create]
+    resource :software_update, only: %i[new create]
+    resources :device_service_uploads, only: %i[index] do
       post 'manual_request', on: :collection
     end
   end
   resources :playlists do
-    resources :playlist_items, only: %i(show)
+    resources :playlist_items, only: %i[show]
   end
   resources :companies do
     post 'leave', on: :member
-    resources :invites, only: %i(create destroy)
+    resources :invites, only: %i[create destroy]
   end
-  resources :users, only: %i(index show edit update destroy)
-  resource :device_binds, only: %i(create new)
+  resources :users, only: %i[index show edit update destroy]
+  resource :device_binds, only: %i[create new]
 
   namespace :deviceapi, defaults: { format: :json } do
-    resources :status, only: %i(create)
-    resource :service_upload, only: %i(create)
+    resources :status, only: %i[create]
+    resource :service_upload, only: %i[create]
   end
 
   namespace :api, defaults: { format: :json } do
@@ -56,18 +56,18 @@ Rails.application.routes.draw do
     post 'refresh_token', to: 'auth#refresh'
     post 'registration', to: 'auth#registration'
 
-    resources :uploads, only: %i(create)
+    resources :uploads, only: %i[create]
 
-    # jsonapi_resource :main_menu, only: %i(show);
+    # jsonapi_resource :main_menu, only: %i[show];
     get 'main-menus/:dontcare', to: 'main_menu#show' # hack for ember-data
 
     jsonapi_resources :media_items
     jsonapi_resources :companies
-    jsonapi_resources :users, except: %i(create)
+    jsonapi_resources :users, except: %i[create]
     jsonapi_resources :playlists
-    jsonapi_resources :playlist_items, only: %i(index)
-    jsonapi_resources :devices, except: %i(create)
+    jsonapi_resources :playlist_items, only: %i[index]
+    jsonapi_resources :devices, except: %i[create]
     jsonapi_resources :device_groups
-    jsonapi_resources :time_zones, only: %i(index)
+    jsonapi_resources :time_zones, only: %i[index]
   end
 end

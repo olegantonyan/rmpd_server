@@ -31,7 +31,7 @@ class Device < ApplicationRecord
   around_save :update_setting
   after_commit -> { send_to(:update_wallpaper) }, if: -> { previous_changes[:wallpaper] }
 
-  filterrific(available_filters: %i(search_query with_company_id with_device_group_id))
+  filterrific(available_filters: %i[search_query with_company_id with_device_group_id])
 
   scope :search_query, ->(query) {
     q = "%#{query}%"
@@ -89,6 +89,6 @@ class Device < ApplicationRecord
   def update_setting
     changed_attrs = changed.map(&:to_sym).dup
     yield
-    send_to(:update_setting, changed_attrs: changed_attrs) if changed_attrs & %i(time_zone message_queue_sync_period)
+    send_to(:update_setting, changed_attrs: changed_attrs) if changed_attrs & %i[time_zone message_queue_sync_period]
   end
 end

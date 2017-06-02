@@ -4,11 +4,11 @@ class Api::UserResource < Api::BaseResource
   has_many :companies
 
   def self.updatable_fields(context)
-    super - %i(root)
+    super - %i[root]
   end
 
   def self.creatable_fields(context)
-    updatable_fields(context) + %i(email)
+    updatable_fields(context) + %i[email]
   end
 
   def full_name

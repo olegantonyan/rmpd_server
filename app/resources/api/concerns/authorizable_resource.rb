@@ -9,7 +9,7 @@ module Api::Concerns::AuthorizableResource
 
   def acl
     policy = Pundit.policy!(context[:user], model)
-    %i(show update destroy).each_with_object({}) do |e, a|
+    %i[show update destroy].each_with_object({}) do |e, a|
       a[e] = policy.public_send("#{e}?")
     end
   end

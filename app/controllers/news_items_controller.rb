@@ -1,6 +1,6 @@
 class NewsItemsController < BaseController
   skip_before_action :authenticate_user!
-  before_action :set_news_item, only: %i(show edit update destroy)
+  before_action :set_news_item, only: %i[show edit update destroy]
 
   # GET /news_items
   # GET /news_items.json

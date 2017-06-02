@@ -1,6 +1,6 @@
 class User::RegistrationService < BaseService
   def self.attributes
-    %i(email password password_confirmation displayed_name company_title frontend_host invitation_token allow_notifications)
+    %i[email password password_confirmation displayed_name company_title frontend_host invitation_token allow_notifications]
   end
 
   attributes.each { |a| attr_accessor a }

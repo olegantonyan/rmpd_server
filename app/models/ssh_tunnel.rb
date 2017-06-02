@@ -35,7 +35,7 @@ class SshTunnel < ApplicationModel
   private
 
   def cast_attrs
-    %w(server_port external_port internal_port open_duration).map(&:to_sym).each do |attr|
+    %w[server_port external_port internal_port open_duration].map(&:to_sym).each do |attr|
       send("#{attr}=", send(attr).to_i)
     end
   end

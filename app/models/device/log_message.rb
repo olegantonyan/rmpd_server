@@ -12,7 +12,7 @@ class Device::LogMessage < ApplicationRecord
   scope :with_since_date, ->(date) { where('date(' + table_name + '.created_at) >= ?', Date.parse(date.to_s)) }
   scope :with_to_date, ->(date) { where('date(' + table_name + '.created_at) <= ?', Date.parse(date.to_s)) }
 
-  filterrific(available_filters: %i(with_since_date with_to_date))
+  filterrific(available_filters: %i[with_since_date with_to_date])
 
   def to_s
     "#{device} | #{command} | #{localtime} | #{message}"

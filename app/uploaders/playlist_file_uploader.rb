@@ -1,6 +1,6 @@
 class PlaylistFileUploader < ApplicationUploader
   def extension_white_list
-    %w(m3u)
+    %w[m3u]
   end
 
   def filename

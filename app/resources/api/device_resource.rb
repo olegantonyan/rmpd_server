@@ -2,7 +2,7 @@ class Api::DeviceResource < Api::BaseResource
   attributes :login, :name, :time_zone, :message_queue_sync_period, :wallpaper
 
   def self.status_attributes
-    %i(online poweredon_at now_playing devicetime free_space)
+    %i[online poweredon_at now_playing devicetime free_space]
   end
 
   attributes(*status_attributes)
@@ -12,7 +12,7 @@ class Api::DeviceResource < Api::BaseResource
   has_many :device_groups, class_name: 'DeviceGroup'
 
   def self.updatable_fields(context)
-    super - %i(login) - status_attributes
+    super - %i[login] - status_attributes
   end
 
   status_attributes.each do |a|
@@ -20,7 +20,7 @@ class Api::DeviceResource < Api::BaseResource
   end
 
   def self.sortable_fields(_context)
-    %i(online)
+    %i[online]
   end
 
   def self.apply_sort(records, order_options, context = {})

@@ -1,4 +1,4 @@
-class Deviceapi::MessageQueue < ActiveRecord::Base
+class Deviceapi::MessageQueue < ApplicationRecord
   self.table_name = 'deviceapi_message_queue'
 
   validates :key, presence: true, length: { maximum: 512 }
