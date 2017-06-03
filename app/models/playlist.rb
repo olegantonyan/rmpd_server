@@ -14,8 +14,12 @@ class Playlist < ApplicationRecord
     end
   end
   has_many :playlist_items, class_name: 'Playlist::Item'
-  has_many :media_items, -> { joins(:playlist_items).order('playlist_items.position').group('media_items.id, playlist_items.position') },
-           through: :playlist_items
+  has_many :media_items, -> {
+    joins(:playlist_items)
+      .select('media_items.*, playlist_items.position')
+      .order('playlist_items.position')
+      .group('media_items.id, playlist_items.position')
+  }, through: :playlist_items
   belongs_to :company, inverse_of: :playlists
 
   validates :name, presence: true, length: { maximum: 128 }
