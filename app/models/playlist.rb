@@ -2,8 +2,6 @@ require 'schedule/scheduler'
 require 'schedule/item'
 
 class Playlist < ApplicationRecord
-  include PlaylistLegacy
-
   has_paper_trail
 
   with_options inverse_of: :playlist do |a|
@@ -44,7 +42,7 @@ class Playlist < ApplicationRecord
   end
 
   def media_items_count
-    uniq_media_items.count
+    MediaItem.joins(:playlist_items).where(playlist_items: { playlist_id: id }).distinct.count
   end
 
   def to_s
