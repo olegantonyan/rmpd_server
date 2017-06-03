@@ -1,2 +1,4 @@
-class Api::CompaniesController < Api::BaseJsonapiController
+module Api
+  class CompaniesController < Api::BaseJsonapiController
+  end
 end

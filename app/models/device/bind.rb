@@ -1,54 +1,56 @@
-class Device::Bind < ApplicationModel
-  attr_accessor :company_id, :name, :time_zone, :device_group_ids, :login
+class Device
+  class Bind < ApplicationModel
+    attr_accessor :company_id, :name, :time_zone, :device_group_ids, :login
 
-  with_options presence: true do
-    validates :login
-    validates :company_id
-  end
-  validate :device_exists
-  validate :device_not_bound_already
-
-  def save
-    return false if invalid?
-    d = assign_to_device
-    if d.save
-      notify
-      true
-    else
-      copy_errors(d)
-      false
+    with_options presence: true do
+      validates :login
+      validates :company_id
     end
-  end
+    validate :device_exists
+    validate :device_not_bound_already
 
-  def device
-    @_device ||= Device.find_by(login: login)
-  end
+    def save
+      return false if invalid?
+      d = assign_to_device
+      if d.save
+        notify
+        true
+      else
+        copy_errors(d)
+        false
+      end
+    end
 
-  def to_s
-    "#{login} -> #{company_id}"
-  end
+    def device
+      @_device ||= Device.find_by(login: login)
+    end
 
-  private
+    def to_s
+      "#{login} -> #{company_id}"
+    end
 
-  def assign_to_device
-    d = device
-    d.company_id = company_id
-    assign_if(d, :time_zone, time_zone)
-    assign_if(d, :name, name)
-    assign_if(d, :device_group_ids, device_group_ids)
-    d
-  end
+    private
 
-  def device_exists
-    errors.add(:login, 'device not found') unless device
-  end
+    def assign_to_device
+      d = device
+      d.company_id = company_id
+      assign_if(d, :time_zone, time_zone)
+      assign_if(d, :name, name)
+      assign_if(d, :device_group_ids, device_group_ids)
+      d
+    end
 
-  def device_not_bound_already
-    return unless device
-    errors.add(:login, 'already bound to a company') if device.bound_to_company?
-  end
+    def device_exists
+      errors.add(:login, 'device not found') unless device
+    end
 
-  def notify
-    Notifiers::DeviceBindNotifierJob.perform_later(device)
+    def device_not_bound_already
+      return unless device
+      errors.add(:login, 'already bound to a company') if device.bound_to_company?
+    end
+
+    def notify
+      Notifiers::DeviceBindNotifierJob.perform_later(device)
+    end
   end
 end

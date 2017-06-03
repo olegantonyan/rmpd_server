@@ -1,2 +1,4 @@
-class Api::DeviceGroupsController < Api::BaseJsonapiController
+module Api
+  class DeviceGroupsController < Api::BaseJsonapiController
+  end
 end

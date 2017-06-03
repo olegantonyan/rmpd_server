@@ -1,2 +1,4 @@
-class Api::TimeZonesController < Api::BaseJsonapiController
+module Api
+  class TimeZonesController < Api::BaseJsonapiController
+  end
 end

@@ -1,5 +1,11 @@
-class Deviceapi::Protocol::Incoming::AckOk < Deviceapi::Protocol::Incoming::BaseAck
-  def ok
-    true
+module Deviceapi
+  module Protocol
+    module Incoming
+      class AckOk < Deviceapi::Protocol::Incoming::BaseAck
+        def ok
+          true
+        end
+      end
+    end
   end
 end

@@ -1,2 +1,4 @@
-class Device::SoftwareUpdatePolicy < ApplicationPolicy
+class Device
+  class SoftwareUpdatePolicy < ApplicationPolicy
+  end
 end

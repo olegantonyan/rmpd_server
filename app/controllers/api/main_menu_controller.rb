@@ -1,2 +1,4 @@
-class Api::MainMenuController < Api::BaseJsonapiController
+module Api
+  class MainMenuController < Api::BaseJsonapiController
+  end
 end

@@ -1,2 +1,4 @@
-class Api::UsersController < Api::BaseJsonapiController
+module Api
+  class UsersController < Api::BaseJsonapiController
+  end
 end

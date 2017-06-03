@@ -1,2 +1,4 @@
-class Api::PlaylistsController < Api::BaseJsonapiController
+module Api
+  class PlaylistsController < Api::BaseJsonapiController
+  end
 end

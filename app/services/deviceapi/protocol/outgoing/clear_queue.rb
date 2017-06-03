@@ -1,7 +1,11 @@
-class Deviceapi::Protocol::Outgoing::ClearQueue < Deviceapi::Protocol::Outgoing::BaseCommand
-  # rubocop: disable Lint/UnusedMethodArgument
-  def call(options = {})
-    mq.destroy_all_messages device.login
+module Deviceapi
+  module Protocol
+    module Outgoing
+      class ClearQueue < Deviceapi::Protocol::Outgoing::BaseCommand
+        def call(_options = {})
+          mq.destroy_all_messages device.login
+        end
+      end
+    end
   end
-  # rubocop: enable Lint/UnusedMethodArgument
 end

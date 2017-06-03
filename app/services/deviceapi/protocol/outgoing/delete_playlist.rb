@@ -1,18 +1,22 @@
-class Deviceapi::Protocol::Outgoing::DeletePlaylist < Deviceapi::Protocol::Outgoing::BaseCommand
-  # rubocop: disable Lint/UnusedMethodArgument
-  def call(options = {})
-    clean_previous_commands
-    enqueue(json)
-  end
-  # rubocop: enable Lint/UnusedMethodArgument
+module Deviceapi
+  module Protocol
+    module Outgoing
+      class DeletePlaylist < Deviceapi::Protocol::Outgoing::BaseCommand
+        def call(_options = {})
+          clean_previous_commands
+          enqueue(json)
+        end
 
-  private
+        private
 
-  def json
-    legacy_json
-  end
+        def json
+          legacy_json
+        end
 
-  def legacy_json
-    { type: 'playlist', status: 'delete' }
+        def legacy_json
+          { type: 'playlist', status: 'delete' }
+        end
+      end
+    end
   end
 end

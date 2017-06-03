@@ -1,2 +1,6 @@
-class Playlist::Item::BackgroundPresenter < Playlist::ItemPresenter
+class Playlist
+  class Item
+    class BackgroundPresenter < Playlist::ItemPresenter
+    end
+  end
 end

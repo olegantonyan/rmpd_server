@@ -1,5 +1,7 @@
-class Device::ServiceUploadPresenter < BasePresenter
-  def file_identifier
-    h.link_to(super, file_url)
+class Device
+  class ServiceUploadPresenter < BasePresenter
+    def file_identifier
+      h.link_to(super, file_url)
+    end
   end
 end

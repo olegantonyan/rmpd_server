@@ -1,2 +1,4 @@
-class Api::MediaItemsController < Api::BaseJsonapiController
+module Api
+  class MediaItemsController < Api::BaseJsonapiController
+  end
 end

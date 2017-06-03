@@ -1,2 +1,6 @@
-class Playlist::Item::AdvertisingPresenter < Playlist::ItemPresenter
+class Playlist
+  class Item
+    class AdvertisingPresenter < Playlist::ItemPresenter
+    end
+  end
 end
