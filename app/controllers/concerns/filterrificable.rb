@@ -7,7 +7,7 @@ module Filterrificable
   end
 
   def per_page
-    params[:per_page] || default_per_page
+    (params[:per_page] || default_per_page).to_i
   end
 
   def page
