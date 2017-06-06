@@ -16,7 +16,7 @@ module Deviceapi
         if @device
           true
         else
-          render status: :forbidden, text: 'Forbidden'
+          render status: :forbidden, plain: 'Forbidden'
         end
       end
     end
