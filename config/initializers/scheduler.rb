@@ -1,4 +1,4 @@
-InitializerHelpers.skip_console_rake_generators do
+InitializerHelpers.skip_console do
   require 'rufus-scheduler'
 
   scheduler = Rufus::Scheduler.singleton
