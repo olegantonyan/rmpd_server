@@ -41,6 +41,13 @@ class MediaItem < ApplicationRecord
   scope :failed, -> { where.not(file_processing_failed_message: nil) }
   scope :successfull, -> { where(file_processing_failed_message: nil) }
   scope :without_playlist, -> { includes(:playlist_items).where(playlist_items: { media_item_id: nil }) }
+  scope :all_with_tag_names, -> {
+    select("STRING_AGG(tags.name,  ', ') AS tag_names, companies.title AS company_title, media_items.*")
+      .joins('FULL OUTER JOIN taggings ON taggings.taggable_id = media_items.id')
+      .joins('FULL OUTER JOIN tags ON tags.id = taggings.tag_id')
+      .joins('LEFT JOIN companies ON media_items.company_id = companies.id')
+      .group('media_items.id, companies.id')
+  }
 
   with_options to: :file do
     delegate :path, prefix: true
@@ -50,11 +57,19 @@ class MediaItem < ApplicationRecord
   end
 
   def to_s
-    if description.blank?
-      "#{file_identifier} in #{company}"
-    else
-      "#{file_identifier} (#{description}) in #{company}"
-    end
+    result = file_identifier
+    result << " (#{description})" if description.present?
+    result << " in #{company}" if company
+    result << " [#{tags.pluck(:name).join(', ')}]" if tags.exists?
+    result
+  end
+
+  def to_s_tag_names_query
+    result = file_identifier
+    result << " (#{description})" if description.present?
+    result << " in #{company_title}" if company_title.present?
+    result << " [#{tag_names}]" if tag_names.present?
+    result
   end
 
   def self.human_enum_name(enum_key)

@@ -63,9 +63,9 @@ class PlaylistsController < BaseController
   end
 
   def set_media_items
-    items = policy_scope(MediaItem.includes(:company).not_processing.successfull)
-    @media_items_background = items.background
-    @media_items_advertising = items.advertising
+    items = policy_scope(MediaItem.all_with_tag_names.not_processing.successfull)
+    @media_items_background = items.background.to_a # NOTE calling count causes probklems with query so I have to use to_a
+    @media_items_advertising = items.advertising.to_a
   end
 
   def playlist_params

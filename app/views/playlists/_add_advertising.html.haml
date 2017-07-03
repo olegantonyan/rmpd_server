@@ -3,7 +3,7 @@
 
 .row
   .col-sm-9
-    = render partial: 'shared/multiselect', locals: { collection: options_from_collection_for_select(collection, :id, :to_s),
+    = render partial: 'shared/multiselect', locals: { collection: options_from_collection_for_select(collection, :id, :to_s_tag_names_query),
                                                       textbox_id: 'filter-mediaitems-advertising-textbox',
                                                       selectbox_id: 'mediaitems-advertising-selectbox',
                                                       size: [collection.count, 15].min }
