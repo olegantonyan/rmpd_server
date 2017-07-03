@@ -43,7 +43,7 @@ class MediaItem < ApplicationRecord
   scope :without_playlist, -> { includes(:playlist_items).where(playlist_items: { media_item_id: nil }) }
   scope :all_with_tag_names, -> {
     select("STRING_AGG(tags.name,  ', ') AS tag_names, companies.title AS company_title, media_items.*")
-      .joins("FULL OUTER JOIN taggings ON taggings.taggable_id = media_items.id AND taggings.taggable_type = '#{name}'")
+      .joins("FULL OUTER JOIN taggings ON taggings.taggable_id = media_items.id AND taggings.taggable_type = '#{sanitize_sql_for_conditions(name)}'")
       .joins('FULL OUTER JOIN tags ON tags.id = taggings.tag_id')
       .joins('LEFT JOIN companies ON media_items.company_id = companies.id')
       .group('media_items.id, companies.id')
