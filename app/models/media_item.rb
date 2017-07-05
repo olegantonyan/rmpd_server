@@ -42,11 +42,15 @@ class MediaItem < ApplicationRecord
   scope :successfull, -> { where(file_processing_failed_message: nil) }
   scope :without_playlist, -> { includes(:playlist_items).where(playlist_items: { media_item_id: nil }) }
   scope :all_with_tag_names, -> {
-    select("STRING_AGG(tags.name,  ', ') AS tag_names, companies.title AS company_title, media_items.*")
-      .joins("FULL OUTER JOIN taggings ON taggings.taggable_id = media_items.id AND taggings.taggable_type = '#{sanitize_sql_for_conditions(name)}'")
-      .joins('FULL OUTER JOIN tags ON tags.id = taggings.tag_id')
-      .joins('LEFT JOIN companies ON media_items.company_id = companies.id')
-      .group('media_items.id, companies.id')
+    qry = select("STRING_AGG(tags.name,  ', ') AS tag_names, companies.title AS company_title, media_items.*")
+          .joins("FULL OUTER JOIN taggings ON taggings.taggable_id = media_items.id AND taggings.taggable_type = '#{sanitize_sql_for_conditions(name)}'")
+          .joins('FULL OUTER JOIN tags ON tags.id = taggings.tag_id')
+          .joins('LEFT JOIN companies ON media_items.company_id = companies.id')
+          .group('media_items.id, companies.id')
+    def qry.count
+      except(:select, :group, :joins).count
+    end
+    qry
   }
 
   with_options to: :file do
@@ -118,10 +122,6 @@ class MediaItem < ApplicationRecord
   end
 
   def cache_duration
-    self.duration = if image?
-                      0
-                    else
-                      MediafilesUtils.duration(file.path)
-                    end
+    self.duration = image? ? 0 : MediafilesUtils.duration(file.path)
   end
 end
