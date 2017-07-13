@@ -95,7 +95,7 @@ namespace :deploy do
   before :starting,     'check_revision'
   after  :finishing,    'compile_assets'
   after  :finishing,    'cleanup'
-  after  :finishing,    'restart'
+  after  :finishing,    'puma:restart'
   after  :finishing,    'sidekiq:restart'
 
   task :put_branch do
