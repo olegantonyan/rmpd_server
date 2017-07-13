@@ -63,22 +63,20 @@ set :rollbar_role, Proc.new { :app }
 # set :keep_releases, 5
 
 namespace :deploy do
-  desc 'Commands for Puma'
-  %w[start stop restart].each do |command|
-    task command do
-      on roles(:app)  do
-        execute "cd #{release_path} && bin/puma.sh #{command}"
+  namespace :puma do
+    task :restart do
+      on roles(:app) do |host|
+        execute "sudo systemctl restart rmpd_server"
       end
     end
   end
 
   namespace :sidekiq do
-    desc 'Commands for Sidekiq'
-    %w[start stop restart].each do |command|
-      task command do
-        on roles(:app)  do
-          execute "cd #{release_path} && bin/sidekiq.sh #{command} #{fetch(:rails_env)}"
-        end
+    task :restart do
+      on roles(:app) do |host|
+        execute "sudo systemctl stop 'rmpd_server_sidekiq@*' --no-block"
+        execute "sudo systemctl daemon-reload" # unit file could be changed in new deploy
+        execute "sudo systemctl start 'rmpd_server_sidekiq@#{Time.now.utc.strftime('%Y%m%d%H%M%S')}-#{rand(10000000)}'"
       end
     end
   end
@@ -94,29 +92,10 @@ namespace :deploy do
     end
   end
 
-#namespace :bower do
-#  desc 'Install bower'
-#  task :install do
-#    on roles(:web) do
-#      within release_path do
-#        execute :rake, 'bower:install CI=true'
-#      end
-#    end
-#  end
-#end
-#before 'deploy:compile_assets', 'bower:install'
-
-  #desc 'Restart application'
-  #task :restart do
-  #  on roles(:app), in: :sequence, wait: 5 do
-  #    invoke 'puma:restart'
-  #  end
-  #end
-
-  before :starting,     :check_revision
-  after  :finishing,    :compile_assets
-  after  :finishing,    :cleanup
-  after  :finishing,    :restart
+  before :starting,     'check_revision'
+  after  :finishing,    'compile_assets'
+  after  :finishing,    'cleanup'
+  after  :finishing,    'restart'
   after  :finishing,    'sidekiq:restart'
 
   task :put_branch do
@@ -125,5 +104,4 @@ namespace :deploy do
     end
   end
   before 'deploy:restart', 'deploy:put_branch'
-
 end

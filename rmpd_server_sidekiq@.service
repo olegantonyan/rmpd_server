@@ -1,0 +1,18 @@
+[Unit]
+Description=%n
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/badmotherfucker/apps/rmpd_server/current
+ExecStart=/bin/bash -lci 'bundle exec sidekiq -e production --config ./config/sidekiq.yml -t 86400'
+
+User=badmotherfucker
+Group=badmotherfucker
+UMask=0002
+RestartSec=1
+Restart=on-failure
+TimeoutStopSec=86402
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,18 @@
+[Unit]
+Description=rmpd_server
+After=network.target
+
+[Service]
+Type=simple
+Environment=RACK_MULTIPART_PART_LIMIT=32768
+WorkingDirectory=/home/badmotherfucker/apps/rmpd_server/current
+ExecStart=/bin/bash -lci 'bundle exec puma --config ./config/puma/production.rb'
+
+User=badmotherfucker
+Group=badmotherfucker
+UMask=0002
+RestartSec=1
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
