@@ -95,13 +95,13 @@ namespace :deploy do
   before :starting,     'check_revision'
   after  :finishing,    'compile_assets'
   after  :finishing,    'cleanup'
-  after  :finishing,    'puma:restart'
-  after  :finishing,    'sidekiq:restart'
+  after  :finishing,    'deploy:puma:restart'
+  after  :finishing,    'deploy:sidekiq:restart'
 
   task :put_branch do
     on roles(:app) do
       execute "cd #{release_path} && echo #{fetch(:branch)} > BRANCH"
     end
   end
-  before 'deploy:restart', 'deploy:put_branch'
+  before 'deploy:puma:restart', 'deploy:put_branch'
 end
