@@ -13,7 +13,7 @@ module Deviceapi
         def json
           {
             playlist: serialized_playlist(device.playlist)
-          }
+          }.merge(legacy_json)
         end
 
         def serialized_playlist(playlist)
@@ -66,6 +66,20 @@ module Deviceapi
 
         def date_format
           '%d.%m.%Y'
+        end
+
+        def legacy_items
+          items = []
+          device.playlist.playlist_items.includes(:media_item).each { |d| items << d.media_item.file_url }
+          items
+        end
+
+        def legacy_json
+          {
+            type: 'playlist',
+            status: 'update',
+            items: legacy_items # old implementation, for compatability
+          }
         end
       end
     end
