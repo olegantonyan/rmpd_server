@@ -35,10 +35,10 @@ module Deviceapi
       device.device_status.save if device.device_status.changed?
     end
 
-    def write_device_log(device, logdata, user_agent)
+    def write_device_log(device, logdata, user_agent) # rubocop: disable Lint/UnusedMethodArgument
       return if [logdata[:status], logdata[:command]].any? { |i| i == 'now_playing' }
       logdata.permit!
-      Device::LogMessage.write!(device, logdata, user_agent)
+      # Device::LogMessage.write!(device, logdata, user_agent)
     rescue => e
       logger.error "error writing device log: #{e.message}"
     end
