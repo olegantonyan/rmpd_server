@@ -1,4 +1,4 @@
-class CreateDeviceStatuses < ActiveRecord::Migration
+class CreateDeviceStatuses < ActiveRecord::Migration[4.2]
   def change
     create_table :device_statuses do |t|
       t.boolean :online, null: false, default: false

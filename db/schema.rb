@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170603194748) do
+ActiveRecord::Schema.define(version: 20180320164410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,8 +45,7 @@ ActiveRecord::Schema.define(version: 20170603194748) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_agent"
-    t.index ["localtime", "device_id", "message", "command"], name: "uniq_message", unique: true
-    t.index ["message"], name: "index_device_log_messages_on_message"
+    t.index ["device_id"], name: "index_device_log_messages_on_device_id"
   end
 
   create_table "device_service_uploads", id: :serial, force: :cascade do |t|
@@ -72,7 +71,7 @@ ActiveRecord::Schema.define(version: 20170603194748) do
 
   create_table "deviceapi_message_queue", id: :serial, force: :cascade do |t|
     t.string "key"
-    t.string "data"
+    t.text "data"
     t.boolean "dequeued", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -112,7 +111,7 @@ ActiveRecord::Schema.define(version: 20170603194748) do
 
   create_table "media_items", id: :serial, force: :cascade do |t|
     t.string "file", null: false
-    t.text "description", default: "", null: false
+    t.string "description", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "company_id"
@@ -154,7 +153,7 @@ ActiveRecord::Schema.define(version: 20170603194748) do
 
   create_table "playlists", id: :serial, force: :cascade do |t|
     t.string "name", null: false
-    t.text "description", default: "", null: false
+    t.string "description", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "company_id"
@@ -229,10 +228,14 @@ ActiveRecord::Schema.define(version: 20170603194748) do
     t.index ["transaction_id"], name: "index_versions_on_transaction_id"
   end
 
+  add_foreign_key "device_group_memberships", "device_groups"
+  add_foreign_key "device_group_memberships", "devices"
   add_foreign_key "device_service_uploads", "devices"
   add_foreign_key "invites", "companies"
   add_foreign_key "invites", "users"
   add_foreign_key "playlist_items", "media_items"
   add_foreign_key "playlist_items", "playlists"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "user_company_memberships", "companies"
+  add_foreign_key "user_company_memberships", "users"
 end

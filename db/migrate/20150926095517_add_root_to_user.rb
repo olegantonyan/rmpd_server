@@ -1,4 +1,4 @@
-class AddRootToUser < ActiveRecord::Migration
+class AddRootToUser < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :root, :boolean, null: false, default: false
     add_index :users, :root

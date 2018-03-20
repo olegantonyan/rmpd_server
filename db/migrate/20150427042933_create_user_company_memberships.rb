@@ -1,4 +1,4 @@
-class CreateUserCompanyMemberships < ActiveRecord::Migration
+class CreateUserCompanyMemberships < ActiveRecord::Migration[4.2]
   def change
     create_table :user_company_memberships do |t|
       t.string :title

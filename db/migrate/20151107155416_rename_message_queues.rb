@@ -1,4 +1,4 @@
-class RenameMessageQueues < ActiveRecord::Migration
+class RenameMessageQueues < ActiveRecord::Migration[4.2]
   def change
     change_column_default :message_queues, :reenqueue_retries, 0
     change_column_default :message_queues, :dequeued, false

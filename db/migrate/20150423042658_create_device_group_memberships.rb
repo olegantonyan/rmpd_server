@@ -1,4 +1,4 @@
-class CreateDeviceGroupMemberships < ActiveRecord::Migration
+class CreateDeviceGroupMemberships < ActiveRecord::Migration[4.2]
   def change
     create_table :device_group_memberships do |t|
       t.string :description, limit: 1024, null: false, default: ""

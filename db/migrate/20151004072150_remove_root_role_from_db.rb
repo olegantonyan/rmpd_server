@@ -1,4 +1,4 @@
-class RemoveRootRoleFromDb < ActiveRecord::Migration
+class RemoveRootRoleFromDb < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up {

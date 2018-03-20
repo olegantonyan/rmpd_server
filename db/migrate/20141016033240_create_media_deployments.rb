@@ -1,4 +1,4 @@
-class CreateMediaDeployments < ActiveRecord::Migration
+class CreateMediaDeployments < ActiveRecord::Migration[4.2]
   def change
     create_table :playlist_items do |t|
       t.references :playlist

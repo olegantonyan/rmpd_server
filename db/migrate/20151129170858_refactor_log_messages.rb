@@ -1,4 +1,4 @@
-class RefactorLogMessages < ActiveRecord::Migration
+class RefactorLogMessages < ActiveRecord::Migration[4.2]
   def change
     rename_column :device_log_messages, :type, :command
     rename_column :device_log_messages, :details, :message

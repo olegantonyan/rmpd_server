@@ -1,4 +1,4 @@
-class AddMessageQueue < ActiveRecord::Migration
+class AddMessageQueue < ActiveRecord::Migration[4.2]
   def change
     create_table :message_queues do |t|
       t.string :key

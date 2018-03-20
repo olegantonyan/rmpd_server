@@ -1,4 +1,4 @@
-class AddBeginTimeAndOthersToPlaylists < ActiveRecord::Migration
+class AddBeginTimeAndOthersToPlaylists < ActiveRecord::Migration[4.2]
   def change
     change_table :playlist_items do |t|
       t.time :begin_time
