@@ -1,4 +1,4 @@
-InitializerHelpers.skip_console do
+unless defined?(Rails::Console)
   require 'rufus-scheduler'
 
   scheduler = Rufus::Scheduler.singleton

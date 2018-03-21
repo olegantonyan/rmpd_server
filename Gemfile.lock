@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/olegantonyan/initializer_helpers.git
-  revision: caf3301bd487a8b577af7ee72714b14b25166c18
-  specs:
-    initializer_helpers (0.1.1)
-
-GIT
   remote: git@bitbucket.org:slon-ds/rmpd_adschedule.git
   revision: e6c02f9182210049f404393caff123ec39d036d1
   specs:
@@ -433,7 +427,6 @@ DEPENDENCIES
   guard
   guard-rspec
   haml-rails
-  initializer_helpers!
   jquery-fileupload-rails
   jquery-rails
   jsonapi-authorization
