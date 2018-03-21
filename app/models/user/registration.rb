@@ -7,7 +7,7 @@ class User
         Invite::Accept.create!(invite: invite, user: self)
         skip_confirmation!
       else
-        company = companies.build(title: company_title.blank? ? "#{self}'s company" : company_title)
+        company = companies.build(title: company_title.presence || "#{self}'s company")
         errors.add(:company_title, company.errors.full_messages.to_sentence) if company.invalid?
       end
     end

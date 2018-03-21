@@ -46,7 +46,7 @@ class User
     # rubocop: enable Metrics/AbcSize
 
     def create_company!
-      self.company = user.companies.create!(title: company_title.blank? ? "#{self}'s company" : company_title)
+      self.company = user.companies.create!(title: company_title.presence || "#{self}'s company")
       company.save!
     rescue ActiveRecord::RecordInvalid
       copy_errors(company)

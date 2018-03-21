@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :invite do
     email { Faker::Internet.email }
     token { Faker::Internet.password }

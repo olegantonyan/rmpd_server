@@ -23,7 +23,7 @@ module Api
       if reg.save
         render json: { result: 'ok' }
       else
-        render json: { errors: reg.errors, error_message: reg.errors.full_messages.to_sentence }, status: 422
+        render json: { errors: reg.errors, error_message: reg.errors.full_messages.to_sentence }, status: :unprocessable_entity
       end
     end
 

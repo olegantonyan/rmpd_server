@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :media_item do
     description { Faker::Lorem.sentence }
     file { Rack::Test::UploadedFile.new(File.open(Rails.root.join('spec', 'support', 'music_file.mp3'))) }

@@ -24,6 +24,6 @@ class User < ApplicationRecord
   filterrific(available_filters: %i[search_query with_company_id])
 
   def to_s
-    displayed_name.blank? ? email : displayed_name
+    displayed_name.presence || email
   end
 end

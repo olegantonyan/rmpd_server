@@ -57,7 +57,7 @@ class Device < ApplicationRecord
   end
 
   def time_zone_formatted_offset
-    tz = time_zone.blank? ? Rails.application.config.time_zone : time_zone
+    tz = time_zone.presence || Rails.application.config.time_zone
     ActiveSupport::TimeZone.new(tz).formatted_offset
   end
 

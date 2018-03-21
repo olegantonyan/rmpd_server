@@ -18,6 +18,6 @@ class NewsMailer < ApplicationMailer
     @news_item = news_item
     @unsibscribe_url =  edit_user_registration_url
     @signature = t(:signature, app_title: app_title)
-    @greetings = "#{t(:greetings)}, #{user.displayed_name.blank? ? t(:dear_customer) : user.displayed_name}, #{t(:news_title)}"
+    @greetings = "#{t(:greetings)}, #{user.displayed_name.presence || t(:dear_customer)}, #{t(:news_title)}"
   end
 end

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :playlist do
     name { Faker::Hacker.say_something_smart }
     description { Faker::Lorem.paragraph }

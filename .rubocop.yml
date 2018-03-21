@@ -1,9 +1,6 @@
 AllCops:
-
-  Include:
-    - '**/Rakefile'
-    - '**/config.ru'
   Exclude:
+    - 'Rakefile'
     - 'Gemfile'
     - 'config.ru'
     - 'db/**/*'
@@ -17,6 +14,36 @@ AllCops:
 
 Rails/Blank:
   Enabled: false # causes error
+
+Style/ExpandPathArguments:
+  Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Style/CommentedKeyword:
+  Enabled: false
+
+Lint/MissingCopEnableDirective:
+  Enabled: false
+
+Rails/RedundantReceiverInWithOptions:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Rails/InverseOf:
+  Enabled: false
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
 
 Lint/AmbiguousBlockAssociation:
   Enabled: false
@@ -34,7 +61,7 @@ Style/Documentation:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 170
+  Max: 200
 
 Style/Lambda:
   Enabled: false

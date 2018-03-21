@@ -57,7 +57,7 @@ class MediaItemsController < BaseController
           if @media_item_multiple.save
             render json: {}
           else
-            render json: { error: @media_item_multiple.errors.full_messages.to_sentence, files: @media_item_multiple.files.map(&:original_filename) }, status: 422
+            render json: { error: @media_item_multiple.errors.full_messages.to_sentence, files: @media_item_multiple.files.map(&:original_filename) }, status: :unprocessable_entity
           end
         end
         format.html { crud_respond(@media_item_multiple) }
