@@ -41,7 +41,7 @@ class MediaItem
                         file: file,
                         skip_volume_normalization: skip_volume_normalization,
                         tag_ids: tag_ids,
-                        library_shared: library_shared)
+                        library_shared: library_shared || false)
     end
 
     def type_indifferent

@@ -71,22 +71,15 @@ gem 'jwt'
 gem 'rack-cors'
 
 group :development, :test do
-  gem 'bullet'
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'faker'
-  gem 'erb2haml', require: false
   gem 'capistrano-rails-console', require: false
   gem 'capistrano-rails-tail-log', require: false
-  gem 'rails-erd', require: false
-  gem 'gemput', require: false
   gem 'rubocop', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rbenv', require: false
-  gem 'guard', require: false
-  gem 'guard-rspec', require: false
-  gem 'libnotify', require: false
   gem 'brakeman', require: false
 end

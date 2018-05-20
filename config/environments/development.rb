@@ -60,13 +60,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.alert = false
-    Bullet.bullet_logger = true
-    Bullet.console = false
-  end
-
   config.generators do |g|
     g.test_framework :rspec,
       fixtures: true,

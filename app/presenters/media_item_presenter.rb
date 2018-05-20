@@ -15,8 +15,7 @@ class MediaItemPresenter < BasePresenter
     super.pluck(:name).join(', ')
   end
 
-  # rubocop: disable Metrics/AbcSize
-  def file_identifier
+  def file_identifier # rubocop: disable Metrics/AbcSize
     filename = truncate_filename(super.to_s)
     text = if file_processing_failed?
              "#{h.icon('exclamation-triangle')} #{h.sanitize(filename)}".html_safe
@@ -27,7 +26,6 @@ class MediaItemPresenter < BasePresenter
            end
     h.link_to(text, file_url).html_safe
   end
-  # rubocop: enable Metrics/AbcSize
 
   def file_processing
     h.i18n_boolean(super)

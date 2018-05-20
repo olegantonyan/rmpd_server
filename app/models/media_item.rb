@@ -60,8 +60,8 @@ class MediaItem < ApplicationRecord
     end
   end
 
-  def to_s
-    result = file_identifier
+  def to_s # rubocop: disable Metrics/AbcSize
+    result = file_identifier.dup
     result << " (#{description})" if description.present?
     result << " in #{company}" if company
     result << " [#{tags.pluck(:name).join(', ')}]" if tags.exists?
@@ -69,7 +69,7 @@ class MediaItem < ApplicationRecord
   end
 
   def to_s_tag_names_query
-    result = file_identifier
+    result = file_identifier.dup
     result << " (#{description})" if description.present?
     result << " in #{company_title}" if company_title.present?
     result << " [#{tag_names}]" if tag_names.present?
