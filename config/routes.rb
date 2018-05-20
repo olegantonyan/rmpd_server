@@ -50,24 +50,4 @@ Rails.application.routes.draw do
     resources :status, only: %i[create]
     resource :service_upload, only: %i[create]
   end
-
-  namespace :api, defaults: { format: :json } do
-    post 'login', to: 'auth#login'
-    post 'refresh_token', to: 'auth#refresh'
-    post 'registration', to: 'auth#registration'
-
-    resources :uploads, only: %i[create]
-
-    # jsonapi_resource :main_menu, only: %i[show];
-    get 'main-menus/:dontcare', to: 'main_menu#show' # hack for ember-data
-
-    jsonapi_resources :media_items
-    jsonapi_resources :companies
-    jsonapi_resources :users, except: %i[create]
-    jsonapi_resources :playlists
-    jsonapi_resources :playlist_items, only: %i[index]
-    jsonapi_resources :devices, except: %i[create]
-    jsonapi_resources :device_groups
-    jsonapi_resources :time_zones, only: %i[index]
-  end
 end

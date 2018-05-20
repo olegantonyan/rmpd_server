@@ -65,10 +65,6 @@ gem 'sidekiq'
 gem 'jquery-fileupload-rails'
 gem 'rmpd_adschedule', git: 'git@bitbucket.org:slon-ds/rmpd_adschedule.git'
 gem 'mini_magick'
-gem 'jsonapi-resources'
-gem 'jsonapi-authorization'
-gem 'jwt'
-gem 'rack-cors'
 
 group :development, :test do
   gem 'rspec-rails'
