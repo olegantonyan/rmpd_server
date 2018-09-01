@@ -75,8 +75,8 @@ class Device < ApplicationRecord
 
   def self.message_queue_sync_periods
     o = Struct.new(:label, :value)
-    [o.new('12 hours (default)', 12), o.new('3 hours', 3), o.new('6 hours', 6), o.new('24 hours', 24), o.new('3 days', 72),
-     o.new('1 week', 168), o.new('1 month', 744), o.new('never', 0)]
+    [o.new('12 hours', 12), o.new('3 hours', 3), o.new('6 hours', 6), o.new('24 hours', 24), o.new('3 days', 72),
+     o.new('1 week', 168), o.new('1 month', 744), o.new('never (default)', 0)]
   end
 
   private
