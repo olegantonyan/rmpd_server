@@ -10,15 +10,15 @@
 
   .col-sm-3
     = label_for_input(f, :playlist_items_background, :begin_time)
-    = text_field_tag 'mediaitems-background-begin_time-textbox', '', class: 'form-control datetime-picker-time'
+    = text_field_tag 'mediaitems-background-begin_time-textbox', '00:00:00', class: 'form-control datetime-picker-time'
 
     = label_for_input(f, :playlist_items_background, :end_time)
-    = text_field_tag 'mediaitems-background-end_time-textbox', '', class: 'form-control datetime-picker-time'
+    = text_field_tag 'mediaitems-background-end_time-textbox', '23:59:59', class: 'form-control datetime-picker-time'
 
     = label_for_input(f, :playlist_items_background, :begin_date)
-    = text_field_tag 'mediaitems-background-begin_date-textbox', '', class: 'form-control datetime-picker-date'
+    = text_field_tag 'mediaitems-background-begin_date-textbox', '01.01.1970', class: 'form-control datetime-picker-date'
 
     = label_for_input(f, :playlist_items_background, :end_date)
-    = text_field_tag 'mediaitems-background-end_date-textbox', '', class: 'form-control datetime-picker-date'
+    = text_field_tag 'mediaitems-background-end_date-textbox', '01.01.2035', class: 'form-control datetime-picker-date'
 
 %span.btn.btn-success{ id: 'mediaitems-background-add-multiple-button', role: 'button' }= icon_text('plus', background_title)
