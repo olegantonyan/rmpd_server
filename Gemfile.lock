@@ -214,7 +214,7 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.3)
     puma (3.12.0)
-    pundit (2.0.0)
+    pundit (1.1.0)
       activesupport (>= 3.0.0)
     raabro (1.1.6)
     rack (2.0.5)
@@ -387,7 +387,7 @@ DEPENDENCIES
   pg
   pry-rails
   puma
-  pundit
+  pundit (~> 1.1.0)
   rails (~> 5.2.0)
   rails-i18n (>= 5.0.0.beta3)
   rmpd_adschedule!
