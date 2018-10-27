@@ -14,7 +14,7 @@ class MediaItemsController < BaseController
         with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] },
         with_type: MediaItem.types.map { |k, _| [MediaItem.human_enum_name(k), k] },
         with_file_processing: boolean_select,
-        with_tag_id: policy_scope(Tag.all).map { |e| [e.name, e.id] }
+        with_tag_id: policy_scope(Tag.all.order(:name)).map { |e| [e.name, e.id] }
       }
     ) || (on_reset; return)
     @media_items = policy_scope(@filterrific.find.page(page).per_page(per_page)).order(created_at: :desc)

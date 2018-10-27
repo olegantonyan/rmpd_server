@@ -1,1 +1,1 @@
-= f.input :tag_ids, collection: policy_scope(Tag.all), include_blank: true, as: :check_boxes
+= f.input :tag_ids, collection: policy_scope(Tag.all.order(:name)), include_blank: true, as: :check_boxes
