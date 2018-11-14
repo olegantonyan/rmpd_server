@@ -72,6 +72,9 @@ Lint/UnneededSplatExpansion:
 Style/EmptyMethod:
   Enabled: false
 
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
