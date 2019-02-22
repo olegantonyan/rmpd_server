@@ -61,6 +61,11 @@ class Device < ApplicationRecord
     ActiveSupport::TimeZone.new(tz).formatted_offset
   end
 
+  def time_zone_formatted_tzinfo
+    tz = time_zone.presence || Rails.application.config.time_zone
+    ActiveSupport::TimeZone.new(tz).tzinfo.name
+  end
+
   def synchronizing?
     Deviceapi::MessageQueue.find_by(key: login)
   end
