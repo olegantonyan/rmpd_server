@@ -94,6 +94,6 @@ class Device < ApplicationRecord
   def update_setting
     changed_attrs = changed.map(&:to_sym).dup
     yield
-    send_to(:update_setting, changed_attrs: changed_attrs) if changed_attrs & %i[time_zone message_queue_sync_period]
+    send_to(:update_setting, changed_attrs: changed_attrs) if (changed_attrs & %i[time_zone message_queue_sync_period]).any?
   end
 end
