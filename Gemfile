@@ -43,7 +43,7 @@ gem 'pry-rails'
 gem 'super_awesome_print'
 gem 'crud_responder'
 gem 'slack-notifier'
-gem 'rollbar', '2.15.5' # https://github.com/rollbar/rollbar-gem/issues/713
+gem 'rollbar'#, '2.15.5' # https://github.com/rollbar/rollbar-gem/issues/713
 gem 'rails-i18n', '>= 5.0.0.beta3'
 gem 'devise-i18n'
 gem 'simple_form'
