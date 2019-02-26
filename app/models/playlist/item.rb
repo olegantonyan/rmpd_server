@@ -1,7 +1,5 @@
 class Playlist
   class Item < ApplicationRecord
-    has_paper_trail
-
     with_options inverse_of: :playlist_items do |a|
       a.belongs_to :media_item
     end

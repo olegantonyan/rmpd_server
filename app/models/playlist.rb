@@ -2,8 +2,6 @@ require 'schedule/scheduler'
 require 'schedule/item'
 
 class Playlist < ApplicationRecord
-  has_paper_trail
-
   with_options inverse_of: :playlist do |a|
     a.has_many :devices
     a.with_options foreign_key: :playlist_id, dependent: :destroy, after_add: :append_added_playlist_item do |aa|

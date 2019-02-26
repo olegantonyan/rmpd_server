@@ -6,3 +6,12 @@
   - mailers
   - notifiers
   - files_processing
+
+:schedule:
+  timeouts:
+    class: TimeoutsCheckJob
+    every: '20s'
+
+  tmp_uploads_cleanup:
+    class: TmpUploadsCleanupJob
+    cron: '5 0 * * *'

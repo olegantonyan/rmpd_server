@@ -6,8 +6,6 @@ class MediaItem < ApplicationRecord
 
   attr_accessor :skip_file_processing, :skip_volume_normalization # candidate for service extraction
 
-  has_paper_trail
-
   has_many :playlist_items, inverse_of: :media_item, class_name: 'Playlist::Item'
   has_many :playlists, -> { distinct }, through: :playlist_items
   belongs_to :company, inverse_of: :media_items

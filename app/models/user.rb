@@ -1,8 +1,5 @@
 class User < ApplicationRecord
-  include User::Auth
-  include User::Gravatar
-
-  has_paper_trail
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   with_options inverse_of: :user, dependent: :destroy do |a|
     a.has_many :user_company_memberships
@@ -23,7 +20,15 @@ class User < ApplicationRecord
   scope :with_company_id, ->(*ids) { joins(:companies).where(companies: { id: [*ids] }) }
   filterrific(available_filters: %i[search_query with_company_id])
 
+  def gravatar_url
+    @gravatar_url ||= "https://gravatar.com/avatar/#{Digest::MD5.hexdigest(email).downcase}.png"
+  end
+
   def to_s
     displayed_name.presence || email
+  end
+
+  def many_companies?
+    companies.size.to_i > 1
   end
 end

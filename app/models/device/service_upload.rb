@@ -1,7 +1,5 @@
 class Device
   class ServiceUpload < ApplicationRecord
-    has_paper_trail
-
     belongs_to :device, inverse_of: :device_service_uploads
 
     mount_uploader :file, ServiceUploadUploader

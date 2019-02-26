@@ -10,10 +10,7 @@ AllCops:
     - 'Guardfile'
     - 'Capfile'
 
-  TargetRubyVersion: 2.4
-
-Rails/Blank:
-  Enabled: false # causes error
+  TargetRubyVersion: 2.6
 
 Style/ExpandPathArguments:
   Enabled: false

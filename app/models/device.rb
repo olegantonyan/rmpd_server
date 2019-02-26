@@ -2,7 +2,6 @@ class Device < ApplicationRecord
   include Deviceapi::Sender
   include Deviceapi::Receiver
   has_secure_password
-  has_paper_trail
 
   mount_uploader :wallpaper, WallpaperUploader
 
