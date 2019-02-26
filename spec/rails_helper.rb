@@ -55,7 +55,6 @@ RSpec.configure do |config|
 
   config.include Devise::TestHelpers, type: :controller
   config.include FactoryBot::Syntax::Methods
-  config.include UsersHelper
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
