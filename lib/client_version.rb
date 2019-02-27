@@ -20,15 +20,22 @@ class ClientVersion
   end
 
   def platform
-    (rmpd.match?(/android/) ? 'android' : 'linux').inquiry
+    if rmpd.match?(/android/)
+      'android'
+    elsif rmpd.match?(/esp32/)
+      'esp32'
+    else
+      'linux'
+    end.inquiry
   end
 
-  def self_update_support?
+  def self_update_support? # rubocop: disable Metrics/AbcSize
     if platform.linux?
       Gem::Version.new(version) >= Gem::Version.new('0.4.16')
     elsif platform.android?
       Gem::Version.new(version) >= Gem::Version.new('0.0.17')
-      # false
+    elsif platform.esp32?
+      Gem::Version.new(version) >= Gem::Version.new('0.0.1')
     else
       false
     end
