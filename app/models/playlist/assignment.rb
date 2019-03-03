@@ -1,7 +1,5 @@
 class Playlist
   class Assignment < ApplicationModel
-    include Deviceapi::Sender
-
     class NotEnoughSpaceError < RuntimeError; end
 
     attr_accessor :playlist, :assignable, :force
@@ -78,7 +76,7 @@ class Playlist
     # rubocop: enable Metrics/AbcSize
 
     def notify_all
-      @_notifications.each { |n| send_to_device(n[:command], n[:device]) }
+      @_notifications.each { |n| Deviceapi::Sender.new(n[:device]).send(n[:command]) }
     end
   end
 end

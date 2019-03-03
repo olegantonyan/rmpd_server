@@ -1,10 +1,12 @@
 module Deviceapi
-  module Sender
-    def send_to(command, options = {})
-      send_to_device(command, self, options)
+  class Sender
+    attr_reader :device
+
+    def initialize(device)
+      @device = device
     end
 
-    def send_to_device(command, device, options = {})
+    def send(command, options = {})
       Deviceapi::Util.outgoing_command_object(command, device).call(options)
     end
   end

@@ -1,6 +1,4 @@
 class Device < ApplicationRecord
-  include Deviceapi::Sender
-  include Deviceapi::Receiver
   has_secure_password
 
   mount_uploader :wallpaper, WallpaperUploader
@@ -26,7 +24,7 @@ class Device < ApplicationRecord
   validates :name, length: { maximum: 40 }
   validate :wallpaper_max_size, if: -> { wallpaper.present? }
 
-  after_destroy { send_to :clear_queue }
+  after_destroy { send_to(:clear_queue) }
   around_save :update_setting
   after_commit -> { send_to(:update_wallpaper) }, if: -> { previous_changes[:wallpaper] }
 
@@ -94,5 +92,9 @@ class Device < ApplicationRecord
     changed_attrs = changed.map(&:to_sym).dup
     yield
     send_to(:update_setting, changed_attrs: changed_attrs) if (changed_attrs & %i[time_zone message_queue_sync_period]).any?
+  end
+
+  def send_to(command, options = {})
+    Deviceapi::Sender.new(self).send(command, options)
   end
 end

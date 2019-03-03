@@ -1,11 +1,11 @@
 module Deviceapi
   class StatusController < Deviceapi::BaseController
-    # rubocop: disable Metrics/AbcSize
-    def create
+    def create # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
       outgoing_sequence_number = 0
       response_status = :ok
-      device.receive_from(params, request.user_agent, request.headers['X-Sequence-Number'])
-      queued_messsage_to_device, outgoing_sequence_number = device.dequeue
+      receiver = Deviceapi::Receiver.new(device)
+      receiver.receive(params, request.user_agent, request.headers['X-Sequence-Number'])
+      queued_messsage_to_device, outgoing_sequence_number = receiver.dequeue
     rescue StandardError => err
       log_error(err)
       response_status = :unprocessable_entity
@@ -13,7 +13,6 @@ module Deviceapi
       response.headers['X-Sequence-Number'] = outgoing_sequence_number.to_s
       render json: json(queued_messsage_to_device), status: response_status
     end
-    # rubocop: enable Metrics/AbcSize
 
     private
 

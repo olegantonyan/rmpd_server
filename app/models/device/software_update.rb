@@ -1,7 +1,6 @@
 class Device
   class SoftwareUpdate < ApplicationModel
     extend CarrierWave::Mount
-    include Deviceapi::Sender
 
     attr_accessor :device, :distribution
 
@@ -17,7 +16,7 @@ class Device
     def save
       return false unless valid?
       store_distribution!
-      send_to_device(:update_software, device, distribution_url: distribution_url)
+      Deviceapi::Sender.new(device).send(:update_software, distribution_url: distribution_url)
       true
     end
 
