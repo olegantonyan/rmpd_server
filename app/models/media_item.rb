@@ -1,4 +1,4 @@
-class MediaItem < ApplicationRecord # rubocop: disable Metrics/ClassLength
+class MediaItem < ApplicationRecord
   include Taggable
 
   self.inheritance_column = 'sti_type'
@@ -55,9 +55,7 @@ class MediaItem < ApplicationRecord # rubocop: disable Metrics/ClassLength
 
   with_options to: :file do
     delegate :path, prefix: true
-    with_options allow_nil: true do
-      delegate :size
-    end
+    delegate :size, allow_nil: true
   end
 
   def to_s # rubocop: disable Metrics/AbcSize
