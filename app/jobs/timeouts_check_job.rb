@@ -1,5 +1,5 @@
 class TimeoutsCheckJob < ApplicationJob
   def perform
-    Deviceapi::Timeouts.check
+    Deviceapi::Timeouts.new.call
   end
 end

@@ -1,9 +1,11 @@
 module Deviceapi
   class Sender
+    using Typerb
+
     attr_reader :device
 
     def initialize(device)
-      @device = device
+      @device = device.type!(Device)
     end
 
     def send(command, options = {})

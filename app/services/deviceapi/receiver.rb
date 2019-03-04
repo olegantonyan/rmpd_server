@@ -1,9 +1,11 @@
 module Deviceapi
   class Receiver
+    using Typerb
+
     attr_reader :device
 
     def initialize(device)
-      @device = device
+      @device = device.type!(Device)
     end
 
     def receive(data, user_agent, sequence_number)
