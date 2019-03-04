@@ -26,7 +26,7 @@ gem 'turbolinks', '>= 5.0.0.beta2'
 
 gem 'pg'
 gem 'haml-rails'
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'autoprefixer-rails'
 gem 'carrierwave'
 gem 'select2-rails'
