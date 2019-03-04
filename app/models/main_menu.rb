@@ -1,8 +1,10 @@
 class MainMenu < ApplicationModel
   attr_accessor :user
 
-  def self.items
-    %i[media_items playlists devices device_groups companies users]
+  class << self
+    def items
+      %i[media_items playlists devices device_groups companies users]
+    end
   end
 
   attr_accessor(*items)
