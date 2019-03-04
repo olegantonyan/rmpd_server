@@ -1,5 +1,4 @@
-class MediaItem < ApplicationRecord
-  include UploadableModel
+class MediaItem < ApplicationRecord # rubocop: disable Metrics/ClassLength
   include Taggable
 
   self.inheritance_column = 'sti_type'
@@ -13,6 +12,9 @@ class MediaItem < ApplicationRecord
   enum type: %w[background advertising]
 
   mount_uploader :file, MediaItemUploader
+  before_validation :attach_file, on: :create, if: -> { upload_uuid.present? }
+  attr_accessor :upload_uuid, :upload_original_filename, :upload_content_type
+
   with_options unless: :skip_file_processing do
     before_create :mark_file_processing
     after_commit :process_file, on: :create
@@ -102,12 +104,10 @@ class MediaItem < ApplicationRecord
     !file_processing_failed_message.nil?
   end
 
-  # rubocop: disable Rails/SkipsModelValidations
   def rename_file_attribute!(new_name)
-    self.class.where(self.class.primary_key => id).limit(1).update_all(file: new_name)
+    self.class.where(self.class.primary_key => id).limit(1).update_all(file: new_name) # rubocop: disable Rails/SkipsModelValidations
     reload
   end
-  # rubocop: enable Rails/SkipsModelValidations
 
   private
 
@@ -121,5 +121,9 @@ class MediaItem < ApplicationRecord
 
   def cache_duration
     self.duration = image? ? 0 : MediafilesUtils.duration(file.path)
+  end
+
+  def attach_file
+    send('file=', Upload.file(upload_uuid, upload_original_filename, upload_content_type))
   end
 end
