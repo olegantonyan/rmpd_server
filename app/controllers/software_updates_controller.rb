@@ -1,4 +1,4 @@
-class SoftwareUpdatesController < BaseController
+class SoftwareUpdatesController < ApplicationController
   before_action :set_device
 
   def self.controller_path

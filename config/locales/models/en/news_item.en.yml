@@ -1,8 +1,0 @@
-en:
-  activerecord:
-    models:
-      news_item:
-        one: News item
-        few: News
-        many: News
-        other: News

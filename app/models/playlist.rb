@@ -1,15 +1,21 @@
-require 'schedule/scheduler'
-require 'schedule/item'
-
 class Playlist < ApplicationRecord
-  with_options inverse_of: :playlist do |a|
-    a.has_many :devices
-    a.with_options foreign_key: :playlist_id, dependent: :destroy, after_add: :append_added_playlist_item do |aa|
-      aa.has_many :playlist_items_background, -> { background.order(:position) }, class_name: 'Playlist::Item::Background'
-      aa.has_many :playlist_items_advertising, -> { advertising }, class_name: 'Playlist::Item::Advertising'
-    end
-  end
-  has_many :playlist_items, class_name: 'Playlist::Item'
+  has_many :devices, inverse_of: :playlist, dependent: :nullify
+
+  has_many :playlist_items_background,
+           -> { background.order(:position) },
+           class_name: 'Playlist::Item::Background',
+           foreign_key: :playlist_id,
+           dependent: :destroy,
+           inverse_of: :playlist
+
+  has_many :playlist_items_advertising,
+           -> { advertising },
+           class_name: 'Playlist::Item::Advertising',
+           foreign_key: :playlist_id,
+           dependent: :destroy,
+           inverse_of: :playlist
+
+  has_many :playlist_items, class_name: 'Playlist::Item', dependent: :destroy
   has_many :media_items, -> {
     joins(:playlist_items)
       .select('media_items.*, playlist_items.position')
@@ -20,13 +26,6 @@ class Playlist < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 128 }
   validates :description, length: { maximum: 512 }
-
-  with_options allow_destroy: true, reject_if: :all_blank do
-    accepts_nested_attributes_for :playlist_items_background
-    accepts_nested_attributes_for :playlist_items_advertising
-  end
-
-  filterrific(available_filters: %i[search_query with_company_id])
 
   scope :search_query, ->(query) {
     q = "%#{query}%"
@@ -48,7 +47,7 @@ class Playlist < ApplicationRecord
   end
 
   def schedule
-    @_schedule ||= Schedule::Scheduler.new(playlist_items_advertising.includes(:media_item))
+    @schedule ||= AdSchedule::Scheduler.new(playlist_items_advertising.includes(:media_item))
   end
 
   def files_processing
@@ -59,14 +58,11 @@ class Playlist < ApplicationRecord
     uniq_media_items.inject(0) { |acc, elem| acc + elem.file.size.to_i }
   end
 
-  def added_playlist_items
-    @_added_playlist_items || []
-  end
-
-  private
-
-  def append_added_playlist_item(item)
-    @_added_playlist_items ||= []
-    @_added_playlist_items << item
+  def to_hash
+    i = attributes.slice('id', 'name', 'description')
+    i['company'] = company.to_hash
+    i['items_count'] = media_items_count
+    i['items_size'] = total_size
+    i
   end
 end

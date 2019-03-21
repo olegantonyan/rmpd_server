@@ -1,5 +1,5 @@
-class DeviceGroupsController < BaseController
-  include Filterrificable
+class DeviceGroupsController < ApplicationController
+  include Paginateble
 
   before_action :set_device_group, only: %i[show edit update destroy]
 

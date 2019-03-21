@@ -1,7 +1,0 @@
-= page_title(@news_items)
-
-= render @news_items
-
-- if policy(@news_items).new?
-  .pull-right
-    = link_to icon_text('plus', t('views.shared.new', default: 'Add new')),  new_news_item_path, class: 'btn btn-success'

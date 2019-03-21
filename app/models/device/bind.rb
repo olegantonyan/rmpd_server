@@ -1,6 +1,6 @@
 class Device
-  class Bind < ApplicationModel
-    attr_accessor :company_id, :name, :time_zone, :device_group_ids, :login
+  class Bind < ActiveModelBase
+    attr_accessor :company_id, :name, :time_zone, :login
 
     with_options presence: true do
       validates :login
@@ -22,7 +22,11 @@ class Device
     end
 
     def device
-      @_device ||= Device.find_by(login: login)
+      @device ||= Device.find_by(login: login)
+    end
+
+    def company
+      Company.find(company_id)
     end
 
     def to_s
@@ -36,17 +40,16 @@ class Device
       d.company_id = company_id
       assign_if(d, :time_zone, time_zone)
       assign_if(d, :name, name)
-      assign_if(d, :device_group_ids, device_group_ids)
       d
     end
 
     def device_exists
-      errors.add(:login, 'device not found') unless device
+      errors.add(:login, I18n.t('activemodel.attributes.device/bind.device_not_found')) unless device
     end
 
     def device_not_bound_already
       return unless device
-      errors.add(:login, 'already bound to a company') if device.bound_to_company?
+      errors.add(:login, I18n.t('activemodel.attributes.device/bind.device_already_bound')) if device.bound_to_company?
     end
 
     def notify

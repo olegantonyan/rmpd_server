@@ -1,7 +1,6 @@
 module Notifiers
   class DeviceStatusNotifierJob < Notifiers::BaseNotifierJob
-    # rubocop: disable Metrics/MethodLength
-    def perform(device, status, thetime)
+    def perform(device, status, thetime) # rubocop: disable Metrics/MethodLength
       status_text = status ? 'online' : 'offline'
       text = "Device #{device} is now #{status_text} (#{thetime})"
       color = status ? 'good' : 'warning'
@@ -16,7 +15,6 @@ module Notifiers
       }
       notify(text, icon_emoji: ':squirrel:', attachments: [a])
     end
-    # rubocop: enable Metrics/MethodLength
 
     def slack_channel
       '#device_status'

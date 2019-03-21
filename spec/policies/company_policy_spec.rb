@@ -32,6 +32,8 @@ RSpec.describe CompanyPolicy, type: :policy do
     let(:object_class) { Company }
 
     it 'returns all records to root' do
+      expect(company_1).to be_valid # random failures without this
+      expect(company_2).to be_valid
       expect(object_class.all).not_to be_empty
       pundit_policy_scope(create(:user_root), object_class.all, object_class.all)
     end

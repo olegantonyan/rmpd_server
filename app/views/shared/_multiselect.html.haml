@@ -1,7 +1,0 @@
-= text_field_tag textbox_id, '', id: textbox_id, class: 'form-control', placeholder: t('views.shared.search', default: 'Search')
-= select_tag selectbox_id, collection, multiple: true, size: (defined?(size) ? size : 12), class: 'form-control'
-
-:javascript
-  (function() {
-    $("##{selectbox_id}").filterByText($("##{textbox_id}"), true);
-  })();

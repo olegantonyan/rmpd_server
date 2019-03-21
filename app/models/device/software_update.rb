@@ -1,5 +1,5 @@
 class Device
-  class SoftwareUpdate < ApplicationModel
+  class SoftwareUpdate < ActiveModelBase
     extend CarrierWave::Mount
 
     attr_accessor :device, :distribution

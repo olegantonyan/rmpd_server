@@ -1,5 +1,5 @@
 class Playlist
-  class Assignment < ApplicationModel
+  class Assignment < ActiveModelBase
     class NotEnoughSpaceError < RuntimeError; end
 
     attr_accessor :playlist, :assignable, :force
@@ -10,7 +10,7 @@ class Playlist
 
     def save
       return false unless valid?
-      @_notifications ||= []
+      @notifications ||= []
       ActiveRecord::Base.transaction do
         perform!
       end
@@ -38,7 +38,7 @@ class Playlist
       device.save! if device.changed?
       return unless notify
       command = device.playlist.present? ? :update_playlist : :delete_playlist
-      @_notifications << { device: device, command: command }
+      @notifications << { device: device, command: command }
     end
 
     def perform!
@@ -50,12 +50,12 @@ class Playlist
           assign_to_device!(device)
         end
       else
-        raise ArgumentError, "unknown assignable type #{assignable.try(:class).try(:name)}"
+        raise ArgumentError, "unknown assignable type #{assignable&.class&.name}"
       end
     end
 
     def check_free_space!(device)
-      free_space = device&.device_status&.free_space
+      free_space = device&.free_space
       return unless free_space
       return if free_space.zero?
       size_of_new_items = new_items_to_download(device).inject(0) { |acc, elem| acc + elem.file.size.to_i }
@@ -76,7 +76,7 @@ class Playlist
     # rubocop: enable Metrics/AbcSize
 
     def notify_all
-      @_notifications.each { |n| Deviceapi::Sender.new(n[:device]).send(n[:command]) }
+      @notifications.each { |n| Deviceapi::Sender.new(n[:device]).send(n[:command]) }
     end
   end
 end

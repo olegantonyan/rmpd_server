@@ -1,0 +1,89 @@
+<% if resource.invite %>
+  <% content_for :page_title, t('views.registration.with_invite') %>
+<% else %>
+  <% content_for :page_title, t('.sign_up') %>
+<% end %>
+
+<h1 class="title has-text-centered"><%= yield(:page_title) %></h1>
+
+<div class="columns">
+  <div class="column">
+  </div>
+
+  <div class="column">
+    <div class="section">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <% if resource.invite %>
+
+          <%= f.hidden_field :invitation_token, value: resource.invite.token %>
+          <div class="field">
+            <%= f.label :email, class: "label" %>
+            <em><%= t('views.registration.invited_by', by_user: resource.invite.user, company: resource.invite.company) %></em>
+            <div class="control">
+              <%= f.email_field :email, value: resource.invite.email, readonly: true, class: "input" %>
+            </div>
+          </div>
+
+        <% else %>
+
+          <div class="field">
+            <%= f.label :email, class: "label" %>
+            <div class="control">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
+            </div>
+          </div>
+
+        <% end %>
+
+        <div class="field">
+          <%= f.label :password, class: "label" %>
+          <% if @minimum_password_length %>
+          <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
+          <% end %>
+          <div class="control">
+            <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= f.label :password_confirmation, class: "label" %>
+          <div class="control">
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= f.label :displayed_name, class: "label" %>
+          <div class="control">
+            <%= f.text_field :displayed_name, class: "input" %>
+          </div>
+        </div>
+
+        <% unless resource.invite %>
+          <div class="field">
+            <%= f.label :company_title, class: "label" %>
+            <div class="control">
+              <%= f.text_field :company_title, class: "input" %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="actions">
+          <div class="control">
+            <%= f.submit t('.sign_up'), class: "button is-link" %>
+          </div>
+        </div>
+      <% end %>
+
+      <% unless resource.invite %>
+        <%= render "devise/shared/links" %>
+      <% end %>
+
+    </div>
+  </div>
+
+  <div class="column">
+  </div>
+</div>

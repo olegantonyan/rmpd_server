@@ -1,5 +1,5 @@
 class Company
-  class Leave < BaseService
+  class Leave < ActiveModelBase
     attr_accessor :company, :user
 
     validate :user_in_this_company

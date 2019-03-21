@@ -22,3 +22,12 @@ public/assets/
 config/database.yml
 secret_key
 config/config.yml
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+/config/master.key

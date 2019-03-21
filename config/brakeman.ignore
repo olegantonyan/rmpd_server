@@ -7,7 +7,7 @@
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "lib/mediafiles_utils.rb",
-      "line": 20,
+      "line": 14,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "`ffmpeg -i '#{file}' -af \"volumedetect\" -f null /dev/null 2>&1`",
       "render_path": null,
@@ -21,22 +21,22 @@
       "note": ""
     },
     {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "925427939bdf2cd807f8904bdcab6a9999f9842e6af0c5679045a24f4a91b160",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "lib/mediafiles_utils.rb",
-      "line": 31,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "Open3.capture3(*[\"ffmpeg\", \"-y\", \"-i\", file, \"-af\", \"volume=#{(-14.0 - fix_invalid_byte_sequence(`ffmpeg -i '#{file}' -af \"volumedetect\" -f null /dev/null 2>&1`).scan(/mean_volume: ([\\-\\d\\.]+) dB/).flatten.first.to_f)}dB\", \"-c:v\", \"copy\", \"/tmp/#{File.basename(file)}\"])",
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "298aa600384349ca586bf88264713a016931ff278c5277d578a463de39db2a91",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "app/jobs/media_item_processing_worker.rb",
+      "line": 25,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.open(Upload.filepath_by_uuid(upload_params[:upload_uuid]))",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "MediafilesUtils",
-        "method": "normalize_volume"
+        "class": "MediaItemProcessingWorker",
+        "method": "perform"
       },
-      "user_input": "(-14.0 - fix_invalid_byte_sequence(`ffmpeg -i '#{file}' -af \"volumedetect\" -f null /dev/null 2>&1`).scan(/mean_volume: ([\\-\\d\\.]+) dB/).flatten.first.to_f)",
+      "user_input": "Upload.filepath_by_uuid(upload_params[:upload_uuid])",
       "confidence": "Medium",
       "note": ""
     },
@@ -47,7 +47,7 @@
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "lib/mediafiles_utils.rb",
-      "line": 13,
+      "line": 7,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "`ffmpeg -i '#{file}' 2>&1 | grep Duration | awk '{print $2}' | tr -d ,`",
       "render_path": null,
@@ -61,44 +61,26 @@
       "note": ""
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "df612db81d0f475d92a69aa74c39ac2bab9fc7382e0d6a075cd6c1cbfbae417b",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped parameter value",
-      "file": "app/views/shared/_list.html.haml",
-      "line": 39,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "present_collection(policy_scope((initialize_filterrific(Company, params[:filterrific]) or on_reset\nreturn).find.page(page).per_page(per_page))).model_name.name.underscore.gsub(\"/\", \"_\")",
-      "render_path": [{"type":"controller","class":"CompaniesController","method":"index","line":15,"file":"app/controllers/companies_controller.rb","rendered":{"name":"companies/index","file":"/home/oleg/projects/rmpd_server/app/views/companies/index.js.erb"}},{"type":"template","name":"companies/index","line":1,"file":"app/views/companies/index.js.erb","rendered":{"name":"companies/_collection","file":"/home/oleg/projects/rmpd_server/app/views/companies/_collection.html.haml"}},{"type":"template","name":"companies/_collection","line":2,"file":"app/views/companies/_collection.html.haml","rendered":{"name":"shared/_list","file":"/home/oleg/projects/rmpd_server/app/views/shared/_list.html.haml"}}],
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "dea154a6bada4bdbee5c26f0ee3c485e0c577255dda253edc1d61b655ea61976",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "lib/mediafiles_utils.rb",
+      "line": 25,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Open3.capture3(*[\"ffmpeg\", \"-y\", \"-i\", file, \"-af\", \"volume=#{(-14.0 - fix_invalid_byte_sequence(`ffmpeg -i '#{file}' -af \"volumedetect\" -f null /dev/null 2>&1`).scan(/mean_volume: ([\\-\\d\\.]+) dB/).flatten.first.to_f)}dB\", \"-c:v\", \"copy\", \"/tmp/#{File.basename(file)}.#{type}\"])",
+      "render_path": null,
       "location": {
-        "type": "template",
-        "template": "shared/_list"
+        "type": "method",
+        "class": "MediafilesUtils",
+        "method": "normalize_volume"
       },
-      "user_input": "params[:filterrific]",
-      "confidence": "Weak",
-      "note": ""
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "df612db81d0f475d92a69aa74c39ac2bab9fc7382e0d6a075cd6c1cbfbae417b",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped parameter value",
-      "file": "app/views/shared/_list.html.haml",
-      "line": 40,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "present_collection(policy_scope((initialize_filterrific(Company, params[:filterrific]) or on_reset\nreturn).find.page(page).per_page(per_page))).model_name.name.underscore.gsub(\"/\", \"_\")",
-      "render_path": [{"type":"controller","class":"CompaniesController","method":"index","line":15,"file":"app/controllers/companies_controller.rb","rendered":{"name":"companies/index","file":"/home/oleg/projects/rmpd_server/app/views/companies/index.js.erb"}},{"type":"template","name":"companies/index","line":1,"file":"app/views/companies/index.js.erb","rendered":{"name":"companies/_collection","file":"/home/oleg/projects/rmpd_server/app/views/companies/_collection.html.haml"}},{"type":"template","name":"companies/_collection","line":2,"file":"app/views/companies/_collection.html.haml","rendered":{"name":"shared/_list","file":"/home/oleg/projects/rmpd_server/app/views/shared/_list.html.haml"}}],
-      "location": {
-        "type": "template",
-        "template": "shared/_list"
-      },
-      "user_input": "params[:filterrific]",
-      "confidence": "Weak",
+      "user_input": "(-14.0 - fix_invalid_byte_sequence(`ffmpeg -i '#{file}' -af \"volumedetect\" -f null /dev/null 2>&1`).scan(/mean_volume: ([\\-\\d\\.]+) dB/).flatten.first.to_f)",
+      "confidence": "Medium",
       "note": ""
     }
   ],
-  "updated": "2019-03-04 06:54:35 +0200",
-  "brakeman_version": "4.4.0"
+  "updated": "2019-03-20 20:43:54 +0200",
+  "brakeman_version": "4.5.0"
 }

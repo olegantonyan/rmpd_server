@@ -1,6 +1,4 @@
-class MainMenu < ApplicationModel
-  attr_accessor :user
-
+class MainMenu
   class << self
     def items
       %i[media_items playlists devices device_groups companies users]
@@ -8,18 +6,13 @@ class MainMenu < ApplicationModel
   end
 
   attr_accessor(*items)
+  attr_reader :user
 
-  def initialize(*args)
-    super
+  def initialize(user:)
+    @user = user
     self.class.items.each do |i|
       policy = policy_by_item(i)
       send("#{i}=", policy.index?)
-    end
-  end
-
-  def to_hash
-    self.class.items.each_with_object({}) do |e, a|
-      a[e] = send(e)
     end
   end
 

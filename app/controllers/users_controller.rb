@@ -1,5 +1,5 @@
-class UsersController < BaseController
-  include Filterrificable
+class UsersController < ApplicationController
+  include Paginateble
 
   before_action :set_user, only: %i[show edit update destroy]
 

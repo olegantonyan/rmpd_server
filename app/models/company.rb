@@ -1,20 +1,12 @@
 class Company < ApplicationRecord
-  with_options inverse_of: :company do |a|
-    a.has_many :devices
-    a.has_many :playlists
-    a.has_many :media_items
-    a.with_options dependent: :destroy do |aa|
-      aa.has_many :user_company_memberships
-      aa.has_many :invites
-    end
-  end
+  has_many :devices, inverse_of: :company, dependent: :restrict_with_error
+  has_many :playlists, inverse_of: :company, dependent: :restrict_with_error
+  has_many :media_items, inverse_of: :company, dependent: :restrict_with_error
+  has_many :user_company_memberships, inverse_of: :company, dependent: :destroy
+  has_many :invites, inverse_of: :company, dependent: :destroy
   has_many :users, through: :user_company_memberships
 
-  with_options presence: true do
-    validates :title, length: { in: 4..100 }, uniqueness: true
-  end
-
-  filterrific(available_filters: %i[search_query])
+  validates :title, presence: true, length: { in: 4..100 }, uniqueness: true
 
   scope :search_query, ->(query) {
     q = "%#{query}%"
@@ -27,5 +19,9 @@ class Company < ApplicationRecord
 
   def includes_user?(user)
     user_ids.include?(user&.id)
+  end
+
+  def to_hash
+    attributes.slice('id', 'title')
   end
 end

@@ -1,0 +1,40 @@
+en:
+  views:
+    back: Back
+    home_page: Home page
+    help: Help
+    contact_us: Contacts
+    privacy_policy: Privacy
+    login: Sign in
+    logout: Sign out
+    sign_up: Sign up
+    not_authorized: You don't have permissions to do this
+
+    media_items:
+      index_title: Mediafiles
+      upload_files: Upload mediafiles
+
+    registration:
+      invited_by: Invited by %{by_user} to %{company}
+      with_invite: Sign up via invite
+
+    devices:
+      bind: Bind a new device
+      bind_submit: Ok
+      bind_login_help: Written on the device
+      bind_name_help: Give this device a recognizable name
+      bind_successfull: Devices %{device} successfully bound to %{company}
+      index_title: Devices
+      show_title: Device %{device}
+      edit_title: Edit device
+      save: Save
+      update_successfull: Device updated successfully
+      delete_confirm: Will remove this device. Are sure?
+
+    playlists:
+      index_title: Playlists
+      midnight_rollover_warning: Rollover midnight
+      date_interval: Date interval
+      new_title: New playlist
+      delete_confirm: Will remove this playlist. Are sure? 
+      show_title: Playlist %{playlist}

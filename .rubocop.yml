@@ -9,6 +9,7 @@ AllCops:
     - 'bin/**/*'
     - 'Guardfile'
     - 'Capfile'
+    - 'node_modules/**/*'
 
   TargetRubyVersion: 2.6
 
@@ -18,13 +19,7 @@ Style/ExpandPathArguments:
 Rails/LexicallyScopedActionFilter:
   Enabled: false
 
-Rails/HasManyOrHasOneDependent:
-  Enabled: false
-
 Style/CommentedKeyword:
-  Enabled: false
-
-Lint/MissingCopEnableDirective:
   Enabled: false
 
 Rails/RedundantReceiverInWithOptions:
@@ -33,16 +28,7 @@ Rails/RedundantReceiverInWithOptions:
 Style/IfUnlessModifier:
   Enabled: false
 
-Rails/InverseOf:
-  Enabled: false
-
 Naming/UncommunicativeMethodParamName:
-  Enabled: false
-
-Naming/MemoizedInstanceVariableName:
-  Enabled: false
-
-Lint/AmbiguousBlockAssociation:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
@@ -50,9 +36,6 @@ Style/FrozenStringLiteralComment:
 
 Rails:
   Enabled: true
-
-Rails/OutputSafety:
-  Enabled: false
 
 Style/Documentation:
   Enabled: false

@@ -1,6 +1,0 @@
-- content_for :page_title, t('views.shared.home_page', default: 'Home page')
-
-%h2= plural_title(@news_items)
-= render @news_items
-
-= link_to t(:all_news), news_items_path

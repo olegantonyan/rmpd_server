@@ -1,6 +1,5 @@
 module DeviseUsers
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-    include AuthorizationSkipable
     # You should configure your model like this:
     # devise :omniauthable, omniauth_providers: [:twitter]
 

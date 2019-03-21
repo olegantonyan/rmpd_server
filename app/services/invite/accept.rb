@@ -1,5 +1,5 @@
 class Invite
-  class Accept < BaseService
+  class Accept < ActiveModelBase
     attr_accessor :user, :invite
 
     with_options presence: true do

@@ -38,7 +38,7 @@ module Deviceapi
       end
 
       def retries(sequence_number)
-        find_by(id: sequence_number).try(:reenqueue_retries) || 0
+        find_by(id: sequence_number)&.reenqueue_retries || 0
       end
 
       # rubocop: disable Rails/SkipsModelValidations
@@ -62,7 +62,7 @@ module Deviceapi
       end
 
       def message_type_for_sequence_number(sequence_number)
-        find_by(id: sequence_number).try(:message_type)
+        find_by(id: sequence_number)&.message_type
       end
     end
   end

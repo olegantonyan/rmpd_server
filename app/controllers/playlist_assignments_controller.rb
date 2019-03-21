@@ -1,4 +1,4 @@
-class PlaylistAssignmentsController < BaseController
+class PlaylistAssignmentsController < ApplicationController
   before_action :set_assignable
 
   def update

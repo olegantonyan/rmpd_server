@@ -1,0 +1,21 @@
+<% content_for :page_title, t('views.playlists.index_title') %>
+
+<div class="columns">
+  <div class="column">
+    <h1 class="title"><%= yield(:page_title) %></h1>
+  </div>
+  <div class="column">
+    <% if policy(:playlist).new? %>
+      <%= link_to(new_playlist_path, class: "button is-primary is-outlined is-pulled-right") do %>
+        <span class="icon"><i class="fas fa-list-alt"></i></span>
+        <span><%= t('views.playlists.new_title') %></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<% content_for(:js) do %>
+  <%= javascript_packs_with_chunks_tag 'application', 'playlists' %>
+<% end %>
+
+<div id="root_component"></div>

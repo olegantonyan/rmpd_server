@@ -1,14 +1,10 @@
 class UserCompanyMembership < ApplicationRecord
-  with_options inverse_of: :user_company_memberships do |a|
-    a.belongs_to :user
-    a.belongs_to :company
-  end
+  belongs_to :user, inverse_of: :user_company_memberships
+  belongs_to :company, inverse_of: :user_company_memberships
 
   validates :title, length: { maximum: 130 }
-  with_options presence: true do
-    validates :user
-    validates :company
-  end
+  validates :user, presence: true
+  validates :company, presence: true
 
   def to_s
     "#{user} in #{company}"

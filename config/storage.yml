@@ -1,0 +1,31 @@
+local:
+  service: Disk
+  root: <%= Rails.root.join('public/uploads/activestorage') %>
+
+test:
+  service: Disk
+  root: <%= Rails.root.join('tmp/storage') %>
+
+amazon:
+  service: S3
+  access_key_id: ""
+  secret_access_key: ""
+  bucket: ""
+  region: "" # e.g. 'us-east-1'
+
+minio:
+  service: S3
+  access_key_id: "accesskey"
+  secret_access_key: "secretkey"
+  bucket: "rmpd"
+  region: "us-east-1" # e.g. 'us-east-1'
+  endpoint: "http://localhost:9000"
+  force_path_style: true
+
+digitalocean:
+  service: S3
+  access_key_id: <%= ENV["DO_SPACES_ACCESS_KEY"] %>
+  secret_access_key: <%= ENV["DO_SPACES_SECRET_KEY"] %>
+  bucket: "rmpd"
+  region: "ams3" # e.g. 'us-east-1'
+  endpoint: "https://ams3.digitaloceanspaces.com"

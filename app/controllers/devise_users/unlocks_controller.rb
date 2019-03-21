@@ -1,6 +1,5 @@
 module DeviseUsers
   class UnlocksController < Devise::UnlocksController
-    include AuthorizationSkipable
     # GET /resource/unlock/new
     # def new
     #   super

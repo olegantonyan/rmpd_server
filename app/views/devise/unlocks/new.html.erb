@@ -1,0 +1,32 @@
+<% content_for :page_title, t('.resend_unlock_instructions') %>
+
+<h1 class="title has-text-centered"><%= yield(:page_title) %></h1>
+
+<div class="columns">
+  <div class="column">
+  </div>
+
+  <div class="column">
+    <div class="section">
+      <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="field">
+          <%= f.label :email, class: "label" %>
+          <div class="control">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
+          </div>
+        </div>
+
+        <div class="actions">
+          <%= f.submit t('.resend_unlock_instructions'), class: "button is-link" %>
+        </div>
+      <% end %>
+
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+
+  <div class="column">
+  </div>
+</div>

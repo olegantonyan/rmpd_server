@@ -4,10 +4,8 @@ require 'capistrano/setup'
 # Include default deployment tasks
 require 'capistrano/deploy'
 require 'capistrano/rails'
-require 'capistrano/rbenv'
 require 'capistrano/rails/console'
 require 'capistrano/rails_tail_log'
-require 'rollbar/capistrano3'
 
 # Include tasks from other gems included in your Gemfile
 #

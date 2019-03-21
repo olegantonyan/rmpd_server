@@ -13,7 +13,7 @@ module Deviceapi
         def json
           {
             playlist: serialized_playlist(device.playlist)
-          }.merge(legacy_json)
+          }
         end
 
         def serialized_playlist(playlist)
@@ -28,8 +28,7 @@ module Deviceapi
           }
         end
 
-        # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
-        def serialized_playlist_item(i)
+        def serialized_playlist_item(i) # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
           {
             url: i.file_url,
             filename: i.file_identifier,
@@ -39,18 +38,15 @@ module Deviceapi
             type: i.type,
             position: i.position,
             content_type: i.content_type,
-            show_duration: i.show_duration,
             begin_time: i.begin_time&.strftime(time_format),
             end_time: i.end_time&.strftime(time_format),
             end_date: i.end_date&.strftime(date_format),
             begin_date: i.begin_date&.strftime(date_format),
             playbacks_per_day: i.playbacks_per_day,
             schedule_intervals: serialized_schedule(i),
-            wait_for_the_end: i.wait_for_the_end,
-            schedule: [] # legacy
+            wait_for_the_end: i.wait_for_the_end
           }
         end
-        # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
 
         def serialized_schedule(item)
           return [] unless item.advertising?
@@ -66,20 +62,6 @@ module Deviceapi
 
         def date_format
           '%d.%m.%Y'
-        end
-
-        def legacy_items
-          items = []
-          device.playlist.playlist_items.includes(:media_item).each { |d| items << d.media_item.file_url }
-          items
-        end
-
-        def legacy_json
-          {
-            type: 'playlist',
-            status: 'update',
-            items: legacy_items # old implementation, for compatability
-          }
         end
       end
     end

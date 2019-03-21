@@ -9,7 +9,6 @@ class Playlist
     with_options presence: true do
       validates :media_item
       validates :playlist
-      validates :show_duration, numericality: { greater_than_or_equal_to: 1, less_than: 86_400 }, if: -> { image? }
     end
     validate :check_files_processing
     validate :begin_date_less_than_end_date
@@ -23,10 +22,7 @@ class Playlist
       joins(:media_item).where('LOWER(media_items.file) LIKE LOWER(?) OR LOWER(media_items.description) LIKE LOWER(?)', q, q)
     }
 
-    with_options to: :media_item do
-      delegate :file_url, :type, :description, :file_identifier, :background?, :advertising?, :duration, :content_type
-      delegate :image?, allow_nil: true
-    end
+    delegate :file_url, :type, :description, :file_identifier, :background?, :advertising?, :duration, :content_type, to: :media_item
 
     serialize :schedule
 
@@ -36,10 +32,6 @@ class Playlist
 
     def self.policy_class
       Playlist::ItemPolicy
-    end
-
-    def show_duration=(arg)
-      super if image?
     end
 
     private

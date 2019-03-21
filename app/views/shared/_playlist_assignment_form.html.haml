@@ -1,5 +1,0 @@
-= simple_form_for(resource, url: url, method: :patch) do |f|
-  = f.input :playlist_id, collection: policy_scope(Playlist.all), include_blank: t('views.shared.playlist_assignment_form.none', default: 'None'), input_html: { id: 'select-playlist' }, label_method: :to_s
-  = f.button :submit, t('views.shared.playlist_assignment_form.assign', default: 'Assign playlist'), class: 'btn btn-default'
-
-= select2js_for_id 'select-playlist'

@@ -5,9 +5,3 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
-unless User.find_by_email('demo@demo.demo')
-  user = User::Registration.new(email: 'demo@demo.demo', password: 'demodemo', displayed_name: 'Demo User', company_title: 'Demo')
-  user.save!
-  user.confirm
-end

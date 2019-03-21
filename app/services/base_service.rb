@@ -1,2 +1,0 @@
-class BaseService < ActiveModelBase
-end

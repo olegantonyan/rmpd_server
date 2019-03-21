@@ -1,0 +1,56 @@
+ru:
+  webpacker:
+    search: Поиск
+    cancel: Отмена
+    any_company: Любая компания
+    reset_filters: Сбросить фильтры
+    company: Компания
+    error: Ошибка
+
+    media_items:
+      background: Фоновый
+      advertising: Рекламный
+      tags: Теги
+      any_type: С любым типом
+      file_processing: Идёт обработка файла
+      upload_new: Загрузить
+      description: Описание
+      type: Тип
+      library: Общедоступная библиотека
+      private_only: Только мои
+      all: Все
+      skip_volume_normalization: Не выравнивать уровень громкости
+      add_files: Выбрать файлы
+      start_upload: Начать загрузку
+      file_name: Имя файла
+      file_size: Размер
+      clear_selected: Сбросить
+      progress: Прогресс
+      select_all: Выделить все
+      delete_selected: Удалить выбранные
+      delete_confirm: Удалить выбранные файлы. Продолжить?
+      deleted: Успешно удалены
+      unauthorized: Недостаточно прав на удаление
+      has_playlist: Входят в плейлисты потому не могут быть удалены
+
+    devices:
+      login: Идентификатор
+      name: Название
+      now_playing: Сейчас воспроизводится
+      poweredon_at: Время включения
+      devicetime: Время на устройстве
+      software_version: Версия ПО
+      free_space: Свобондо места
+      timezone: Часовой пояс
+      playlist: Плейлист
+      webui_password: Пароль на встроенный веб-интрефейс и точку доступа
+
+      log_messages:
+        title: Лог событий
+        command: Команда
+        localtime: Время на устройстве
+        created_at: Время принятия на сервере
+        message: Сообщение
+
+    playlists:
+      files: файлов

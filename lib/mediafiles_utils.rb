@@ -3,12 +3,6 @@ require 'open3'
 module MediafilesUtils
   module_function
 
-  def convert_to_h264(src, dst)
-    ok = system(*['ffmpeg', '-i', src, '-vcodec', 'libx264', '-vprofile', 'main', '-pix_fmt', 'yuv420p', '-acodec', 'aac', '-strict', '-2', dst])
-    raise 'Error converting file to h264' unless ok
-    ok
-  end
-
   def duration(file)
     output = `ffmpeg -i '#{file}' 2>&1 | grep Duration | awk '{print $2}' | tr -d ,`
     result = fix_invalid_byte_sequence(output).strip.split(':')
@@ -16,7 +10,7 @@ module MediafilesUtils
   end
 
   # rubocop: disable Metrics/AbcSize, Metrics/MethodLength, Style/SpecialGlobalVars, Lint/UselessAssignment
-  def normalize_volume(file)
+  def normalize_volume(file, type: 'mp3')
     output = `ffmpeg -i '#{file}' -af "volumedetect" -f null /dev/null 2>&1`
     raise "Error getting audio volume from #{file} (#{$?})" unless $?.success?
     output = fix_invalid_byte_sequence(output)
@@ -27,7 +21,7 @@ module MediafilesUtils
     mean_volume = mean_volume.to_f
     target_volume = -14.0
     adjustment = target_volume - mean_volume
-    output_file = "/tmp/#{File.basename(file)}"
+    output_file = "/tmp/#{File.basename(file)}.#{type}"
     _, e, r = Open3.capture3(*['ffmpeg', '-y', '-i', file, '-af', "volume=#{adjustment}dB", '-c:v', 'copy', output_file])
     raise "Error normalizing audio volume of #{file} (#{e})" unless r.success?
     FileUtils.rm(file)

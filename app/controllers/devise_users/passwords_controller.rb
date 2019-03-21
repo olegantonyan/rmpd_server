@@ -1,6 +1,5 @@
 module DeviseUsers
   class PasswordsController < Devise::PasswordsController
-    include AuthorizationSkipable
     # GET /resource/password/new
     # def new
     #   super

@@ -70,4 +70,7 @@ Rails.application.configure do
       request_specs: false
     g.fixture_replacement :factory_girl, dir: 'spec/factories'
   end
+
+  # Store files locally.
+  config.active_storage.service = :local
 end

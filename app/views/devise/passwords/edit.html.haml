@@ -1,7 +1,0 @@
-- content_for :page_title, t('.change_your_password', :default => 'Change your password')
-= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, role: 'form' }) do |f|
-  = f.input :reset_password_token, as: :hidden
-  = f.input :password, autofocus: true, placeholder: 'New password'
-  = f.input :password_confirmation, placeholder: 'Confirm new password'
-  = f.button :submit, t('.change_my_password', default: 'Change my password')
-= render 'devise/shared/links'

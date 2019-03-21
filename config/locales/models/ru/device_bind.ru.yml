@@ -11,3 +11,5 @@ ru:
         name: Название
         device_group_ids: Группы устройств
         time_zone: Часовой пояс
+        device_not_found: не найден
+        device_already_bound: уже привязан

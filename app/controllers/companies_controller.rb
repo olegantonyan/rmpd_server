@@ -1,19 +1,12 @@
-class CompaniesController < BaseController
-  include Filterrificable
+class CompaniesController < ApplicationController
+  include Paginateble
 
   before_action :set_company, only: %i[show edit update destroy leave]
 
-  # rubocop: disable Style/Semicolon
   def index
-    @filterrific = initialize_filterrific(
-      Company,
-      params[:filterrific]
-    ) || (on_reset; return)
-    filtered = @filterrific.find.page(page).per_page(per_page)
     @companies = policy_scope(filtered)
     authorize @companies
   end
-  # rubocop: eanble Style/Semicolon
 
   def show
     authorize @company

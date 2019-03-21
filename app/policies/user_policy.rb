@@ -19,6 +19,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [:displayed_name, :allow_notifications, company_ids: []]
+    [:displayed_name, company_ids: []]
   end
 end

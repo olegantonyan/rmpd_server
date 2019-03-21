@@ -1,14 +1,10 @@
 class Invite < ApplicationRecord
-  with_options inverse_of: :invites do |a|
-    a.belongs_to :company
-    a.belongs_to :user
-  end
+  belongs_to :company, inverse_of: :invites
+  belongs_to :user, inverse_of: :invites
 
-  with_options presence: true do
-    validates :company
-    validates :user
-    validates :email
-  end
+  validates :company, presence: true
+  validates :user, presence: true
+  validates :email, presence: true
   validates :email, format: { with: Devise.email_regexp }
 
   before_create :generate_token

@@ -4,8 +4,12 @@ class User
 
     before_validation do
       if invite
-        Invite::Accept.create!(invite: invite, user: self)
-        skip_confirmation!
+        accept = Invite::Accept.create(invite: invite, user: self)
+        if accept.save
+          skip_confirmation!
+        else
+          errors.add(:base, accept.errors.full_messages.to_sentence)
+        end
       else
         company = companies.build(title: company_title.presence || "#{self}'s company")
         errors.add(:company_title, company.errors.full_messages.to_sentence) if company.invalid?
@@ -13,7 +17,7 @@ class User
     end
 
     def invite
-      @_invite ||= Invite.find_by(token: invitation_token)
+      @invite ||= Invite.find_by(token: invitation_token)
     end
   end
 end

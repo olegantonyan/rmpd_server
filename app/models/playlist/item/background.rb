@@ -3,11 +3,9 @@ class Playlist
     class Background < Playlist::Item
       belongs_to :playlist, inverse_of: :playlist_items_background
 
-      with_options presence: true do
-        validates :begin_time
-        validates :end_time
-        validates :position, inclusion: { in: -1_000_000..1_000_000 }
-      end
+      validates :begin_time, presence: true
+      validates :end_time, presence: true
+      validates :position, presence: true, inclusion: { in: -1_000_000..1_000_000 }
       validate :media_item_type
 
       private

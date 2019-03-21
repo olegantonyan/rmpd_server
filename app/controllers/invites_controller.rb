@@ -1,4 +1,4 @@
-class InvitesController < BaseController
+class InvitesController < ApplicationController
   def create
     invite = build_invite
     authorize invite

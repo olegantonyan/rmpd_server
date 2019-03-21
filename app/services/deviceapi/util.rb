@@ -10,11 +10,7 @@ module Deviceapi
       end
 
       def incomming_command_object(device, data, sequence_number)
-        if data[:command]
-          "Deviceapi::Protocol::Incoming::#{data[:command].to_s.classify}"
-        else
-          "Deviceapi::Protocol::Incoming::Legacy::#{data[:type].to_s.classify}"
-        end.constantize.new(device, data, sequence_number)
+        "Deviceapi::Protocol::Incoming::#{data[:command].to_s.classify}".constantize.new(device, data, sequence_number)
       end
 
       def available_commands

@@ -21,8 +21,8 @@ RSpec.describe MediaItemPolicy, type: :policy do
     let(:object) { create(:media_item) }
     let(:user) { create(:user) }
 
-    pundit_forbid(*%i[edit update destroy show])
-    pundit_permit(*%i[index create new])
+    pundit_forbid(*%i[edit update destroy show create])
+    pundit_permit(*%i[index new])
   end
 
   describe 'scope' do

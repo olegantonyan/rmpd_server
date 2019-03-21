@@ -1,16 +1,13 @@
 class Playlist
-  class Creation < BaseService
+  class Creation < ActiveModelBase
     attr_accessor :playlist
-    with_options to: :playlist, allow_nil: true do
-      delegate :schedule, :playlist_items_advertising, :to_s
-    end
 
-    def self.model_name
-      Playlist.model_name
-    end
+    delegate :schedule, :playlist_items_advertising, :to_s, to: :playlist, allow_nil: true
 
-    def self.policy_class
-      PlaylistPolicy
+    class << self
+      def policy_class
+        PlaylistPolicy
+      end
     end
 
     # rubocop: disable Metrics/MethodLength

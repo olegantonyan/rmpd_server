@@ -40,7 +40,7 @@ module Deviceapi
         end
 
         def type
-          @_type ||= self.class.name.underscore.split('/').last
+          @type ||= self.class.name.underscore.split('/').last
         end
 
         def notify_error(msg, sequence_number)

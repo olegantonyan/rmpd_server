@@ -1,7 +1,0 @@
-en:
-  subject: "%{app_title} News: %{title}, %{date}"
-  unsibscribe: "Don't want such email anymore? Go to your profile and uncheck the corresponding check box"
-  signature: "%{app_title} team"
-  dear_customer: "dear customer"
-  greetings: "Greetings"
-  news_title: "we've got amazing news for you"

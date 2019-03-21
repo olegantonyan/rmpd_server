@@ -1,7 +1,5 @@
 module DeviseUsers
-  class InvitesController < BaseController
-    include AuthorizationSkipable
-
+  class InvitesController < ApplicationController
     skip_before_action :authenticate_user!, only: :sign_up
 
     # rubocop: disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity

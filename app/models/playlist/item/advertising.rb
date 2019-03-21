@@ -3,13 +3,11 @@ class Playlist
     class Advertising < Playlist::Item
       belongs_to :playlist, inverse_of: :playlist_items_advertising
 
-      with_options presence: true do
-        validates :begin_time
-        validates :end_time
-        validates :playbacks_per_day, numericality: { greater_than_or_equal_to: 1 }
-        validates :begin_date
-        validates :end_date
-      end
+      validates :begin_time, presence: true
+      validates :end_time, presence: true
+      validates :playbacks_per_day, presence: true, numericality: { greater_than_or_equal_to: 1 }
+      validates :begin_date, presence: true
+      validates :end_date, presence: true
       validate :media_item_type
       validate :fit_to_time_period
       validate :begin_time_less_than_end_time

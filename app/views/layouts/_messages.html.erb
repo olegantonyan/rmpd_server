@@ -1,0 +1,31 @@
+<% flash_class = ->(level) do
+  case level.to_sym
+  when :info
+    'notification is-info'
+  when :success, :notice
+    'notification is-success'
+  when :alert, :error
+    'notification is-danger'
+  when :warning
+    'notification is-warning'
+  end
+end
+%>
+
+<% flash.each do |name, msg| %>
+  <div class="<%= flash_class.call(name) %>">
+    <button class="delete"></button>
+    <%= msg %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+  (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+    $notification = $delete.parentNode;
+    $delete.addEventListener('click', () => {
+      $notification.parentNode.removeChild($notification);
+    });
+  });
+});
+</script>

@@ -1,5 +1,5 @@
-class DeviceServiceUploadsController < BaseController
-  include Filterrificable
+class DeviceServiceUploadsController < ApplicationController
+  include Paginateble
 
   before_action :set_device
 

@@ -1,0 +1,66 @@
+<% content_for :page_title, t('views.devices.bind') %>
+
+<div class="columns">
+  <div class="column is-narrow">
+    <%= link_to(devices_path, class: "button") do %>
+      <span class="icon"><i class="fas fa-angle-left "></i></span>
+      <span><%= t('views.back') %></span>
+    <% end %>
+  </div>
+
+  <div class="column">
+    <h1 class="title"><%= yield(:page_title) %></h1>
+  </div>
+</div>
+
+
+<div class="columns">
+  <div class="column">
+  </div>
+
+  <div class="column">
+    <div class="section">
+      <%= form_with(model: @device_bind) do |f| %>
+        <div class="field">
+          <%= f.label :login, class: "label" %>
+          <em><%= t('views.devices.bind_login_help') %></em>
+          <div class="control">
+            <%= f.text_field :login, autofocus: true, class: "input" %>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= f.label :name, class: "label" %>
+          <em><%= t('views.devices.bind_name_help') %></em>
+          <div class="control">
+            <%= f.text_field :name, class: "input" %>
+          </div>
+        </div>
+
+        <% if @companies.count > 1 %>
+          <div class="field">
+            <%= f.label :company_id, class: "label" %>
+            <div class="select">
+              <%= f.select :company_id, @companies.map { |c| [c.title, c.id] } %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= f.label :time_zone, class: "label" %>
+          <div class="select">
+            <%= f.time_zone_select :time_zone  %>
+          </div>
+        </div>
+
+        <div class="actions">
+          <%= f.submit t('views.devices.bind_submit'), class: "button is-link" %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+
+  <div class="column">
+  </div>
+</div>

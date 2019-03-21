@@ -17,7 +17,6 @@ ru:
         company: Компания
         time_zone: Часовой пояс
         device_groups: Группы
-        device_status: Состояние
         device_log_messages: Лог устройства
         wallpaper: Фоновая картинка
         now_playing: Сейчас воспроизводится

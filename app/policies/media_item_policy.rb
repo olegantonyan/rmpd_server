@@ -7,16 +7,19 @@ class MediaItemPolicy < ApplicationPolicy
     super || (index? && user.company_ids.include?(record.company_id)) || record.library_shared
   end
 
-  def create?
+  def new?
     user.present?
   end
 
+  def create?
+    user.present? && (user.company_ids.include?(record.company_id) || user.root?)
+  end
+
   def update?
-    (super || (index? && user.company_ids.include?(record.company_id))) && !record.playlists.exists?
+    super || (index? && user.company_ids.include?(record.company_id))
   end
 
   def destroy?
-    return false if record.file_processing? && !record.file_processing_failed?
     update?
   end
 
@@ -28,7 +31,7 @@ class MediaItemPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    base = [:description, :company_id, :type, :skip_volume_normalization, files: [], tag_ids: []]
+    base = [:description, :company_id, :type, :skip_volume_normalization, tag_ids: []]
     return base unless user.root?
     [:library_shared] + base
   end

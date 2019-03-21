@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= app_title + (content_for?(:page_title) ? ' | ' + yield(:page_title) : '') %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= stylesheet_pack_tag 'application' %>
+    <%= content_tag :div, hidden: true, id: "js_data", js_data: @js_data.to_json do %>
+    <% end %>
+    <%= content_for?(:js) ? yield(:js) : javascript_packs_with_chunks_tag('application') %>
+  </head>
+  <body>
+    <% unless hide_navbar? %>
+      <%= render 'layouts/navbar' %>
+    <% end %>
+
+    <section class="section">
+
+      <div class="container">
+        <%= render 'layouts/messages' %>
+        <%= yield %>
+        <%= render 'layouts/footer' %>
+      </div>
+
+    </session>
+  </body>
+</html>

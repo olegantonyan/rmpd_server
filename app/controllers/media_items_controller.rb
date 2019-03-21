@@ -1,106 +1,90 @@
-class MediaItemsController < BaseController
-  include Filterrificable
-  include ChunkedUploadable
+class MediaItemsController < ApplicationController
+  include Paginateble
 
-  before_action :set_media_item, only: %i[show edit update destroy]
+  def index # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
+    respond_to do |format|
+      format.html do
+        add_js_data(
+          index_path: media_items_path,
+          destroy_path: destroy_multiple_media_items_path,
+          tags: policy_scope(Tag.ordered).map(&:to_hash)
+        )
+      end
+      format.json do
+        scoped = policy_scope(MediaItem.includes(:tags, :company))
+        scoped = QueryObject.new(:search_query, :with_tag_ids, :with_company_id, :with_type, :with_library).call(scoped, params)
+        scoped = scoped.distinct
 
-  # GET /media_items
-  # rubocop: disable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength
-  def index
-    @filterrific = initialize_filterrific(
-      MediaItem,
-      params[:filterrific],
-      select_options: {
-        with_company_id: policy_scope(Company.all).map { |e| [e.title, e.id] },
-        with_type: MediaItem.types.map { |k, _| [MediaItem.human_enum_name(k), k] },
-        with_file_processing: boolean_select,
-        with_tag_id: policy_scope(Tag.all.order(:name)).map { |e| [e.name, e.id] }
-      }
-    ) || (on_reset; return)
-    @media_items = policy_scope(@filterrific.find.page(page).per_page(per_page)).order(created_at: :desc)
-    authorize @media_items
-  end
-  # rubocop: enable Metrics/AbcSize, Style/Semicolon, Metrics/MethodLength
+        total_count = scoped.count
+        media_items = scoped.limit(limit).offset(offset).order(created_at: :desc)
 
-  # GET /media_items/1
-  def show
-    authorize @media_item
+        authorize(media_items)
+
+        render json: { data: media_items.map(&:to_hash), total_count: total_count }
+      end
+    end
   end
 
-  # GET /media_items/new
   def new
-    @media_item_multiple = MediaItem::CreateMultiple.new
-    authorize @media_item_multiple
-  end
-
-  def edit
-    authorize @media_item
+    add_js_data(
+      create_path: media_items_path,
+      upload_path: upload_media_items_path,
+      tags: policy_scope(Tag.ordered).map(&:to_hash)
+    )
+    authorize(:media_item)
   end
 
   def update
-    authorize @media_item
-    @media_item.assign_attributes(media_item_params)
-    crud_respond @media_item
+    media_item = MediaItem.find(params[:id])
+    authorize(media_item)
+    # TODO
   end
 
-  # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
-  def create_multiple
-    uploads = media_item_create_multiple_params[:files].map { |file| chunked_upload(file) }
-    uploads.map(&:save)
-    done_uploads = uploads.select(&:done?)
-    if done_uploads.any?
-      current_params = media_item_create_multiple_params.merge(files: done_uploads.map(&:file))
-      @media_item_multiple = MediaItem::CreateMultiple.new(current_params)
-      authorize @media_item_multiple, :create?
-      respond_to do |format|
-        format.json do
-          if @media_item_multiple.save
-            render json: {}
-          else
-            render json: { error: @media_item_multiple.errors.full_messages.to_sentence, files: @media_item_multiple.files.map(&:original_filename) }, status: :unprocessable_entity
-          end
-        end
-        format.html { crud_respond(@media_item_multiple) }
-      end
-      # done_uploads.map(&:cleanup) # don't need this, thanks to `move_to_cache` and `move_to_store`
+  def upload
+    Upload.new(request.body.read, request.headers['Content-Range'], request.headers['X-Upload-Uuid']).save
+    render json: {}, status: :created
+  rescue StandardError => e
+    render json: { error: e.message }, status: :unprocessable_entity
+  end
+
+  def create # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
+    media_item_params = params.require(:media_item).permit(policy(:media_item).permitted_attributes)
+    upload_params = params.require(:upload).permit(:upload_uuid, :upload_filename, :upload_content_type)
+
+    if upload_params[:upload_content_type] != 'audio/mpeg'
+      render json: { error: 'unsupported file format, only mp3 is supported now' }, status: :unprocessable_entity
     else
-      skip_authorization
-      render json: {}
-    end
-  end
-  # rubocop: enable Metrics/MethodLength, Metrics/AbcSize
+      media_item = MediaItem.new(media_item_params.except(:skip_volume_normalization))
+      media_item.skip_file_validation = true
+      authorize(media_item)
 
-  # DELETE /media_items/1
-  def destroy
-    authorize @media_item
-    crud_respond @media_item
-  end
-
-  def destroy_multiple
-    media_items = MediaItem.find(params[:media_item_ids])
-    media_items.each { |m| authorize m, :destroy? }
-    crud_respond MediaItem::DestroyMultiple.new(media_items: media_items), error_url: media_items_path
-  end
-
-  private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_media_item
-    @media_item = MediaItem.find(params[:id])
-  end
-
-  def media_item_params
-    params.require(:media_item).permit(policy(@media_item).permitted_attributes)
-  end
-
-  def media_item_create_multiple_params
-    params.require(:media_item_create_multiple).permit(policy(:media_item).permitted_attributes).tap do |i|
-      i[:files] = i[:files]&.reject(&:blank?)
-      i[:skip_volume_normalization] = i[:skip_volume_normalization] == '1'
+      if media_item.valid?
+        MediaItemProcessingWorker.perform_async(media_item_params.to_unsafe_h, upload_params.to_unsafe_h)
+        render json: {}, status: :accepted
+      else
+        render json: { error: media_item.errors.full_messages.to_sentence }, status: :unprocessable_entity
+      end
     end
   end
 
-  def crud_responder_default_options
-    { success_url: media_items_path }
+  def destroy_multiple # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
+    media_items = MediaItem.where(id: params[:media_item_ids])
+    d = media_items.group_by do |m|
+      authorize(m, :destroy?)
+      if m.playlists.empty?
+        :ok
+      else
+        :has_playlist
+      end
+    rescue Pundit::NotAuthorizedError
+      :unauthorized
+    end
+    d.fetch(:ok, []).each(&:destroy)
+
+    render json: {
+      deleted: d.fetch(:ok, []).map(&:to_hash),
+      unauthorized: d.fetch(:unauthorized, []).map(&:to_hash),
+      has_playlist: d.fetch(:has_playlist, []).map(&:to_hash)
+    }
   end
 end

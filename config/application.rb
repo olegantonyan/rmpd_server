@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module RmpdServer
   class Application < Rails::Application
+    config.load_defaults 6.0
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -25,5 +27,7 @@ module RmpdServer
     # To silence this deprecation warning, add the following:
     #     config.active_record.time_zone_aware_types << :time
     config.active_record.time_zone_aware_types = [:datetime]
+
+    config.assets.enabled = false
   end
 end

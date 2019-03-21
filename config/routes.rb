@@ -20,25 +20,19 @@ Rails.application.routes.draw do
     resource :playlist_assignment, only: %i[update]
   end
 
-  resources :news_items, path: :news
-  resources :media_items, except: %i[create] do
-    collection do
-      post :create_multiple
-      delete :destroy_multiple
-    end
+  resources :media_items, except: %i[show edit destroy] do
+    post 'upload', on: :collection
+    delete 'destroy_multiple', on: :collection
   end
   resources :device_groups, concerns: :playlist_assignable
-  resources :devices, concerns: :playlist_assignable do
+  resources :devices, concerns: :playlist_assignable, except: %i[destroy new create] do
     resources :device_log_messages, only: %i[index]
-    resources :ssh_tunnels, only: %i[new create]
     resource :software_update, only: %i[new create]
     resources :device_service_uploads, only: %i[index] do
       post 'manual_request', on: :collection
     end
   end
-  resources :playlists do
-    resources :playlist_items, only: %i[show]
-  end
+  resources :playlists, except: %i[edit]
   resources :companies do
     post 'leave', on: :member
     resources :invites, only: %i[create destroy]

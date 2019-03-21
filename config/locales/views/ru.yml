@@ -1,0 +1,40 @@
+ru:
+  views:
+    back: Назад
+    home_page: Домашняя страница
+    help: Помощь
+    contact_us: Контакты
+    privacy_policy: Политика конфиденциальности
+    login: Вход
+    logout: Выход
+    sign_up: Регистрация
+    not_authorized: Недостаточно прав доступа
+
+    media_items:
+      index_title: Медиафайлы
+      upload_files: Залить медиафайлы
+
+    registration:
+      invited_by: Приглашён в %{company} пользователем %{by_user}
+      with_invite: Регистрация по приглашению
+
+    devices:
+      bind: Привязать новое устройство к аккаунту
+      bind_submit: Готово
+      bind_login_help: Комбинация букв и цифр, написана на устройстве
+      bind_name_help: Придумайте название этому устройству, например "Столовая №1"
+      bind_successfull: Устройство %{device} успешно привязано к компании %{company}
+      index_title: Устройства
+      show_title: Устройство %{device}
+      edit_title: Редактировать устройство
+      save: Сохранить
+      update_successfull: Успешно обновлено
+      delete_confirm: Удалить это устройство. Вы уверены?
+
+    playlists:
+      index_title: Плейлисты
+      midnight_rollover_warning: 'Если время начала воспроизведения больше времени окончания, то при сохранении плейлиста будет создано 2 записи на этот трек: одна с времени начала до полуночи текущего дня и вторая с полуночи до времени окончания на следующий день'
+      date_interval: Интервал дат
+      new_title: Новый плейлист
+      delete_confirm: Удалить этот плейлист. Вы уверены?
+      show_title: Плейлист %{playlist}

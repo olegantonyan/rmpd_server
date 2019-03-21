@@ -1,6 +1,5 @@
 module DeviseUsers
   class ConfirmationsController < Devise::ConfirmationsController
-    include AuthorizationSkipable
     # GET /resource/confirmation/new
     # def new
     #   super

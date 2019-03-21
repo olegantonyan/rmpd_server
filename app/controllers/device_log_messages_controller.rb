@@ -1,27 +1,21 @@
-class DeviceLogMessagesController < BaseController
-  include Filterrificable
+class DeviceLogMessagesController < ApplicationController
+  include Paginateble
 
-  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength, Style/Semicolon
-  def index
-    @filterrific = initialize_filterrific(
-      Device::LogMessage,
-      params[:filterrific]
-    ) || (on_reset; return)
-    filtered = @filterrific.find.page(page).per_page(per_page)
-    @device_log_messages = policy_scope(filtered.where(device_id: params[:device_id])).ordered.includes(:device)
-    authorize @device_log_messages
+  def index # rubocop: disable Metrics/AbcSize
+    scoped = policy_scope(Device::LogMessage.where(device_id: params[:device_id])).includes(:device)
+    scoped = scoped.distinct
 
-    respond_to do |format|
-      format.html
-      format.js
-      format.csv { render text: @device_log_messages.to_csv }
-    end
+    total_count = scoped.count
+    log_messages = scoped.limit(limit).offset(offset).ordered
+
+    authorize(log_messages)
+
+    render json: { data: log_messages.map(&:to_hash), total_count: total_count }
   end
-  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength, Style/Semicolon
 
   private
 
-  def default_per_page
+  def default_limit
     100
   end
 end

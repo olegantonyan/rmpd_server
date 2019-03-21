@@ -1,0 +1,55 @@
+en:
+  webpacker:
+    search: Search
+    cancel: Cancel
+    any_company: Any company
+    reset_filters: Reset filters
+    error: Error
+    company: Company
+    media_items:
+      background: Background
+      advertising: Advertising
+      tags: Tags
+      any_type: Any type
+      file_processing: File processing
+      upload_new: Upload
+      description: Description
+      type: Type
+      private_only: Private
+      all: All
+      library: Library shared
+      skip_volume_normalization: Skip volume normalization
+      add_files: Add files
+      start_upload: Start upload
+      file_name: File name
+      file_size: Size
+      clear_selected: Clear
+      progress: Progress
+      select_all: Select all
+      delete_selected: Delete selected
+      delete_confirm: Will delete selected items. Proceed?
+      deleted: Deleted successfully
+      unauthorized: Unauthorized
+      has_playlist: Belongs to playlist(s)
+
+    devices:
+      login: Identifier
+      name: Name
+      now_playing: Now playing
+      poweredon_at: Powered on at
+      devicetime: Local time
+      software_version: Software version
+      free_space: Free space
+      timezone: Timezone
+      playlist: Playlist
+      webui_password: Built-in Web UI and access point password
+
+      log_messages:
+        title: Log messages
+        command: Command
+        localtime: Local time
+        created_at: Server time
+        message: Message
+
+    playlists:
+      files: files

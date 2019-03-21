@@ -1,34 +1,18 @@
 class Device < ApplicationRecord
   has_secure_password
 
-  mount_uploader :wallpaper, WallpaperUploader
-
-  with_options dependent: :destroy do |a|
-    a.with_options inverse_of: :device do |aa|
-      aa.has_one :device_status, class_name: 'Device::Status', autosave: true
-      aa.has_many :device_group_memberships, class_name: 'Device::Group::Membership'
-      aa.has_many :device_log_messages, class_name: 'Device::LogMessage'
-      aa.has_many :device_service_uploads, -> { order(created_at: :desc) }, class_name: 'Device::ServiceUpload'
-    end
-  end
-  with_options inverse_of: :devices do |a|
-    a.belongs_to :playlist
-    a.belongs_to :company, optional: true
-  end
+  has_many :device_group_memberships, class_name: 'Device::Group::Membership', inverse_of: :device, dependent: :destroy
+  has_many :device_log_messages, class_name: 'Device::LogMessage', inverse_of: :device, dependent: :destroy
+  has_many :device_service_uploads, -> { order(created_at: :desc) }, class_name: 'Device::ServiceUpload', inverse_of: :device, dependent: :destroy
+  belongs_to :playlist, inverse_of: :devices
+  belongs_to :company, optional: true, inverse_of: :devices
   has_many :device_groups, through: :device_group_memberships, class_name: 'Device::Group'
 
-  with_options presence: true do
-    validates :login, uniqueness: true, length: { in: 4..100 }
-    validates :password, length: { in: 8..60 }, confirmation: true, if: -> { new_record? || !password.nil? }
-  end
+  validates :login, presence: true, uniqueness: true, length: { in: 4..100 }
+  validates :password, presence: true, length: { in: 8..60 }, confirmation: true, if: -> { new_record? || !password.nil? }
   validates :name, length: { maximum: 40 }
-  validate :wallpaper_max_size, if: -> { wallpaper.present? }
 
   after_destroy { send_to(:clear_queue) }
-  around_save :update_setting
-  after_commit -> { send_to(:update_wallpaper) }, if: -> { previous_changes[:wallpaper] }
-
-  filterrific(available_filters: %i[search_query with_company_id with_device_group_id])
 
   scope :search_query, ->(query) {
     q = "%#{query}%"
@@ -36,14 +20,8 @@ class Device < ApplicationRecord
   }
   scope :with_company_id, ->(ids) { where(company_id: [*ids]) }
   scope :with_device_group_id, ->(ids) { joins(:device_groups).where(device_groups: { id: [*ids] }) }
-  scope :ordered_by_online, ->(direction = :desc) { includes(:device_status).order("device_statuses.online #{direction.to_sym == :asc ? 'ASC' : 'DESC'}") }
-  scope :online, -> { joins(:device_status).merge(Device::Status.online) }
-
-  delegate :now_playing, to: :device_status, allow_nil: true
-
-  def online?
-    device_status&.online
-  end
+  scope :ordered_by_online, ->(direction = :desc) { order(online: direction) }
+  scope :online, -> { where(online: true) }
 
   def to_s
     if name.blank?
@@ -75,26 +53,14 @@ class Device < ApplicationRecord
     ClientVersion.new(device_log_messages.latest&.user_agent)
   end
 
-  def self.message_queue_sync_periods
-    o = Struct.new(:label, :value)
-    [o.new('12 hours', 12), o.new('3 hours', 3), o.new('6 hours', 6), o.new('24 hours', 24), o.new('3 days', 72),
-     o.new('1 week', 168), o.new('1 month', 744), o.new('never (default)', 0)]
-  end
-
-  private
-
-  def wallpaper_max_size
-    limit = 2.5
-    errors.add(:wallpaper, "cannot be greater than #{limit}Mb") if wallpaper.file.size.to_f / (1024 * 1024) > limit
-  end
-
-  def update_setting
-    changed_attrs = changed.map(&:to_sym).dup
-    yield
-    send_to(:update_setting, changed_attrs: changed_attrs) if (changed_attrs & %i[time_zone message_queue_sync_period]).any?
-  end
-
   def send_to(command, options = {})
     Deviceapi::Sender.new(self).send(command, options)
+  end
+
+  def to_hash
+    d = attributes.slice('id', 'login', 'name', 'created_at', 'updated_at', 'time_zone', 'online', 'poweredon_at', 'devicetime', 'free_space', 'now_playing', 'webui_password')
+    d['company'] = company.to_hash
+    d['playlist'] = playlist&.attributes&.slice('id', 'name', 'description')
+    d
   end
 end
