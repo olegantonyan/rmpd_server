@@ -59,7 +59,7 @@ class Device < ApplicationRecord
 
   def to_hash
     d = attributes.slice('id', 'login', 'name', 'created_at', 'updated_at', 'time_zone', 'online', 'poweredon_at', 'devicetime', 'free_space', 'now_playing', 'webui_password')
-    d['company'] = company.to_hash
+    d['company'] = company&.to_hash
     d['playlist'] = playlist&.attributes&.slice('id', 'name', 'description')
     d
   end
