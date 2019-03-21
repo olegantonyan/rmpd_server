@@ -12,8 +12,10 @@ server {
 
 # HTTPS server
 server {
-  listen 443;
+  listen 443 ssl;
   server_name cloud.slon-ds.ru;
+  gzip off;
+
   ssl on;
   ssl_certificate /etc/letsencrypt/live/cloud.slon-ds.ru/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/live/cloud.slon-ds.ru/privkey.pem;
@@ -22,6 +24,15 @@ server {
   ssl_prefer_server_ciphers on;
   ssl_session_cache shared:SSL:10m;
   ssl_dhparam /etc/ssl/certs/dhparam.pem;
+  ssl_stapling on;
+  ssl_stapling_verify on;
+  ssl_session_timeout 10m;
+  ssl_ecdh_curve secp384r1;
+
+  add_header Strict-Transport-Security "max-age=31536000; includeSubdomains";
+  add_header X-Frame-Options DENY;
+  add_header X-Content-Type-Options nosniff;
+
 
   root /home/rmpd/apps/rmpd_server/current/public;
 
