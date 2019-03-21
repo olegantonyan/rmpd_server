@@ -46,7 +46,7 @@ export default class Device extends React.Component {
                 </tr>
                 <tr>
                   <td>{I18n.company}</td>
-                  <td>{this.props.js_data.device.company.title}</td>
+                  <td>{this.props.js_data.device.company !== null && this.props.js_data.device.company.title}</td>
                 </tr>
                 <tr>
                   <td>{I18n.devices.playlist}</td>
