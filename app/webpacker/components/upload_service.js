@@ -1,5 +1,7 @@
 import CsrfToken from "./csrf_token"
 
+const CHUNK_SIZE = 1 * 1024 * 1024 // bytes
+
 export default class UploadService {
   constructor(url) {
     this.url = url
@@ -54,7 +56,6 @@ export default class UploadService {
 
   upload_single = (file, uuid, onfinish, onerror, onprogress) => {
     let file_size = file.size
-    let chunk_size = 3 * 1024 * 1024 // bytes
     var offset = 0
 
     let chunk_reader_block = (_offset, length, _file) => {
@@ -72,7 +73,7 @@ export default class UploadService {
                 onfinish(file, uuid)
                 return true
             }
-            chunk_reader_block(offset, chunk_size, file); // of to the next chunk
+            chunk_reader_block(offset, CHUNK_SIZE, file); // of to the next chunk
           },
           (message)=> {
             onerror(message, file, uuid);
@@ -84,7 +85,7 @@ export default class UploadService {
           return false
       }
     };
-    chunk_reader_block(offset, chunk_size, file) // now let's start the read with the first block
+    chunk_reader_block(offset, CHUNK_SIZE, file) // now let's start the read with the first block
   }
 
   upload_chunk = (data, uuid, offset, total, onsuccess, onerror) => {
