@@ -6,6 +6,8 @@ upstream puma {
 
 server {
   listen 80 deferred;
+  listen [::]:80;
+
   server_name cloud.slon-ds.ru;
   return 301 https://$server_name$request_uri;  # enforce https
 }
@@ -13,6 +15,7 @@ server {
 # HTTPS server
 server {
   listen 443 ssl;
+  listen [::]:443 ssl;
   server_name cloud.slon-ds.ru;
   gzip off;
 
