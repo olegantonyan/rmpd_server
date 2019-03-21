@@ -18,7 +18,7 @@ class MediaItem < ApplicationRecord
 
   scope :search_query, ->(query) {
     q = "%#{query}%"
-    where('LOWER(file) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)', q, q)
+    joins(:file_attachment, :file_blob).where('LOWER(active_storage_blobs.filename) LIKE LOWER(?) OR LOWER(media_items.description) LIKE LOWER(?)', q, q)
   }
   scope :with_company_id, ->(companies_ids) { where(company_id: [*companies_ids]) }
   scope :with_tag_ids, ->(tag_ids) { left_outer_joins(:tags).where(tags: { id: tag_ids }) }
