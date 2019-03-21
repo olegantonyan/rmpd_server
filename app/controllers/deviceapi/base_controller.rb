@@ -1,6 +1,7 @@
 module Deviceapi
   class BaseController < ActionController::Base
     before_action :authenticate_and_set_device
+    skip_before_action :verify_authenticity_token
 
     protected
 
