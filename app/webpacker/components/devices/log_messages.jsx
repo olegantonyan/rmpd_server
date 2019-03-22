@@ -27,8 +27,11 @@ export default class LogMessages extends React.Component {
     const component = this
     this.props.action_cable.subscriptions.create({ channel: "DeviceLogMessagesChannel", device_id: this.props.device_id }, {
       received(data) {
-        var new_log_messages = [data].concat(component.state.log_messages);
-        component.setState({ log_messages: new_log_messages })
+        if (component.state.current_page > 0) {
+          return
+        }
+        let new_log_messages = [data].concat(component.state.log_messages.slice(0, ITEMS_PER_PAGE - 1));
+        component.setState({ log_messages: new_log_messages, total_count: component.state.total_count + 1 })
       }
     })
   }
