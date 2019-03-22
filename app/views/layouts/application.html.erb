@@ -4,6 +4,7 @@
     <title><%= app_title + (content_for?(:page_title) ? ' | ' + yield(:page_title) : '') %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
     <%= stylesheet_pack_tag 'application' %>
     <%= content_tag :div, hidden: true, id: "js_data", js_data: @js_data.to_json do %>
     <% end %>

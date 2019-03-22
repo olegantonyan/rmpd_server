@@ -951,6 +951,11 @@ acorn@^6.0.5:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.1.1.tgz#7d25ae05bb8ad1f9b699108e1094ecd7884adc1f"
   integrity sha512-jPTiwtOxaHNaAPg/dmrJ/beuzLRnXtB0kQPQ8JpotKJgTB6rX6c8mlf315941pyjBSaPg8NHXS9fhP4u17DpGA==
 
+actioncable@^5.2.2-1:
+  version "5.2.2-1"
+  resolved "https://registry.yarnpkg.com/actioncable/-/actioncable-5.2.2-1.tgz#8d58632994478ae4bbe395a3c9f039356af12e18"
+  integrity sha512-F5PE9XKpRSVJu70ZPOHbcOplufWk+bnQEztRHlsu9vCkW0QL8Tt/6jho53dbjiC4OuChVh66Sf7glnvgTedYOA==
+
 ajv-errors@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ajv-errors/-/ajv-errors-1.0.1.tgz#f35986aceb91afadec4102fbd85014950cefa64d"

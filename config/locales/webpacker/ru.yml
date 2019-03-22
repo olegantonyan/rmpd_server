@@ -40,7 +40,7 @@ ru:
       poweredon_at: Время включения
       devicetime: Время на устройстве
       software_version: Версия ПО
-      free_space: Свобондо места
+      free_space: Свободно места
       timezone: Часовой пояс
       playlist: Плейлист
       webui_password: Пароль на встроенный веб-интрефейс и точку доступа

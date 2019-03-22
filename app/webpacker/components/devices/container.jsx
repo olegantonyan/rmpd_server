@@ -12,7 +12,8 @@ const ALL_COMPANIES_PLACEHOLDER = { id: 0, title: I18n.any_company }
 
 export default class Container extends React.Component {
   static propTypes = {
-    js_data: PropTypes.object.isRequired
+    js_data: PropTypes.object.isRequired,
+    action_cable: PropTypes.object.isRequired
   }
 
   state = {
@@ -94,12 +95,32 @@ export default class Container extends React.Component {
     fetch(url, { headers: headers })
     .then(result => result.json())
     .catch(error => this.fetchError(error))
-    .then(data => this.setState({ devices: data.data, total_count: data.total_count, current_page: page, loading: false }))
+    .then(data => this.setState({ devices: data.data, total_count: data.total_count, current_page: page, loading: false }, this.onDevicesUpdated))
     .catch(error => this.fetchError(error))
   }
 
   fetchError = (err) => {
     console.error(err)
     this.setState({ loading: false })
+  }
+
+  onDevicesUpdated = () => {
+    const component = this
+    this.state.devices.forEach(d => {
+      this.props.action_cable.subscriptions.create({ channel: "DevicesChannel", device_id: d.id }, {
+        received(data) { component.onActionCableUpdate(data) }
+      })
+    })
+  }
+
+  onActionCableUpdate = (device) => {
+    const state_copy = [...this.state.devices]
+    const new_devices = state_copy.map(d => {
+      if (device.id === d.id) {
+        return device
+      }
+      return d
+    })
+    this.setState({ devices: new_devices })
   }
 }

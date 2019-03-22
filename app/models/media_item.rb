@@ -63,7 +63,7 @@ class MediaItem < ApplicationRecord
 
   def to_hash
     item = attributes
-    item['file'] = file.filename.to_s
+    item['file'] = file.filename.base
     item['file_url'] = file_url
     item['file_content_type'] = content_type
     item['tags'] = tags.map(&:to_hash)

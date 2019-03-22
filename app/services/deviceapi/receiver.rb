@@ -33,7 +33,7 @@ module Deviceapi
       logdata.permit!
       Device::LogMessage.write!(device, logdata, user_agent)
     rescue StandardError => e
-      logger.error("error writing device log: #{e.message}")
+      Rails.logger.error("error writing device log: #{e.message}")
     end
 
     def notify_status

@@ -1,0 +1,2 @@
+class DeviceLogMessagesChannel < DevicesChannel
+end

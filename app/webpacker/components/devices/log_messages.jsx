@@ -8,7 +8,9 @@ const ITEMS_PER_PAGE = 50
 
 export default class LogMessages extends React.Component {
   static propTypes = {
-    url: PropTypes.string.isRequired
+    device_id: PropTypes.number.isRequired,
+    url: PropTypes.string.isRequired,
+    action_cable: PropTypes.object.isRequired
   }
 
   state = {
@@ -21,6 +23,14 @@ export default class LogMessages extends React.Component {
 
   componentDidMount() {
     this.fetchItems(this.state.current_page)
+
+    const component = this
+    this.props.action_cable.subscriptions.create({ channel: "DeviceLogMessagesChannel", device_id: this.props.device_id }, {
+      received(data) {
+        var new_log_messages = [data].concat(component.state.log_messages);
+        component.setState({ log_messages: new_log_messages })
+      }
+    })
   }
 
   render() {
