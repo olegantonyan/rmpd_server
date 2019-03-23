@@ -13,7 +13,7 @@ class Device
     scope :with_since_date, ->(date) { where('date(' + table_name + '.created_at) >= ?', Date.parse(date.to_s)) }
     scope :with_to_date, ->(date) { where('date(' + table_name + '.created_at) <= ?', Date.parse(date.to_s)) }
 
-    after_commit { DeviceLogMessagesChannel.broadcast_to(device, to_hash) }
+    after_commit(on: :create) { DeviceLogMessagesChannel.broadcast_to(device, to_hash) }
 
     class << self
       def latest

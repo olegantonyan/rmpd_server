@@ -13,7 +13,7 @@ class Device < ApplicationRecord
   validates :name, length: { maximum: 40 }
 
   after_destroy { send_to(:clear_queue) }
-  after_commit { DevicesChannel.broadcast_to(self, to_hash) }
+  after_commit(on: :update) { DevicesChannel.broadcast_to(self, to_hash) }
 
   scope :search_query, ->(query) {
     q = "%#{query}%"
