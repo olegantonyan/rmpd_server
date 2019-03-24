@@ -15,3 +15,7 @@
   tmp_uploads_cleanup:
     class: TmpUploadsCleanupJob
     cron: '5 0 * * *'
+
+  device_logs_cleanup:
+    class: DeviceLogsCleanupJob
+    cron: '5 0 * * *'
