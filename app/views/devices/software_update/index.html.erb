@@ -1,0 +1,59 @@
+<% content_for :page_title, 'Software update' %>
+
+<div class="columns">
+  <div class="column">
+    <h1 class="title"><%= yield(:page_title) %></h1>
+  </div>
+
+  <div class="column">
+  </div>
+
+  <div class="column">
+  </div>
+</div>
+
+<div class="section">
+  <%= form_for(@software_update, url: device_software_updates_path(@software_update.device)) do |f| %>
+
+    <div class="field">
+      <%= f.label :version, class: "label" %>
+      <div class="control">
+        <%= f.text_field :version, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :file, class: "label" %>
+      <div class="control">
+        <%= f.file_field :file %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit 'Create', class: "button is-link" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="section">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Version</th>
+        <th>Created at</th>
+        <th>File</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @software_updates.each do |su| %>
+        <tr>
+          <td><%= su.version %></td>
+          <td><%= su.created_at %></td>
+          <td><%= link_to(su.file.filename.to_s, su.file_url) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

@@ -1,25 +1,29 @@
 class SoftwareUpdatesController < ApplicationController
-  before_action :set_device
-
   def self.controller_path
     'devices/software_update'
   end
 
-  def new
-    @software_update = Device::SoftwareUpdate.new(device: @device)
-    authorize @software_update
+  def index
+    device = Device.find(params[:device_id])
+    @software_updates = device.device_software_updates.ordered
+    @software_update = device.device_software_updates.build
+    authorize(@software_update)
   end
 
-  def create
+  def create # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
     @software_update = Device::SoftwareUpdate.new(software_update_params)
-    @software_update.device = @device
-    authorize @software_update
+    device = Device.find(params[:device_id])
+    @software_update.device = device
+    authorize(@software_update)
+
     if @software_update.save
-      flash[:notice] = "#{@device} will be updated soon"
-      redirect_to @device
+      Deviceapi::Sender.new(device).send(:update_software, distribution_url: @software_update.file_url)
+      flash[:notice] = "#{device} will be updated soon"
+      redirect_to(device_path(device))
     else
+      @software_updates = device.device_software_updates.ordered
       flash[:alert] = 'Error requesting device software update'
-      render :new
+      render(:index)
     end
   end
 
@@ -30,6 +34,6 @@ class SoftwareUpdatesController < ApplicationController
   end
 
   def software_update_params
-    params.require(:device_software_update).permit(:distribution)
+    params.require(:device_software_update).permit(:version, :file)
   end
 end

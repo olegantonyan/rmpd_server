@@ -1,13 +1,22 @@
 class Device
-  class SoftwareUpdate
-    attr_accessor :device, :distribution
+  class SoftwareUpdate < ApplicationRecord
+    belongs_to :device
 
-    def save
-      Deviceapi::Sender.new(device).send(:update_software, distribution_url: distribution_url)
+    validates :version, presence: true
+    validate :supported
+
+    has_one_attached :file
+
+    scope :ordered, -> { order(created_at: :desc) }
+
+    def file_url
+      Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true)
     end
 
-    def supported?
-      device&.client_version&.self_update_support?
+    private
+
+    def supported
+      errors.add(:base, 'unsupported device') unless device&.client_version&.self_update_support?
     end
   end
 end

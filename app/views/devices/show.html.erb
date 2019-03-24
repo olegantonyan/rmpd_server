@@ -30,3 +30,11 @@
 <div class="section">
   <div id="root_component"></div>
 </div>
+
+<% if current_user.root? %>
+  <div class="section">
+    <%= link_to(device_software_updates_path(@device), class: "button is-warning") do %>
+      <span>Software update</span>
+    <% end %>
+  </div>
+<% end %>

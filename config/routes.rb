@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   resources :device_groups, concerns: :playlist_assignable
   resources :devices, concerns: :playlist_assignable, except: %i[destroy new create] do
     resources :device_log_messages, only: %i[index]
-    resource :software_update, only: %i[new create]
+    resources :software_updates, only: %i[create index]
     resources :device_service_uploads, only: %i[index] do
       post 'manual_request', on: :collection
     end

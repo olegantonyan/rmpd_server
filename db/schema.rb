@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_21_110831) do
+ActiveRecord::Schema.define(version: 2019_03_24_065639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(version: 2019_03_21_110831) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["device_id"], name: "index_device_service_uploads_on_device_id"
+  end
+
+  create_table "device_software_updates", force: :cascade do |t|
+    t.bigint "device_id", null: false
+    t.string "version", limit: 1000, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["device_id"], name: "index_device_software_updates_on_device_id"
   end
 
   create_table "deviceapi_message_queue", id: :serial, force: :cascade do |t|
@@ -219,6 +227,7 @@ ActiveRecord::Schema.define(version: 2019_03_21_110831) do
   add_foreign_key "device_group_memberships", "device_groups"
   add_foreign_key "device_group_memberships", "devices"
   add_foreign_key "device_service_uploads", "devices"
+  add_foreign_key "device_software_updates", "devices"
   add_foreign_key "invites", "companies"
   add_foreign_key "invites", "users"
   add_foreign_key "playlist_items", "media_items"
