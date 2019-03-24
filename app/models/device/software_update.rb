@@ -3,6 +3,7 @@ class Device
     belongs_to :device
 
     validates :version, presence: true
+    validates :file, presence: true
     validate :supported
 
     has_one_attached :file

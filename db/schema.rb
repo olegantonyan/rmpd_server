@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_24_153724) do
+ActiveRecord::Schema.define(version: 2019_03_24_180715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,15 +67,6 @@ ActiveRecord::Schema.define(version: 2019_03_24_153724) do
     t.datetime "updated_at", null: false
     t.string "user_agent"
     t.index ["device_id"], name: "index_device_log_messages_on_device_id"
-  end
-
-  create_table "device_service_uploads", id: :serial, force: :cascade do |t|
-    t.string "file"
-    t.string "reason", default: "", null: false
-    t.integer "device_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["device_id"], name: "index_device_service_uploads_on_device_id"
   end
 
   create_table "device_software_updates", force: :cascade do |t|
@@ -226,7 +217,6 @@ ActiveRecord::Schema.define(version: 2019_03_24_153724) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "device_group_memberships", "device_groups"
   add_foreign_key "device_group_memberships", "devices"
-  add_foreign_key "device_service_uploads", "devices"
   add_foreign_key "device_software_updates", "devices"
   add_foreign_key "invites", "companies"
   add_foreign_key "invites", "users"

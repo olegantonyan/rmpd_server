@@ -4,7 +4,6 @@ class Device < ApplicationRecord
   has_many :device_group_memberships, class_name: 'Device::Group::Membership', inverse_of: :device, dependent: :destroy
   has_many :device_groups, through: :device_group_memberships, class_name: 'Device::Group'
   has_many :device_log_messages, class_name: 'Device::LogMessage', inverse_of: :device, dependent: :destroy
-  has_many :device_service_uploads, -> { order(created_at: :desc) }, class_name: 'Device::ServiceUpload', inverse_of: :device, dependent: :destroy
   belongs_to :playlist, inverse_of: :devices, optional: true
   belongs_to :company, optional: true, inverse_of: :devices
   has_many :device_software_updates, class_name: 'Device::SoftwareUpdate', dependent: :destroy

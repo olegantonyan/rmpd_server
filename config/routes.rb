@@ -28,9 +28,6 @@ Rails.application.routes.draw do
   resources :devices, concerns: :playlist_assignable, except: %i[destroy new create] do
     resources :device_log_messages, only: %i[index]
     resources :software_updates, only: %i[create index]
-    resources :device_service_uploads, only: %i[index] do
-      post 'manual_request', on: :collection
-    end
   end
   resources :playlists, except: %i[edit]
   resources :companies do
@@ -42,6 +39,5 @@ Rails.application.routes.draw do
 
   namespace :deviceapi, defaults: { format: :json } do
     resources :status, only: %i[create]
-    resource :service_upload, only: %i[create]
   end
 end
