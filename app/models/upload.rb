@@ -3,7 +3,7 @@ class Upload
     using Typerb
 
     def tmp_path
-      Rails.root.join('public', 'uploads', 'tmp', 'uploads').freeze
+      Rails.root.join('public', 'uploads', 'tmp').freeze
     end
 
     def filepath_by_uuid(uuid)
