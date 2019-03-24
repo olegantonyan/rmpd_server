@@ -1,6 +1,4 @@
 class SoftwareUpdatesController < ApplicationController
-  skip_before_action :authenticate_user!, only: :download # TODO: authorize device maybe?
-
   def self.controller_path
     'devices/software_update'
   end
@@ -20,7 +18,7 @@ class SoftwareUpdatesController < ApplicationController
     authorize(@software_update)
 
     if @software_update.save
-      Deviceapi::Sender.new(device).send(:update_software, distribution_url: @software_update.file_url(request.base_url))
+      Deviceapi::Sender.new(device).send(:update_software, distribution_url: @software_update.file_url)
       flash[:notice] = "#{device} will be updated soon"
       redirect_to(device_path(device))
     else

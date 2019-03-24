@@ -3,26 +3,14 @@ class Device
     belongs_to :device
 
     validates :version, presence: true
-    validates :file, presence: true
     validate :supported
+
+    has_one_attached :file
 
     scope :ordered, -> { order(created_at: :desc) }
 
-    def file=(rack_file)
-      return unless rack_file
-      filename = "#{rack_file.original_filename}_#{SecureRandom.hex}"
-      filepath = Rails.root.join('public', 'uploads', 'software_update')
-      FileUtils.mkdir_p(filepath)
-      File.open(filepath.join(filename), 'wb') { |f| f.write(rack_file.read) }
-      super(filename)
-    end
-
-    def file_path
-      File.join('uploads', 'software_update', file)
-    end
-
-    def file_url(base_url)
-      URI.join(base_url, file_path).to_s
+    def file_url
+      Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true)
     end
 
     private

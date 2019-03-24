@@ -50,7 +50,7 @@
         <tr>
           <td><%= su.version %></td>
           <td><%= su.created_at %></td>
-          <td><%= link_to(su.file, su.file_url(request.base_url)) %></td>
+          <td><%= link_to(su.file.filename.to_s, su.file_url) %></td>
         </tr>
       <% end %>
     </tbody>
