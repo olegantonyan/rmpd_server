@@ -3,14 +3,14 @@ class Device
     belongs_to :device
 
     validates :version, presence: true
+    validates :file, presence: true
     validate :supported
-
-    has_one_attached :file
 
     scope :ordered, -> { order(created_at: :desc) }
 
-    def file_url
-      Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true)
+    def file=(rack_file)
+      return unless rack_file
+      super(rack_file.read)
     end
 
     private
