@@ -15,7 +15,7 @@ class DevicesController < ApplicationController
         scoped = scoped.distinct
 
         total_count = scoped.count
-        devices = scoped.limit(limit).offset(offset).order(created_at: :desc)
+        devices = scoped.limit(limit).offset(offset).order(online: :desc)
 
         authorize(devices)
 
