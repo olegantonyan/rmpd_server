@@ -9,6 +9,7 @@ import I18n from '../i18n'
 
 const ITEMS_PER_PAGE = 15
 const ALL_COMPANIES_PLACEHOLDER = { id: 0, title: I18n.any_company }
+const UNBOUND_COMPANT_PLACEHOLDER = { id: -1, title: I18n.devices.unbound }
 
 export default class Container extends React.Component {
   static propTypes = {
@@ -38,7 +39,7 @@ export default class Container extends React.Component {
 
     const companies = <div className="field">
       <div className="control">
-        <Select items={[ALL_COMPANIES_PLACEHOLDER].concat(this.props.js_data.companies)} value={this.state.selected_company} onSelect={this.onCompanySelected} />
+        <Select items={[ALL_COMPANIES_PLACEHOLDER, UNBOUND_COMPANT_PLACEHOLDER].concat(this.props.js_data.companies)} value={this.state.selected_company} onSelect={this.onCompanySelected} />
       </div>
     </div>
 
@@ -87,6 +88,8 @@ export default class Container extends React.Component {
     }
     if (company_id > 0) {
       url += `&with_company_id=${company_id}`
+    } else if (company_id < 0) {
+      url += `&with_company_id=null`
     }
 
     let headers = new Headers()

@@ -19,7 +19,7 @@ class Device < ApplicationRecord
     q = "%#{query}%"
     where('LOWER(devices.name) LIKE LOWER(?) OR LOWER(devices.login) LIKE LOWER(?)', q, q)
   }
-  scope :with_company_id, ->(ids) { where(company_id: [*ids]) }
+  scope :with_company_id, ->(ids) { where(company_id: [*ids].map { |i| ['null', 'nil', ''].include?(i) ? nil : i }) }
   scope :with_device_group_id, ->(ids) { joins(:device_groups).where(device_groups: { id: [*ids] }) }
   scope :ordered_by_online, ->(direction = :desc) { order(online: direction) }
   scope :online, -> { where(online: true) }

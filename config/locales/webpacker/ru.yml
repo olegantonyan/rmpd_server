@@ -44,6 +44,7 @@ ru:
       timezone: Часовой пояс
       playlist: Плейлист
       webui_password: Пароль на встроенный веб-интрефейс и точку доступа
+      unbound: Не привязан к аккаунту
 
       log_messages:
         title: Лог событий

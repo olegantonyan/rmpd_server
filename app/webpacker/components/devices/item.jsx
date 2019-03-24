@@ -37,7 +37,7 @@ export default class Item extends React.Component {
                 </span>
 
                 <span className="level-item">
-                  {this.props.device.company !== null ? <span><span className="icon"><i className="fas fa-user-secret"></i></span>{this.props.device.company.title}</span> : <span><span className="icon"><i className="fas fa-link"></i></span>UNBOUND</span> }
+                  {this.props.device.company !== null ? <span><span className="icon"><i className="fas fa-user-secret"></i></span>{this.props.device.company.title}</span> : <span><span className="icon"><i className="fas fa-link"></i></span>{I18n.devices.unbound}</span> }
                 </span>
               </div>
             </nav>
