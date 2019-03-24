@@ -32,7 +32,10 @@ class SoftwareUpdatesController < ApplicationController
 
   def download
     software_update = Device.find(params[:device_id]).device_software_updates.find(params[:software_update_id])
-    send_data(software_update.file)
+    file = Tempfile.new
+    file.binmode
+    file.write(software_update.file)
+    send_file(file.path)
   end
 
   private
