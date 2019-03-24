@@ -2,8 +2,6 @@ class Device
   class ServiceUpload < ApplicationRecord
     belongs_to :device, inverse_of: :device_service_uploads
 
-    mount_uploader :file, ServiceUploadUploader
-
     validates :file, presence: true
 
     after_commit :notify, on: :create
