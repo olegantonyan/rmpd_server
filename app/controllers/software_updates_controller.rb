@@ -20,7 +20,7 @@ class SoftwareUpdatesController < ApplicationController
     authorize(@software_update)
 
     if @software_update.save
-      Deviceapi::Sender.new(device).send(:update_software, distribution_url: device_software_update_download_url(@software_update.device, @software_update.id))
+      Deviceapi::Sender.new(device).send(:update_software, distribution_url: @software_update.file_url(request.base_url))
       flash[:notice] = "#{device} will be updated soon"
       redirect_to(device_path(device))
     else
@@ -28,14 +28,6 @@ class SoftwareUpdatesController < ApplicationController
       flash[:alert] = @software_update.errors.full_messages.to_sentence
       render(:index)
     end
-  end
-
-  def download
-    software_update = Device.find(params[:device_id]).device_software_updates.find(params[:software_update_id])
-    file = Tempfile.new
-    file.binmode
-    file.write(software_update.file)
-    send_file(file.path)
   end
 
   private

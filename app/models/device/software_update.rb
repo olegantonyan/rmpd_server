@@ -10,7 +10,19 @@ class Device
 
     def file=(rack_file)
       return unless rack_file
-      super(rack_file.read)
+      filename = "#{rack_file.original_filename}_#{SecureRandom.hex}"
+      filepath = Rails.root.join('public', 'uploads', 'software_update')
+      FileUtils.mkdir_p(filepath)
+      File.open(filepath.join(filename), 'wb') { |f| f.write(rack_file.read) }
+      super(filename)
+    end
+
+    def file_path
+      File.join('uploads', 'software_update', file)
+    end
+
+    def file_url(base_url)
+      URI.join(base_url, file_path).to_s
     end
 
     private
