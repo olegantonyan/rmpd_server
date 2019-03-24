@@ -3,7 +3,6 @@ ruby '2.6.2'
 
 gem 'rails', '~> 6.0.0.beta3'
 gem 'pg'
-gem 'carrierwave'
 gem 'puma'
 gem 'bcrypt'
 gem 'sidekiq-scheduler'

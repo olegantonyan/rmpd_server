@@ -1,2 +1,0 @@
-class ServiceUploadUploader < ApplicationUploader
-end

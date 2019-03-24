@@ -1,2 +1,0 @@
-class SoftwareUpdateUploader < ApplicationUploader
-end
