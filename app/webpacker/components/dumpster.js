@@ -16,6 +16,9 @@ export function seconds_to_string(seconds) {
 }
 
 export function humanized_size(size) {
+  if (size === null || size === undefined || size === 0) {
+    return ''
+  }
   let i = Math.floor( Math.log(size) / Math.log(1000) )
   return ( size / Math.pow(1000, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
 }
