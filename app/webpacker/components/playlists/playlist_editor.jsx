@@ -9,7 +9,10 @@ export default class PlaylisEditor extends React.Component {
     super(props)
     this.state = {
       playlist: props.js_data.playlist,
-      selected_company: props.js_data.playlist.company
+
+      selected_company: props.js_data.playlist.company,
+      selected_name: '',
+      selected_description: ''
     }
   }
 
@@ -36,7 +39,7 @@ export default class PlaylisEditor extends React.Component {
         <div className="field-body">
           <div className="field">
             <p className="control">
-              <input className="input" type="text" />
+              <input className="input" type="text" value={this.state.selected_name} onChange={e => this.setState({ selected_name: e.target.value })} />
             </p>
           </div>
         </div>
@@ -53,7 +56,7 @@ export default class PlaylisEditor extends React.Component {
         <div className="field-body">
           <div className="field">
             <p className="control">
-              <input className="input" type="text" />
+              <input className="input" type="text" value={this.state.selected_description} onChange={e => this.setState({ selected_description: e.target.value })} />
             </p>
           </div>
         </div>
