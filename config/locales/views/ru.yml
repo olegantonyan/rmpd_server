@@ -38,3 +38,5 @@ ru:
       new_title: Новый плейлист
       delete_confirm: Удалить этот плейлист. Вы уверены?
       show_title: Плейлист %{playlist}
+      successfully_deleted: Плейлист %{playlist} успешно удалён
+      error_delete: Не удалось удалить плейлист

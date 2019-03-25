@@ -34,8 +34,12 @@ class PlaylistsController < ApplicationController
   end
 
   def new
-    @playlist = Playlist.new
-    authorize @playlist
+    @playlist = Playlist.new(company: current_user.companies.first)
+    authorize(@playlist)
+
+    add_js_data(
+      playlist: @playlist.serialize
+    )
   end
 
   def create
@@ -49,7 +53,16 @@ class PlaylistsController < ApplicationController
   end
 
   def destroy
-    authorize @playlist
+    @playlist = Playlist.find(params[:id])
+    authorize(@playlist)
+
+    if @playlist.destroy
+      flash[:notice] = t('views.playlists.successfully_deleted', playlist: @playlist)
+      redirect_to(playlists_path)
+    else
+      flash[:alert] = t('views.playlists.error_delete')
+      render(:show)
+    end
   end
 
   private

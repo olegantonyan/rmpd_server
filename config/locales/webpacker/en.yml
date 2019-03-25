@@ -54,3 +54,5 @@ en:
 
     playlists:
       files: files
+      name: Name
+      description: Description

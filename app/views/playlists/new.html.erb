@@ -1,4 +1,4 @@
-<% content_for :page_title, t('views.playlists.show_title', playlist: @playlist) %>
+<% content_for :page_title, t('views.playlists.new_title') %>
 
 <div class="columns">
   <div class="column is-narrow">
@@ -13,11 +13,6 @@
   </div>
 
   <div class="column is-narrow">
-    <% if policy(@playlist).destroy? %>
-      <%= link_to(playlist_path(@playlist), method: :delete, class: "button is-danger is-outlined", data: { confirm: t('views.playlists.delete_confirm') }) do %>
-        <span class="icon"><i class="fas fa-trash-alt"></i></span>
-      <% end %>
-    <% end %>
   </div>
 </div>
 

@@ -36,5 +36,7 @@ en:
       midnight_rollover_warning: Rollover midnight
       date_interval: Date interval
       new_title: New playlist
-      delete_confirm: Will remove this playlist. Are sure? 
+      delete_confirm: Will remove this playlist. Are sure?
       show_title: Playlist %{playlist}
+      successfully_deleted: Playlist %{playlist} successfully removed
+      error_delete: Cannot remove this playlist
