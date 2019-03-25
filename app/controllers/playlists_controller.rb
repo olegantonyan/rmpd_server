@@ -19,7 +19,7 @@ class PlaylistsController < ApplicationController
 
         authorize(playlists)
 
-        render json: { data: playlists.map(&:to_hash), total_count: total_count }
+        render json: { data: playlists.map(&:serialize), total_count: total_count }
       end
     end
   end
@@ -29,7 +29,7 @@ class PlaylistsController < ApplicationController
     authorize(@playlist)
 
     add_js_data(
-      playlist: @playlist.to_hash
+      playlist: @playlist.serialize
     )
   end
 

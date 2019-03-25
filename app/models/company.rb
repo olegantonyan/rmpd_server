@@ -21,7 +21,7 @@ class Company < ApplicationRecord
     user_ids.include?(user&.id)
   end
 
-  def to_hash
+  def serialize
     attributes.slice('id', 'title')
   end
 end

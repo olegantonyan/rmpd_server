@@ -19,7 +19,7 @@ class DevicesController < ApplicationController
 
         authorize(devices)
 
-        render json: { data: devices.map(&:to_hash), total_count: total_count }
+        render json: { data: devices.map(&:serialize), total_count: total_count }
       end
     end
   end
@@ -29,7 +29,7 @@ class DevicesController < ApplicationController
     authorize(@device)
 
     add_js_data(
-      device: @device.to_hash,
+      device: @device.serialize,
       log_messages_path: device_device_log_messages_path(@device.id)
     )
   end

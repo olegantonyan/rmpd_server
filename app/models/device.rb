@@ -13,7 +13,7 @@ class Device < ApplicationRecord
   validates :name, length: { maximum: 40 }
 
   after_destroy { send_to(:clear_queue) }
-  after_commit(on: :update) { DevicesChannel.broadcast_to(self, to_hash) }
+  after_commit(on: :update) { DevicesChannel.broadcast_to(self, serialize) }
 
   scope :search_query, ->(query) {
     q = "%#{query}%"
@@ -58,9 +58,9 @@ class Device < ApplicationRecord
     Deviceapi::Sender.new(self).send(command, options)
   end
 
-  def to_hash
+  def serialize
     d = attributes.slice('id', 'login', 'name', 'created_at', 'updated_at', 'time_zone', 'online', 'poweredon_at', 'devicetime', 'free_space', 'now_playing', 'webui_password')
-    d['company'] = company&.to_hash
+    d['company'] = company&.serialize
     d['playlist'] = playlist&.attributes&.slice('id', 'name', 'description')
     d
   end

@@ -10,7 +10,7 @@ class DeviceLogMessagesController < ApplicationController
 
     authorize(log_messages)
 
-    render json: { data: log_messages.map(&:to_hash), total_count: total_count }
+    render json: { data: log_messages.map(&:serialize), total_count: total_count }
   end
 
   private

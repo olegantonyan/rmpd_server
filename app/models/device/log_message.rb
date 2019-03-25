@@ -13,7 +13,7 @@ class Device
     scope :with_since_date, ->(date) { where('date(' + table_name + '.created_at) >= ?', Date.parse(date.to_s)) }
     scope :with_to_date, ->(date) { where('date(' + table_name + '.created_at) <= ?', Date.parse(date.to_s)) }
 
-    after_commit(on: :create) { DeviceLogMessagesChannel.broadcast_to(device, to_hash) }
+    after_commit(on: :create) { DeviceLogMessagesChannel.broadcast_to(device, serialize) }
 
     class << self
       def latest
@@ -46,7 +46,7 @@ class Device
       "#{device} | #{command} | #{localtime} | #{message}"
     end
 
-    def to_hash
+    def serialize
       attributes.slice('id', 'command', 'localtime', 'message', 'created_at')
     end
   end

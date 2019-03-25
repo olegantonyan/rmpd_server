@@ -5,7 +5,7 @@ class Tag < ApplicationRecord
 
   scope :ordered, -> { order(:name) }
 
-  def to_hash
+  def serialize
     attributes.slice('id', 'name').freeze
   end
 end

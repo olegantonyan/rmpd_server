@@ -58,9 +58,9 @@ class Playlist < ApplicationRecord
     uniq_media_items.inject(0) { |acc, elem| acc + elem.file.size.to_i }
   end
 
-  def to_hash
+  def serialize
     i = attributes.slice('id', 'name', 'description')
-    i['company'] = company.to_hash
+    i['company'] = company.serialize
     i['items_count'] = media_items_count
     i['items_size'] = total_size
     i

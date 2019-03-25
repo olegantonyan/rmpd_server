@@ -7,7 +7,7 @@ class MediaItemsController < ApplicationController
         add_js_data(
           index_path: media_items_path,
           destroy_path: destroy_multiple_media_items_path,
-          tags: policy_scope(Tag.ordered).map(&:to_hash)
+          tags: policy_scope(Tag.ordered).map(&:serialize)
         )
       end
       format.json do
@@ -20,7 +20,7 @@ class MediaItemsController < ApplicationController
 
         authorize(media_items)
 
-        render json: { data: media_items.map(&:to_hash), total_count: total_count }
+        render json: { data: media_items.map(&:serialize), total_count: total_count }
       end
     end
   end
@@ -29,7 +29,7 @@ class MediaItemsController < ApplicationController
     add_js_data(
       create_path: media_items_path,
       upload_path: upload_media_items_path,
-      tags: policy_scope(Tag.ordered).map(&:to_hash)
+      tags: policy_scope(Tag.ordered).map(&:serialize)
     )
     authorize(:media_item)
   end
@@ -82,9 +82,9 @@ class MediaItemsController < ApplicationController
     d.fetch(:ok, []).each(&:destroy)
 
     render json: {
-      deleted: d.fetch(:ok, []).map(&:to_hash),
-      unauthorized: d.fetch(:unauthorized, []).map(&:to_hash),
-      has_playlist: d.fetch(:has_playlist, []).map(&:to_hash)
+      deleted: d.fetch(:ok, []).map(&:serialize),
+      unauthorized: d.fetch(:unauthorized, []).map(&:serialize),
+      has_playlist: d.fetch(:has_playlist, []).map(&:serialize)
     }
   end
 end

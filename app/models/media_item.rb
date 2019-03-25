@@ -61,13 +61,13 @@ class MediaItem < ApplicationRecord
     result
   end
 
-  def to_hash
+  def serialize
     item = attributes
     item['file'] = file.filename.base
     item['file_url'] = file_url
     item['file_content_type'] = content_type
-    item['tags'] = tags.map(&:to_hash)
-    item['company'] = company.to_hash
+    item['tags'] = tags.map(&:serialize)
+    item['company'] = company.serialize
     item
   end
 end
