@@ -37,6 +37,6 @@ ru:
       date_interval: Интервал дат
       new_title: Новый плейлист
       delete_confirm: Удалить этот плейлист. Вы уверены?
-      show_title: Плейлист %{playlist}
+      edit_title: Редактирование плейлиста
       successfully_deleted: Плейлист %{playlist} успешно удалён
       error_delete: Не удалось удалить плейлист

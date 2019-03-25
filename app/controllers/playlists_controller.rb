@@ -6,7 +6,7 @@ class PlaylistsController < ApplicationController
       format.html do
         add_js_data(
           index_path: playlists_path,
-          show_path: playlist_path(':id')
+          edit_path: edit_playlist_path(':id')
         )
       end
       format.json do
@@ -24,32 +24,48 @@ class PlaylistsController < ApplicationController
     end
   end
 
-  def show
+  def edit
     @playlist = Playlist.find(params[:id])
     authorize(@playlist)
 
     add_js_data(
-      playlist: @playlist.serialize
+      playlist: @playlist.serialize,
+      update_path: playlist_path(@playlist)
     )
   end
 
   def new
-    @playlist = Playlist.new(company: current_user.companies.first)
+    @playlist = Playlist.new(company: current_user.companies.first, name: '', description: '')
     authorize(@playlist)
 
     add_js_data(
-      playlist: @playlist.serialize
+      playlist: @playlist.serialize,
+      create_path: playlists_path
     )
   end
 
   def create
     @playlist = Playlist.new(playlist_params)
-    authorize @playlist
+    authorize(@playlist)
+
+    if @playlist.save
+      render json: {}
+    else
+      render json: { error: @playlist.errors.full_messages.to_sentence }
+    end
   end
 
   def update
-    authorize @playlist
+    @playlist = Playlist.find(params[:id])
+    sap playlist_params
+    authorize(@playlist)
     @playlist.assign_attributes(playlist_params)
+
+    if @playlist.save
+      render json: {}
+    else
+      render json: { error: @playlist.errors.full_messages.to_sentence }
+    end
   end
 
   def destroy
@@ -61,7 +77,7 @@ class PlaylistsController < ApplicationController
       redirect_to(playlists_path)
     else
       flash[:alert] = t('views.playlists.error_delete')
-      render(:show)
+      redirect_to(edit_playlist_path(@playlist))
     end
   end
 

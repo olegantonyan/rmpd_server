@@ -57,3 +57,5 @@ ru:
       files: файлов
       name: Название
       description: Описание
+      save: Сохранить
+      save_successful: Сохранено успешно

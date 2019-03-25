@@ -56,3 +56,5 @@ en:
       files: files
       name: Name
       description: Description
+      save: Save
+      save_successful: Successful save

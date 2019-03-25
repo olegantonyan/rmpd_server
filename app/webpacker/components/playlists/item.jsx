@@ -51,7 +51,7 @@ export default class Item extends React.Component {
           <nav className="level">
             <span className="level-item">
 
-              <a className="button is-primary is-outlined" href={this.props.js_data.show_path.replace(":id", this.props.playlist.id)}>
+              <a className="button is-primary is-outlined" href={this.props.js_data.edit_path.replace(":id", this.props.playlist.id)}>
                 <span className="icon"><i className="fas fa-bars"></i></span>
               </a>
 

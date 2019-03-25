@@ -37,6 +37,6 @@ en:
       date_interval: Date interval
       new_title: New playlist
       delete_confirm: Will remove this playlist. Are sure?
-      show_title: Playlist %{playlist}
+      edit_title: Edit playlist
       successfully_deleted: Playlist %{playlist} successfully removed
       error_delete: Cannot remove this playlist

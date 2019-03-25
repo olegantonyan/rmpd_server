@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     resources :device_log_messages, only: %i[index]
     resources :software_updates, only: %i[create index]
   end
-  resources :playlists, except: %i[edit]
+  resources :playlists, except: %i[show]
   resources :companies do
     post 'leave', on: :member
     resources :invites, only: %i[create destroy]
