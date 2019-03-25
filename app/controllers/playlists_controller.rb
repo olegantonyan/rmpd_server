@@ -40,7 +40,8 @@ class PlaylistsController < ApplicationController
 
     add_js_data(
       playlist: @playlist.serialize,
-      create_path: playlists_path
+      create_path: playlists_path,
+      edit_path: edit_playlist_path(':id')
     )
   end
 
@@ -49,7 +50,7 @@ class PlaylistsController < ApplicationController
     authorize(@playlist)
 
     if @playlist.save
-      render json: {}
+      render json: @playlist.serialize
     else
       render json: { error: @playlist.errors.full_messages.to_sentence }
     end
@@ -57,14 +58,13 @@ class PlaylistsController < ApplicationController
 
   def update
     @playlist = Playlist.find(params[:id])
-    sap playlist_params
     authorize(@playlist)
     @playlist.assign_attributes(playlist_params)
 
     if @playlist.save
-      render json: {}
+      render json: @playlist.serialize
     else
-      render json: { error: @playlist.errors.full_messages.to_sentence }
+      render json: { error: @playlist.errors.full_messages.to_sentence }, status: :unprocessible_entity
     end
   end
 

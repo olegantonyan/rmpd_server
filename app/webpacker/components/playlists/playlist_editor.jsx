@@ -11,7 +11,9 @@ export default class PlaylisEditor extends React.Component {
     this.state = {
       playlist: props.js_data.playlist,
 
-      saving: false
+      saving: false,
+      last_error: null,
+      save_ok: false
     }
   }
 
@@ -26,6 +28,7 @@ export default class PlaylisEditor extends React.Component {
         {this.descriptionInput()}
         {this.props.js_data.companies.length > 1 && this.companySelect()}
         {this.saveButton()}
+        {this.state.last_error !== null && this.errorNotificationComponent()}
       </div>
    )
   }
@@ -97,6 +100,18 @@ export default class PlaylisEditor extends React.Component {
     return(
       <div className="actions">
         <button className={btn_classes} disabled={this.state.saving} onClick={this.onSaveHandler}>{I18n.playlists.save}</button>
+        <div>
+          {this.state.save_ok && <em className="has-text-success">{I18n.playlists.save_successful}</em>}
+        </div>
+      </div>
+    )
+  }
+
+  errorNotificationComponent = () => {
+    return(
+      <div className="notification is-danger">
+        <button className="delete" onClick={() => this.setState({ last_error: null })}></button>
+        {this.state.last_error}
       </div>
     )
   }
@@ -139,15 +154,17 @@ export default class PlaylisEditor extends React.Component {
     })
     .then(json => {
       if (!ok) {
-        console.log(json)
-        // json parse ok, but request failed
+        this.setState({ last_error: json.error })
       } else {
-        // ok
+        this.setState({ last_error: null, save_ok: true, playlist: json })
+        setTimeout(() => this.setState({ save_ok: false }), 10000)
+        if (method === 'POST') {
+          setTimeout(() => window.location.replace(this.props.js_data.edit_path.replace(":id", json.id)), 500)
+        }
       }
     })
     .catch(e => {
-      console.error(e)
-      // json parse error
+      this.setState({ last_error: e.toString() })
     })
   }
 }
