@@ -27,6 +27,12 @@ namespace :deploy do
         execute "sudo systemctl start 'rmpd_server_sidekiq@#{Time.now.utc.strftime('%Y%m%d%H%M%S')}-#{rand(10000000)}'"
       end
     end
+
+    task clear: :environment do
+      on roles(:app) do |host|
+        puts Sidekiq.redis(&:flushdb)
+      end
+    end
   end
 
   task :check_revision do

@@ -13,18 +13,8 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    loc = params[:locale] || extract_locale_from_tld
-    I18n.locale = loc if loc
-  end
-
-  def extract_locale_from_tld
-    # Get locale from top-level domain or return nil if such locale is not available
-    # You have to put something like:
-    #   127.0.0.1 application.com
-    #   127.0.0.1 application.it
-    #   127.0.0.1 application.pl
-    # in your /etc/hosts file to try this out locally
-    request.host.split('.').last.presence_in(I18n.available_locales.map(&:to_s))
+    locale = params[:locale]
+    I18n.locale = locale if locale.presence_in(I18n.available_locales.map(&:to_s))
   end
 
   def user_not_authorized
