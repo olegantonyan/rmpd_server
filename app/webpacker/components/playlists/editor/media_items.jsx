@@ -11,12 +11,15 @@ const ALL_COMPANIES_PLACEHOLDER = { id: 0, title: I18n.any_company }
 
 export default class MediaItems extends React.Component {
   static propTypes = {
-    js_data: PropTypes.object.isRequired
+    js_data: PropTypes.object.isRequired,
+    onAdd: PropTypes.func.isRequired
   }
 
   state = {
     all_items: [],
     total_count: 0,
+
+    selected_items: [],
 
     current_page: 0,
     loading: false,
@@ -45,19 +48,25 @@ export default class MediaItems extends React.Component {
 
     return(
       <div>
-
         <SearchBox value={this.state.search_query} onChange={this.onSearchQueryChange} />
         <TagsSelect tags={this.props.js_data.tags} selected_tags={this.state.selected_tags} onSelect={this.onTagSelect} onDelete={this.onTagDelete} />
         {this.props.js_data.companies.length > 1 && companies}
         {this.selectTypeComponent()}
 
-        <div className="select is-multiple">
-          <select multiple size={ITEMS_PER_PAGE}>
-            {this.state.all_items.map(i => <option key={i.id} data-id={i.id}>{i.description.length > 0 ? `${i.file} (${i.description})` : i.file}</option>)}
-          </select>
-        </div>
+        <div className="columns">
+          <div className="column">
+            <div className="select is-multiple is-fullwidth">
+              <select multiple size={ITEMS_PER_PAGE} onChange={this.onItemsSelected}>
+                {this.state.all_items.map(i => <option key={i.id} data-id={i.id}>{i.description.length > 0 ? `${i.file} (${i.description})` : i.file}</option>)}
+              </select>
+            </div>
+            {!this.state.loading && <Pagination total_items={this.state.total_count} per_page={ITEMS_PER_PAGE} current_page={this.state.current_page} onPageChange={this.onPageChange} />}
+          </div>
 
-        {!this.state.loading && <Pagination total_items={this.state.total_count} per_page={ITEMS_PER_PAGE} current_page={this.state.current_page} onPageChange={this.onPageChange} />}
+          <div className="column is-narrow">
+            <button className="button is-primary" onClick={() => this.props.onAdd(this.state.selected_items)}>>></button>
+          </div>
+        </div>
       </div>
     )
   }
@@ -123,6 +132,19 @@ export default class MediaItems extends React.Component {
   onLibraryHandler = (type) => {
     this.setState({ selected_library: type })
     this.fetchItems(0, this.state.search_query, this.state.selected_tags, this.state.selected_company.id, this.state.selected_type, type)
+  }
+
+  onItemsSelected = (ev) => {
+    let options = ev.target.options
+    let items = []
+    for (let i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        const id = options[i].getAttribute('data-id')
+        const value = this.state.all_items.find(i => i.id.toString() === id.toString())
+        items.push(value)
+      }
+    }
+    this.setState({ selected_items: items })
   }
 
   fetchItems = (page, search_query, tags, company_id, type, library) => {

@@ -28,9 +28,18 @@ export default class Editor extends React.Component {
         {this.nameInput()}
         {this.descriptionInput()}
         {this.props.js_data.companies.length > 1 && this.companySelect()}
+
         <div className="section">
-          <MediaItems js_data={this.props.js_data}/>
+          <div className="columns">
+            <div className="column">
+              <MediaItems js_data={this.props.js_data} onAdd={this.onAddItems}/>
+            </div>
+
+            <div className="column">
+            </div>
+          </div>
         </div>
+
         <div className="section">
           {this.saveButton()}
           {this.state.last_error !== null && this.errorNotificationComponent()}
@@ -120,6 +129,10 @@ export default class Editor extends React.Component {
         {this.state.last_error}
       </div>
     )
+  }
+
+  onAddItems = (items) => {
+    console.log(items)
   }
 
   onSaveHandler = () => {
