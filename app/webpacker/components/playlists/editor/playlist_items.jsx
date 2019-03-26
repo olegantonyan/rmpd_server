@@ -17,7 +17,7 @@ export default class PlaylistItems extends React.Component {
 
   itemComponent = (i) => {
     return(
-      <div className="media" key={i.id}>
+      <div className="media" key={i.media_item.id}>
         <div className="media-left">
           {i.media_item.file}
         </div>

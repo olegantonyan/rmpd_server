@@ -31,7 +31,8 @@ class Playlist
     end
 
     def serialize
-      i = attributes.except('media_item_id', 'playlist_id')
+      i = attributes.except('media_item_id', 'playlist_id', 'created_at', 'updated_at')
+      i['type'] = type
       i['media_item'] = media_item.serialize
       i
     end

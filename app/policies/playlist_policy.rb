@@ -27,6 +27,7 @@ class PlaylistPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [:name, :description, :company_id, :shuffle, playlist_items: []]
+    playlist_items_attrs = [:id, :begin_date, :end_date, :begin_time, :end_time, :position, :playbacks_per_day, :wait_for_the_end, :media_item_id, :type] # rubocop: disable Style/SymbolArray
+    [:name, :description, :company_id, :shuffle, playlist_items: playlist_items_attrs]
   end
 end

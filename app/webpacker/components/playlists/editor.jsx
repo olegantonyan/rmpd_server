@@ -10,8 +10,11 @@ import PlaylistItems from "./editor/playlist_items"
 export default class Editor extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
       playlist: props.js_data.playlist,
+
+      max_position: Math.max(...props.js_data.playlist.playlist_items.map(i => i.position)),
 
       saving: false,
       last_error: null,
@@ -34,7 +37,7 @@ export default class Editor extends React.Component {
           <div className="columns">
             <div className="column">
               <h5 className="title is-5">{I18n.playlists.add_new_files}</h5>
-              <MediaItems js_data={this.props.js_data} onAdd={this.onAddItems}/>
+              <MediaItems js_data={this.props.js_data} onAdd={this.onAddBackbroundItems}/>
             </div>
 
             <div className="column">
@@ -145,9 +148,31 @@ export default class Editor extends React.Component {
     )
   }
 
-  onAddItems = (items) => {
-    const new_items = items.filter(i => !this.state.playlist.playlist_items.map(j => j.media_item.id.toString()).includes(i.id.toString()))
-    this.setState({ playlist: { ...this.state.playlist, media_items: [...this.state.playlist.playlist_items, ...new_items] } })
+  onAddBackbroundItems = (items) => {
+    const existing_items_ids = this.state.playlist.playlist_items.map(i => i.media_item.id.toString())
+    let new_playlist_items = []
+    let position_increase = 0
+
+    items.forEach((item, _idx) => {
+      if (!existing_items_ids.includes(item.id.toString())) {
+        const playlist_item = {
+          position: this.state.max_position + position_increase,
+          media_item: item,
+          begin_time: null,
+          end_time: null,
+          begin_date: null,
+          end_date: null,
+          type: "background"
+        }
+        new_playlist_items.push(playlist_item)
+        position_increase += 1
+      }
+    })
+
+    this.setState({
+      playlist: { ...this.state.playlist, playlist_items: [...this.state.playlist.playlist_items, ...new_playlist_items] },
+      max_position: this.state.max_position + position_increase
+    })
   }
 
   onSaveHandler = () => {
@@ -155,11 +180,17 @@ export default class Editor extends React.Component {
       return
     }
 
+    const playlist_items = [...this.state.playlist.playlist_items].map(i => {
+      i.media_item_id = i.media_item.id
+      const { schedule, media_item, ...new_i } = i
+      return new_i
+    })
+
     const data = {
       name: this.state.playlist.name,
       description: this.state.playlist.description,
       company_id: this.state.playlist.company.id,
-      playlist_items: this.state.playlist.media_items.map(i => i.id)
+      playlist_items: playlist_items
     }
     this.saveRequest(data)
   }
