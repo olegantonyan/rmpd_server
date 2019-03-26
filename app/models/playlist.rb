@@ -21,6 +21,7 @@ class Playlist < ApplicationRecord
       .select('media_items.*, playlist_items.position')
       .order('playlist_items.position')
       .group('media_items.id, playlist_items.position')
+      .distinct
   }, through: :playlist_items
   belongs_to :company, inverse_of: :playlists
 
@@ -34,10 +35,6 @@ class Playlist < ApplicationRecord
   scope :with_company_id, ->(companies_ids) { where(company_id: [*companies_ids]) }
   scope :without_device, -> { includes(:devices).where(devices: { playlist_id: nil }) }
 
-  def uniq_media_items
-    media_items.distinct
-  end
-
   def media_items_count
     MediaItem.joins(:playlist_items).where(playlist_items: { playlist_id: id }).distinct.count
   end
@@ -50,12 +47,8 @@ class Playlist < ApplicationRecord
     @schedule ||= AdSchedule::Scheduler.new(playlist_items_advertising.includes(:media_item))
   end
 
-  def files_processing
-    media_items.processing
-  end
-
   def total_size
-    uniq_media_items.inject(0) { |acc, elem| acc + elem.file.size.to_i }
+    media_items.inject(0) { |acc, elem| acc + elem.size.to_i }
   end
 
   def serialize
@@ -63,6 +56,7 @@ class Playlist < ApplicationRecord
     i['company'] = company.serialize
     i['items_count'] = media_items_count
     i['items_size'] = total_size
+    i['media_items'] = media_items.map(&:serialize)
     i
   end
 end

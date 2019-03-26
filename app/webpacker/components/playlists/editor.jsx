@@ -5,6 +5,7 @@ import Select from '../common/select'
 import { humanized_size } from '../dumpster'
 import CsrfToken from "../csrf_token"
 import MediaItems from "./editor/media_items"
+import PlaylistItems from "./editor/playlist_items"
 
 export default class Editor extends React.Component {
   constructor(props) {
@@ -36,6 +37,7 @@ export default class Editor extends React.Component {
             </div>
 
             <div className="column">
+              <PlaylistItems media_items={this.state.playlist.media_items} />
             </div>
           </div>
         </div>

@@ -1,16 +1,16 @@
 class Playlist
   class Item < ApplicationRecord
-    with_options inverse_of: :playlist_items do |a|
-      a.belongs_to :media_item
+    class << self
+      def policy_class
+        Playlist::ItemPolicy
+      end
     end
 
+    belongs_to :media_item, inverse_of: :playlist_items
     belongs_to :playlist
 
-    with_options presence: true do
-      validates :media_item
-      validates :playlist
-    end
-    validate :check_files_processing
+    validates :media_item, presence: true
+    validates :playlist, presence: true
     validate :begin_date_less_than_end_date
 
     scope :with_media_item_type, ->(tp) { joins(:media_item).where('media_items.type = ?', MediaItem.types[tp.to_s]) }
@@ -30,17 +30,7 @@ class Playlist
       "#{media_item} @ #{playlist}"
     end
 
-    def self.policy_class
-      Playlist::ItemPolicy
-    end
-
     private
-
-    def check_files_processing
-      return unless media_item
-      errors.add(:media_item, I18n.t('activerecord.attributes.media_item.file_processing')) if media_item.file_processing? || media_item.file_processing_failed?
-      errors.add(:media_item, 'file processing failed') if media_item.file_processing_failed?
-    end
 
     def begin_date_less_than_end_date
       return if begin_date.nil? || end_date.nil?
