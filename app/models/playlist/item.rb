@@ -30,6 +30,12 @@ class Playlist
       "#{media_item} @ #{playlist}"
     end
 
+    def serialize
+      i = attributes.except('media_item_id', 'playlist_id')
+      i['media_item'] = media_item.serialize
+      i
+    end
+
     private
 
     def begin_date_less_than_end_date

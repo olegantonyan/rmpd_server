@@ -46,7 +46,7 @@ export default class Editor extends React.Component {
                 </header>
                 <div className="card-content">
                   <div className="content">
-                    <PlaylistItems media_items={this.state.playlist.media_items} />
+                    <PlaylistItems playlist_items={this.state.playlist.playlist_items} />
                   </div>
                 </div>
               </div>
@@ -146,8 +146,8 @@ export default class Editor extends React.Component {
   }
 
   onAddItems = (items) => {
-    const new_items = items.filter(i => !this.state.playlist.media_items.map(j => j.id.toString()).includes(i.id.toString()))
-    this.setState({ playlist: { ...this.state.playlist, media_items: [...this.state.playlist.media_items, ...new_items] } })
+    const new_items = items.filter(i => !this.state.playlist.playlist_items.map(j => j.media_item.id.toString()).includes(i.id.toString()))
+    this.setState({ playlist: { ...this.state.playlist, media_items: [...this.state.playlist.playlist_items, ...new_items] } })
   }
 
   onSaveHandler = () => {
@@ -159,7 +159,7 @@ export default class Editor extends React.Component {
       name: this.state.playlist.name,
       description: this.state.playlist.description,
       company_id: this.state.playlist.company.id,
-      media_item_ids: []
+      playlist_items: this.state.playlist.media_items.map(i => i.id)
     }
     this.saveRequest(data)
   }

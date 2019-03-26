@@ -4,14 +4,13 @@ import I18n from '../../i18n'
 
 export default class PlaylistItems extends React.Component {
   static propTypes = {
-    media_items: PropTypes.array.isRequired
+    playlist_items: PropTypes.array.isRequired
   }
 
   render() {
-    console.log(this.props.media_items)
     return(
       <div>
-        {this.props.media_items.map(i => this.itemComponent(i))}
+        {this.props.playlist_items.map(i => this.itemComponent(i))}
       </div>
     )
   }
@@ -20,7 +19,7 @@ export default class PlaylistItems extends React.Component {
     return(
       <div className="media" key={i.id}>
         <div className="media-left">
-          {i.file}
+          {i.media_item.file}
         </div>
 
         <div className="media-content">

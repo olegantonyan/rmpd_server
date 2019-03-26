@@ -27,6 +27,6 @@ class PlaylistPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [:name, :description, :company_id, :shuffle, media_item_ids: []]
+    [:name, :description, :company_id, :shuffle, playlist_items: []]
   end
 end

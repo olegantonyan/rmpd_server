@@ -52,11 +52,11 @@ class Playlist < ApplicationRecord
   end
 
   def serialize
-    i = attributes.slice('id', 'name', 'description')
+    i = attributes.slice('id', 'name', 'description', 'created_at', 'updated_at')
     i['company'] = company.serialize
     i['items_count'] = media_items_count
     i['items_size'] = total_size
-    i['media_items'] = media_items.map(&:serialize)
+    i['playlist_items'] = playlist_items.map(&:serialize)
     i
   end
 end
