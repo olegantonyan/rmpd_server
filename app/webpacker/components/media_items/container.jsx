@@ -60,28 +60,7 @@ export default class Container extends React.Component {
 
             <TagsSelect tags={this.props.js_data.tags} selected_tags={this.state.selected_tags} onSelect={this.onTagSelect} onDelete={this.onTagDelete} />
 
-            <div className="box">
-              <div className="control">
-                <label className="radio">
-                  <input type="radio" name="library_shared" checked={this.state.selected_library === "private"} onChange={() => this.onLibraryHandler("private")} />
-                  {I18n.media_items.private_only}
-                </label>
-              </div>
-
-              <div className="control">
-                <label className="radio">
-                  <input type="radio" name="library_shared" checked={this.state.selected_library === "library"} onChange={() => this.onLibraryHandler("library")} />
-                  {I18n.media_items.library}
-                </label>
-              </div>
-
-              <div className="control">
-                <label className="radio">
-                  <input type="radio" name="library_shared" checked={this.state.selected_library === "all"} onChange={() => this.onLibraryHandler("all")} />
-                  {I18n.media_items.all}
-                </label>
-              </div>
-            </div>
+            {this.selectTypeComponent()}
 
             <div className="field">
               <div className="control">
@@ -142,6 +121,33 @@ export default class Container extends React.Component {
         </div>
         <div className="column is-narrow">
           <input type="checkbox" checked={this.state.selected_items.map(i => i.id).includes(item.id)} onChange={(ev) => this.onItemSelectChanged(ev.target.checked, item)}/>
+        </div>
+      </div>
+    )
+  }
+
+  selectTypeComponent = () => {
+    return(
+      <div className="box">
+        <div className="control">
+          <label className="radio">
+            <input type="radio" name="library_shared" checked={this.state.selected_library === "private"} onChange={() => this.onLibraryHandler("private")} />
+            {I18n.media_items.private_only}
+          </label>
+        </div>
+
+        <div className="control">
+          <label className="radio">
+            <input type="radio" name="library_shared" checked={this.state.selected_library === "library"} onChange={() => this.onLibraryHandler("library")} />
+            {I18n.media_items.library}
+          </label>
+        </div>
+
+        <div className="control">
+          <label className="radio">
+            <input type="radio" name="library_shared" checked={this.state.selected_library === "all"} onChange={() => this.onLibraryHandler("all")} />
+            {I18n.media_items.all}
+          </label>
         </div>
       </div>
     )

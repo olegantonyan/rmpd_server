@@ -7,3 +7,15 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 
 @import './loader.css';
+
+.multiselect-noscroll {
+  display: inline-block; 
+  vertical-align: top;
+  overflow: hidden;
+  border: solid
+  grey 1px;
+}
+.multiselect-noscroll select {
+  padding: 10px;
+  margin: -5px -20px -5px -5px;
+}

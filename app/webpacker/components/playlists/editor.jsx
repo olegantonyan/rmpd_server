@@ -4,8 +4,9 @@ import I18n from '../i18n'
 import Select from '../common/select'
 import { humanized_size } from '../dumpster'
 import CsrfToken from "../csrf_token"
+import MediaItems from "./editor/media_items"
 
-export default class PlaylisEditor extends React.Component {
+export default class Editor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -27,8 +28,13 @@ export default class PlaylisEditor extends React.Component {
         {this.nameInput()}
         {this.descriptionInput()}
         {this.props.js_data.companies.length > 1 && this.companySelect()}
-        {this.saveButton()}
-        {this.state.last_error !== null && this.errorNotificationComponent()}
+        <div className="section">
+          <MediaItems js_data={this.props.js_data}/>
+        </div>
+        <div className="section">
+          {this.saveButton()}
+          {this.state.last_error !== null && this.errorNotificationComponent()}
+        </div>
       </div>
    )
   }

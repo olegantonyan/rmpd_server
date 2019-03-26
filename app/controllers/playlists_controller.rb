@@ -30,7 +30,9 @@ class PlaylistsController < ApplicationController
 
     add_js_data(
       playlist: @playlist.serialize,
-      update_path: playlist_path(@playlist)
+      update_path: playlist_path(@playlist),
+      media_items_path: media_items_path,
+      tags: policy_scope(Tag.ordered).map(&:serialize)
     )
   end
 
@@ -41,7 +43,9 @@ class PlaylistsController < ApplicationController
     add_js_data(
       playlist: @playlist.serialize,
       create_path: playlists_path,
-      edit_path: edit_playlist_path(':id')
+      edit_path: edit_playlist_path(':id'),
+      media_items_path: media_items_path,
+      tags: policy_scope(Tag.ordered).map(&:serialize)
     )
   end
 
