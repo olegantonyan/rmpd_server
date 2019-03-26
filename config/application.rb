@@ -29,5 +29,8 @@ module RmpdServer
     config.active_record.time_zone_aware_types = [:datetime]
 
     config.assets.enabled = false
+
+    # same as local: true in form_with. crazy js forms otherwise
+    config.action_view.form_with_generates_remote_forms = false
   end
 end

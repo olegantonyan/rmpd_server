@@ -1,11 +1,13 @@
 class Device
-  class Bind < ActiveModelBase
+  class Bind
+    include ActiveModel::Model
+    include ActiveModel::Validations
+    extend ActiveModel::Translation
+
     attr_accessor :company_id, :name, :time_zone, :login
 
-    with_options presence: true do
-      validates :login
-      validates :company_id
-    end
+    validates :login, presence: true
+    validates :company_id, presence: true
     validate :device_exists
     validate :device_not_bound_already
 
@@ -16,7 +18,7 @@ class Device
         notify
         true
       else
-        copy_errors(d)
+        d.errors.each { |k, v| errors.add(k, v) }
         false
       end
     end
@@ -38,8 +40,8 @@ class Device
     def assign_to_device
       d = device
       d.company_id = company_id
-      assign_if(d, :time_zone, time_zone)
-      assign_if(d, :name, name)
+      d.time_zone = time_zone if time_zone
+      d.name = name if name
       d
     end
 

@@ -5,7 +5,7 @@ class Device
     end
 
     def create?
-      user.company_ids.include?(record.company_id.to_i)
+      user.company_ids.include?(record.company_id.to_i) || user.root?
     end
   end
 end
