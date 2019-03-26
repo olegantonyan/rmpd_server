@@ -58,3 +58,5 @@ en:
       description: Description
       save: Save
       save_successful: Successful save
+      files_in_playlist: Files in playlist
+      add_new_files: Add new files

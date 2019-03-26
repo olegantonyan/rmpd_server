@@ -33,11 +33,23 @@ export default class Editor extends React.Component {
         <div className="section">
           <div className="columns">
             <div className="column">
+              <h5 className="title is-5">{I18n.playlists.add_new_files}</h5>
               <MediaItems js_data={this.props.js_data} onAdd={this.onAddItems}/>
             </div>
 
             <div className="column">
-              <PlaylistItems media_items={this.state.playlist.media_items} />
+              <div className="card">
+                <header className="card-header">
+                  <p className="card-header-title">
+                    {I18n.playlists.files_in_playlist}
+                  </p>
+                </header>
+                <div className="card-content">
+                  <div className="content">
+                    <PlaylistItems media_items={this.state.playlist.media_items} />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -134,7 +146,8 @@ export default class Editor extends React.Component {
   }
 
   onAddItems = (items) => {
-    console.log(items)
+    const new_items = items.filter(i => !this.state.playlist.media_items.map(j => j.id.toString()).includes(i.id.toString()))
+    this.setState({ playlist: { ...this.state.playlist, media_items: [...this.state.playlist.media_items, ...new_items] } })
   }
 
   onSaveHandler = () => {
