@@ -5,6 +5,8 @@ import TagsSelect from '../../media_items/tags_select'
 import Pagination from '../../common/pagination'
 import SearchBox from '../../common/search_box'
 import Select from '../../common/select'
+import FormBackground from './form_background'
+import FormAdvertising from './form_advertising'
 
 const ITEMS_PER_PAGE = 25
 const ALL_COMPANIES_PLACEHOLDER = { id: 0, title: I18n.any_company }
@@ -68,7 +70,12 @@ export default class MediaItems extends React.Component {
               {!this.state.loading && <Pagination total_items={this.state.total_count} per_page={ITEMS_PER_PAGE} current_page={this.state.current_page} onPageChange={this.onPageChange} />}
             </div>
 
-            <div className="column is-narrow">
+            <div className="column is-one-quarter">
+              {this.state.selected_type === "background" ?
+                <FormBackground />
+              :
+                <FormAdvertising />
+              }
               <button className="button is-primary"
                       onClick={() => this.props.onAdd(this.state.selected_items, this.state.selected_type)}>
                       {this.state.selected_type === "background" ? I18n.playlists.add_background : I18n.playlists.add_advertising}
