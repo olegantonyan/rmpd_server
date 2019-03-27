@@ -59,4 +59,6 @@ Rails.application.configure do
 
   # Store files locally.
   config.active_storage.service = :local
+
+  config.active_job.queue_adapter = :sidekiq
 end

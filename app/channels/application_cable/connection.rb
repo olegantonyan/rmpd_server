@@ -9,6 +9,7 @@ module ApplicationCable
     private
 
     def find_verified_user # rubocop: disable Metrics/AbcSize it's fine here
+      # @see config/initializers/warden_hooks.rb
       verified_user = User.find_by(id: cookies.encrypted['user.id'])
       if verified_user && cookies.encrypted['user.expires_at'] && Time.parse(cookies.encrypted['user.expires_at']).utc > Time.now.utc
         verified_user

@@ -1,9 +1,0 @@
-= page_title(@device_log_messages)
-
-= render_filter_form do |f|
-  = filter_form_datetime(f, :with_since_date, format: 'DD.MM.YYYY', label: t('views.device_log_messages.since_date', default: 'Since date'))
-  = filter_form_datetime(f, :with_to_date, format: 'DD.MM.YYYY', label: t('views.device_log_messages.to_date', default: 'To date'))
-
-= render 'collection'
-
-= link_to icon_text('download', 'CSV'), device_device_log_messages_path(device_id: params[:device_id], format: 'csv'), class: 'btn btn-default'
