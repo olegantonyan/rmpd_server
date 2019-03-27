@@ -169,7 +169,7 @@ export default class Upload extends React.Component {
       <div className="field">
         <div className="file">
           <label className="file-label">
-            <input className="file-input" type="file" name="file" multiple={true} onChange={this.onFilesSelected} disabled={this.state.uploading} />
+            <input className="file-input" type="file" name="file" multiple={true} onChange={this.onFilesSelected} disabled={this.state.uploading} accept="audio/mpeg" />
             <span className="file-cta">
               <span className="file-icon">
                 <i className="fas fa-upload"></i>
