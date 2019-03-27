@@ -5,7 +5,7 @@ import Select from '../common/select'
 import { humanized_size } from '../dumpster'
 import CsrfToken from "../csrf_token"
 import MediaItems from "./editor/media_items"
-import PlaylistItems from "./editor/playlist_items"
+import PlaylistItemsBackground from "./editor/playlist_items_background"
 
 export default class Editor extends React.Component {
   constructor(props) {
@@ -34,27 +34,25 @@ export default class Editor extends React.Component {
         {this.props.js_data.companies.length > 1 && this.companySelect()}
 
         <div className="section">
-          <div className="columns">
-            <div className="column">
-              <h5 className="title is-5">{I18n.playlists.add_new_files}</h5>
-              <MediaItems js_data={this.props.js_data} onAdd={this.onAddBackbroundItems}/>
-            </div>
 
-            <div className="column">
-              <div className="card">
-                <header className="card-header">
-                  <p className="card-header-title">
-                    {I18n.playlists.files_in_playlist}
-                  </p>
-                </header>
-                <div className="card-content">
-                  <div className="content">
-                    <PlaylistItems playlist_items={this.state.playlist.playlist_items} />
-                  </div>
-                </div>
+          <div className="card">
+            <header className="card-header">
+              <p className="card-header-title">
+                {I18n.playlists.files_in_playlist} ({I18n.media_items.background})
+              </p>
+            </header>
+            <div className="card-content">
+              <div className="content">
+                <PlaylistItemsBackground playlist_items={this.state.playlist.playlist_items.filter(i => i.type === "background")} />
               </div>
             </div>
           </div>
+
+        </div>
+
+        <div className="section">
+          <h5 className="title is-5">{I18n.playlists.add_new_files}</h5>
+          <MediaItems js_data={this.props.js_data} onAdd={this.onAddItems}/>
         </div>
 
         <div className="section">
@@ -148,7 +146,11 @@ export default class Editor extends React.Component {
     )
   }
 
-  onAddBackbroundItems = (items) => {
+  onAddItems = (items, type) => {
+    if (type === "advertising") {
+      console.log("advertising content not supported yet")
+      return
+    }
     const existing_items_ids = this.state.playlist.playlist_items.map(i => i.media_item.id.toString())
     let new_playlist_items = []
     let position_increase = 0

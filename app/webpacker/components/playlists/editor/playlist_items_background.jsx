@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import I18n from '../../i18n'
 
-export default class PlaylistItems extends React.Component {
+export default class PlaylistItemsBackground extends React.Component {
   static propTypes = {
     playlist_items: PropTypes.array.isRequired
   }

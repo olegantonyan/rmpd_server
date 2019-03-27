@@ -47,31 +47,41 @@ export default class MediaItems extends React.Component {
     </div>
 
     return(
-      <div>
-        <SearchBox value={this.state.search_query} onChange={this.onSearchQueryChange} />
-        <TagsSelect tags={this.props.js_data.tags} selected_tags={this.state.selected_tags} onSelect={this.onTagSelect} onDelete={this.onTagDelete} />
-        {this.props.js_data.companies.length > 1 && companies}
-        {this.selectTypeComponent()}
+      <div className="columns">
+        <div className="column is-one-quarter">
+          <SearchBox value={this.state.search_query} onChange={this.onSearchQueryChange} />
+          {this.selectTypeComponent()}
+          <TagsSelect tags={this.props.js_data.tags} selected_tags={this.state.selected_tags} onSelect={this.onTagSelect} onDelete={this.onTagDelete} />
+          {this.props.js_data.companies.length > 1 && companies}
+          {this.selectLibraryComponent()}
+        </div>
 
-        <div className="columns">
-          <div className="column">
-            <div className="select is-multiple is-fullwidth">
-              <select multiple size={ITEMS_PER_PAGE} onChange={this.onItemsSelected}>
-                {this.state.all_items.map(i => <option key={i.id} data-id={i.id}>{i.description.length > 0 ? `${i.file} (${i.description})` : i.file}</option>)}
-              </select>
+        <div className="column">
+
+          <div className="columns">
+            <div className="column">
+              <div className="select is-multiple is-fullwidth">
+                <select multiple size={this.state.all_items.length} onChange={this.onItemsSelected}>
+                  {this.state.all_items.map(i => <option key={i.id} data-id={i.id}>{i.description.length > 0 ? `${i.file} (${i.description})` : i.file}</option>)}
+                </select>
+              </div>
+              {!this.state.loading && <Pagination total_items={this.state.total_count} per_page={ITEMS_PER_PAGE} current_page={this.state.current_page} onPageChange={this.onPageChange} />}
             </div>
-            {!this.state.loading && <Pagination total_items={this.state.total_count} per_page={ITEMS_PER_PAGE} current_page={this.state.current_page} onPageChange={this.onPageChange} />}
+
+            <div className="column is-narrow">
+              <button className="button is-primary"
+                      onClick={() => this.props.onAdd(this.state.selected_items, this.state.selected_type)}>
+                      {this.state.selected_type === "background" ? I18n.playlists.add_background : I18n.playlists.add_advertising}
+              </button>
+            </div>
           </div>
 
-          <div className="column is-narrow">
-            <button className="button is-primary" onClick={() => this.props.onAdd(this.state.selected_items)}>>></button>
-          </div>
         </div>
       </div>
     )
   }
 
-  selectTypeComponent = () => {
+  selectLibraryComponent = () => {
     return(
       <div className="box">
         <div className="control">
@@ -92,6 +102,26 @@ export default class MediaItems extends React.Component {
           <label className="radio">
             <input type="radio" name="library_shared" checked={this.state.selected_library === "all"} onChange={() => this.onLibraryHandler("all")} />
             {I18n.media_items.all}
+          </label>
+        </div>
+      </div>
+    )
+  }
+
+  selectTypeComponent = () => {
+    return(
+      <div className="box">
+        <div className="control">
+          <label className="radio">
+            <input type="radio" name="selected_type" checked={this.state.selected_type === "advertising"} onChange={() => this.onTypeHandler("advertising")} />
+            {I18n.media_items.advertising}
+          </label>
+        </div>
+
+        <div className="control">
+          <label className="radio">
+            <input type="radio" name="selected_type" checked={this.state.selected_type === "background"} onChange={() => this.onTypeHandler("background")} />
+            {I18n.media_items.background}
           </label>
         </div>
       </div>
@@ -132,6 +162,11 @@ export default class MediaItems extends React.Component {
   onLibraryHandler = (type) => {
     this.setState({ selected_library: type })
     this.fetchItems(0, this.state.search_query, this.state.selected_tags, this.state.selected_company.id, this.state.selected_type, type)
+  }
+
+  onTypeHandler = (type) => {
+    this.setState({ selected_type: type })
+    this.fetchItems(0, this.state.search_query, this.state.selected_tags, this.state.selected_company.id, type, this.state.selected_library)
   }
 
   onItemsSelected = (ev) => {
