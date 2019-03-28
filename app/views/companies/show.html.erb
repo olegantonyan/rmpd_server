@@ -1,0 +1,79 @@
+<% content_for :page_title, t('views.companies.show_title', company: @company) %>
+
+<div class="columns">
+  <div class="column is-narrow">
+    <%= link_to(companies_path, class: "button") do %>
+      <span class="icon"><i class="fas fa-angle-left "></i></span>
+      <span><%= t('views.back') %></span>
+    <% end %>
+  </div>
+
+  <div class="column">
+    <h1 class="title"><%= yield(:page_title) %></h1>
+  </div>
+
+  <div class="column is-narrow is">
+    <% if policy(@company).edit? %>
+      <%= link_to(edit_company_path(@company), class: "button") do %>
+        <span class="icon"><i class="fas fa-edit "></i></span>
+        <span><%= t('views.companies.edit_title') %></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="section">
+  <div class="columns">
+
+    <div class="column">
+      <h5 class="title is-5"><%= t('views.devices.index_title') %></h5>
+
+      <% @company.devices.each do |d| %>
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <span class="icon"><i class="fas fa-microchip"></i></span>
+            </div>
+            <div class="level-item">
+              <%= link_to(d.to_s, device_path(d), target: "_blank") %>
+            </div>
+          </div>
+        </nav>
+      <% end %>
+
+      <% if policy(Device::Bind.new).new? %>
+        <%= link_to(new_device_binds_path, class: "button is-primary is-outlined") do %>
+          <span class="icon"><i class="fas fa-link"></i></span>
+          <span><%= t('views.devices.bind') %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="column">
+      <h5 class="title is-5"><%= t('views.users.index_title') %></h5>
+
+      <% @company.users.each do |u| %>
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <span class="icon"><i class="fas fa-user"></i></span>
+            </div>
+            <div class="level-item">
+              <%= link_to(u.to_s, user_path(u), target: "_blank") %>
+            </div>
+          </div>
+        </nav>
+      <% end %>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <% if policy(@company).leave? %>
+    <%= link_to(leave_company_path(@company), class: "button is-warning", method: :post, data: { confirm: t('views.companies.leave_confirm') }) do %>
+      <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+      <span><%= t('views.companies.leave') %></span>
+    <% end %>
+  <% end %>
+</div>

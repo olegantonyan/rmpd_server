@@ -5,6 +5,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
+    @company = Company.find(params[:id])
     authorize(@company)
   end
 
@@ -58,10 +59,18 @@ class CompaniesController < ApplicationController
     end
   end
 
-  def leave
+  def leave # rubocop: disable Metrics/AbcSize
     @company = Company.find(params[:id])
     authorize(@company)
-    _srv = Company::Leave.new(user: current_user, company: @company)
+    srv = Company::Leave.new(user: current_user, company: @company)
+
+    if srv.save
+      flash[:success] = t('views.companies.leave_successfull', company: @company)
+      redirect_to(companies_path)
+    else
+      flash[:error] = srv.errors.full_messages.to_sentence
+      render(:show)
+    end
   end
 
   private

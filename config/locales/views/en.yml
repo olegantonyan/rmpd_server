@@ -59,3 +59,9 @@ en:
       delete_confirm: Will remove this company. Are sure?
       save_successfull: Company saved successfully
       successfully_deleted: Company successfully deleted
+      leave: Leave the company
+      leave_confirm: You will now longer have access to any devices/mediafiles associates with this company. Continue?
+      leave_successfull: You are no longer a member of %{company}
+
+    users:
+      index_title: Users

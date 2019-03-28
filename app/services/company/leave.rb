@@ -1,12 +1,14 @@
 class Company
   class Leave < ActiveModelBase
+    include ActiveModel::Model
+    include ActiveModel::Validations
+    extend ActiveModel::Translation
+
     attr_accessor :company, :user
 
     validate :user_in_this_company
-    with_options presence: true do
-      validates :user
-      validates :company
-    end
+    validates :user, presence: true
+    validates :company, presence: true
 
     def save
       return false if invalid?
