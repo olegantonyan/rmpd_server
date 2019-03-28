@@ -11,7 +11,7 @@ class Invite < ApplicationRecord
   after_commit :send_notification, on: :create
 
   def user_exists?
-    User.exists?(email: invite.email)
+    User.exists?(email: email)
   end
 
   def to_s
