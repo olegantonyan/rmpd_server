@@ -10,6 +10,10 @@ class Invite < ApplicationRecord
   before_create :generate_token
   after_commit :send_notification, on: :create
 
+  def user_exists?
+    User.exists?(email: invite.email)
+  end
+
   def to_s
     "#{email} -> #{company}"
   end

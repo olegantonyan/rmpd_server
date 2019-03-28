@@ -9,14 +9,14 @@ module DeviseUsers
           redirect_to(root_path, alert: t('views.companies.invites.not_found'))
         elsif @user.email == invite.email
           render(template: 'devise/invites/accept')
-        elsif user_exists?
+        elsif invite.user_exists?
           sign_out(@user)
           authenticate_user!
         else
           sign_out(@user)
           redirect_to_sign_up_page
         end
-      elsif user_exists?
+      elsif invite.user_exists?
         authenticate_user!
       else
         redirect_to_sign_up_page
@@ -26,7 +26,7 @@ module DeviseUsers
     def create
       srv = Invite::Accept.new(user: current_user, invite: invite)
       if srv.save
-        flash[:success] = t('views.companies.invite.accept_successfull')
+        flash[:success] = t('views.companies.invites.accept_successfull')
       else
         flash[:error] = srv.errors.full_messages.to_sentence
       end
@@ -41,10 +41,6 @@ module DeviseUsers
 
     def invite
       @invite ||= Invite.find_by(token: params[:invitation_token])
-    end
-
-    def user_exists?
-      User.exists?(email: invite.email)
     end
   end
 end
