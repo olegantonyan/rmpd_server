@@ -57,3 +57,5 @@ ru:
       show_title: Компания %{company}
       new_title: Новая компания
       delete_confirm: Удалить эту компанию. Вы уверены?
+      save_successfull: Компания успешно сохранена
+      successfully_deleted: Компания успешно удалена

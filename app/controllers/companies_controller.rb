@@ -18,20 +18,44 @@ class CompaniesController < ApplicationController
     authorize(@company)
   end
 
-  def create
+  def create # rubocop: disable Metrics/AbcSize
     @company = Company.new(company_params)
     @company.users = [current_user] unless current_user.root?
     authorize(@company)
+
+    if @company.save
+      flash[:success] = t('views.companies.save_successfull')
+      redirect_to(companies_path)
+    else
+      flash[:error] = @company.errors.full_messages.to_sentence
+      render(:new)
+    end
   end
 
-  def update
+  def update # rubocop: disable Metrics/AbcSize
     @company = Company.find(params[:id])
     authorize(@company)
+
+    if @company.update(company_params)
+      flash[:success] = t('views.companies.save_successfull')
+      redirect_to(companies_path)
+    else
+      flash[:error] = @company.errors.full_messages.to_sentence
+      render(:edit)
+    end
   end
 
-  def destroy
+  def destroy # rubocop: disable Metrics/AbcSize
     @company = Company.find(params[:id])
     authorize(@company)
+
+    if @company.destroy
+      flash[:success] = t('views.companies.successfully_deleted')
+      redirect_to(companies_path)
+    else
+      flash[:alert] = @company.errors.full_messages.to_sentence
+      redirect_to(edit_company_path(@company))
+    end
   end
 
   def leave

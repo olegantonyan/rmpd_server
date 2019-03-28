@@ -57,3 +57,5 @@ en:
       show_title: Company %{company}
       new_title: New company
       delete_confirm: Will remove this company. Are sure?
+      save_successfull: Company saved successfully
+      successfully_deleted: Company successfully deleted
