@@ -3,12 +3,25 @@
     <% company.invites.each do |i| %>
       <li>
         <span><%= i.email %></span>
-        (<span><%= i.accepted ? t('views.companies.invites.accepted') : t('views.companies.invites.not_accepted')  %></span>)
+        (<span><em><%= i.accepted ? t('views.companies.invites.accepted') : t('views.companies.invites.not_accepted')  %><em></span>)
+        <span><%= link_to(t('views.companies.invites.delete'), company_invite_path(company, i), method: :delete, class: "button is-small is-danger is-outlined", data: { confirm: t('views.companies.invites.delete_confirm') }) %></span>
       </li>
     <% end %>
   <ul>
 </div>
 
-<div>
-  
+<div class="section">
+
+  <%= form_with(url: company_invites_path(company), method: :post, scope: :invite) do |f| %>
+    <div class="field has-addons">
+      <div class="control">
+        <%= f.email_field(:email, autocomplete: "email", class: "input") %>
+      </div>
+
+      <div class="control">
+        <%= f.submit(t('views.companies.invites.create'), class: "button is-primary is-outlined") %>
+      </div>
+    </div>
+  <% end %>
+
 </div>

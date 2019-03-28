@@ -64,7 +64,7 @@ en:
       leave_successfull: You are no longer a member of %{company}
       invites:
         cancel: Cancel
-        delete: Delte
+        delete: Delete
         create: Send invitation
         already_in_the_company: You are already in this company
         accept_invite: Accept invite to the company
@@ -72,6 +72,9 @@ en:
         accepted: Accepted
         not_accepted: Not accepted
         index_title: Invitations
+        successfully_deleted: Invitation successfully deleted
+        delete_confirm: This user will no longer be able to accept the invitation. Continue?
+        save_successfull: Invitation successfully sent to ${email}
 
     users:
       index_title: Users

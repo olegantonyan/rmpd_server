@@ -1,34 +1,33 @@
 class InvitesController < ApplicationController
-  def create
-    invite = build_invite
-    authorize invite
-    crud_respond invite
+  def create # rubocop: disable Metrics/AbcSize
+    invite = Invite.new(invite_params)
+    invite.user = current_user
+    invite.company = Company.find(params[:company_id])
+    authorize(invite)
+
+    if invite.save
+      flash[:success] = t('views.companies.invites.save_successfull', email: invite.email)
+    else
+      flash[:alert] = invite.errors.full_messages.to_sentence
+    end
+    redirect_to(company_path(invite.company))
   end
 
   def destroy
     invite = Invite.find(params[:id])
-    authorize invite
-    crud_respond invite
+    authorize(invite)
+
+    if invite.destroy
+      flash[:success] = t('views.companies.invites.successfully_deleted')
+    else
+      flash[:alert] = invite.errors.full_messages.to_sentence
+    end
+    redirect_to(company_path(invite.company))
   end
 
   private
 
-  def company
-    Company.find(params[:company_id])
-  end
-
-  def build_invite
-    Invite.new(invite_params).tap do |i|
-      i.user = current_user
-      i.company = company
-    end
-  end
-
   def invite_params
     params.require(:invite).permit(policy(:invite).permitted_attributes)
-  end
-
-  def crud_responder_default_options
-    { success_url: :back, error_url: :back }
   end
 end

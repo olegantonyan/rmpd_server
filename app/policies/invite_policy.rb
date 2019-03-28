@@ -4,7 +4,7 @@ class InvitePolicy < ApplicationPolicy
   end
 
   def destroy?
-    record.user == user
+    super || record.user == user
   end
 
   def permitted_attributes
