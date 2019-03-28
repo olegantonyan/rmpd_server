@@ -4,7 +4,7 @@ class User
 
     before_validation do
       if invite
-        accept = Invite::Accept.create(invite: invite, user: self)
+        accept = Invite::Accept.new(invite: invite, user: self)
         if accept.save
           skip_confirmation!
         else
