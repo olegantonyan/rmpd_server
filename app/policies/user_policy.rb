@@ -17,8 +17,4 @@ class UserPolicy < ApplicationPolicy
       scope.joins(:companies).where('companies.id in (?)', user.company_ids)
     end
   end
-
-  def permitted_attributes
-    [:displayed_name, company_ids: []]
-  end
 end

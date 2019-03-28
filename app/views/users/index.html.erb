@@ -1,0 +1,67 @@
+<% content_for :page_title, t('views.users.index_title') %>
+
+<div class="columns">
+  <div class="column">
+    <h1 class="title"><%= yield(:page_title) %></h1>
+  </div>
+  <div class="column">
+  </div>
+</div>
+
+<div class="section">
+
+  <% @users.each do |u| %>
+
+    <div class="media">
+      <div class="media-left">
+        <span class="icon"><i class="fas fa-user fa-2x"></i></span>
+      </div>
+
+      <div class="media-content">
+        <div class="content">
+
+          <nav class="level">
+            <div class="level-left">
+              <span class="level-item">
+                <h5 class="subtitle is-5"><%= u.to_s %></h5>
+              </span>
+
+              <% u.companies.each do |c| %>
+                <span class="level-item">
+                  <span class="icon"><i class="fas fa-users"></i></span>
+                  <%= link_to(c.to_s, company_path(c), target: "_blank") %>
+                </span>
+              <% end %>
+
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="media-right">
+        <nav class="level">
+          <span class="level-item">
+
+            <div class="field is-grouped">
+              <p class="control">
+                <%= link_to(user_path(u), method: :delete, class: "button is-danger is-outlined", data: { confirm: t('views.users.delete_confirm') }) do %>
+                  <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                <% end %>
+              </p>
+
+              <p class="control">
+                <%= link_to(user_path(u), class: "button is-primary is-outlined") do %>
+                  <span class="icon"><i class="fas fa-bars"></i></span>
+                <% end %>
+              </p>
+
+            </div>
+
+          </span>
+        </nav>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>

@@ -79,3 +79,6 @@ en:
 
     users:
       index_title: Users
+      delete_confirm: Will remove the user. Continue?
+      successfully_deleted: User removed
+      show_title: User %{user}

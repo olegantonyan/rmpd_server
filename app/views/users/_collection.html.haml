@@ -1,5 +1,0 @@
-- users = present_collection(@users)
-= render partial: 'shared/list', locals: { collection: users,
-  columns: [{attr: :email},
-            {attr: :displayed_name} ],
-  details_link: -> (i) { user_path(i) } }

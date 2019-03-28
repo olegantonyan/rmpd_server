@@ -79,3 +79,6 @@ ru:
 
     users:
       index_title: Пользователи
+      delete_confirm: Удалить пользователя. Продолжить?
+      successfully_deleted: Пользователь удалён
+      show_title: Пользователь %{user}

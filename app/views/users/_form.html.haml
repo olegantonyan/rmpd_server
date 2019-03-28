@@ -1,4 +1,0 @@
-= simple_form_for resource do |f|
-  = f.input :displayed_name
-  = f.association :companies, collection: policy_scope(Company.all), as: :check_boxes
-  = f.button :submit
