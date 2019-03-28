@@ -1,5 +1,0 @@
-= simple_form_for resource do |f|
-  = f.input :title
-  - if current_user&.root?
-    = f.association :users, collection: policy_scope(User.all), as: :check_boxes
-  = f.button :submit

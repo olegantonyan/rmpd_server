@@ -50,3 +50,10 @@ en:
       error_delete: Error deleting device group
       delete_confirm: Will remove this device group. Are sure?
       edit_title: Edti device group
+
+    companies:
+      index_title: Companies
+      edit_title: Edit company
+      show_title: Company %{company}
+      new_title: New company
+      delete_confirm: Will remove this company. Are sure?

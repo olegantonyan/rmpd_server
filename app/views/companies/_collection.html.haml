@@ -1,6 +1,0 @@
-- companies = present_collection(@companies)
-= render partial: 'shared/list', locals: { collection: companies,
-  columns: [{attr: :title},
-            {attr: :users} ],
-  details_link: -> (i) { company_path(i) },
-  new_path: new_company_path }

@@ -31,7 +31,7 @@
         <%= link_to t('views.device_groups.index_title'), device_groups_path, class: "navbar-item" + active_class_for.call('device_groups') %>
       <% end %>
       <% if menu.companies %>
-        <%= link_to Company.model_name.human(count: 2), companies_path, class: "navbar-item" + active_class_for.call('companies') %>
+        <%= link_to t('views.companies.index_title'), companies_path, class: "navbar-item" + active_class_for.call('companies') %>
       <% end %>
       <% if menu.users %>
         <%= link_to User.model_name.human(count: 2), users_path, class: "navbar-item" + active_class_for.call('users') %>

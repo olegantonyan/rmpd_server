@@ -1,8 +1,6 @@
 class DeviceGroupsController < ApplicationController
-  include Paginateble
-
   def index
-    @device_groups = policy_scope(Device::Group.includes(:device_group_memberships, :devices)).limit(limit).offset(offset).order(created_at: :desc)
+    @device_groups = policy_scope(Device::Group.includes(:device_group_memberships, :devices)).order(created_at: :desc)
     authorize(@device_groups)
   end
 

@@ -1,0 +1,73 @@
+<% content_for :page_title, t('views.companies.index_title') %>
+
+<div class="columns">
+  <div class="column">
+    <h1 class="title"><%= yield(:page_title) %></h1>
+  </div>
+  <div class="column">
+    <% if policy(:company).new? %>
+      <%= link_to(new_device_group_path, class: "button is-primary is-outlined is-pulled-right") do %>
+        <span class="icon"><i class="fas fa-plus"></i></span>
+        <span><%= t('views.companies.new_title') %></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="section">
+
+  <% @companies.each do |c| %>
+
+    <div class="media">
+      <div class="media-left">
+        <span class="icon"><i class="fas fa-users fa-2x"></i></span>
+      </div>
+
+      <div class="media-content">
+        <div class="content">
+
+          <nav class="level">
+            <div class="level-left">
+              <span class="level-item">
+                <h5 class="subtitle is-5"><%= c.to_s %></h5>
+              </span>
+
+              <% c.users.each do |u| %>
+                <span class="level-item">
+                  <span class="icon"><i class="fas fa-user"></i></span>
+                  <%= link_to(u.to_s, user_path(u), target: "_blank") %>
+                </span>
+              <% end %>
+
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="media-right">
+        <nav class="level">
+          <span class="level-item">
+
+            <div class="field is-grouped">
+              <p class="control">
+                <%= link_to(company_path(c), method: :delete, class: "button is-danger is-outlined", data: { confirm: t('views.companies.delete_confirm') }) do %>
+                  <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                <% end %>
+              </p>
+
+              <p class="control">
+                <%= link_to(edit_company_path(c), class: "button is-primary is-outlined") do %>
+                  <span class="icon"><i class="fas fa-bars"></i></span>
+                <% end %>
+              </p>
+
+            </div>
+
+          </span>
+        </nav>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>
