@@ -1,0 +1,22 @@
+<%= form_with(model: device_group) do |f| %>
+  <div class="field">
+    <%= f.label :title, class: "label" %>
+    <div class="control">
+      <%= f.text_field :title, autofocus: true, class: "input" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :devices, class: "label" %>
+    <%= f.collection_check_boxes(:device_ids, policy_scope(Device.all), :id, :to_s) do |device| %>
+      <div>
+        <%= device.label(class: "checkbox") { device.check_box(class: "checkbox") } %>
+        <%= device.object.to_s %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t('views.save'), class: "button is-link" %>
+  </div>
+<% end %>

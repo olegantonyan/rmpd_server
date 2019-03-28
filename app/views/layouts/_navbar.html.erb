@@ -28,7 +28,7 @@
         <%= link_to t('views.devices.index_title'), devices_path, class: "navbar-item" + active_class_for.call('devices') %>
       <% end %>
       <% if menu.device_groups %>
-        <%= link_to Device::Group.model_name.human(count: 2), device_groups_path, class: "navbar-item" + active_class_for.call('device_groups') %>
+        <%= link_to t('views.device_groups.index_title'), device_groups_path, class: "navbar-item" + active_class_for.call('device_groups') %>
       <% end %>
       <% if menu.companies %>
         <%= link_to Company.model_name.human(count: 2), companies_path, class: "navbar-item" + active_class_for.call('companies') %>

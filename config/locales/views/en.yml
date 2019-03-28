@@ -9,6 +9,7 @@ en:
     logout: Sign out
     sign_up: Sign up
     not_authorized: You don't have permissions to do this
+    save: Save
 
     media_items:
       index_title: Mediafiles
@@ -40,3 +41,12 @@ en:
       edit_title: Edit playlist
       successfully_deleted: Playlist %{playlist} successfully removed
       error_delete: Cannot remove this playlist
+
+    device_groups:
+      index_title: Device groups
+      new_title: New group
+      save_successfull: Device group successfully saved
+      successfully_deleted: Device group successfully deleted
+      error_delete: Error deleting device group
+      delete_confirm: Will remove this device group. Are sure?
+      edit_title: Edti device group

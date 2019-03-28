@@ -1,15 +1,11 @@
 class Device
   class Group
     class Membership < ApplicationRecord
-      with_options inverse_of: :device_group_memberships do |a|
-        a.belongs_to :device
-        a.belongs_to :device_group, class_name: 'Device::Group'
-      end
+      belongs_to :device, inverse_of: :device_group_memberships
+      belongs_to :device_group, class_name: 'Device::Group', inverse_of: :device_group_memberships
 
-      with_options presence: true do
-        validates :device
-        validates :device_group
-      end
+      validates :device, presence: true
+      validates :device_group, presence: true
 
       def to_s
         "#{device} @ #{device_group}"

@@ -20,11 +20,11 @@ Rails.application.routes.draw do
     resource :playlist_assignment, only: %i[update]
   end
 
-  resources :media_items, except: %i[show edit destroy] do
+  resources :media_items, except: %i[show edit update destroy] do
     post 'upload', on: :collection
     delete 'destroy_multiple', on: :collection
   end
-  resources :device_groups, concerns: :playlist_assignable
+  resources :device_groups, except: %i[show], concerns: :playlist_assignable
   resources :devices, concerns: :playlist_assignable, except: %i[destroy new create] do
     resources :device_log_messages, only: %i[index]
     resources :software_updates, only: %i[create index]

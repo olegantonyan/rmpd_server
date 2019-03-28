@@ -1,0 +1,29 @@
+<% content_for :page_title, t('views.device_groups.edit_title') %>
+
+<div class="columns">
+  <div class="column is-narrow">
+    <%= link_to(device_groups_path, class: "button") do %>
+      <span class="icon"><i class="fas fa-angle-left "></i></span>
+      <span><%= t('views.back') %></span>
+    <% end %>
+  </div>
+
+  <div class="column">
+    <h1 class="title"><%= yield(:page_title) %></h1>
+  </div>
+</div>
+
+
+<div class="columns">
+  <div class="column">
+  </div>
+
+  <div class="column">
+    <div class="section">
+      <%= render 'form', device_group: @device_group %>
+    </div>
+  </div>
+
+  <div class="column">
+  </div>
+</div>

@@ -9,6 +9,7 @@ ru:
     logout: Выход
     sign_up: Регистрация
     not_authorized: Недостаточно прав доступа
+    save: Сохранить
 
     media_items:
       index_title: Медиафайлы
@@ -40,3 +41,12 @@ ru:
       edit_title: Редактировать плейлист
       successfully_deleted: Плейлист %{playlist} успешно удалён
       error_delete: Не удалось удалить плейлист
+
+    device_groups:
+      index_title: Группы устройств
+      new_title: Новая группа
+      save_successfull: Группа успешно сохранена
+      successfully_deleted: Группа успешно удалена
+      error_delete: Возникла ошибка при удалении группы
+      delete_confirm: Удалить эту группу. Вы уверены?
+      edit_title: Редактировать группу устройств

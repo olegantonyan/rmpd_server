@@ -34,12 +34,6 @@ class MediaItemsController < ApplicationController
     authorize(:media_item)
   end
 
-  def update
-    media_item = MediaItem.find(params[:id])
-    authorize(media_item)
-    # TODO
-  end
-
   def upload
     Upload.new(request.body.read, request.headers['Content-Range'], request.headers['X-Upload-Uuid']).save
     render json: {}, status: :created
