@@ -35,7 +35,7 @@
               <% g.devices.each do |d| %>
                 <span class="level-item">
                   <span class="icon"><i class="fas fa-microchip"></i></span>
-                  <%= d.to_s %>
+                  <%= link_to(d.to_s, device_path(d), target: "_blank") %>
                 </span>
               <% end %>
 
