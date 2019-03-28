@@ -62,6 +62,16 @@ en:
       leave: Leave the company
       leave_confirm: You will now longer have access to any devices/mediafiles associates with this company. Continue?
       leave_successfull: You are no longer a member of %{company}
+      invites:
+        cancel: Cancel
+        delete: Delte
+        create: Send invitation
+        already_in_the_company: You are already in this company
+        accept_invite: Accept invite to the company
+        not_found: Cannot find invitation. It was probably removed
+        accepted: Accepted
+        not_accepted: Not accepted
+        index_title: Invitations
 
     users:
       index_title: Users

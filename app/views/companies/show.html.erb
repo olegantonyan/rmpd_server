@@ -64,8 +64,13 @@
           </div>
         </nav>
       <% end %>
-    </div>
 
+      <h6 class="title is-6"><%= t('views.companies.invites.index_title') %></h6>
+      <div>
+        <%= render 'invites', company: @company %>
+      </div>
+
+    </div>
   </div>
 </div>
 

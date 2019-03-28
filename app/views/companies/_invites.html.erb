@@ -1,0 +1,14 @@
+<div>
+  <ul>
+    <% company.invites.each do |i| %>
+      <li>
+        <span><%= i.email %></span>
+        (<span><%= i.accepted ? t('views.companies.invites.accepted') : t('views.companies.invites.not_accepted')  %></span>)
+      </li>
+    <% end %>
+  <ul>
+</div>
+
+<div>
+  
+</div>
