@@ -6,7 +6,7 @@
   </div>
   <div class="column">
     <% if policy(:company).new? %>
-      <%= link_to(new_device_group_path, class: "button is-primary is-outlined is-pulled-right") do %>
+      <%= link_to(new_company_path, class: "button is-primary is-outlined is-pulled-right") do %>
         <span class="icon"><i class="fas fa-plus"></i></span>
         <span><%= t('views.companies.new_title') %></span>
       <% end %>

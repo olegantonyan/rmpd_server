@@ -1,0 +1,22 @@
+<%= form_with(model: company) do |f| %>
+  <div class="field">
+    <%= f.label :title, class: "label" %>
+    <div class="control">
+      <%= f.text_field :title, autofocus: true, class: "input" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :users, class: "label" %>
+    <%= f.collection_check_boxes(:user_ids, policy_scope(User.all), :id, :to_s) do |user| %>
+      <div>
+        <%= user.label(class: "checkbox") { user.check_box(class: "checkbox") } %>
+        <%= user.object.to_s %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t('views.save'), class: "button is-link" %>
+  </div>
+<% end %>
