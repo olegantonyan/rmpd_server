@@ -1,5 +1,5 @@
 class Company
-  class Leave < ActiveModelBase
+  class Leave
     include ActiveModel::Model
     include ActiveModel::Validations
     extend ActiveModel::Translation

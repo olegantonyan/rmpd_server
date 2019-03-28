@@ -34,7 +34,7 @@
         <%= link_to t('views.companies.index_title'), companies_path, class: "navbar-item" + active_class_for.call('companies') %>
       <% end %>
       <% if menu.users %>
-        <%= link_to User.model_name.human(count: 2), users_path, class: "navbar-item" + active_class_for.call('users') %>
+        <%= link_to t('views.users.index_title'), users_path, class: "navbar-item" + active_class_for.call('users') %>
       <% end %>
 
     </div>

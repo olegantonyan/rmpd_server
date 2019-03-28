@@ -1,0 +1,10 @@
+<% content_for :page_title, t('views.companies.invites.index_title') %>
+
+<div class="section">
+  <% if @invite.company.includes_user?(@user) %>
+    <%= t('views.companies.invites.already_in_the_company') %>
+    <%= link_to(t('views.home_page'), root_path) %>
+  <% else %>
+    <%= link_to(t('views.companies.invites.accept_invite'), users_sign_up_via_invite_accept_path(invitation_token: params[:invitation_token]), method: :post, class: 'button button-primary is-outlined') %>
+  <% end %>
+</div>

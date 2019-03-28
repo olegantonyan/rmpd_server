@@ -75,6 +75,7 @@ ru:
         successfully_deleted: Приглашение успешно удалено
         delete_confirm: Этот пользователь не сможет присоединиться к вашей компании по ссылке с приглашением. Продолжить?
         save_successfull: Приглашение отправлено на ${email}
+        accept_successfull: Приглашение принято
 
     users:
       index_title: Пользователи

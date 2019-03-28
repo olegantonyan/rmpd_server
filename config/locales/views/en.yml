@@ -75,6 +75,7 @@ en:
         successfully_deleted: Invitation successfully deleted
         delete_confirm: This user will no longer be able to accept the invitation. Continue?
         save_successfull: Invitation successfully sent to ${email}
+        accept_successfull: Invitation accepted
 
     users:
       index_title: Users

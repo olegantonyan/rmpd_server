@@ -1,11 +1,13 @@
 class Invite
-  class Accept < ActiveModelBase
+  class Accept
+    include ActiveModel::Model
+    include ActiveModel::Validations
+    extend ActiveModel::Translation
+
     attr_accessor :user, :invite
 
-    with_options presence: true do
-      validates :user
-      validates :invite
-    end
+    validates :user, presence: true
+    validates :invite, presence: true
     validate :invite_for_this_user
     validate :user_already_a_member
 
