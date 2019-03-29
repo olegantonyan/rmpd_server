@@ -10,6 +10,7 @@ en:
     sign_up: Sign up
     not_authorized: You don't have permissions to do this
     save: Save
+    optional: optional
 
     media_items:
       index_title: Mediafiles

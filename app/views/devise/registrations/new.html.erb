@@ -56,6 +56,7 @@
 
         <div class="field">
           <%= f.label :displayed_name, class: "label" %>
+          <em><%= t('views.optional') %></em>
           <div class="control">
             <%= f.text_field :displayed_name, class: "input" %>
           </div>
@@ -64,11 +65,16 @@
         <% unless resource.invite %>
           <div class="field">
             <%= f.label :company_title, class: "label" %>
+            <em><%= t('views.optional')%></em>
             <div class="control">
               <%= f.text_field :company_title, class: "input" %>
             </div>
           </div>
         <% end %>
+
+        <p>
+          <em>Регистрируясь вы подтверждаете своё согласие с <%= link_to('политикой обработки персональных данных', '/privacy.html', target: "_blank") %>
+        </p>
 
         <div class="actions">
           <div class="control">

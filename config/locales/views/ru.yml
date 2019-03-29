@@ -10,6 +10,7 @@ ru:
     sign_up: Регистрация
     not_authorized: Недостаточно прав доступа
     save: Сохранить
+    optional: необязательно
 
     media_items:
       index_title: Медиафайлы
