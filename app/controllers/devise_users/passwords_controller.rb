@@ -6,9 +6,14 @@ module DeviseUsers
     # end
 
     # POST /resource/password
-    # def create
-    #   super
-    # end
+    def create
+      if Recaptcha.new(params['g-recaptcha-response']).valid?
+        super
+      else
+        flash[:error] = 'CAPTCHA failed'
+        redirect_to(new_user_password_path)
+      end
+    end
 
     # GET /resource/password/edit?reset_password_token=abcdef
     # def edit

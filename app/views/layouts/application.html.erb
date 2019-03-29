@@ -9,6 +9,7 @@
     <%= content_tag :div, hidden: true, id: "js_data", js_data: @js_data.to_json do %>
     <% end %>
     <%= content_for?(:js) ? yield(:js) : javascript_packs_with_chunks_tag('application') %>
+    <%= content_for?(:head) ? yield(:head) : '' %>
   </head>
   <body>
     <% unless hide_navbar? %>

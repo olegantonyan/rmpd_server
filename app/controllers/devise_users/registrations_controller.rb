@@ -14,9 +14,14 @@ module DeviseUsers
     # end
 
     # POST /resource
-    # def create
-    #   super
-    # end
+    def create
+      if Recaptcha.new(params['g-recaptcha-response']).valid?
+        super
+      else
+        flash[:error] = 'CAPTCHA failed'
+        redirect_to(new_user_registration_path)
+      end
+    end
 
     # GET /resource/edit
     # def edit

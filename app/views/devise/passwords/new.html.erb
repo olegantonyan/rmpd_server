@@ -1,3 +1,7 @@
+<% content_for(:head) do %>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<% end %>
+
 <% content_for :page_title, t('.forgot_your_password') %>
 
 <h1 class="title has-text-centered"><%= yield(:page_title) %></h1>
@@ -17,6 +21,8 @@
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
           </div>
         </div>
+
+        <div class="g-recaptcha" data-sitekey="6LeMxJoUAAAAAJ43TTQXmOGy051py0Ximbbo9wTr"></div>
 
         <div class="actions">
           <%= f.submit t('.send_me_reset_password_instructions'), class: "button is-link" %>
