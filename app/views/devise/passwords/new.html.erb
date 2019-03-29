@@ -22,10 +22,15 @@
           </div>
         </div>
 
-        <div class="g-recaptcha" data-sitekey="6LeMxJoUAAAAAJ43TTQXmOGy051py0Ximbbo9wTr"></div>
+        <div class="g-recaptcha" data-sitekey="6LeMxJoUAAAAAJ43TTQXmOGy051py0Ximbbo9wTr" data-callback="enable_submit_button_cb"></div>
+        <script type="text/javascript">
+        function enable_submit_button_cb() {
+          document.getElementById("password_reset_submit_button").disabled = false;
+        }
+        </script>
 
         <div class="actions">
-          <%= f.submit t('.send_me_reset_password_instructions'), class: "button is-link" %>
+          <%= f.submit t('.send_me_reset_password_instructions'), class: "button is-link", id: "password_reset_submit_button", disabled: Recaptcha.enabled? %>
         </div>
       <% end %>
 

@@ -82,11 +82,16 @@
           </em>
         </p>
 
-        <div class="g-recaptcha" data-sitekey="6LeMxJoUAAAAAJ43TTQXmOGy051py0Ximbbo9wTr"></div>
+        <div class="g-recaptcha" data-sitekey="6LeMxJoUAAAAAJ43TTQXmOGy051py0Ximbbo9wTr" data-callback="enable_submit_button_cb"></div>
+        <script type="text/javascript">
+        function enable_submit_button_cb() {
+          document.getElementById("registration_submit_button").disabled = false;
+        }
+        </script>
 
         <div class="actions">
           <div class="control">
-            <%= f.submit t('.sign_up'), class: "button is-link" %>
+            <%= f.submit t('.sign_up'), class: "button is-link", id: "registration_submit_button", disabled: Recaptcha.enabled? %>
           </div>
         </div>
       <% end %>
