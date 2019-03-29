@@ -41,7 +41,7 @@
         </nav>
       <% end %>
 
-      <% if policy(Device::Bind.new).new? %>
+      <% if policy([:device, :bind]).new? %>
         <%= link_to(new_device_binds_path, class: "button is-primary is-outlined") do %>
           <span class="icon"><i class="fas fa-link"></i></span>
           <span><%= t('views.devices.bind') %></span>

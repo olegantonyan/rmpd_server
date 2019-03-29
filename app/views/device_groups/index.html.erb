@@ -5,7 +5,7 @@
     <h1 class="title"><%= yield(:page_title) %></h1>
   </div>
   <div class="column">
-    <% if policy(Device::Group.new).new? %>
+    <% if policy([:device, :group]).new? %>
       <%= link_to(new_device_group_path, class: "button is-primary is-outlined is-pulled-right") do %>
         <span class="icon"><i class="fas fa-plus"></i></span>
         <span><%= t('views.device_groups.new_title') %></span>

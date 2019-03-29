@@ -28,7 +28,7 @@ RSpec.describe Device::Bind, type: :model do
     device = create(:device, company: nil)
     bind = build(:device_bind, company_id: company.id, login: device.login)
     expect(bind).to be_valid
-    bind.save!
+    bind.save
     device.reload
     expect(device.company).to eq company
   end

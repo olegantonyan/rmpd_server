@@ -16,24 +16,23 @@
   <div id='nav-menu' class="navbar-menu">
 
     <div class="navbar-start">
-      <% menu = MainMenu.new(user: current_user) %>
       <% active_class_for = ->(ctrl) { params[:controller] == ctrl ? ' is-active' : '' } %>
-      <% if menu.media_items %>
+      <% if policy(:media_item).index? %>
         <%= link_to t('views.media_items.index_title'), media_items_path, class: "navbar-item" + active_class_for.call('media_items') %>
       <% end %>
-      <% if menu.playlists %>
+      <% if policy(:playlist).index? %>
         <%= link_to t('views.playlists.index_title'), playlists_path, class: "navbar-item" + active_class_for.call('playlists') %>
       <% end %>
-      <% if menu.devices %>
+      <% if policy(:device).index? %>
         <%= link_to t('views.devices.index_title'), devices_path, class: "navbar-item" + active_class_for.call('devices') %>
       <% end %>
-      <% if menu.device_groups %>
+      <% if policy([:device, :group]).index? %>
         <%= link_to t('views.device_groups.index_title'), device_groups_path, class: "navbar-item" + active_class_for.call('device_groups') %>
       <% end %>
-      <% if menu.companies %>
+      <% if policy(:company).index? %>
         <%= link_to t('views.companies.index_title'), companies_path, class: "navbar-item" + active_class_for.call('companies') %>
       <% end %>
-      <% if menu.users %>
+      <% if policy(:user).index? %>
         <%= link_to t('views.users.index_title'), users_path, class: "navbar-item" + active_class_for.call('users') %>
       <% end %>
 
@@ -44,22 +43,22 @@
         <div class="buttons">
           <% if user_signed_in? %>
 
-            <%= link_to edit_user_registration_path, class: "button is-primary is-outlined" do %>
+            <%= link_to(edit_user_registration_path, class: "button is-primary is-outlined") do %>
               <%= current_user.to_s %>
             <% end %>
 
-            <%= link_to destroy_user_session_path, method: :delete, class: "button is-danger is-outlined" do %>
+            <%= link_to(destroy_user_session_path, method: :delete, class: "button is-danger is-outlined") do %>
               <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
             <% end %>
 
           <% else %>
 
-            <%= link_to new_user_registration_path, class: "button is-info is-outlined" do %>
+            <%= link_to(new_user_registration_path, class: "button is-info is-outlined") do %>
               <span class="icon"><i class="fas fa-user-plus"></i></span>
               <span>&nbsp;</span>
               <%= t('views.sign_up', default: 'Sign up') %>
             <% end %>
-            <%= link_to new_user_session_path, class: "button is-success is-outlined" do %>
+            <%= link_to(new_user_session_path, class: "button is-success is-outlined") do %>
               <span class="icon"><i class="fas fa-sign-in-alt"></i></span>
               <span>&nbsp;</span>
               <%= t('views.login', default: 'Login') %>
