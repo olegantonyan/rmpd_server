@@ -1,5 +1,9 @@
 class Playlist
-  class Assignment < ActiveModelBase
+  class Assignment
+    include ActiveModel::Model
+    include ActiveModel::Validations
+    extend ActiveModel::Translation
+
     class NotEnoughSpaceError < RuntimeError; end
 
     attr_accessor :playlist, :assignable, :force

@@ -1,5 +1,7 @@
 class Playlist
-  class Creation < ActiveModelBase
+  class Creation
+    include ActiveModel::Model
+
     attr_accessor :playlist
 
     delegate :schedule, :playlist_items_advertising, :to_s, to: :playlist, allow_nil: true
