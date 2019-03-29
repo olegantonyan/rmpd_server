@@ -30,9 +30,9 @@
 
         <% if @companies.count > 1 %>
           <div class="field">
-            <%= f.label :company_id, class: "label" %>
+            <%= f.label :company, class: "label" %>
             <div class="select">
-              <%= f.select :company_id, @companies.map { |c| [c.title, c.id] } %>
+              <%= f.select :company_id, @companies.map { |c| [c.title, c.id] }, include_blank: true %>
             </div>
           </div>
         <% end %>
