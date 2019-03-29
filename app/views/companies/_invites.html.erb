@@ -3,7 +3,7 @@
     <% company.invites.each do |i| %>
       <li>
         <span><%= i.email %></span>
-        (<span><em><%= i.accepted ? t('views.companies.invites.accepted') : t('views.companies.invites.not_accepted')  %><em></span>)
+        (<span><em><%= i.accepted ? t('views.companies.invites.accepted') : t('views.companies.invites.not_accepted')  %></em></span>)
         <span><%= link_to(t('views.companies.invites.delete'), company_invite_path(company, i), method: :delete, class: "button is-small is-danger is-outlined", data: { confirm: t('views.companies.invites.delete_confirm') }) %></span>
       </li>
     <% end %>
