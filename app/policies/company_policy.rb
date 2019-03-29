@@ -19,6 +19,10 @@ class CompanyPolicy < ApplicationPolicy
     record.includes_user?(user) && user.companies.size > 1
   end
 
+  def destroy?
+    super || record.includes_user?(user) && user.companies.size > 1
+  end
+
   class Scope < Scope
     def resolve
       return scope.all if user.root?

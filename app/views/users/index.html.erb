@@ -43,17 +43,21 @@
           <span class="level-item">
 
             <div class="field is-grouped">
-              <p class="control">
-                <%= link_to(user_path(u), method: :delete, class: "button is-danger is-outlined", data: { confirm: t('views.users.delete_confirm') }) do %>
-                  <span class="icon"><i class="fas fa-trash-alt"></i></span>
-                <% end %>
-              </p>
+              <% if policy(u).destroy? %>
+                <p class="control">
+                  <%= link_to(user_path(u), method: :delete, class: "button is-danger is-outlined", data: { confirm: t('views.users.delete_confirm') }) do %>
+                    <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                  <% end %>
+                </p>
+              <% end %>
 
-              <p class="control">
-                <%= link_to(user_path(u), class: "button is-primary is-outlined") do %>
-                  <span class="icon"><i class="fas fa-bars"></i></span>
-                <% end %>
-              </p>
+              <% if policy(u).show? %>
+                <p class="control">
+                  <%= link_to(user_path(u), class: "button is-primary is-outlined") do %>
+                    <span class="icon"><i class="fas fa-bars"></i></span>
+                  <% end %>
+                </p>
+              <% end %>
 
             </div>
 
