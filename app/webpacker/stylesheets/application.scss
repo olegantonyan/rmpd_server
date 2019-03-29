@@ -9,7 +9,7 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import './loader.css';
 
 .multiselect-noscroll {
-  display: inline-block; 
+  display: inline-block;
   vertical-align: top;
   overflow: hidden;
   border: solid
@@ -18,4 +18,11 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 .multiselect-noscroll select {
   padding: 10px;
   margin: -5px -20px -5px -5px;
+}
+
+#fill-with-bg-image {
+  background-image: url("../images/dj.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 820px;
 }

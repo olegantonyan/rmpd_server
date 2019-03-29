@@ -1,47 +1,12 @@
-<% content_for :page_title, t('views.home_page') %>
-
-<% content_for(:js) do %>
-  <%= javascript_packs_with_chunks_tag 'application' %>
-<% end %>
-
-<section class="hero">
+<section class="hero is-pulled-right">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title">
-        Shut up and take my money!
+      <h1 class="title is-1 has-text-light">
+        <%= link_to('Войдите', new_user_session_path) %> или <%= link_to('зарегистрируйтесь', new_user_registration_path) %>
       </h1>
-      <h2 class="subtitle">
-        What should be on a home page?
-      </h2>
+      <h4 class="subtitle is-4 has-text-grey-lighter">
+        Если вам уже выслали приглашение, пожалуйста, используйте его для регистрации
+      </h4>
     </div>
   </div>
 </section>
-
-<nav class="level">
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading">Tweets</p>
-      <p class="title">3,456</p>
-    </div>
-  </div>
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading">Following</p>
-      <p class="title">123</p>
-    </div>
-  </div>
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading">Followers</p>
-      <p class="title">456K</p>
-    </div>
-  </div>
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading">Likes</p>
-      <p class="title">789</p>
-    </div>
-  </div>
-</nav>
-
-<div id="root_component" class="section"></div>
