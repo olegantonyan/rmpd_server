@@ -55,7 +55,7 @@ class CompaniesController < ApplicationController
       redirect_to(companies_path)
     else
       flash[:alert] = @company.errors.full_messages.to_sentence
-      redirect_to(edit_company_path(@company))
+      redirect_to(company_path(@company))
     end
   end
 

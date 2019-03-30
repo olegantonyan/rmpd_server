@@ -47,6 +47,10 @@
           <span><%= t('views.devices.bind') %></span>
         <% end %>
       <% end %>
+
+      <div class="section">
+        <p><%= t('views.media_items.index_title') %>: <%= @company.media_items.count %></p>
+      </div>
     </div>
 
     <div class="column">
