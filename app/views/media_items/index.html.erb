@@ -4,11 +4,19 @@
   <div class="column">
     <h1 class="title"><%= yield(:page_title) %></h1>
   </div>
+
   <div class="column">
     <% if policy(:media_item).new? %>
       <%= link_to(new_media_item_path, class: "button is-primary is-outlined is-pulled-right") do %>
         <span class="icon"><i class="fas fa-cloud-upload-alt"></i></span>
         <span><%= t('views.media_items.upload_files') %></span>
+      <% end %>
+    <% end %>
+
+    <% if policy(:tag).new? %>
+      <%= link_to(tags_path, class: "button is-outlined is-pulled-right") do %>
+        <span class="icon"><i class="fas fa-tags"></i></span>
+        <span><%= t('views.tags.manage') %></span>
       <% end %>
     <% end %>
   </div>

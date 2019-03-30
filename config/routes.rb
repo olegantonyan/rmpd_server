@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   end
   resources :users, only: %i[index show edit update destroy]
   resource :device_binds, only: %i[create new]
+  resources :tags, except: %i[new show]
 
   namespace :deviceapi, defaults: { format: :json } do
     resources :status, only: %i[create]

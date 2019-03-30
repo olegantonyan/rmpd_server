@@ -48,7 +48,6 @@ ru:
       new_title: Новая группа
       save_successfull: Группа успешно сохранена
       successfully_deleted: Группа успешно удалена
-      error_delete: Возникла ошибка при удалении группы
       delete_confirm: Удалить эту группу. Вы уверены?
       edit_title: Редактировать группу устройств
 
@@ -83,3 +82,10 @@ ru:
       delete_confirm: Удалить пользователя. Продолжить?
       successfully_deleted: Пользователь удалён
       show_title: Пользователь %{user}
+
+    tags:
+      manage: Управление тегами
+      save_successfull: Тег спешно сохранён
+      successfully_deleted: Тег успешно удалён
+      delete_confirm: Удалить этот тег?
+      create: Создать новый тег

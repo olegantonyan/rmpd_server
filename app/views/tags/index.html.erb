@@ -1,0 +1,78 @@
+<% content_for :page_title, t('views.tags.manage') %>
+
+<div class="columns">
+  <div class="column">
+    <h1 class="title"><%= yield(:page_title) %></h1>
+  </div>
+  <div class="column">
+    <% if policy(:tag).create? %>
+      <div class="is-pulled-right">
+        <%= form_with(url: tags_path, method: :post, scope: :tag) do |f| %>
+          <div class="field has-addons">
+            <div class="control">
+              <%= f.text_field(:name, class: "input") %>
+            </div>
+
+            <div class="control">
+              <%= f.submit(t('views.tags.create'), class: "button is-primary is-outlined") %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if policy(:tag).index? %>
+  <div class="section">
+
+    <% @tags.each do |t| %>
+
+      <div class="media">
+        <div class="media-left">
+          <span class="icon"><i class="fas fa-tags fa-2x"></i></span>
+        </div>
+
+        <div class="media-content">
+          <div class="content">
+
+            <nav class="level">
+              <div class="level-left">
+                <span class="level-item">
+                  <h5 class="subtitle is-5"><%= t.to_s %></h5>
+                </span>
+
+                <span class="level-item">
+                  <span class="icon"><i class="fas fa-music"></i></span>
+                  <%= t('views.media_items.index_title') %> <%= t.taggings.count %>
+                </span>
+
+              </div>
+            </nav>
+          </div>
+        </div>
+
+        <div class="media-right">
+          <nav class="level">
+            <span class="level-item">
+
+              <div class="field is-grouped">
+                <% if policy(t).destroy? %>
+                  <p class="control">
+                    <%= link_to(tag_path(t), method: :delete, class: "button is-danger is-outlined", data: { confirm: t('views.tags.delete_confirm') }) do %>
+                      <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                    <% end %>
+                  </p>
+                <% end %>
+
+              </div>
+
+            </span>
+          </nav>
+        </div>
+      </div>
+
+    <% end %>
+
+  </div>
+<% end %>

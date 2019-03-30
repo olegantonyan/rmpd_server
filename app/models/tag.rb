@@ -5,6 +5,10 @@ class Tag < ApplicationRecord
 
   scope :ordered, -> { order(:name) }
 
+  def to_s
+    name
+  end
+
   def serialize
     attributes.slice('id', 'name').freeze
   end

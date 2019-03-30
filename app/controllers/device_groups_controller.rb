@@ -40,7 +40,7 @@ class DeviceGroupsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy # rubocop: disable Metrics/AbcSize
     @device_group = Device::Group.find(params[:id])
     authorize(@device_group)
 
@@ -48,7 +48,7 @@ class DeviceGroupsController < ApplicationController
       flash[:success] = t('views.device_groups.successfully_deleted')
       redirect_to(device_groups_path)
     else
-      flash[:alert] = t('views.device_groups.error_delete')
+      flash[:alert] = @device_group.errors.full_messages.to_sentence
       redirect_to(edit_device_group_path(@device_group))
     end
   end

@@ -48,7 +48,6 @@ en:
       new_title: New group
       save_successfull: Device group successfully saved
       successfully_deleted: Device group successfully deleted
-      error_delete: Error deleting device group
       delete_confirm: Will remove this device group. Are sure?
       edit_title: Edti device group
 
@@ -83,3 +82,10 @@ en:
       delete_confirm: Will remove the user. Continue?
       successfully_deleted: User removed
       show_title: User %{user}
+
+    tags:
+      manage: Manage tags
+      save_successfull: Tag successfully saved
+      successfully_deleted: Tag successfully deleted
+      delete_confirm: Delete the tag?
+      create: Create tag
