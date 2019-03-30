@@ -8,7 +8,6 @@ class Invite < ApplicationRecord
   validates :email, format: { with: Devise.email_regexp }
 
   before_create :generate_token
-  after_commit :send_notification, on: :create
 
   def user_exists?
     User.exists?(email: email)
@@ -22,9 +21,5 @@ class Invite < ApplicationRecord
 
   def generate_token
     self.token = Digest::SHA1.hexdigest([user.id, company.id, Time.current, rand].join)
-  end
-
-  def send_notification
-    InviteMailer.invitation(self).deliver_later
   end
 end

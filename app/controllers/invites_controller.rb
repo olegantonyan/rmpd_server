@@ -1,11 +1,12 @@
 class InvitesController < ApplicationController
-  def create # rubocop: disable Metrics/AbcSize
+  def create # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
     invite = Invite.new(invite_params)
     invite.user = current_user
     invite.company = Company.find(params[:company_id])
     authorize(invite)
 
     if invite.save
+      InviteMailer.invitation(invite, I18n.locale).deliver_later
       flash[:success] = t('views.companies.invites.save_successfull', email: invite.email)
     else
       flash[:alert] = invite.errors.full_messages.to_sentence
