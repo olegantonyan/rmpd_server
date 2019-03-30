@@ -46,17 +46,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.generators do |g|
-    g.test_framework :rspec,
-      fixtures: true,
-      view_specs: false,
-      helper_specs: true,
-      routing_specs: false,
-      controller_specs: false,
-      request_specs: false
-    g.fixture_replacement :factory_girl, dir: 'spec/factories'
-  end
-
   # Store files locally.
   config.active_storage.service = :local
 

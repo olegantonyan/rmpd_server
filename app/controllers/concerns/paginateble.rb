@@ -1,6 +1,4 @@
 module Paginateble
-  extend ActiveSupport::Concern
-
   def limit
     [(params[:limit] || default_limit).to_i, max_limit].min
   end
