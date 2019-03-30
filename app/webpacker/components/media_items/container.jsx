@@ -19,22 +19,34 @@ export default class Container extends React.Component {
     js_data: PropTypes.object.isRequired
   }
 
-  state = {
-    media_items: [],
-    total_count: 0,
+  constructor(props) {
+    super(props)
 
-    current_page: 0,
-    loading: true,
-    search_query: "",
-    selected_tags: [],
-    selected_company: ALL_COMPANIES_PLACEHOLDER,
-    selected_type: "",
-    selected_library: "all",
+    const url_params = new URLSearchParams(window.location.search)
 
-    playing_now: null,
+    let pre_selected_tags = []
+    const tag_id_from_url = url_params.get("with_tag_ids")
+    if (tag_id_from_url !== null) {
+      pre_selected_tags = this.props.js_data.tags.filter(t => t.id.toString() === tag_id_from_url.toString())
+    }
 
-    selected_items: [],
-    deleted_results: null
+    this.state = {
+      media_items: [],
+      total_count: 0,
+
+      current_page: 0,
+      loading: true,
+      search_query: "",
+      selected_tags: pre_selected_tags,
+      selected_company: ALL_COMPANIES_PLACEHOLDER,
+      selected_type: "",
+      selected_library: "all",
+
+      playing_now: null,
+
+      selected_items: [],
+      deleted_results: null
+    }
   }
 
   componentDidMount() {
