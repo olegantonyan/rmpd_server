@@ -40,11 +40,13 @@
 
     <div class="navbar-end">
       <div class="navbar-item">
+
         <div class="buttons">
           <% if user_signed_in? %>
 
             <%= link_to(edit_user_registration_path, class: "button is-primary is-outlined") do %>
-              <%= current_user.to_s %>
+              <span class="icon"><%= image_tag(current_user.gravatar_url) %></span>
+              <span><%= current_user.to_s %></span>
             <% end %>
 
             <%= link_to(destroy_user_session_path, method: :delete, class: "button is-danger is-outlined") do %>
@@ -55,17 +57,16 @@
 
             <%= link_to(new_user_registration_path, class: "button is-info is-outlined") do %>
               <span class="icon"><i class="fas fa-user-plus"></i></span>
-              <span>&nbsp;</span>
-              <%= t('views.sign_up', default: 'Sign up') %>
+              <span><%= t('views.sign_up', default: 'Sign up') %></span>
             <% end %>
             <%= link_to(new_user_session_path, class: "button is-success is-outlined") do %>
               <span class="icon"><i class="fas fa-sign-in-alt"></i></span>
-              <span>&nbsp;</span>
-              <%= t('views.login', default: 'Login') %>
+              <span><%= t('views.login', default: 'Login') %></span>
             <% end %>
 
           <% end %>
         </div>
+
       </div>
     </div>
 

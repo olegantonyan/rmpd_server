@@ -14,8 +14,8 @@ class User < ApplicationRecord
   }
   scope :with_company_id, ->(*ids) { joins(:companies).where(companies: { id: [*ids] }) }
 
-  def gravatar_url
-    @gravatar_url ||= "https://gravatar.com/avatar/#{Digest::MD5.hexdigest(email).downcase}.png"
+  def gravatar_url(size: 32)
+    @gravatar_url ||= "https://gravatar.com/avatar/#{Digest::MD5.hexdigest(email).downcase}.png?s=#{size}"
   end
 
   def to_s
