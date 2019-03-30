@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
   def index
-    @tags = policy_scope(Tag.includes(:taggings)).order(name: :asc)
+    @tags = policy_scope(Tag.includes(:taggings).ordered)
     authorize(@tags)
   end
 
