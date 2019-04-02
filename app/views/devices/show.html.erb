@@ -33,6 +33,8 @@
 
 <% if current_user.root? %>
   <div class="section">
+    <h3 class="title is-3">Area 51</h3>
+
     <%= link_to(device_software_updates_path(@device), class: "button is-warning") do %>
       <span>Software update</span>
     <% end %>
