@@ -4,7 +4,7 @@ class MediaItemPolicy < ApplicationPolicy
   end
 
   def show?
-    super || (index? && user.company_ids.include?(record.company_id)) || record.standard || record.premium
+    super || (index? && user.company_ids.include?(record.company_id)) || record.standard? || record.premium?
   end
 
   def new?
