@@ -16,8 +16,6 @@ ru:
       upload_new: Загрузить
       description: Описание
       type: Тип
-      library: Общедоступная библиотека
-      private_only: Только мои
       all: Все
       skip_volume_normalization: Не выравнивать уровень громкости
       add_files: Выбрать файлы
@@ -32,6 +30,10 @@ ru:
       deleted: Успешно удалены
       unauthorized: Недостаточно прав на удаление
       has_playlist: Входят в плейлисты потому не могут быть удалены
+      library: Библиотека
+      personal: Персональный
+      standard: 'Библиотека: стандарт'
+      premium: 'Библиотека: премиум'
 
     devices:
       login: Идентификатор

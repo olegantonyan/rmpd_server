@@ -26,7 +26,7 @@ ru:
         file_processing_failed_message: Текст ошибки преобразования файла
         tags: Теги
         tag_ids: Теги
-        library_shared: Общая библиотека
+        library: Библиотека
 
   activemodel:
     models:

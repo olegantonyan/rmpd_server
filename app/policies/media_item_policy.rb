@@ -4,7 +4,7 @@ class MediaItemPolicy < ApplicationPolicy
   end
 
   def show?
-    super || (index? && user.company_ids.include?(record.company_id)) || record.library_shared
+    super || (index? && user.company_ids.include?(record.company_id)) || record.standard || record.premium
   end
 
   def new?
@@ -26,13 +26,13 @@ class MediaItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       return scope.all if user.root?
-      scope.where(company: user.companies).or(scope.where(library_shared: true))
+      scope.where(company: user.companies).or(scope.standard).or(scope.premium)
     end
   end
 
   def permitted_attributes
     base = [:description, :company_id, :type, :skip_volume_normalization, tag_ids: []]
     return base unless user.root?
-    [:library_shared] + base
+    [:library] + base
   end
 end

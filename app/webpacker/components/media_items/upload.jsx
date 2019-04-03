@@ -22,7 +22,7 @@ export default class Upload extends React.Component {
     selected_tags: [],
     selected_company: this.props.js_data.companies[0],
     selected_type: "background",
-    selected_library: false,
+    selected_library: "personal",
     selected_skip_volume_normalization: false,
     selected_description: "",
     selected_files: []
@@ -145,10 +145,16 @@ export default class Upload extends React.Component {
   libraryInput = () => {
     return(
       <div className="field">
-        <label className="checkbox">
-          <input type="checkbox" disabled={this.state.uploading} onChange={(ev) => this.setState({ selected_library: ev.target.checked })}/>
-          {I18n.media_items.library}
-        </label>
+        <label className="label">{I18n.media_items.library}</label>
+        <div className="control">
+          <div className="select">
+            <select value={this.selected_library} onChange={this.onLibrarySelectHandler}>
+              <option data-id="personal">{I18n.media_items.personal}</option>
+              <option data-id="standard">{I18n.media_items.standard}</option>
+              <option data-id="premium">{I18n.media_items.premium}</option>
+            </select>
+          </div>
+        </div>
       </div>
     )
   }
@@ -228,6 +234,17 @@ export default class Upload extends React.Component {
     )
   }
 
+  onLibrarySelectHandler = (ev) => {
+    for (let node of ev.target.children) {
+      if (node.value === ev.target.value) {
+        const id = node.getAttribute('data-id')
+        this.setState({ selected_library: id })
+        this.fetchItems(0, this.state.search_query, this.state.selected_tags, this.state.selected_company.id, id, this.state.selected_library)
+        return
+      }
+    }
+  }
+
   clearHandler = () => {
     if (this.state.uploading) {
       return
@@ -277,7 +294,7 @@ export default class Upload extends React.Component {
         description:                this.state.selected_description,
         company_id:                 this.state.selected_company.id,
         type:                       this.state.selected_type,
-        library_shared:             this.state.selected_library,
+        library:                    this.state.selected_library,
         skip_volume_normalization:  this.state.selected_skip_volume_normalization,
         tag_ids:                    this.state.selected_tags.map(t => t.id)
       },

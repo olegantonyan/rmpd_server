@@ -8,6 +8,7 @@ class MediaItem < ApplicationRecord
   has_many :tags, through: :taggings
 
   enum type: %w[background advertising]
+  enum library: %w[personal standard premium]
 
   has_one_attached :file
 
@@ -23,16 +24,7 @@ class MediaItem < ApplicationRecord
   scope :with_company_id, ->(companies_ids) { where(company_id: [*companies_ids]) }
   scope :with_tag_ids, ->(tag_ids) { left_outer_joins(:tags).where(tags: { id: tag_ids }) }
   scope :with_type, ->(type) { where(type: types[type]) }
-  scope :with_library, ->(type) {
-    case type.to_s
-    when 'library'
-      where(library_shared: true)
-    when 'private'
-      where(library_shared: false)
-    else
-      all
-    end
-  }
+  scope :with_library, ->(lib) { lib == 'all' ? all : where(library: libraries[lib]) }
   scope :processing, -> { where(file_processing: true) }
   scope :not_processing, -> { where(file_processing: false) }
   scope :failed, -> { where.not(file_processing_failed_message: nil) }

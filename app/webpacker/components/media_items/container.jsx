@@ -143,21 +143,28 @@ export default class Container extends React.Component {
       <div className="box">
         <div className="control">
           <label className="radio">
-            <input type="radio" name="library_shared" checked={this.state.selected_library === "private"} onChange={() => this.onLibraryHandler("private")} />
-            {I18n.media_items.private_only}
+            <input type="radio" name="library" checked={this.state.selected_library === "personal"} onChange={() => this.onLibraryHandler("personal")} />
+            {I18n.media_items.personal}
           </label>
         </div>
 
         <div className="control">
           <label className="radio">
-            <input type="radio" name="library_shared" checked={this.state.selected_library === "library"} onChange={() => this.onLibraryHandler("library")} />
-            {I18n.media_items.library}
+            <input type="radio" name="library" checked={this.state.selected_library === "standard"} onChange={() => this.onLibraryHandler("standard")} />
+            {I18n.media_items.standard}
           </label>
         </div>
 
         <div className="control">
           <label className="radio">
-            <input type="radio" name="library_shared" checked={this.state.selected_library === "all"} onChange={() => this.onLibraryHandler("all")} />
+            <input type="radio" name="library" checked={this.state.selected_library === "premium"} onChange={() => this.onLibraryHandler("premium")} />
+            {I18n.media_items.premium}
+          </label>
+        </div>
+
+        <div className="control">
+          <label className="radio">
+            <input type="radio" name="library" checked={this.state.selected_library === "all"} onChange={() => this.onLibraryHandler("all")} />
             {I18n.media_items.all}
           </label>
         </div>
@@ -277,7 +284,7 @@ export default class Container extends React.Component {
     if (["background", "advertising"].includes(type)) {
       url += `&with_type=${type}`
     }
-    if (["all", "private", "library"].includes(library)) {
+    if (["all", "personal", "standard", "premium"].includes(library)) {
       url += `&with_library=${library}`
     }
 

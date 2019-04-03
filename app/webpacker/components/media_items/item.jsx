@@ -71,10 +71,7 @@ export default class Item extends React.Component {
               </span>
 
               <span className="level-item">
-                {this.props.item.library_shared ?
-                  <span><span className="icon"><i className="fas fa-book-reader"></i></span>{I18n.media_items.library}</span>:
-                  <span><span className="icon"><i className="fas fa-user-secret"></i></span>{this.props.item.company.title}</span>
-                }
+                <span><span className="icon"><i className="fas fa-book-reader"></i></span>{I18n.media_items[this.props.item.library]}</span>
               </span>
 
             </div>
