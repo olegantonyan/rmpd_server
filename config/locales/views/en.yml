@@ -15,6 +15,7 @@ en:
     media_items:
       index_title: Mediafiles
       upload_files: Upload mediafiles
+      unsupported_file_format: Unsupported file format %{mime_type}
 
     registration:
       invited_by: Invited by %{by_user} to %{company}

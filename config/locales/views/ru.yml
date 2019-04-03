@@ -15,6 +15,7 @@ ru:
     media_items:
       index_title: Медиафайлы
       upload_files: Залить медиафайлы
+      unsupported_file_format: Неподдерживаемый формат файла %{mime_type}
 
     registration:
       invited_by: Приглашён в %{company} пользователем %{by_user}

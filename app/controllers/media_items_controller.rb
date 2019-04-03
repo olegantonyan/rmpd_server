@@ -46,18 +46,22 @@ class MediaItemsController < ApplicationController
     upload_params = params.require(:upload).permit(:upload_uuid, :upload_filename, :upload_content_type)
 
     if upload_params[:upload_content_type] != 'audio/mpeg'
-      render json: { error: 'unsupported file format, only mp3 is supported now' }, status: :unprocessable_entity
-    else
-      media_item = MediaItem.new(media_item_params.except(:skip_volume_normalization))
-      media_item.skip_file_validation = true
-      authorize(media_item)
-
-      if media_item.valid?
-        MediaItemProcessingWorker.perform_async(media_item_params.to_unsafe_h, upload_params.to_unsafe_h)
-        render json: {}, status: :accepted
+      if upload_params[:upload_filename]&.end_with?('.mp3')
+        upload_params[:upload_content_type] = 'audio/mpeg' # HACK: windows sucks at mime types
       else
-        render json: { error: media_item.errors.full_messages.to_sentence }, status: :unprocessable_entity
+        render json: { error: t('views.media_items.unsupported_file_format', mime_type: upload_params[:upload_content_type]) }, status: :unprocessable_entity
+        return
       end
+    end
+
+    media_item = MediaItem.new(media_item_params.except(:skip_volume_normalization))
+    media_item.skip_file_validation = true
+    authorize(media_item)
+    if media_item.valid?
+      MediaItemProcessingWorker.perform_async(media_item_params.to_unsafe_h, upload_params.to_unsafe_h)
+      render json: {}, status: :accepted
+    else
+      render json: { error: media_item.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
   end
 
