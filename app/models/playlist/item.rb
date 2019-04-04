@@ -1,11 +1,5 @@
 class Playlist
   class Item < ApplicationRecord
-    class << self
-      def policy_class
-        Playlist::ItemPolicy
-      end
-    end
-
     belongs_to :media_item, inverse_of: :playlist_items
     belongs_to :playlist
 

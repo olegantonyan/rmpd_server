@@ -25,10 +25,6 @@ class MediaItem < ApplicationRecord
   scope :with_tag_ids, ->(tag_ids) { left_outer_joins(:tags).where(tags: { id: tag_ids }) }
   scope :with_type, ->(type) { where(type: types[type]) }
   scope :with_library, ->(lib) { lib == 'all' ? all : where(library: libraries[lib]) }
-  scope :processing, -> { where(file_processing: true) }
-  scope :not_processing, -> { where(file_processing: false) }
-  scope :failed, -> { where.not(file_processing_failed_message: nil) }
-  scope :successfull, -> { where(file_processing_failed_message: nil) }
   scope :without_playlist, -> { includes(:playlist_items).where(playlist_items: { media_item_id: nil }) }
 
   def size
