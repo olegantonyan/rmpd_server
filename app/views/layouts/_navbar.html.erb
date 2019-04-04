@@ -20,7 +20,7 @@
       <% if policy(:media_item).index? %>
         <%= link_to t('views.media_items.index_title'), media_items_path, class: "navbar-item" + active_class_for.call('media_items', 'tags') %>
       <% end %>
-      <% if policy(:playlist).index? %>
+      <% if policy(:playlist).index? && Rails.env.development? %>
         <%= link_to t('views.playlists.index_title'), playlists_path, class: "navbar-item" + active_class_for.call('playlists') %>
       <% end %>
       <% if policy(:device).index? %>
