@@ -54,4 +54,8 @@ Rollbar.configure do |config|
   # setup for Heroku. See:
   # https://devcenter.heroku.com/articles/deploying-to-a-custom-rails-environment
   config.environment = ENV['ROLLBAR_ENV'] || Rails.env
+
+  config.person_id_method = 'id' # default is "id"
+  config.person_username_method = 'to_s' # default is `nil`
+  config.person_email_method = 'email' # default is `nil`
 end
