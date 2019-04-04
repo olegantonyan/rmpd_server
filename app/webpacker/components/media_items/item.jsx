@@ -71,7 +71,17 @@ export default class Item extends React.Component {
               </span>
 
               <span className="level-item">
-                <span><span className="icon"><i className="fas fa-book-reader"></i></span>{I18n.media_items[this.props.item.library]}</span>
+                <span>
+                  <span className="icon"><i className="fas fa-book-reader"></i></span>
+                  {I18n.media_items[this.props.item.library]}
+                </span>
+              </span>
+
+              <span className="level-item">
+                <span>
+                  <span className="icon"><i className="fas fa-users"></i></span>
+                  {this.props.item.company.title}
+                </span>
               </span>
 
             </div>
