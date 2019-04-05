@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import I18n from '../i18n'
-import { seconds_to_string } from '../dumpster'
+import { seconds_to_string, text_truncate } from '../dumpster'
 
 export default class Item extends React.Component {
   static propTypes = {
@@ -47,14 +47,14 @@ export default class Item extends React.Component {
 
         <div className="media-content">
           <div className="content">
-            <h5 className="subtitle is-5">{this.props.item.file}</h5>
+            <h5 className="subtitle is-5">{text_truncate(this.props.item.file, 50)}</h5>
           </div>
 
           <nav className="level">
             <div className="level-left">
 
               <span className="level-item">
-                {this.props.item.description}
+                {text_truncate(this.props.item.description, 25)}
               </span>
 
               <span className="level-item">

@@ -22,3 +22,11 @@ export function humanized_size(size) {
   let i = Math.floor( Math.log(size) / Math.log(1000) )
   return ( size / Math.pow(1000, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
 }
+
+export function text_truncate(text, size, ellipsis = '...') {
+  if (text.length > size) {
+    return text.substring(0, size) + ellipsis
+  } else {
+    return text
+  }
+}
