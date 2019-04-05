@@ -39,7 +39,7 @@ export default class Container extends React.Component {
       search_query: "",
       selected_tags: pre_selected_tags,
       selected_company: ALL_COMPANIES_PLACEHOLDER,
-      selected_type: "",
+      selected_type: "any_type",
       selected_library: "all",
 
       playing_now: null,
@@ -77,10 +77,10 @@ export default class Container extends React.Component {
             <div className="field">
               <div className="control">
                 <div className="select">
-                  <select value={this.selected_type} onChange={this.onTypeSelectHandler}>
-                    <option data-id="all_types">{I18n.media_items.any_type}</option>
-                    <option data-id="background">{I18n.media_items.background}</option>
-                    <option data-id="advertising">{I18n.media_items.advertising}</option>
+                  <select value={this.state.selected_type} onChange={this.onTypeSelectHandler}>
+                    <option data-id="any_type" value="any_type">{I18n.media_items.any_type}</option>
+                    <option data-id="background" value="background">{I18n.media_items.background}</option>
+                    <option data-id="advertising" value="advertising">{I18n.media_items.advertising}</option>
                   </select>
                 </div>
               </div>
@@ -178,7 +178,7 @@ export default class Container extends React.Component {
       search_query: "",
       selected_tags: [],
       selected_company: ALL_COMPANIES_PLACEHOLDER,
-      selected_type: "",
+      selected_type: "any_type",
       selected_library: "all"
     }, () => {
       this.fetchItems(this.state.current_page,
