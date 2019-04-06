@@ -62,6 +62,7 @@ class Device < ApplicationRecord
     d = attributes.slice('id', 'login', 'name', 'created_at', 'updated_at', 'time_zone', 'online', 'poweredon_at', 'devicetime', 'free_space', 'now_playing', 'webui_password')
     d['company'] = company&.serialize
     d['playlist'] = playlist&.attributes&.slice('id', 'name', 'description')
+    d['version'] = client_version.to_s
     d
   end
 end

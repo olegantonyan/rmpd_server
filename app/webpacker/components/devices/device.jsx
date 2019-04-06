@@ -82,6 +82,10 @@ export default class Device extends React.Component {
                   <td>{I18n.devices.free_space}</td>
                   <td>{humanized_size(this.state.device.free_space)}</td>
                 </tr>
+                <tr>
+                  <td>{I18n.devices.version}</td>
+                  <td>{this.state.device.version}</td>
+                </tr>
               </tbody>
             </table>
           </div>

@@ -47,6 +47,7 @@ ru:
       playlist: Плейлист
       webui_password: Пароль на встроенный веб-интрефейс и точку доступа
       unbound: Не привязан к аккаунту
+      version: Версия прошивки
 
       log_messages:
         title: Лог событий
