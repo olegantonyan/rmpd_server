@@ -4,7 +4,7 @@ class ClientVersion
   delegate :to_s, to: :raw_ua
 
   def initialize(ua_string) # rubocop: disable Metrics/MethodLength
-    @raw_ua = ua_string
+    @raw_ua = ua_string || ''
     if ua_string.is_a?(String)
       parts = ua_string.split(' ')
       @rmpd = parts[0]
@@ -12,7 +12,7 @@ class ClientVersion
       @hardware = parts[2..-1].join(' ')
     else
       @rmpd = ''
-      @version = Gem::Version.new(nil)
+      @version = Gem::Version.new('')
       @hardware = ''
     end
   end
