@@ -6,8 +6,8 @@ module Deviceapi
       receiver = Deviceapi::Receiver.new(device)
       receiver.receive(params, request.user_agent, request.headers['X-Sequence-Number'])
       queued_messsage_to_device, outgoing_sequence_number = receiver.dequeue
-    rescue StandardError => err
-      log_error(err)
+    rescue StandardError => e
+      log_error(e)
       response_status = :unprocessable_entity
     ensure
       response.headers['X-Sequence-Number'] = outgoing_sequence_number.to_s
