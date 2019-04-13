@@ -60,3 +60,6 @@ Layout/EmptyLineAfterGuardClause:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+Rails/ActiveRecordOverride:
+  Enabled: false # https://github.com/rubocop-hq/rubocop/issues/6888
