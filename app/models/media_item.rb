@@ -31,6 +31,10 @@ class MediaItem < ApplicationRecord
     file.blob.byte_size
   end
 
+  def file_name
+    file.filename.to_s
+  end
+
   # rubocop: disable Rails/Delegate
   def content_type
     file.content_type
@@ -41,11 +45,10 @@ class MediaItem < ApplicationRecord
     Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true)
   end
 
-  def to_s # rubocop: disable Metrics/AbcSize
-    result = file&.attachment&.filename&.to_s.dup
+  def to_s
+    result = file_name.dup
     result << " (#{description})" if description.present?
     result << " in #{company}" if company
-    result << " [#{tags.pluck(:name).join(', ')}]" if tags.exists?
     result
   end
 

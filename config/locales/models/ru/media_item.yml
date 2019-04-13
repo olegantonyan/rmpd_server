@@ -10,7 +10,7 @@ ru:
     attributes:
       media_item:
         file: Файл
-        file_identifier: Имя файла
+        file_name: Имя файла
         size: Размер
         description: Описание
         company: Компания

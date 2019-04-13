@@ -16,7 +16,7 @@ class Playlist
       joins(:media_item).where('LOWER(media_items.file) LIKE LOWER(?) OR LOWER(media_items.description) LIKE LOWER(?)', q, q)
     }
 
-    delegate :file_url, :type, :description, :file_identifier, :background?, :advertising?, :duration, :content_type, to: :media_item
+    delegate :file_url, :type, :description, :file_name, :background?, :advertising?, :duration, :content_type, to: :media_item
 
     serialize :schedule
 

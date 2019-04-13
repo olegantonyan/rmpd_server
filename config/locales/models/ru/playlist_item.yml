@@ -9,7 +9,7 @@ ru:
 
     attributes:
       playlist/item:
-        file_identifier: Имя файла
+        file_name: Имя файла
         playlist: Плейлист
         position: Позиция
         size: Размер

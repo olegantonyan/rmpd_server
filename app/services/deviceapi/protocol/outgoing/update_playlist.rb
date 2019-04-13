@@ -31,7 +31,7 @@ module Deviceapi
         def serialized_playlist_item(i) # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
           {
             url: i.file_url,
-            filename: i.file_identifier,
+            filename: i.file_name,
             id: i.id,
             media_item_id: i.media_item_id,
             description: i.description,

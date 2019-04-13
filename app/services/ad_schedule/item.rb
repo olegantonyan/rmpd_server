@@ -2,7 +2,7 @@ module AdSchedule
   class Item
     attr_reader :scheduled_item, :id, :begin_date, :end_date, :overlap
 
-    delegate :file_identifier, to: :playlist_item
+    delegate :file_name, to: :playlist_item
 
     def initialize(scheduled_item)
       @scheduled_item = scheduled_item

@@ -45,7 +45,7 @@ class Playlist
     def validate_overlapped_schedule
       overlap = schedule.overlap
       return if overlap.blank?
-      errors.add(:base, "advertising schedule overlap: #{overlap.map(&:file_identifier).to_sentence}")
+      errors.add(:base, "advertising schedule overlap: #{overlap.map(&:file_name).to_sentence}")
       raise ActiveRecord::RecordInvalid
     end
 
