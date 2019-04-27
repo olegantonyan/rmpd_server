@@ -30,10 +30,8 @@
 
 <% if current_user.root? %>
   <div class="section">
-    <h3 class="title is-3">Area 51</h3>
-
     <div class="column is-narrow">
-      <%= link_to(media_items_path(format: :csv), class: "button") do %>
+      <%= link_to(media_items_path(format: :csv), class: "button is-text") do %>
         <span class="icon"><i class="fas fa-download"></i></span>
         <span>CSV</span>
       <% end %>
