@@ -1,3 +1,5 @@
+require 'csv'
+
 class MediaItem < ApplicationRecord
   self.inheritance_column = 'sti_type'
 
@@ -26,6 +28,17 @@ class MediaItem < ApplicationRecord
   scope :with_type, ->(type) { where(type: types[type]) }
   scope :with_library, ->(lib) { lib == 'all' ? all : where(library: libraries[lib]) }
   scope :without_playlist, -> { includes(:playlist_items).where(playlist_items: { media_item_id: nil }) }
+
+  class << self
+    def to_csv(filepath:, scope: all)
+      CSV.open(filepath, 'wb') do |csv|
+        csv << %w[name descritpion type library tags company]
+        scope.includes(:tags, :company, :file_attachment, :file_blob).find_each do |i|
+          csv << [i.file_name, i.description, i.type, i.library, i.tags.pluck(:name).join(','), i.company.to_s]
+        end
+      end
+    end
+  end
 
   def size
     file.blob.byte_size

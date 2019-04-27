@@ -22,6 +22,11 @@ class MediaItemsController < ApplicationController
 
         render json: { data: media_items.map(&:serialize), total_count: total_count }
       end
+      format.csv do
+        file = Tempfile.new(['media_items_', '.csv'])
+        MediaItem.to_csv(filepath: file.path)
+        send_file(file.path, type: 'text/csv')
+      end
     end
   end
 

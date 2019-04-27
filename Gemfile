@@ -31,4 +31,5 @@ group :development, :test do
   gem 'capistrano-rails', require: false
   gem 'brakeman', require: false
   gem 'super_awesome_print'
+  gem 'foreman'
 end
