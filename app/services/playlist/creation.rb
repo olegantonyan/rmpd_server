@@ -1,19 +1,13 @@
 class Playlist
   class Creation
     include ActiveModel::Model
+    include ActiveModel::Validations
 
     attr_accessor :playlist
 
     delegate :schedule, :playlist_items_advertising, :to_s, to: :playlist, allow_nil: true
 
-    class << self
-      def policy_class
-        PlaylistPolicy
-      end
-    end
-
-    # rubocop: disable Metrics/MethodLength
-    def save
+    def save # rubocop: disable Metrics/MethodLength
       ActiveRecord::Base.transaction do
         playlist.save!
         midnight_rollover
@@ -26,7 +20,6 @@ class Playlist
       copy_errors(playlist)
       false
     end
-    # rubocop: enable Metrics/MethodLength
 
     private
 
@@ -49,8 +42,7 @@ class Playlist
       raise ActiveRecord::RecordInvalid
     end
 
-    # rubocop: disable Metrics/AbcSize
-    def update_schedule
+    def update_schedule # rubocop: disable Metrics/AbcSize
       qry = playlist_items_advertising.each_with_object({}) do |pitem, obj|
         scheduled_items = schedule.items.select { |i| i.id == pitem.id }
         intervals = scheduled_items.each_with_object([]) do |sitem, ary|
@@ -60,7 +52,6 @@ class Playlist
       end
       playlist_items_advertising.update(qry.keys, qry.values)
     end
-    # rubocop: enable Metrics/AbcSize
 
     def notify_devices
       playlist.devices.each do |d|
