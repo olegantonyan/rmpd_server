@@ -50,25 +50,28 @@ class PlaylistsController < ApplicationController
   end
 
   def create
-    @playlist = Playlist.new(playlist_params)
-    authorize(@playlist)
+    playlist = Playlist.new(playlist_params.except(:playlist_items))
+    authorize(playlist)
 
-    if @playlist.save
-      render json: @playlist.serialize
+    service = Playlist::CreateOrUpdate.new(playlist, playlist_params)
+
+    if service.call
+      render(json: service.playlist.serialize)
     else
-      render json: { error: @playlist.errors.full_messages.to_sentence }
+      render(json: { error: service.errors.full_messages.to_sentence })
     end
   end
 
   def update
-    @playlist = Playlist.find(params[:id])
-    authorize(@playlist)
-    @playlist.assign_attributes(playlist_params)
+    playlist = Playlist.find(params[:id])
+    authorize(playlist)
 
-    if @playlist.save
-      render json: @playlist.serialize
+    service = Playlist::CreateOrUpdate.new(playlist, playlist_params)
+
+    if service.call
+      render(json: service.playlist.serialize)
     else
-      render json: { error: @playlist.errors.full_messages.to_sentence }, status: :unprocessible_entity
+      render(json: { error: service.errors.full_messages.to_sentence })
     end
   end
 
