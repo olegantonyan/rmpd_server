@@ -49,29 +49,29 @@ class PlaylistsController < ApplicationController
     )
   end
 
-  def create
+  def create # rubocop: disable Metrics/AbcSize
     playlist = Playlist.new(playlist_params.except(:playlist_items))
     authorize(playlist)
 
-    service = Playlist::CreateOrUpdate.new(playlist, playlist_params)
+    service = Playlist::CreateOrUpdate.new(playlist, playlist_params.to_unsafe_h)
 
     if service.call
       render(json: service.playlist.serialize)
     else
-      render(json: { error: service.errors.full_messages.to_sentence })
+      render(json: { error: service.errors.full_messages.to_sentence }, status: :unprocessable_entity)
     end
   end
 
-  def update
+  def update # rubocop: disable Metrics/AbcSize
     playlist = Playlist.find(params[:id])
     authorize(playlist)
 
-    service = Playlist::CreateOrUpdate.new(playlist, playlist_params)
+    service = Playlist::CreateOrUpdate.new(playlist, playlist_params.to_unsafe_h)
 
     if service.call
       render(json: service.playlist.serialize)
     else
-      render(json: { error: service.errors.full_messages.to_sentence })
+      render(json: { error: service.errors.full_messages.to_sentence }, status: :unprocessable_entity)
     end
   end
 

@@ -11,37 +11,67 @@ class Playlist
 
     def initialize(playlist, params)
       @playlist = playlist.type!(Playlist)
-      @params = params.type!(Hash, ActionController::Parameters)
+      @params = params.type!(Hash).deep_symbolize_keys
     end
 
     def call # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
       ActiveRecord::Base.transaction do
-        assign_attributes
-        assign_playlist_items
-        playlist.save!
+        create_update_attributes
+        create_update_playlist_items
         midnight_rollover
         validate_overlapped_schedule
         update_schedule
         notify_devices
       end
       playlist
-    rescue ActiveRecord::RecordInvalid
+    rescue StandardError => e
       playlist.errors.each do |k, v|
         errors.add(k, v)
       end
+      errors.add(:base, e.message)
       nil
     end
 
     private
 
-    def assign_attributes # rubocop: disable Metrics/AbcSize
+    def create_update_attributes # rubocop: disable Metrics/AbcSize
       playlist.name = params[:name] if params[:name]
       playlist.description = params[:description] if params[:description]
       playlist.company_id = params[:company_id] if params[:company_id]
       playlist.shuffle = params[:shuffle] if params[:shuffle]
+      playlist.save!
     end
 
-    def assign_playlist_items
+    def create_update_playlist_items # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
+      items_ids_in_playlist = playlist.playlist_items.pluck(:id)
+      items_to_be_updated = params[:playlist_items].reject { |i| i[:id].nil? }
+
+      items_ids_to_remove = items_ids_in_playlist - items_to_be_updated.map { |i| i[:id] }
+      playlist.playlist_items.where(id: items_ids_to_remove).destroy_all
+
+      attrs_bg = %i[media_item_id begin_date end_date begin_time end_time position wait_for_the_end]
+      attrs_ad = %i[media_item_id begin_date end_date begin_time end_time playbacks_per_day wait_for_the_end]
+
+      items_to_be_updated.each do |i|
+        if i[:type] == 'background'
+          playlist.playlist_items_background.find(i[:id]).update(i.slice(*attrs_bg))
+        elsif i[:type] == 'advertising'
+          playlist.playlist_items_advertising.find(i[:id]).update(i.slice(*attrs_ad))
+        else
+          raise ArgumentError, "unknown type `#{i[:type]}`"
+        end
+      end
+
+      new_items_to_create = params[:playlist_items].select { |i| i[:id].nil? }
+      new_items_to_create.each do |i|
+        if i[:type] == 'background'
+          playlist.playlist_items_background.create!(i.slice(*attrs_bg))
+        elsif i[:type] == 'advertising'
+          playlist.playlist_items_advertising.create!(i.slice(*attrs_ad))
+        else
+          raise ArgumentError, "unknown type `#{i[:type]}`"
+        end
+      end
     end
 
     def midnight_rollover

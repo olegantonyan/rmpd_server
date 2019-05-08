@@ -14,7 +14,7 @@ export default class Editor extends React.Component {
     this.state = {
       playlist: props.js_data.playlist,
 
-      max_position: Math.max(...props.js_data.playlist.playlist_items.map(i => i.position)),
+      max_position: Math.max(Math.max(...props.js_data.playlist.playlist_items.map(i => i.position)), 0),
 
       saving: false,
       last_error: null,
@@ -160,10 +160,10 @@ export default class Editor extends React.Component {
         const playlist_item = {
           position: this.state.max_position + position_increase,
           media_item: item,
-          begin_time: null,
-          end_time: null,
-          begin_date: null,
-          end_date: null,
+          begin_time: '00:00:00',
+          end_time: '23:59:59',
+          begin_date: '01.01.1970',
+          end_date: '01.01.2041',
           type: "background"
         }
         new_playlist_items.push(playlist_item)
