@@ -2,7 +2,7 @@
   <div class="hero-body">
     <div class="container">
       <h1 class="title is-1 has-text-light">
-        <%= link_to('Войдите', new_user_session_path) %> или <%= link_to('зарегистрируйтесь', new_user_registration_path) %>
+        <u><%= link_to('Войдите', new_user_session_path, class: 'has-text-light') %></u> или <u><%= link_to('зарегистрируйтесь', new_user_registration_path, class: 'has-text-light') %></u>
       </h1>
       <h4 class="subtitle is-4 has-text-grey-lighter">
         Если вам уже выслали приглашение, пожалуйста, используйте его для регистрации
