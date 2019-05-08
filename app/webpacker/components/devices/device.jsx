@@ -88,6 +88,12 @@ export default class Device extends React.Component {
                 </tr>
               </tbody>
             </table>
+
+            <div>
+              <a className="button" onClick={this.onShowWebUiPassword}>{I18n.devices.webui_password}</a>
+              {this.state.show_webui_password && <pre>{this.state.device.webui_password}</pre>}
+            </div>
+
           </div>
 
           <div className="column">
@@ -98,11 +104,6 @@ export default class Device extends React.Component {
         <h4 className="title is-4">{I18n.devices.log_messages.title}</h4>
 
         <LogMessages url={this.props.js_data.log_messages_path} device_id={this.state.device.id} action_cable={this.props.action_cable} />
-
-        <div className="box">
-          <a className="button" onClick={this.onShowWebUiPassword}>{I18n.devices.webui_password}</a>
-          {this.state.show_webui_password && <pre>{this.state.device.webui_password}</pre>}
-        </div>
 
       </div>
    )
