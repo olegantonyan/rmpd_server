@@ -49,30 +49,18 @@ class PlaylistsController < ApplicationController
     )
   end
 
-  def create # rubocop: disable Metrics/AbcSize
+  def create
     playlist = Playlist.new(playlist_params.except(:playlist_items))
     authorize(playlist)
 
-    service = Playlist::CreateOrUpdate.new(playlist, playlist_params.to_unsafe_h)
-
-    if service.call
-      render(json: service.playlist.serialize)
-    else
-      render(json: { error: service.errors.full_messages.to_sentence }, status: :unprocessable_entity)
-    end
+    create_or_update(playlist)
   end
 
-  def update # rubocop: disable Metrics/AbcSize
+  def update
     playlist = Playlist.find(params[:id])
     authorize(playlist)
 
-    service = Playlist::CreateOrUpdate.new(playlist, playlist_params.to_unsafe_h)
-
-    if service.call
-      render(json: service.playlist.serialize)
-    else
-      render(json: { error: service.errors.full_messages.to_sentence }, status: :unprocessable_entity)
-    end
+    create_or_update(playlist)
   end
 
   def destroy
@@ -92,5 +80,15 @@ class PlaylistsController < ApplicationController
 
   def playlist_params
     params.require(:playlist).permit(policy(:playlist).permitted_attributes)
+  end
+
+  def create_or_update(playlist)
+    service = Playlist::CreateOrUpdate.new(playlist, playlist_params.to_unsafe_h)
+
+    if service.call
+      render(json: service.playlist.serialize)
+    else
+      render(json: { error: service.errors.full_messages.to_sentence }, status: :unprocessable_entity)
+    end
   end
 end
