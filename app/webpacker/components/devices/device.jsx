@@ -86,6 +86,10 @@ export default class Device extends React.Component {
                   <td>{I18n.devices.version}</td>
                   <td>{this.state.device.version}</td>
                 </tr>
+                <tr>
+                  <td>{I18n.devices.ip_addr}</td>
+                  <td><a href={"http://" + this.state.device.ip_addr} target="_blank">{this.state.device.ip_addr}</a></td>
+                </tr>
               </tbody>
             </table>
 

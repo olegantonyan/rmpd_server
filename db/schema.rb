@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_01_053715) do
+ActiveRecord::Schema.define(version: 2019_05_09_053056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 2019_05_01_053715) do
     t.datetime "devicetime"
     t.bigint "free_space", default: 0, null: false
     t.string "webui_password", default: "", null: false
+    t.string "ip_addr", limit: 512, default: "", null: false
     t.index ["company_id"], name: "index_devices_on_company_id"
     t.index ["login"], name: "index_devices_on_login"
     t.index ["playlist_id"], name: "index_devices_on_playlist_id"

@@ -20,10 +20,11 @@ module Deviceapi
 
     private
 
-    def update_device_status(data)
+    def update_device_status(data) # rubocop: disable Metrics/AbcSize
       device.devicetime = Time.zone.parse(data[:localtime]) if data[:localtime]
       device.online = true
       device.free_space = data[:free_space] if data[:free_space]
+      device.ip_addr = data[:ip_addr] if data[:ip_addr]
       notify_status
       device.save if device.changed?
     end

@@ -47,6 +47,7 @@ en:
       webui_password: Built-in Web UI and access point password
       unbound: Not bound to any account
       version: Firmware version
+      ip_addr: Local IP address
 
       log_messages:
         title: Log messages
