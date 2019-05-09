@@ -88,7 +88,7 @@ export default class Device extends React.Component {
                 </tr>
                 <tr>
                   <td>{I18n.devices.ip_addr}</td>
-                  <td><a href={"http://" + this.state.device.ip_addr} target="_blank">{this.state.device.ip_addr}</a></td>
+                  <td><a href={"http://" + this.state.device.ip_addr} target="_blank">{this.state.device.ip_addr}</a> ({I18n.devices.default_login})</td>
                 </tr>
               </tbody>
             </table>

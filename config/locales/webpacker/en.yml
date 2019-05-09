@@ -48,6 +48,7 @@ en:
       unbound: Not bound to any account
       version: Firmware version
       ip_addr: Local IP address
+      default_login: "login: admin"
 
       log_messages:
         title: Log messages

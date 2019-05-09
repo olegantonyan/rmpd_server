@@ -49,6 +49,7 @@ ru:
       unbound: Не привязан к аккаунту
       version: Версия прошивки
       ip_addr: Локальный IP адрес
+      default_login: "логин: admin"
 
       log_messages:
         title: Лог событий
