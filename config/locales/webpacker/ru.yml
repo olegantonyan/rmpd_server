@@ -63,6 +63,7 @@ ru:
       name: Название
       description: Описание
       save: Сохранить
+      shuffle: Случайный порядок
       save_successful: Успешно сохранено
       files_in_playlist: Файлы в плейлисте
       add_new_files: Добавить новые файлы

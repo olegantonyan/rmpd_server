@@ -199,7 +199,8 @@ export default class Editor extends React.Component {
       name: this.state.playlist.name,
       description: this.state.playlist.description,
       company_id: this.state.playlist.company.id,
-      playlist_items: playlist_items
+      playlist_items: playlist_items,
+      shuffle: this.state.playlist.shuffle
     }
     this.saveRequest(data)
   }

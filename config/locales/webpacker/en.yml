@@ -62,6 +62,7 @@ en:
       name: Name
       description: Description
       save: Save
+      shuffle: Random order
       save_successful: Successful save
       files_in_playlist: Files in playlist
       add_new_files: Add new files

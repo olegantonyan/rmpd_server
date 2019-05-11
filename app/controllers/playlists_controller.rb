@@ -37,7 +37,7 @@ class PlaylistsController < ApplicationController
   end
 
   def new
-    @playlist = Playlist.new(company: current_user.companies.first, name: '', description: '')
+    @playlist = Playlist.new(company: current_user.companies.first, name: '', description: '', shuffle: true)
     authorize(@playlist)
 
     add_js_data(
