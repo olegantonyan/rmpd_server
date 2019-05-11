@@ -4,7 +4,8 @@ import I18n from '../../i18n'
 
 export default class PlaylistItemsBackground extends React.Component {
   static propTypes = {
-    playlist_items: PropTypes.array.isRequired
+    playlist_items: PropTypes.array.isRequired,
+    onDelete: PropTypes.func.isRequired,
   }
 
   render() {
@@ -26,6 +27,9 @@ export default class PlaylistItemsBackground extends React.Component {
         </div>
 
         <div className="media-right">
+          <button className="button is-outlined is-small" onClick={() => this.props.onDelete(i)}>
+            <span className="icon"><i className="fas fa-trash-alt"></i></span>
+          </button>
         </div>
       </div>
     )

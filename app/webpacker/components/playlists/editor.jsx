@@ -43,7 +43,7 @@ export default class Editor extends React.Component {
             </header>
             <div className="card-content">
               <div className="content">
-                <PlaylistItemsBackground playlist_items={this.state.playlist.playlist_items.filter(i => i.type === "background")} />
+                <PlaylistItemsBackground playlist_items={this.state.playlist.playlist_items.filter(i => i.type === "background")} onDelete={this.onDeleteItem} />
               </div>
             </div>
           </div>
@@ -174,6 +174,13 @@ export default class Editor extends React.Component {
     this.setState({
       playlist: { ...this.state.playlist, playlist_items: [...this.state.playlist.playlist_items, ...new_playlist_items] },
       max_position: this.state.max_position + position_increase
+    })
+  }
+
+  onDeleteItem = (item) => {
+    const new_items = this.state.playlist.playlist_items.filter(i => i.id.toString() !== item.id.toString()).slice()
+    this.setState({
+      playlist: { ...this.state.playlist, playlist_items: new_items },
     })
   }
 

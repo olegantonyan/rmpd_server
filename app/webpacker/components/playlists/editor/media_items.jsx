@@ -8,7 +8,7 @@ import Select from '../../common/select'
 import FormBackground from './form_background'
 import FormAdvertising from './form_advertising'
 
-const ITEMS_PER_PAGE = 25
+const ITEMS_PER_PAGE = 150
 const ALL_COMPANIES_PLACEHOLDER = { id: 0, title: I18n.any_company }
 
 export default class MediaItems extends React.Component {
