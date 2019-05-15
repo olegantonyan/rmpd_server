@@ -50,6 +50,9 @@ ru:
       version: Версия прошивки
       ip_addr: Локальный IP адрес
       default_login: "логин: admin"
+      none_playlist: "<< Нет плейлиста >>"
+      assign_playlist: Назначить плейлист
+      remove_playlist: Удалить плейлист с устройства
 
       log_messages:
         title: Лог событий

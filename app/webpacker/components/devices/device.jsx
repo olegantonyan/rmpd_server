@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import I18n from '../i18n'
 import { humanized_size } from '../dumpster'
 import LogMessages from './log_messages'
+import Playlist from './playlist'
 
 export default class Device extends React.Component {
   constructor(props) {
@@ -64,7 +65,7 @@ export default class Device extends React.Component {
                 </tr>
                 <tr>
                   <td>{I18n.devices.playlist}</td>
-                  <td>{this.state.device.playlist !== null && this.state.device.playlist.name}</td>
+                  <td><Playlist playlist={this.state.device.playlist} playlists={this.props.js_data.playlists} playlist_assign_path={this.props.js_data.playlist_assign_path} /></td>
                 </tr>
                 <tr>
                   <td>{I18n.devices.timezone}</td>

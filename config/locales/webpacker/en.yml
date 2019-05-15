@@ -49,6 +49,9 @@ en:
       version: Firmware version
       ip_addr: Local IP address
       default_login: "login: admin"
+      none_playlist: "<< No playlist >>"
+      assign_playlist: Assign playlist
+      remove_playlist: Remove playlyist from the device
 
       log_messages:
         title: Log messages

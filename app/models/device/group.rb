@@ -15,5 +15,9 @@ class Device
     def to_s
       title
     end
+
+    def serialize
+      attributes.slice('id', 'title', 'created_at').merge('devices' => devices.map(&:serialize))
+    end
   end
 end
