@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
 
   concern :playlist_assignable do
-    resource :playlist_assignment, only: %i[update]
+    resource :playlist_assign, only: %i[update]
   end
 
   resources :media_items, except: %i[show edit update destroy] do

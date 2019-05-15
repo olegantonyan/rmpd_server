@@ -1,8 +1,7 @@
 class Playlist
-  class Assignment
+  class Assign
     include ActiveModel::Model
     include ActiveModel::Validations
-    extend ActiveModel::Translation
 
     class NotEnoughSpaceError < RuntimeError; end
 
@@ -10,9 +9,7 @@ class Playlist
 
     validates :assignable, presence: true
 
-    delegate :id, to: :playlist, prefix: true, allow_nil: true
-
-    def save
+    def call
       return false unless valid?
       @notifications ||= []
       ActiveRecord::Base.transaction do
@@ -23,10 +20,6 @@ class Playlist
     rescue ActiveRecord::RecordInvalid, NotEnoughSpaceError => e
       errors.add(:base, e.to_s)
       false
-    end
-
-    def playlist_id=(arg)
-      self.playlist = Playlist.find_by(id: arg)
     end
 
     def to_s
