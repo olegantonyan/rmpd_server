@@ -74,7 +74,7 @@ class Playlist
 
     def new_items_to_download(device) # rubocop: disable Metrics/AbcSize
       return [] unless playlist
-      return playlist.media_items.distinct.to_a unless device.playlist
+      return playlist.uniq_media_items.to_a unless device.playlist
       if device.playlist_id == playlist.id
         playlist.added_playlist_items.map(&:media_item)
       else

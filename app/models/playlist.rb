@@ -36,7 +36,11 @@ class Playlist < ApplicationRecord
   scope :without_device, -> { includes(:devices).where(devices: { playlist_id: nil }) }
 
   def media_items_count
-    MediaItem.joins(:playlist_items).where(playlist_items: { playlist_id: id }).distinct.count
+    uniq_media_items.count
+  end
+
+  def uniq_media_items
+    MediaItem.joins(:playlist_items).where(playlist_items: { playlist_id: id }).distinct
   end
 
   def to_s
