@@ -86,7 +86,7 @@ class PlaylistsController < ApplicationController
     service = Playlist::CreateOrUpdate.new(playlist, playlist_params.to_unsafe_h)
 
     if service.call
-      render(json: service.playlist.serialize)
+      render(json: service.playlist.serialize(with_items: true))
     else
       render(json: { error: service.errors.full_messages.to_sentence }, status: :unprocessable_entity)
     end

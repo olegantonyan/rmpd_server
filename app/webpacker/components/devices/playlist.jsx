@@ -75,8 +75,10 @@ export default class Playlist extends React.Component {
 
   okNotificationComponent = () => {
     return(
-      <div className="notification is-success">
-        {I18n.devices.playlist_assigned}
+      <div>
+        <em className="has-text-success">
+          {I18n.devices.playlist_assigned}
+        </em>
       </div>
     )
   }
