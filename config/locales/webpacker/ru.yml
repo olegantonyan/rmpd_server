@@ -53,6 +53,7 @@ ru:
       none_playlist: "<< Нет плейлиста >>"
       assign_playlist: Назначить плейлист
       remove_playlist: Удалить плейлист с устройства
+      playlist_assigned: Плейлист успешно назначен
 
       log_messages:
         title: Лог событий

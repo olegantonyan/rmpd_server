@@ -19,7 +19,8 @@ export default class Playlist extends React.Component {
     this.state = {
       selected_playlist: this.props.playlist === null ? NONE_PLAYLIST_PLACEHOLDER : this.props.playlist,
       saving: false,
-      last_error: null
+      last_error: null,
+      ok: false
     }
   }
 
@@ -45,6 +46,8 @@ export default class Playlist extends React.Component {
       <div>
         <Select items={[NONE_PLAYLIST_PLACEHOLDER].concat(this.props.playlists)} value={this.state.selected_playlist} onSelect={this.onSelected} text_attr="name"/>
         {button}
+        {this.state.last_error !== null && this.errorNotificationComponent()}
+        {this.state.ok && this.okNotificationComponent()}
       </div>
     )
   }
@@ -59,6 +62,23 @@ export default class Playlist extends React.Component {
     }
     this.setState({ saving: true })
     this.saveRequest(this.state.selected_playlist.id)
+  }
+
+  errorNotificationComponent = () => {
+    return(
+      <div className="notification is-danger">
+        <button className="delete" onClick={() => this.setState({ last_error: null })}></button>
+        {this.state.last_error}
+      </div>
+    )
+  }
+
+  okNotificationComponent = () => {
+    return(
+      <div className="notification is-success">
+        {I18n.devices.playlist_assigned}
+      </div>
+    )
   }
 
   saveRequest = (playlist_id) => {
@@ -76,10 +96,11 @@ export default class Playlist extends React.Component {
     })
     .then(json => {
       if (!ok) {
-        this.setState({ last_error: json.error })
+        this.setState({ last_error: json.error, selected_playlist: this.props.playlist === null ? NONE_PLAYLIST_PLACEHOLDER : this.props.playlist })
       } else {
         this.props.onAssigned(json)
-        this.setState({ last_error: null })
+        this.setState({ last_error: null, ok: true })
+        setTimeout(() => this.setState({ ok: false }), 5000)
       }
     })
     .catch(e => {
