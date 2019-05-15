@@ -11,16 +11,12 @@ export default class Playlist extends React.Component {
     playlist: PropTypes.object,
     playlists: PropTypes.array.isRequired,
     playlist_assign_path: PropTypes.string.isRequired,
-  }
-
-  static defaultProps = {
-    playlist: NONE_PLAYLIST_PLACEHOLDER
+    onAssigned: PropTypes.func.isRequired
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      initial_playlist: this.props.playlist === null ? NONE_PLAYLIST_PLACEHOLDER : this.props.playlist,
       selected_playlist: this.props.playlist === null ? NONE_PLAYLIST_PLACEHOLDER : this.props.playlist,
       saving: false,
       last_error: null
@@ -28,10 +24,10 @@ export default class Playlist extends React.Component {
   }
 
   render() {
-    let button;
-    if (this.state.selected_playlist.id === this.state.initial_playlist.id) {
-      button = <span></span>
-    } else if (this.state.selected_playlist.id === NONE_PLAYLIST_PLACEHOLDER.id) {
+    let button = <span></span>
+    if (this.props.playlist !== null && this.state.selected_playlist.id === this.props.playlist.id) {
+    } else if (this.props.playlist === null && this.state.selected_playlist.id === NONE_PLAYLIST_PLACEHOLDER.id) {
+    } else if (this.props.playlist !== null && this.state.selected_playlist.id === NONE_PLAYLIST_PLACEHOLDER.id) {
       let btn_classes = "button is-danger"
       if (this.state.saving) {
         btn_classes += " is-loading"
@@ -82,6 +78,7 @@ export default class Playlist extends React.Component {
       if (!ok) {
         this.setState({ last_error: json.error })
       } else {
+        this.props.onAssigned(json)
         this.setState({ last_error: null })
       }
     })

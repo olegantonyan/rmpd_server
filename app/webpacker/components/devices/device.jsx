@@ -65,7 +65,7 @@ export default class Device extends React.Component {
                 </tr>
                 <tr>
                   <td>{I18n.devices.playlist}</td>
-                  <td><Playlist playlist={this.state.device.playlist} playlists={this.props.js_data.playlists} playlist_assign_path={this.props.js_data.playlist_assign_path} /></td>
+                  <td><Playlist playlist={this.state.device.playlist} playlists={this.props.js_data.playlists} playlist_assign_path={this.props.js_data.playlist_assign_path} onAssigned={(device) => this.setState({ device: device })}/></td>
                 </tr>
                 <tr>
                   <td>{I18n.devices.timezone}</td>
