@@ -25,7 +25,7 @@ module DeviseUsers
 
     def create
       srv = Invite::Accept.new(user: current_user, invite: invite)
-      if srv.save
+      if srv.call
         flash[:success] = t('views.companies.invites.accept_successfull')
       else
         flash[:error] = srv.errors.full_messages.to_sentence

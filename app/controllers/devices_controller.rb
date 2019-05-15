@@ -6,7 +6,8 @@ class DevicesController < ApplicationController
       format.html do
         add_js_data(
           index_path: devices_path,
-          show_path: device_path(':id')
+          show_path: device_path(':id'),
+          playlist_path: edit_playlist_path(':id:')
         )
       end
       format.json do

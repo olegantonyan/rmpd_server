@@ -5,7 +5,7 @@ class User
     before_validation do
       if invite
         accept = Invite::Accept.new(invite: invite, user: self)
-        if accept.save
+        if accept.call
           skip_confirmation!
         else
           errors.add(:base, accept.errors.full_messages.to_sentence)

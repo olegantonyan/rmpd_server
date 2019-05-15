@@ -13,7 +13,7 @@ class Invite
 
     delegate :to_s, to: :invite, allow_nil: true
 
-    def save
+    def call
       return false unless valid?
       user.companies << invite.company
       invite.update(accepted: true)

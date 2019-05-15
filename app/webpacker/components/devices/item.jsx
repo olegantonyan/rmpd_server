@@ -9,6 +9,15 @@ export default class Item extends React.Component {
   }
 
   render() {
+    let playlist = <span></span>;
+    if (this.props.device.playlist !== null) {
+      playlist = <span>
+        <span>{I18n.devices.playlist}</span>
+        :&nbsp;
+        <a href={this.props.js_data.playlist_path.replace(":id:", this.props.device.playlist.id)}>{this.props.device.playlist.name}</a>
+      </span>
+    }
+
     return(
       <div className="media box">
         <div className="media-left">
@@ -22,7 +31,20 @@ export default class Item extends React.Component {
 
         <div className="media-content">
           <div className="content">
-            <h5 className="subtitle is-5">{this.props.device.name.length > 0 ? this.props.device.name : this.props.device.login}</h5>
+
+            <nav className="level">
+              <div className="level-left">
+                <span className="level-item">
+                  <h5 className="subtitle is-5">{this.props.device.name.length > 0 ? this.props.device.name : this.props.device.login}</h5>
+                </span>
+              </div>
+
+              <div className="level-right">
+                <span className="level-item">
+                  {playlist}
+                </span>
+              </div>
+            </nav>
 
             <nav className="level">
               <div className="level-left">
