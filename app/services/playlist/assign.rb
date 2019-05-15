@@ -24,7 +24,7 @@ class Playlist
       end
       notify_all
       true
-    rescue ActiveRecord::RecordInvalid, NotEnoughSpaceError => e
+    rescue StandardError => e
       errors.add(:base, e.to_s)
       false
     end
@@ -75,9 +75,10 @@ class Playlist
 
     def new_items_to_download(device) # rubocop: disable Metrics/AbcSize
       return [] unless playlist
-      return playlist.uniq_media_items.to_a unless device.playlist
+      return playlist.media_items.to_a unless device.playlist
+
       if device.playlist_id == playlist.id
-        playlist.added_playlist_items.map(&:media_item)
+        playlist.added_playlist_items.map(&:media_item) # TODO: make it work
       else
         playlist.media_items.where.not(id: device.playlist.media_items.pluck(:id)).to_a.uniq
       end

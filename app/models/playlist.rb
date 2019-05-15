@@ -16,13 +16,7 @@ class Playlist < ApplicationRecord
            inverse_of: :playlist
 
   has_many :playlist_items, class_name: 'Playlist::Item', dependent: :destroy
-  has_many :media_items, -> {
-    joins(:playlist_items)
-      .select('media_items.*, playlist_items.position')
-      .order('playlist_items.position')
-      .group('media_items.id, playlist_items.position')
-      .distinct
-  }, through: :playlist_items
+  has_many :media_items, -> { distinct }, through: :playlist_items
   belongs_to :company, inverse_of: :playlists
 
   validates :name, presence: true, length: { maximum: 128 }
@@ -35,12 +29,8 @@ class Playlist < ApplicationRecord
   scope :with_company_id, ->(companies_ids) { where(company_id: [*companies_ids]) }
   scope :without_device, -> { includes(:devices).where(devices: { playlist_id: nil }) }
 
-  def media_items_count
-    uniq_media_items.count
-  end
-
-  def uniq_media_items
-    MediaItem.joins(:playlist_items).where(playlist_items: { playlist_id: id }).distinct
+  def media_items_count # rubocop: disable Rails/Delegate
+    media_items.count
   end
 
   def to_s
