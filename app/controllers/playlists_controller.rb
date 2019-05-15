@@ -19,7 +19,7 @@ class PlaylistsController < ApplicationController
 
         authorize(playlists)
 
-        render json: { data: playlists.map(&:serialize), total_count: total_count }
+        render(json: { data: playlists.map(&:serialize), total_count: total_count })
       end
     end
   end
@@ -29,7 +29,7 @@ class PlaylistsController < ApplicationController
     authorize(@playlist)
 
     add_js_data(
-      playlist: @playlist.serialize,
+      playlist: @playlist.serialize(with_items: true),
       update_path: playlist_path(@playlist),
       media_items_path: media_items_path,
       tags: policy_scope(Tag.ordered).map(&:serialize)
@@ -41,7 +41,7 @@ class PlaylistsController < ApplicationController
     authorize(@playlist)
 
     add_js_data(
-      playlist: @playlist.serialize,
+      playlist: @playlist.serialize(with_items: true),
       create_path: playlists_path,
       edit_path: edit_playlist_path(':id'),
       media_items_path: media_items_path,

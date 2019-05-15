@@ -51,12 +51,12 @@ class Playlist < ApplicationRecord
     media_items.inject(0) { |acc, elem| acc + elem.size.to_i }
   end
 
-  def serialize
+  def serialize(with_items: false)
     i = attributes.slice('id', 'name', 'description', 'created_at', 'updated_at')
     i['company'] = company.serialize
     i['items_count'] = media_items_count
     i['items_size'] = total_size
-    i['playlist_items'] = playlist_items.map(&:serialize)
+    i['playlist_items'] = playlist_items.map(&:serialize) if with_items
     i
   end
 end
