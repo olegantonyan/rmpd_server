@@ -18,3 +18,6 @@ ru:
         devices: Устройства
         media_items_and_size: Файлов / размер
         shuffle: Случайный порядок
+
+  playlist_assign:
+    free_space_error: "Недостаточно свободного места на устройстве %{device}, нужно %{size_of_new_items}, доступно %{free_space}"

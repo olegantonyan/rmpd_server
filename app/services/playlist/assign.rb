@@ -2,6 +2,7 @@ class Playlist
   class Assign
     include ActiveModel::Model
     include ActiveModel::Validations
+    include ActionView::Helpers::NumberHelper
 
     class NotEnoughSpaceError < RuntimeError; end
 
@@ -68,7 +69,7 @@ class Playlist
       return unless free_space
       return if free_space.zero?
       size_of_new_items = new_items_to_download(device).inject(0) { |acc, elem| acc + elem.size.to_i }
-      msg = "Device #{device} has not enough free space (#{free_space}) to update playlist (requires #{size_of_new_items})"
+      msg = I18n.t('playlist_assign.free_space_error', device: device.to_s, free_space: number_to_human_size(free_space), size_of_new_items: number_to_human_size(size_of_new_items))
       raise NotEnoughSpaceError, msg if free_space < size_of_new_items + 10_000_000
     end
 

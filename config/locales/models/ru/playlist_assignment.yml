@@ -1,9 +1,0 @@
-ru:
-  activemodel:
-    models:
-      playlist/assignment:
-        one: Назначение плейлиста устройству
-
-    attributes:
-      playlist/assignment:
-        playlist_id: Плейлист
