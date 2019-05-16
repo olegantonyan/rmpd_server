@@ -11,6 +11,7 @@ class DeviceGroupsController < ApplicationController
 
   def edit
     @device_group = Device::Group.find(params[:id])
+    @playlists = policy_scope(Playlist.order(name: :asc))
     authorize(@device_group)
   end
 

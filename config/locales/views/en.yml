@@ -11,6 +11,7 @@ en:
     not_authorized: You don't have permissions to do this
     save: Save
     optional: optional
+    playlist_assign_success: Playlist assigned successfully
 
     media_items:
       index_title: Mediafiles
@@ -51,6 +52,7 @@ en:
       successfully_deleted: Device group successfully deleted
       delete_confirm: Will remove this device group. Are sure?
       edit_title: Edti device group
+      assign_playlist: Assign playlist to all devices in this group
 
     companies:
       index_title: Companies

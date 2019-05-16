@@ -11,6 +11,7 @@ ru:
     not_authorized: Недостаточно прав доступа
     save: Сохранить
     optional: необязательно
+    playlist_assign_success: Плейлист успешно назначен на группу
 
     media_items:
       index_title: Медиафайлы
@@ -51,6 +52,7 @@ ru:
       successfully_deleted: Группа успешно удалена
       delete_confirm: Удалить эту группу. Вы уверены?
       edit_title: Редактировать группу устройств
+      assign_playlist: Назначить плейлист на устройства в группе
 
     companies:
       index_title: Компании

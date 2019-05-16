@@ -5,6 +5,12 @@ class PlaylistAssignsController < ApplicationController
 
     respond_to do |format|
       format.html do
+        if assignment.call
+          flash[:success] = t('views.playlist_assign_success')
+        else
+          flash[:error] = assignment.errors.full_messages.to_sentence
+        end
+        redirect_back(fallback_location: root_path)
       end
       format.json do
         if assignment.call

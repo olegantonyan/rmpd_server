@@ -16,14 +16,26 @@
 
 <div class="columns">
   <div class="column">
-  </div>
-
-  <div class="column">
     <div class="section">
       <%= render 'form', device_group: @device_group %>
     </div>
   </div>
 
   <div class="column">
+    <div class="section">
+
+      <%= form_with(url: device_group_playlist_assign_path(@device_group), method: :patch) do |f| %>
+        <div class="field">
+          <div class="control select">
+            <%= select_tag(:playlist_id, options_for_select(@playlists.map { |i| [i.name, i.id] } ) ) %>
+          </div>
+
+          <div class="control">
+            <%= f.submit(t('views.device_groups.assign_playlist'), class: "button is-primary is-outlined") %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
   </div>
 </div>
