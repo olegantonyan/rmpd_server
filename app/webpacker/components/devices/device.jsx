@@ -29,6 +29,7 @@ export default class Device extends React.Component {
   }
 
   render() {
+    const ip_addr = <td><a href={"http://" + this.state.device.ip_addr} target="_blank">{this.state.device.ip_addr}</a> ({I18n.devices.default_login})</td>
     return(
       <div>
         <nav className="level">
@@ -89,7 +90,7 @@ export default class Device extends React.Component {
                 </tr>
                 <tr>
                   <td>{I18n.devices.ip_addr}</td>
-                  <td><a href={"http://" + this.state.device.ip_addr} target="_blank">{this.state.device.ip_addr}</a> ({I18n.devices.default_login})</td>
+                  {this.state.device.ip_addr !== '0.0.0.0' && this.state.device.ip_addr !== '' && this.state.device.ip_addr !== null && ip_addr}
                 </tr>
               </tbody>
             </table>
