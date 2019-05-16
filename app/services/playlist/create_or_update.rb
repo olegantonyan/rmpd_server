@@ -17,18 +17,18 @@ class Playlist
     def call # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
       ActiveRecord::Base.transaction do
         create_update_attributes
-        create_update_playlist_items
+        added_media_items = create_update_playlist_items
         midnight_rollover
         validate_overlapped_schedule
         update_schedule
-        notify_devices
+        notify_devices(added_media_items)
       end
       playlist
     rescue StandardError => e
       playlist.errors.each do |k, v|
         errors.add(k, v)
       end
-      errors.add(:base, e.message)
+      errors.add(:base, e.to_s)
       nil
     end
 
@@ -63,14 +63,14 @@ class Playlist
       end
 
       new_items_to_create = params[:playlist_items].select { |i| i[:id].nil? }
-      new_items_to_create.each do |i|
+      new_items_to_create.map do |i|
         if i[:type] == 'background'
           playlist.playlist_items_background.create!(i.slice(*attrs_bg))
         elsif i[:type] == 'advertising'
           playlist.playlist_items_advertising.create!(i.slice(*attrs_ad))
         else
           raise ArgumentError, "unknown type `#{i[:type]}`"
-        end
+        end.media_item
       end
     end
 
@@ -89,8 +89,7 @@ class Playlist
     def validate_overlapped_schedule
       overlap = schedule.overlap
       return if overlap.blank?
-      errors.add(:base, "advertising schedule overlap: #{overlap.map(&:file_name).to_sentence}")
-      raise ActiveRecord::RecordInvalid
+      raise "advertising schedule overlap: #{overlap.map(&:file_name).to_sentence}"
     end
 
     def update_schedule # rubocop: disable Metrics/AbcSize
@@ -104,13 +103,10 @@ class Playlist
       playlist_items_advertising.update(qry.keys, qry.values)
     end
 
-    def notify_devices
+    def notify_devices(added_media_items)
       playlist.devices.each do |d|
-        # assignment = Playlist::Assignment.new(assignable: d, playlist: playlist, force: true)
-        # unless assignment.save
-        #   errors.add(:base, assignment.errors.full_messages.to_sentence)
-        #   raise ActiveRecord::RecordInvalid
-        # end
+        assignment = Playlist::Assign.new(assignable: d, playlist_id: playlist.id, force: true, added_media_items: added_media_items)
+        raise assignment.errors.full_messages.to_sentence unless assignment.call
       end
     end
 

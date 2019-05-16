@@ -1,5 +1,7 @@
 class Playlist
   class Assign
+    using ::Typerb
+
     include ActiveModel::Model
     include ActiveModel::Validations
     include ActionView::Helpers::NumberHelper
@@ -10,10 +12,11 @@ class Playlist
 
     validates :assignable, presence: true
 
-    def initialize(playlist_id:, assignable:, force: false)
-      @playlist_id = playlist_id
-      @assignable = assignable
-      @force = force
+    def initialize(playlist_id:, assignable:, force: false, added_media_items: [])
+      @playlist_id = playlist_id.type!(Integer, String)
+      @assignable = assignable.type!(Device, Device::Group)
+      @force = force.type!(TrueClass, FalseClass)
+      @added_media_items = added_media_items.type!(Array)
       @notifications = []
     end
 
@@ -35,7 +38,7 @@ class Playlist
 
     private
 
-    attr_reader :notifications
+    attr_reader :notifications, :added_media_items
 
     def playlist
       Playlist.find_by(id: playlist_id)
@@ -79,7 +82,7 @@ class Playlist
       return playlist.media_items.to_a unless device.playlist
 
       if device.playlist_id == playlist.id
-        playlist.added_playlist_items.map(&:media_item) # TODO: make it work
+        added_media_items
       else
         playlist.media_items.where.not(id: device.playlist.media_items.pluck(:id)).to_a.uniq
       end
