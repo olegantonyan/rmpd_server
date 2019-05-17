@@ -66,6 +66,13 @@ class DevicesController < ApplicationController
     end
   end
 
+  def delete_all_files
+    device = Device.find(params[:id])
+    device.send_to(:delete_all_files)
+    flash[:success] = 'Command queued'
+    redirect_to(device_path(device))
+  end
+
   private
 
   def device_params

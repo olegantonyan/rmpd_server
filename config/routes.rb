@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :devices, concerns: :playlist_assignable, except: %i[destroy new create] do
     resources :device_log_messages, only: %i[index]
     resources :software_updates, only: %i[create index]
+    delete 'delete_all_files', on: :member
   end
   resources :playlists, except: %i[show]
   resources :companies do
