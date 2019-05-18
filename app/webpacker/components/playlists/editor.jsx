@@ -178,7 +178,7 @@ export default class Editor extends React.Component {
   }
 
   onDeleteItem = (item) => {
-    const new_items = this.state.playlist.playlist_items.filter(i => i.id.toString() !== item.id.toString()).slice()
+    const new_items = this.state.playlist.playlist_items.filter(i => i.media_item.id.toString() !== item.media_item.id.toString()).slice()
     this.setState({
       playlist: { ...this.state.playlist, playlist_items: new_items },
     })
