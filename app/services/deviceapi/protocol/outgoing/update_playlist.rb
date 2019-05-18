@@ -18,6 +18,7 @@ module Deviceapi
 
         def serialized_playlist(playlist)
           {
+            id: playlist.id,
             name: playlist.name,
             description: playlist.description,
             created_at: playlist.created_at,
