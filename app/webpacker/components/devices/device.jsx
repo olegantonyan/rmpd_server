@@ -102,9 +102,6 @@ export default class Device extends React.Component {
 
           </div>
 
-          <div className="column">
-
-          </div>
         </div>
 
         <h4 className="title is-4">{I18n.devices.log_messages.title}</h4>
