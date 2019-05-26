@@ -1,6 +1,8 @@
 <section class="hero">
   <div class="hero-body">
     <div class="container">
+      <%= render 'layouts/messages' %>
+
       <h1 class="title is-1 has-text-light">
         <u><%= link_to('Войдите', new_user_session_path, class: 'has-text-light') %></u> или <u><%= link_to('зарегистрируйтесь', new_user_registration_path, class: 'has-text-light') %></u>
       </h1>
