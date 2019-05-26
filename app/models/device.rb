@@ -43,7 +43,7 @@ class Device < ApplicationRecord
   end
 
   def synchronizing?
-    Deviceapi::MessageQueue.find_by(key: login)
+    Deviceapi::MessageQueue.exists?(key: login)
   end
 
   def bound_to_company?
