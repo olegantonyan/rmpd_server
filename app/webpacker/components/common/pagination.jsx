@@ -61,7 +61,7 @@ export default class Pagination extends React.Component {
         {last_page}
       </ul>
     } else if (this.max_pages() > 5) {
-      if (this.props.current_page == 0 || this.props.current_page == 1 || this.props.current_page == 2 || this.props.current_page == 3) {
+      if (this.props.current_page == 0 || this.props.current_page == 1 || this.props.current_page == 2) {
         central_buttons = <ul className="pagination-list">
           {first_page}
           {this.central_button(1)}
