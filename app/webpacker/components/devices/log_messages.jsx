@@ -4,7 +4,7 @@ import I18n from '../i18n'
 import Pagination from '../common/pagination'
 import Loader from '../common/loader'
 
-const ITEMS_PER_PAGE = 4
+const ITEMS_PER_PAGE = 50
 
 export default class LogMessages extends React.Component {
   static propTypes = {
