@@ -4,16 +4,10 @@ class DeviceLogMessagesController < ApplicationController
     scoped = scoped.distinct
 
     total_count = scoped.count
-    log_messages = pagination.call(scoped).ordered
+    log_messages = Pagination.new(params, default_limit: 100).call(scoped).ordered
 
     authorize(log_messages)
 
     render json: { data: log_messages.map(&:serialize), total_count: total_count }
-  end
-
-  private
-
-  def pagination
-    @pagination ||= Pagination.new(params, default_limit: 100)
   end
 end

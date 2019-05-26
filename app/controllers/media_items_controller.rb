@@ -14,7 +14,7 @@ class MediaItemsController < ApplicationController
         scoped = scoped.distinct
 
         total_count = scoped.count
-        media_items = pagination.call(scoped).order(created_at: :desc)
+        media_items = Pagination.new(params).call(scoped).order(created_at: :desc)
 
         authorize(media_items)
 
@@ -87,11 +87,5 @@ class MediaItemsController < ApplicationController
       unauthorized: d.fetch(:unauthorized, []).map(&:serialize),
       has_playlist: d.fetch(:has_playlist, []).map(&:serialize)
     }
-  end
-
-  private
-
-  def pagination
-    @pagination ||= Pagination.new(params)
   end
 end

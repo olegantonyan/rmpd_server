@@ -14,7 +14,7 @@ class DevicesController < ApplicationController
         scoped = scoped.distinct
 
         total_count = scoped.count
-        devices = pagination.call(scoped).order(online: :desc)
+        devices = Pagination.new(params).call(scoped).order(online: :desc)
 
         authorize(devices)
 
@@ -82,9 +82,5 @@ class DevicesController < ApplicationController
 
   def device_params
     params.require(:device).permit(policy(:device).permitted_attributes)
-  end
-
-  def pagination
-    @pagination ||= Pagination.new(params)
   end
 end
