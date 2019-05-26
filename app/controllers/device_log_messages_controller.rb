@@ -1,12 +1,10 @@
 class DeviceLogMessagesController < ApplicationController
-  include Paginateble
-
-  def index # rubocop: disable Metrics/AbcSize
+  def index
     scoped = policy_scope(Device::LogMessage.where(device_id: params[:device_id])).includes(:device)
     scoped = scoped.distinct
 
     total_count = scoped.count
-    log_messages = scoped.limit(limit).offset(offset).ordered
+    log_messages = pagination.call(scoped).ordered
 
     authorize(log_messages)
 
@@ -15,7 +13,7 @@ class DeviceLogMessagesController < ApplicationController
 
   private
 
-  def default_limit
-    100
+  def pagination
+    @pagination ||= Pagination.new(params, default_limit: 100)
   end
 end

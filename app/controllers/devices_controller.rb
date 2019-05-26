@@ -1,6 +1,4 @@
 class DevicesController < ApplicationController
-  include Paginateble
-
   def index # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
     respond_to do |format|
       format.html do
@@ -16,7 +14,7 @@ class DevicesController < ApplicationController
         scoped = scoped.distinct
 
         total_count = scoped.count
-        devices = scoped.limit(limit).offset(offset).order(online: :desc)
+        devices = pagination.call(scoped).order(online: :desc)
 
         authorize(devices)
 
@@ -84,5 +82,9 @@ class DevicesController < ApplicationController
 
   def device_params
     params.require(:device).permit(policy(:device).permitted_attributes)
+  end
+
+  def pagination
+    @pagination ||= Pagination.new(params)
   end
 end

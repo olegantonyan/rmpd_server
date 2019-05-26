@@ -1,6 +1,4 @@
 class PlaylistsController < ApplicationController
-  include Paginateble
-
   def index # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
     respond_to do |format|
       format.html do
@@ -15,7 +13,7 @@ class PlaylistsController < ApplicationController
         scoped = scoped.distinct
 
         total_count = scoped.count
-        playlists = scoped.limit(limit).offset(offset).order(created_at: :desc)
+        playlists = pagination.call(scoped).order(created_at: :desc)
 
         authorize(playlists)
 
@@ -90,5 +88,9 @@ class PlaylistsController < ApplicationController
     else
       render(json: { error: service.errors.full_messages.to_sentence }, status: :unprocessable_entity)
     end
+  end
+
+  def pagination
+    @pagination ||= Pagination.new(params)
   end
 end
