@@ -50,7 +50,7 @@ class Playlist < ApplicationRecord
     i['company'] = company.serialize
     i['items_count'] = media_items_count
     i['items_size'] = total_size
-    i['playlist_items'] = playlist_items.map(&:serialize) if with_items
+    i['playlist_items'] = playlist_items.includes(media_item: [:company, { file_attachment: :blob }, :tags]).map(&:serialize) if with_items
     i
   end
 end
