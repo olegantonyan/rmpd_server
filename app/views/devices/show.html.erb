@@ -35,17 +35,23 @@
   <div class="section">
     <h3 class="title is-3">Area 51</h3>
 
-    <div class="tile is-ancestor">
+    <div class="field is-grouped">
 
-      <div class="tile is-2">
+      <div class="control">
         <%= link_to(device_software_updates_path(@device), class: "button is-warning") do %>
           <span>Software update</span>
         <% end %>
       </div>
 
-      <div class="tile is-2">
+      <div class="control">
         <%= link_to(delete_all_files_device_path, method: :delete, class: "button is-danger", data: { confirm: 'Really?' }) do %>
           <span>Delete all files from SD card</span>
+        <% end %>
+      </div>
+
+      <div class="control">
+        <%= link_to(reboot_device_path, method: :post, class: "button is-warning", data: { confirm: 'Really?' }) do %>
+          <span>Reboot</span>
         <% end %>
       </div>
 

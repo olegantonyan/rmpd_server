@@ -73,6 +73,13 @@ class DevicesController < ApplicationController
     redirect_to(device_path(device))
   end
 
+  def reboot
+    device = Device.find(params[:id])
+    device.send_to(:reboot)
+    flash[:success] = 'Command queued'
+    redirect_to(device_path(device))
+  end
+
   private
 
   def device_params

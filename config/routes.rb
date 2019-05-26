@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resources :device_log_messages, only: %i[index]
     resources :software_updates, only: %i[create index]
     delete 'delete_all_files', on: :member
+    post 'reboot', on: :member
   end
   resources :playlists, except: %i[show]
   resources :companies do
