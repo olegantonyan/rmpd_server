@@ -74,6 +74,14 @@
                   </p>
                 <% end %>
 
+                <% if policy(t).edit? %>
+                  <p class="control">
+                    <%= link_to(edit_tag_path(t), class: "button is-primary is-outlined") do %>
+                      <span class="icon"><i class="fas fa-bars"></i></span>
+                    <% end %>
+                  </p>
+                <% end %>
+
               </div>
 
             </span>
