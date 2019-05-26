@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 WorkingDirectory=/home/rmpd/apps/rmpd_server/current
-ExecStart=/bin/bash -lci 'bundle exec sidekiq -e production --config ./config/sidekiq.yml -t 86400'
+ExecStart=/bin/bash -lci 'bundle exec sidekiq -e production --config ./config/sidekiq.yml -t 86400 -L ./log/sidekiq.log'
 
 User=rmpd
 Group=rmpd

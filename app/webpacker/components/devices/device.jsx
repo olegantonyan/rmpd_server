@@ -4,6 +4,7 @@ import I18n from '../i18n'
 import { humanized_size } from '../dumpster'
 import LogMessages from './log_messages'
 import Playlist from './playlist'
+import Loader from '../common/loader'
 
 export default class Device extends React.Component {
   constructor(props) {
@@ -66,7 +67,11 @@ export default class Device extends React.Component {
                 </tr>
                 <tr>
                   <td>{I18n.devices.playlist}</td>
-                  <td><Playlist playlist={this.state.device.playlist} playlists={this.props.js_data.playlists} playlist_assign_path={this.props.js_data.playlist_assign_path} onAssigned={(device) => this.setState({ device: device })}/></td>
+                  <td>
+                    <Playlist playlist={this.state.device.playlist} playlists={this.props.js_data.playlists} playlist_assign_path={this.props.js_data.playlist_assign_path} onAssigned={(device) => this.setState({ device: device })}/>
+
+                    {this.state.device.synchronizing && <span> <Loader /> <span>{I18n.devices.synchronizing}</span> </span>}
+                  </td>
                 </tr>
                 <tr>
                   <td>{I18n.devices.timezone}</td>
@@ -100,6 +105,9 @@ export default class Device extends React.Component {
               {this.state.show_webui_password && <pre>{this.state.device.webui_password}</pre>}
             </div>
 
+          </div>
+
+          <div className="column">
           </div>
 
         </div>

@@ -54,6 +54,7 @@ ru:
       assign_playlist: Назначить плейлист
       remove_playlist: Удалить плейлист с устройства
       playlist_assigned: Плейлист успешно назначен
+      synchronizing: Синхронизация
 
       log_messages:
         title: Лог событий
