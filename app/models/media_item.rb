@@ -33,7 +33,7 @@ class MediaItem < ApplicationRecord
     def to_csv(filepath:, scope: all)
       CSV.open(filepath, 'wb') do |csv|
         csv << %w[name descritpion type library tags company]
-        scope.includes(:tags, :company, :file_attachment, :file_blob).find_each do |i|
+        scope.includes(:tags, :company).with_attached_file.find_each do |i|
           csv << [i.file_name, i.description, i.type, i.library, i.tags.pluck(:name).join(','), i.company.to_s]
         end
       end
