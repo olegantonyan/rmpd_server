@@ -42,7 +42,7 @@ class Playlist < ApplicationRecord
   end
 
   def total_size
-    media_items.inject(0) { |acc, elem| acc + elem.size.to_i }
+    media_items.with_attached_file.sum('active_storage_blobs.byte_size').to_i
   end
 
   def serialize(with_items: false)

@@ -11,7 +11,7 @@ class MediaItemsController < ApplicationController
         )
       end
       format.json do
-        scoped = policy_scope(MediaItem.includes(:tags, :company, :file_attachment, :file_blob))
+        scoped = policy_scope(MediaItem.includes(:tags, :company).with_attached_file)
         scoped = QueryObject.new(:search_query, :with_tag_ids, :with_company_id, :with_type, :with_library).call(scoped, params)
         scoped = scoped.distinct
 
