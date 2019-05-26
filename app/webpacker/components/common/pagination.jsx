@@ -60,25 +60,37 @@ export default class Pagination extends React.Component {
         {this.central_button(3)}
         {last_page}
       </ul>
-    } else if (this.max_pages() == 6) {
-      central_buttons = <ul className="pagination-list">
-        {first_page}
-        {this.central_button(Math.floor(this.max_pages() / 2 - 1))}
-        {this.central_button(Math.floor(this.max_pages() / 2))}
-        {this.central_button(Math.floor(this.max_pages() / 2 + 1))}
-        {elipsis}
-        {last_page}
-      </ul>
-    } else if (this.max_pages() > 6) {
-      central_buttons = <ul className="pagination-list">
-        {first_page}
-        {elipsis}
-        {this.central_button(Math.floor(this.max_pages() / 2 - 1))}
-        {this.central_button(Math.floor(this.max_pages() / 2))}
-        {this.central_button(Math.floor(this.max_pages() / 2 + 1))}
-        {elipsis}
-        {last_page}
-      </ul>
+    } else if (this.max_pages() > 5) {
+      if (this.props.current_page == 0 || this.props.current_page == 1 || this.props.current_page == 2 || this.props.current_page == 3) {
+        central_buttons = <ul className="pagination-list">
+          {first_page}
+          {this.central_button(1)}
+          {this.central_button(2)}
+          {this.central_button(3)}
+          {elipsis}
+          {last_page}
+        </ul>
+      } else if (this.props.current_page == (this.max_pages() - 1) || this.props.current_page == (this.max_pages() - 2) || this.props.current_page == (this.max_pages() - 3)) {
+        central_buttons = <ul className="pagination-list">
+          {first_page}
+          {elipsis}
+          {this.central_button(this.max_pages() - 4)}
+          {this.central_button(this.max_pages() - 3)}
+          {this.central_button(this.max_pages() - 2)}
+          {last_page}
+        </ul>
+      } else {
+        const middle = this.props.current_page
+        central_buttons = <ul className="pagination-list">
+          {first_page}
+          {elipsis}
+          {this.central_button(middle - 1)}
+          {this.central_button(middle)}
+          {this.central_button(middle + 1)}
+          {elipsis}
+          {last_page}
+        </ul>
+      }
     }
 
     return(
