@@ -57,6 +57,10 @@ class MediaItemsController < ApplicationController
       end
     end
 
+    if ['/', '..'].any? { |i| upload_params[:upload_uuid].include?(i) } # protect filesystem from ../ access
+      render json: { error: 'wrong uuid' }, status: :unprocessable_entity
+    end
+
     media_item = MediaItem.new(media_item_params.except(:skip_volume_normalization))
     media_item.skip_file_validation = true
     authorize(media_item)

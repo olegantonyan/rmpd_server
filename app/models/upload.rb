@@ -8,6 +8,7 @@ class Upload
 
     def filepath_by_uuid(uuid)
       uuid.type!(String)
+      raise ::ArgumentError, "wrong uuid format: #{uuid}" if ['/', '..'].any? { |i| uuid.include?(i) }
       File.join(tmp_path, uuid).freeze
     end
   end
