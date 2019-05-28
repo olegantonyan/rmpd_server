@@ -33,6 +33,8 @@ export default class Editor extends React.Component {
         {this.descriptionInput()}
         {this.props.js_data.companies.length > 1 && this.companySelect()}
 
+        {this.saveButton()}
+
         <div className="section">
 
           <div className="card">
@@ -57,7 +59,6 @@ export default class Editor extends React.Component {
 
         <div className="section">
           {this.saveButton()}
-          {this.state.last_error !== null && this.errorNotificationComponent()}
         </div>
       </div>
    )
@@ -128,11 +129,14 @@ export default class Editor extends React.Component {
       btn_classes += " is-loading"
     }
     return(
-      <div className="actions">
-        <button className={btn_classes} disabled={this.state.saving} onClick={this.onSaveHandler}>{I18n.playlists.save}</button>
-        <div>
-          {this.state.save_ok && <em className="has-text-success">{I18n.playlists.save_successful}</em>}
+      <div>
+        <div className="actions">
+          <button className={btn_classes} disabled={this.state.saving} onClick={this.onSaveHandler}>{I18n.playlists.save}</button>
+          <div>
+            {this.state.save_ok && <em className="has-text-success">{I18n.playlists.save_successful}</em>}
+          </div>
         </div>
+        {this.state.last_error !== null && this.errorNotificationComponent()}
       </div>
     )
   }
