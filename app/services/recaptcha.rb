@@ -23,7 +23,7 @@ class Recaptcha
   private
 
   def secret_key
-    ENV['RECAPTHA_SECRET_KEY'] || raise('please provide RECAPTHA_SECRET_KEY')
+    Rails.application.secrets.recaptcha_key || raise('please provide RECAPTHA_SECRET_KEY')
   end
 
   def uri
