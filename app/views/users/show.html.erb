@@ -30,6 +30,15 @@
         </tr>
 
         <tr>
+          <td><%= t('activerecord.attributes.user.root') %></td>
+          <% if @user.root %>
+            <td><span>&#9989;</span></td>
+          <% else %>
+            <td><span>&#10060;</span></td>
+          <% end %>
+        </tr>
+
+        <tr>
           <td><%= t('activerecord.attributes.user.companies') %></td>
           <td>
             <% @user.companies.each do |c| %>
@@ -42,6 +51,11 @@
         <tr>
           <td><%= t('activerecord.attributes.user.created_at') %></td>
           <td><%= @user.created_at.to_formatted_s(:rmpd_custom_date_time) %></td>
+        </tr>
+
+        <tr>
+          <td><%= t('activerecord.attributes.user.confirmed_at') %></td>
+          <td><%= @user.confirmed_at&.to_formatted_s(:rmpd_custom_date_time) %></td>
         </tr>
 
       </tbody>
