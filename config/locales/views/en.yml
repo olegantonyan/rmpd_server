@@ -33,24 +33,25 @@ en:
       edit_title: Edit device
       save: Save
       update_successfull: Device updated successfully
-      delete_confirm: Will remove this device. Are sure?
+      delete_confirm: Will remove this device. Are you sure?
 
     playlists:
       index_title: Playlists
       midnight_rollover_warning: Rollover midnight
       date_interval: Date interval
       new_title: New playlist
-      delete_confirm: Will remove this playlist. Are sure?
+      delete_confirm: Will remove this playlist. Are you sure?
       edit_title: Edit playlist
       successfully_deleted: Playlist %{playlist} successfully removed
       error_delete: Cannot remove this playlist
+      delete_confirm_with_devices: Will also remove playlist from %{devices} devices. Are you sure?
 
     device_groups:
       index_title: Device groups
       new_title: New group
       save_successfull: Device group successfully saved
       successfully_deleted: Device group successfully deleted
-      delete_confirm: Will remove this device group. Are sure?
+      delete_confirm: Will remove this device group. Are you sure?
       edit_title: Edti device group
       assign_playlist: Assign playlist to all devices in this group
 
@@ -59,7 +60,7 @@ en:
       edit_title: Edit company
       show_title: Company %{company}
       new_title: New company
-      delete_confirm: Will remove this company. Are sure?
+      delete_confirm: Will remove this company. Are you sure?
       save_successfull: Company saved successfully
       successfully_deleted: Company successfully deleted
       leave: Leave the company

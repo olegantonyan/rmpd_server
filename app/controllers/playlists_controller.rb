@@ -65,7 +65,7 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.find(params[:id])
     authorize(@playlist)
 
-    if @playlist.destroy
+    if @playlist.destroy_and_remove_from_devices
       flash[:notice] = t('views.playlists.successfully_deleted', playlist: @playlist)
       redirect_to(playlists_path)
     else

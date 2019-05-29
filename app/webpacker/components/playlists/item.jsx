@@ -40,6 +40,11 @@ export default class Item extends React.Component {
                 </span>
 
                 <span className="level-item">
+                  <span className="icon"><i className="fas fa-microchip"></i></span>
+                  {this.props.playlist.devices_count}
+                </span>
+
+                <span className="level-item">
                   <span><span className="icon"><i className="fas fa-user-secret"></i></span>{this.props.playlist.company.title}</span>
                 </span>
               </div>

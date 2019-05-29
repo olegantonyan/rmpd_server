@@ -13,10 +13,10 @@ class Playlist
     validates :assignable, presence: true
 
     def initialize(playlist_id:, assignable:, force: false, added_media_items: [])
-      @playlist_id = playlist_id.type!(Integer, String)
+      @playlist_id = playlist_id.type!(Integer, String, NilClass)
       @assignable = assignable.type!(Device, Device::Group)
       @force = force.type!(TrueClass, FalseClass)
-      @added_media_items = added_media_items.type!(Array)
+      @added_media_items = added_media_items.map { |i| i.type!(MediaItem) }
       @notifications = []
     end
 

@@ -44,6 +44,7 @@ ru:
       edit_title: Редактировать плейлист
       successfully_deleted: Плейлист %{playlist} успешно удалён
       error_delete: Не удалось удалить плейлист
+      delete_confirm_with_devices: Плелист будет удалён так же и с %{devices} устройств. Продолжить?
 
     device_groups:
       index_title: Группы устройств

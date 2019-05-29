@@ -14,7 +14,8 @@
 
   <div class="column is-narrow">
     <% if policy(@playlist).destroy? %>
-      <%= link_to(playlist_path(@playlist), method: :delete, class: "button is-danger is-outlined", data: { confirm: t('views.playlists.delete_confirm') }) do %>
+      <% confirm = ->(playlist) { playlist.devices.count > 0 ? t('views.playlists.delete_confirm_with_devices', devices: playlist.devices.count) : t('views.playlists.delete_confirm') } %>
+      <%= link_to(playlist_path(@playlist), method: :delete, class: "button is-danger is-outlined", data: { confirm: confirm.call(@playlist) }) do %>
         <span class="icon"><i class="fas fa-trash-alt"></i></span>
       <% end %>
     <% end %>

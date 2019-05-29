@@ -45,11 +45,19 @@ class Playlist < ApplicationRecord
     media_items.with_attached_file.sum('active_storage_blobs.byte_size').to_i
   end
 
+  def destroy_and_remove_from_devices
+    devices.each do |d|
+      Playlist::Assign.new(assignable: d, playlist_id: nil, force: true).call
+    end
+    destroy
+  end
+
   def serialize(with_items: false)
     i = attributes.slice('id', 'name', 'description', 'created_at', 'updated_at')
     i['company'] = company.serialize
     i['items_count'] = media_items_count
     i['items_size'] = total_size
+    i['devices_count'] = devices.count
     i['playlist_items'] = playlist_items.includes(media_item: [:company, { file_attachment: :blob }, :tags]).map(&:serialize) if with_items
     i
   end
