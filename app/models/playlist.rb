@@ -46,10 +46,12 @@ class Playlist < ApplicationRecord
   end
 
   def destroy_and_remove_from_devices
-    devices.each do |d|
-      Playlist::Assign.new(assignable: d, playlist_id: nil, force: true).call
+    transaction do
+      devices.each do |d|
+        Playlist::Assign.new(assignable: d, playlist_id: nil, force: true).call
+      end
+      destroy
     end
-    destroy
   end
 
   def serialize(with_items: false)
