@@ -28,6 +28,7 @@ group :development, :test do
   gem 'capistrano-rails-tail-log', require: false
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
   gem 'capistrano-rails', require: false
   gem 'brakeman', require: false
   gem 'super_awesome_print'
