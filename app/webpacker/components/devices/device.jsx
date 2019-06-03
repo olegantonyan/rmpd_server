@@ -97,6 +97,10 @@ export default class Device extends React.Component {
                   <td>{I18n.devices.ip_addr}</td>
                   {this.state.device.ip_addr !== '0.0.0.0' && this.state.device.ip_addr !== '' && this.state.device.ip_addr !== null && ip_addr}
                 </tr>
+                <tr>
+                  <td>{I18n.devices.ap_ip_addr}</td>
+                  <td>10.10.0.1</td>
+                </tr>
               </tbody>
             </table>
 

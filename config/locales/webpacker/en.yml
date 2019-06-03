@@ -54,6 +54,7 @@ en:
       remove_playlist: Remove playlyist from the device
       playlist_assigned: Playlist assigned successfully
       synchronizing: Syncronizing
+      ap_ip_addr: Built-in access point IP address
 
       log_messages:
         title: Log messages
