@@ -69,8 +69,6 @@ class Device < ApplicationRecord
     d
   end
 
-  private
-
   def time_in_zone(tm)
     tm&.in_time_zone(time_zone.presence || Rails.application.config.time_zone)&.to_formatted_s(:rmpd_custom_date_time)
   end

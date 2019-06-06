@@ -47,7 +47,10 @@ class Device
     end
 
     def serialize
-      attributes.slice('id', 'command', 'localtime', 'message', 'created_at')
+      d = attributes.slice('id', 'command', 'message')
+      d['localtime'] = device.time_in_zone(localtime)
+      d['created_at'] = device.time_in_zone(created_at)
+      d
     end
   end
 end
