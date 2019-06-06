@@ -1,5 +1,3 @@
-require 'csv'
-
 class Device
   class LogMessage < ApplicationRecord
     belongs_to :device, inverse_of: :device_log_messages
@@ -28,15 +26,6 @@ class Device
                 message: message)
       rescue ActiveRecord::RecordNotUnique, PG::UniqueViolation
         Rails.logger&.debug("duplicate message from #{device}")
-      end
-
-      def to_csv
-        CSV.generate do |csv|
-          csv << column_names
-          find_each do |obj|
-            csv << obj.attributes.values_at(*column_names)
-          end
-        end
       end
     end
 
