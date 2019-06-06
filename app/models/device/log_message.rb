@@ -4,10 +4,8 @@ class Device
   class LogMessage < ApplicationRecord
     belongs_to :device, inverse_of: :device_log_messages
 
-    with_options presence: true do
-      validates :command
-      validates :localtime
-    end
+    validates :command, presence: true
+    validates :localtime, presence: true
 
     scope :ordered, -> { order(created_at: :desc) }
     scope :with_since_date, ->(date) { where('date(' + table_name + '.created_at) >= ?', Date.parse(date.to_s)) }
