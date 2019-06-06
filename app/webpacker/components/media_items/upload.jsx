@@ -229,7 +229,13 @@ export default class Upload extends React.Component {
       <tr key={f.file.name}>
         <td>{f.file.name}</td>
         <td>{humanized_size(f.file.size)}</td>
-        <td><progress className="progress is-primary" value={f.progress} max={f.total}></progress></td>
+        <td>
+          {f.error === null ?
+            <progress className="progress is-primary" value={f.progress} max={f.total}></progress>
+            :
+            <i className="has-text-danger fas fa-exclamation-triangle"></i>
+          }
+        </td>
       </tr>
     )
   }
@@ -327,6 +333,17 @@ export default class Upload extends React.Component {
   onerror = (message, file, uuid) => {
     //this.service.cancel() // just in case this was an error not with upload itself
     this.setState({ error: `${I18n.error}: ${file.name} (${uuid}): ${message}`, uploading: false })
+
+    const selected_files_copy = [...this.state.selected_files]
+    const files = selected_files_copy.map(f => {
+      if (file.name === f.file.name) {
+        f.progress = 0
+        f.total = 0
+        f.error = message
+      }
+      return f
+    })
+    this.setState({ selected_files: files })
   }
 
   onprogresssingle = (file, uuid, value, total) => {
@@ -358,6 +375,7 @@ class SelectedFile {
     this.file = file
     this.progress = 0
     this.total = 0
+    this.error = null
   }
 /*
   done = () => {
