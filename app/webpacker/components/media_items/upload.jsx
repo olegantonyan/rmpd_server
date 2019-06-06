@@ -233,7 +233,9 @@ export default class Upload extends React.Component {
           {f.error === null ?
             <progress className="progress is-primary" value={f.progress} max={f.total}></progress>
             :
-            <i className="has-text-danger fas fa-exclamation-triangle"></i>
+            <div className="tooltip"><i className="has-text-danger fas fa-exclamation-triangle"></i>
+              <span className="tooltiptext">{f.error}</span>
+            </div>
           }
         </td>
       </tr>
