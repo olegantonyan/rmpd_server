@@ -334,7 +334,7 @@ export default class Upload extends React.Component {
 
   onerror = (message, file, uuid) => {
     //this.service.cancel() // just in case this was an error not with upload itself
-    this.setState({ error: `${I18n.error}: ${file.name} (${uuid}): ${message}`, uploading: false })
+    this.setState({ error: `${I18n.error}: ${file.name} (${uuid}): ${message}` })
 
     const selected_files_copy = [...this.state.selected_files]
     const files = selected_files_copy.map(f => {
