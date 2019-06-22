@@ -20,5 +20,9 @@ module AdSchedule
     def schedule
       @schedule.map { |i| Time.zone.parse(i).utc }
     end
+
+    def valid?
+      !overlap
+    end
   end
 end
