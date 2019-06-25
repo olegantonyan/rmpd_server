@@ -87,9 +87,7 @@ class Playlist
     end
 
     def validate_overlapped_schedule
-      overlap = schedule.overlap
-      return if overlap.blank?
-      raise "advertising schedule overlap: #{overlap.map(&:file_name).to_sentence}"
+      raise 'advertising schedule overlap' unless schedule.valid?
     end
 
     def update_schedule # rubocop: disable Metrics/AbcSize
