@@ -64,7 +64,7 @@ export default class MediaItems extends React.Component {
             <div className="column">
               <div className="select is-multiple is-fullwidth">
                 <select multiple size={this.state.all_items.length} onChange={this.onItemsSelected}>
-                  {this.state.all_items.map(i => <option key={i.id} data-id={i.id}>{i.description.length > 0 ? `${i.file} (${i.description})` : i.file}</option>)}
+                  {this.state.all_items.map(i => <option key={i.id} data-id={i.id}>{this.itemText(i)}</option>)}
                 </select>
               </div>
               {!this.state.loading && <Pagination total_items={this.state.total_count} per_page={ITEMS_PER_PAGE} current_page={this.state.current_page} onPageChange={this.onPageChange} />}
@@ -140,6 +140,17 @@ export default class MediaItems extends React.Component {
         </div>
       </div>
     )
+  }
+
+  itemText = (item) => {
+    let result = item.file
+    if (item.description.length > 0) {
+      result += ` (${item.description})`
+    }
+    if (item.tags.length > 0) {
+      result += ` # ${item.tags.map(i => i.name).join(", ")}`
+    }
+    return result
   }
 
   onPageChange = (page) => {

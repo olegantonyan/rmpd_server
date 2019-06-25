@@ -20,10 +20,13 @@ export default class PlaylistItemsBackground extends React.Component {
     return(
       <div className="media" key={i.media_item.id}>
         <div className="media-left">
-          {i.media_item.file}
+          {this.itemText(i.media_item)}
         </div>
 
         <div className="media-content">
+          <div className="tags">
+            {this.itemTags(i.media_item)}
+          </div>
         </div>
 
         <div className="media-right">
@@ -33,5 +36,21 @@ export default class PlaylistItemsBackground extends React.Component {
         </div>
       </div>
     )
+  }
+
+  itemText = (item) => {
+    let result = item.file
+    if (item.description.length > 0) {
+      result += ` (${item.description})`
+    }
+    return result
+  }
+
+  itemTags = (item) => {
+    if (item.tags.length > 0) {
+      return item.tags.map(tag => <span className="tag is-dark" key={tag.id}>{tag.name}</span>)
+    } else {
+      return <span></span>
+    }
   }
 }
