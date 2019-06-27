@@ -150,24 +150,22 @@ export default class Editor extends React.Component {
     )
   }
 
-  onAddItems = (items, type) => {
+  onAddItems = (playlist_items) => {
     const existing_items_ids = this.state.playlist.playlist_items.map(i => i.media_item.id.toString())
     let new_playlist_items = []
     let position_increase = 0
 
-    items.forEach((item, _idx) => {
-      if (!existing_items_ids.includes(item.id.toString())) {
-        const playlist_item = {
-          position: this.state.max_position + position_increase,
-          media_item: item,
-          begin_time: '00:00:00',
-          end_time: '23:59:59',
-          begin_date: '01.01.1970',
-          end_date: '01.01.2041',
-          type: type
+    playlist_items.forEach((item, _idx) => {
+
+      if (!existing_items_ids.includes(item.media_item.id.toString())) {
+        if (item.type == "background") {
+          const playlist_item = { ...item, position: this.state.max_position + position_increase }
+          new_playlist_items.push(playlist_item)
+          position_increase += 1
+        } else if (item.type == "advertising") {
+          const playlist_item = { ...item }
+          new_playlist_items.push(playlist_item)
         }
-        new_playlist_items.push(playlist_item)
-        position_increase += 1
       }
     })
 

@@ -62,7 +62,7 @@ export default class PlaylistItemsAdvertising extends React.Component {
         </td>
 
         <td>
-          <input type="checkbox" checked={this.state.selected_items.map(j => j.id).includes(i.id)} onChange={(ev) => this.onItemSelectChanged(ev.target.checked, i)}/>
+          <input type="checkbox" checked={this.state.selected_items.map(j => j.media_item.id).includes(i.media_item.id)} onChange={(ev) => this.onItemSelectChanged(ev.target.checked, i)}/>
         </td>
       </tr>
     )

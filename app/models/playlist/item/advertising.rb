@@ -31,7 +31,7 @@ class Playlist
       end
 
       def playback_duration
-        MediafilesUtils.duration(media_item.file_path) * playbacks_per_day.to_i
+        media_item.duration * playbacks_per_day.to_i
       end
 
       def total_time

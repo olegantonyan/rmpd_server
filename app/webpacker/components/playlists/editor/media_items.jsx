@@ -8,7 +8,7 @@ import Select from '../../common/select'
 import FormBackground from './form_background'
 import FormAdvertising from './form_advertising'
 
-const ITEMS_PER_PAGE = 150
+const ITEMS_PER_PAGE = 50
 const ALL_COMPANIES_PLACEHOLDER = { id: 0, title: I18n.any_company }
 
 export default class MediaItems extends React.Component {
@@ -30,6 +30,11 @@ export default class MediaItems extends React.Component {
     selected_company: ALL_COMPANIES_PLACEHOLDER,
     selected_type: "background",
     selected_library: "all",
+  }
+
+  constructor(props) {
+    super(props)
+    this.itemsForm = React.createRef()
   }
 
   componentDidMount() {
@@ -72,12 +77,12 @@ export default class MediaItems extends React.Component {
 
             <div className="column is-one-quarter">
               {this.state.selected_type === "background" ?
-                <FormBackground />
+                <FormBackground ref={this.itemsForm} />
               :
-                <FormAdvertising />
+                <FormAdvertising ref={this.itemsForm} />
               }
               <button className="button is-primary"
-                      onClick={() => this.props.onAdd(this.state.selected_items, this.state.selected_type)}>
+                      onClick={() => this.props.onAdd(this.itemsForm.current.buildItems(this.state.selected_items))}>
                       {this.state.selected_type === "background" ? I18n.playlists.add_background : I18n.playlists.add_advertising}
               </button>
             </div>
