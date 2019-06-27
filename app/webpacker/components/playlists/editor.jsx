@@ -45,18 +45,7 @@ export default class Editor extends React.Component {
             </div>
 
             <div className="column">
-              <div className="card">
-                <header className="card-header">
-                  <p className="card-header-title">
-                    {I18n.playlists.files_in_playlist} ({I18n.media_items.advertising})
-                  </p>
-                </header>
-                <div className="card-content">
-                  <div className="content">
-                    <PlaylistItemsAdvertising playlist_items={this.state.playlist.playlist_items.filter(i => i.type === "advertising")} onDelete={this.onDeleteItems} />
-                  </div>
-                </div>
-              </div>
+              <PlaylistItemsAdvertising playlist_items={this.state.playlist.playlist_items.filter(i => i.type === "advertising")} onDelete={this.onDeleteItems} />
             </div>
 
           </div>
@@ -162,10 +151,6 @@ export default class Editor extends React.Component {
   }
 
   onAddItems = (items, type) => {
-    if (type === "advertising") {
-      console.log("advertising content not supported yet")
-      return
-    }
     const existing_items_ids = this.state.playlist.playlist_items.map(i => i.media_item.id.toString())
     let new_playlist_items = []
     let position_increase = 0
@@ -179,7 +164,7 @@ export default class Editor extends React.Component {
           end_time: '23:59:59',
           begin_date: '01.01.1970',
           end_date: '01.01.2041',
-          type: "background"
+          type: type
         }
         new_playlist_items.push(playlist_item)
         position_increase += 1
