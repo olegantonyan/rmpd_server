@@ -5,7 +5,7 @@ import I18n from '../../i18n'
 export default class FormAdvertising extends React.Component {
   render() {
     return(
-      <div>not supported yet</div>
+      <div>Тут будет форма параметров рекламы</div>
     )
   }
 }
