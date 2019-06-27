@@ -6,6 +6,7 @@ import { humanized_size } from '../dumpster'
 import CsrfToken from "../csrf_token"
 import MediaItems from "./editor/media_items"
 import PlaylistItemsBackground from "./editor/playlist_items_background"
+import PlaylistItemsAdvertising from "./editor/playlist_items_advertising"
 
 export default class Editor extends React.Component {
   constructor(props) {
@@ -37,17 +38,27 @@ export default class Editor extends React.Component {
 
         <div className="section">
 
-          <div className="card">
-            <header className="card-header">
-              <p className="card-header-title">
-                {I18n.playlists.files_in_playlist} ({I18n.media_items.background})
-              </p>
-            </header>
-            <div className="card-content">
-              <div className="content">
-                <PlaylistItemsBackground playlist_items={this.state.playlist.playlist_items.filter(i => i.type === "background")} onDelete={this.onDeleteItem} />
+          <div className="columns">
+
+            <div className="column">
+              <PlaylistItemsBackground playlist_items={this.state.playlist.playlist_items.filter(i => i.type === "background")} onDelete={this.onDeleteItems} />
+            </div>
+
+            <div className="column">
+              <div className="card">
+                <header className="card-header">
+                  <p className="card-header-title">
+                    {I18n.playlists.files_in_playlist} ({I18n.media_items.advertising})
+                  </p>
+                </header>
+                <div className="card-content">
+                  <div className="content">
+                    <PlaylistItemsAdvertising playlist_items={this.state.playlist.playlist_items.filter(i => i.type === "advertising")} onDelete={this.onDeleteItems} />
+                  </div>
+                </div>
               </div>
             </div>
+
           </div>
 
         </div>
@@ -181,8 +192,9 @@ export default class Editor extends React.Component {
     })
   }
 
-  onDeleteItem = (item) => {
-    const new_items = this.state.playlist.playlist_items.filter(i => i.media_item.id.toString() !== item.media_item.id.toString()).slice()
+  onDeleteItems = (items) => {
+    const items_ids = items.map(i => i.media_item.id.toString())
+    const new_items = this.state.playlist.playlist_items.filter(i => !items_ids.includes(i.media_item.id.toString())).slice()
     this.setState({
       playlist: { ...this.state.playlist, playlist_items: new_items },
     })

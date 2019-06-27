@@ -8,42 +8,64 @@ export default class PlaylistItemsBackground extends React.Component {
     onDelete: PropTypes.func.isRequired,
   }
 
+  state = {
+    selected_items: [],
+  }
+
   render() {
     return(
-      <div>
-        {this.props.playlist_items.map(i => this.itemComponent(i))}
+      <div className="card">
+        <header className="card-header">
+          <p className="card-header-title">
+            {I18n.playlists.files_in_playlist} ({I18n.media_items.background})
+          </p>
+
+          <div>
+            {this.state.selected_items.length > 0 && <button className="button is-small is-danger is-outlined" onClick={this.onDeleteSelected}>
+              <span>{I18n.media_items.delete_selected}</span>
+            </button>}
+
+            <button className="button is-small is-outlined" onClick={this.onSelectAll}>
+              <span>{I18n.media_items.select_all}</span>
+            </button>
+          </div>
+
+        </header>
+        <div className="card-content">
+          <div className="content">
+          <table className="table is-narrow is-hoverable is-fullwidth">
+            <tbody>
+              {this.props.playlist_items.map(i => this.itemComponent(i))}
+            </tbody>
+          </table>
+          </div>
+        </div>
       </div>
     )
   }
 
   itemComponent = (i) => {
     return(
-      <div className="media" key={i.media_item.id}>
-        <div className="media-left">
-          {this.itemText(i.media_item)}
-        </div>
+      <tr key={i.media_item.id}>
+        <td>
+          {i.media_item.file}
+        </td>
 
-        <div className="media-content">
+        <td>
+          {i.media_item.description}
+        </td>
+
+        <td>
           <div className="tags">
             {this.itemTags(i.media_item)}
           </div>
-        </div>
+        </td>
 
-        <div className="media-right">
-          <button className="button is-outlined is-small" onClick={() => this.props.onDelete(i)}>
-            <span className="icon"><i className="fas fa-trash-alt"></i></span>
-          </button>
-        </div>
-      </div>
+        <td>
+          <input type="checkbox" checked={this.state.selected_items.map(j => j.id).includes(i.id)} onChange={(ev) => this.onItemSelectChanged(ev.target.checked, i)}/>
+        </td>
+      </tr>
     )
-  }
-
-  itemText = (item) => {
-    let result = item.file
-    if (item.description.length > 0) {
-      result += ` (${item.description})`
-    }
-    return result
   }
 
   itemTags = (item) => {
@@ -52,5 +74,27 @@ export default class PlaylistItemsBackground extends React.Component {
     } else {
       return <span></span>
     }
+  }
+
+  onItemSelectChanged = (checked, item) => {
+    if (checked) {
+      this.setState({ selected_items: [...this.state.selected_items, item] })
+    } else {
+      const new_items = this.state.selected_items.filter(i => i.id !== item.id).slice()
+      this.setState({ selected_items: new_items })
+    }
+  }
+
+  onSelectAll = () => {
+    if (this.state.selected_items.length === 0) {
+      this.setState({ selected_items: [...this.props.playlist_items] })
+    } else {
+      this.setState({ selected_items: [] })
+    }
+  }
+
+  onDeleteSelected = () => {
+    this.props.onDelete(this.state.selected_items)
+    this.setState({ selected_items: [] })
   }
 }
