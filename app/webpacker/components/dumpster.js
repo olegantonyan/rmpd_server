@@ -30,3 +30,24 @@ export function text_truncate(text, size, ellipsis = '...') {
     return text
   }
 }
+
+export function time_string_to_date(str) {
+  if (str === '' || str === null || str === undefined) {
+    return null
+  }
+
+  let d = new Date()
+  let time = str.match(/(\d+):(\d+):(\d+)/)
+  d.setHours(parseInt(time[1]))
+  d.setMinutes(parseInt(time[2]))
+  d.setSeconds(parseInt(time[3]))
+  return d
+}
+
+export function date_to_time_string(date) {
+  if (date === null || date === undefined) {
+    return null
+  }
+
+  return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`
+}
