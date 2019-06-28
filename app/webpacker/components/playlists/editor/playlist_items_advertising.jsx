@@ -49,6 +49,8 @@ export default class PlaylistItemsAdvertising extends React.Component {
       <tr key={i.media_item.id}>
         <td>
           {i.media_item.file}
+          <br />
+          {this.itemParameters(i)}
         </td>
 
         <td>
@@ -74,6 +76,16 @@ export default class PlaylistItemsAdvertising extends React.Component {
     } else {
       return <span></span>
     }
+  }
+
+  itemParameters = (item) => {
+    return(
+      <span>
+        <i>
+          {item.playbacks_per_day} раз с {item.begin_time} до {item.end_time}, период с {item.begin_date} по {item.end_date}
+        </i>
+      </span>
+    )
   }
 
   onItemSelectChanged = (checked, item) => {

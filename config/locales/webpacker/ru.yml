@@ -75,3 +75,10 @@ ru:
       add_new_files: Добавить новые файлы
       add_background: Добавить фоновый в плейлист
       add_advertising: Добавить рекламный в плейлист
+
+    playlist_items:
+      playbacks_per_day: Воспроизведений в день
+      begin_time: Время начала
+      end_time: Время окончания
+      begin_date: Дата начала
+      end_date: Дата окончания

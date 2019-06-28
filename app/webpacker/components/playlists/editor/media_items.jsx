@@ -81,6 +81,7 @@ export default class MediaItems extends React.Component {
               :
                 <FormAdvertising ref={this.itemsForm} />
               }
+              <hr />
               <button className="button is-primary"
                       onClick={() => this.props.onAdd(this.itemsForm.current.buildItems(this.state.selected_items))}>
                       {this.state.selected_type === "background" ? I18n.playlists.add_background : I18n.playlists.add_advertising}

@@ -25,8 +25,12 @@ class Playlist
     end
 
     def serialize
-      i = attributes.except('media_item_id', 'playlist_id', 'created_at', 'updated_at', 'schedule')
+      i = attributes.except('media_item_id', 'playlist_id', 'created_at', 'updated_at', 'schedule', 'begin_time', 'end_time', 'begin_date', 'end_date')
       i['type'] = type
+      i['begin_time'] = begin_time&.to_formatted_s(:rmpd_custom)
+      i['end_time'] = end_time&.to_formatted_s(:rmpd_custom)
+      i['begin_date'] = begin_date&.to_formatted_s(:rmpd_custom_date)
+      i['end_date'] = end_date&.to_formatted_s(:rmpd_custom_date)
       i['media_item'] = media_item.serialize
       i
     end
