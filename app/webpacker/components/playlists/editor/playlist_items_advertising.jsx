@@ -48,7 +48,7 @@ export default class PlaylistItemsAdvertising extends React.Component {
     return(
       <tr key={i.media_item.id}>
         <td>
-          {i.media_item.file}
+          <b>{i.media_item.file}</b>
           <br />
           {this.itemParameters(i)}
         </td>
