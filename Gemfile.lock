@@ -70,8 +70,8 @@ GEM
     ast (2.4.0)
     awesome_print (1.8.0)
     aws-eventstream (1.0.3)
-    aws-partitions (1.181.0)
-    aws-sdk-core (3.56.0)
+    aws-partitions (1.182.0)
+    aws-sdk-core (3.57.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.1)
@@ -236,7 +236,7 @@ GEM
       railties (>= 5.0)
     rollbar (2.20.2)
       multi_json
-    rspec-core (3.8.1)
+    rspec-core (3.8.2)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.4)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -325,7 +325,7 @@ GEM
     websocket-extensions (0.1.4)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.1.6)
+    zeitwerk (2.1.8)
 
 PLATFORMS
   ruby
