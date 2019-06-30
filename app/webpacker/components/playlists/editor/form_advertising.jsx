@@ -1,9 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import I18n from '../../i18n'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import { time_string_to_date, date_to_time_string } from '../../dumpster'
 
 export default class FormAdvertising extends React.Component {
   state = {
@@ -21,18 +18,6 @@ export default class FormAdvertising extends React.Component {
         <div className="field">
           <label className="label">{I18n.playlist_items.begin_time}</label>
           <div className="control">
-
-            <DatePicker
-              selected={time_string_to_date(this.state.begin_time)}
-              onChange={v => this.setState({ begin_time: date_to_time_string(v) })}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={10}
-              timeFormat="HH:mm:ss"
-              dateFormat="HH:mm:ss"
-              timeCaption=""
-            />
-
             <input className="input" value={this.state.begin_time} onChange={ev => this.setState({ begin_time: ev.target.value })} />
           </div>
         </div>
