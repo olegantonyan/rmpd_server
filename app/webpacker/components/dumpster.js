@@ -51,24 +51,3 @@ export function date_to_time_string(date) {
 
   return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`
 }
-
-export function date_string_to_date(str) {
-  if (str === '' || str === null || str === undefined) {
-    return null
-  }
-
-  let d = new Date()
-  let time = str.match(/(\d+).(\d+).(\d+)/)
-  d.setDate(parseInt(time[1]))
-  d.setMonth(parseInt(time[2] - 1))
-  d.setFullYear(parseInt(time[3]))
-  return d
-}
-
-export function date_to_date_string(date) {
-  if (date === null || date === undefined) {
-    return null
-  }
-
-  return `${date.getDate().toString().padStart(2, '0')}:${(date.getMonth() + 1).toString().padStart(2, '0')}:${date.getFullYear().toString().padStart(2, '0')}`
-}
