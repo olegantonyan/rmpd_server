@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import I18n from '../../i18n'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { time_string_to_date, date_to_time_string } from '../../dumpster'
+import ru from 'date-fns/locale/ru';
+import { time_string_to_date, date_to_time_string, date_string_to_date, date_to_date_string } from '../../dumpster'
+import '../../../stylesheets/react-datetime-override.scss'
 
 export default class FormAdvertising extends React.Component {
   state = {
@@ -33,28 +35,52 @@ export default class FormAdvertising extends React.Component {
               timeCaption=""
             />
 
-            <input className="input" value={this.state.begin_time} onChange={ev => this.setState({ begin_time: ev.target.value })} />
           </div>
         </div>
 
         <div className="field">
           <label className="label">{I18n.playlist_items.end_time}</label>
           <div className="control">
-            <input className="input" value={this.state.end_time} onChange={ev => this.setState({ end_time: ev.target.value })} />
+
+            <DatePicker
+              selected={time_string_to_date(this.state.end_time)}
+              onChange={v => this.setState({ end_time: date_to_time_string(v) })}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={10}
+              timeFormat="HH:mm:ss"
+              dateFormat="HH:mm:ss"
+              timeCaption=""
+            />
+
           </div>
         </div>
 
         <div className="field">
           <label className="label">{I18n.playlist_items.begin_date}</label>
           <div className="control">
-            <input className="input" value={this.state.begin_date} onChange={ev => this.setState({ begin_date: ev.target.value })} />
+
+            <DatePicker
+              selected={date_string_to_date(this.state.begin_date)}
+              onChange={v => this.setState({ begin_date: date_to_date_string(v) })}
+              locale={ru}
+              dateFormat="dd.MM.yyyy"
+            />
+
           </div>
         </div>
 
         <div className="field">
           <label className="label">{I18n.playlist_items.end_date}</label>
           <div className="control">
-            <input className="input" value={this.state.end_date} onChange={ev => this.setState({ end_date: ev.target.value })} />
+
+            <DatePicker
+              selected={date_string_to_date(this.state.end_date)}
+              onChange={v => this.setState({ end_date: date_to_date_string(v) })}
+              locale={ru}
+              dateFormat="dd.MM.yyyy"
+            />
+
           </div>
         </div>
 
