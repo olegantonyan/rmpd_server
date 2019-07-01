@@ -1,0 +1,16 @@
+@import '~bulma/bulma';
+
+.react-datepicker__time-container {
+  width: 80px;
+  .react-datepicker__time {
+    .react-datepicker__time-box {
+      width: 80px;
+    }
+  }
+}
+
+.react-datepicker__input-container {
+  input {
+    @extend .input;
+  }
+}

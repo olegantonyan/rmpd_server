@@ -9,6 +9,9 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import './loader.css';
 @import './tooltip.css';
 
+@import 'react-datepicker/dist/react-datepicker.css';
+@import './react-datetime-override.scss';
+
 .multiselect-noscroll {
   display: inline-block;
   vertical-align: top;
