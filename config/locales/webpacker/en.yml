@@ -74,3 +74,11 @@ en:
       add_new_files: Add new files
       add_background: Add background to playlist
       add_advertising: Add advertising to playlist
+
+    playlist_items:
+      playbacks_per_day: Playbacks per day
+      begin_time: Begin time
+      end_time: End time
+      begin_date: Begin date
+      end_date: End date
+      times: times

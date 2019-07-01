@@ -82,7 +82,7 @@ export default class PlaylistItemsAdvertising extends React.Component {
     return(
       <span>
         <i>
-          {item.playbacks_per_day} раз с {item.begin_time} до {item.end_time}, период с {item.begin_date} по {item.end_date}
+          {item.playbacks_per_day} {I18n.playlist_items.times} {item.begin_time}—{item.end_time} | {item.begin_date}—{item.end_date}
         </i>
       </span>
     )
