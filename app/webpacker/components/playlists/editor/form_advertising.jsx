@@ -2,10 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import I18n from '../../i18n'
 import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
 import ru from 'date-fns/locale/ru';
 import { time_string_to_date, date_to_time_string, date_string_to_date, date_to_date_string } from '../../dumpster'
-import '../../../stylesheets/react-datetime-override.scss'
 
 export default class FormAdvertising extends React.Component {
   state = {
