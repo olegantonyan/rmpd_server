@@ -61,7 +61,7 @@ export default class FormAdvertising extends React.Component {
             <DatePicker
               selected={date_string_to_date(this.state.begin_date)}
               onChange={v => this.setState({ begin_date: date_to_date_string(v) })}
-              locale={ru}
+              locale={this.locale()}
               dateFormat="dd.MM.yyyy"
             />
 
@@ -75,7 +75,7 @@ export default class FormAdvertising extends React.Component {
             <DatePicker
               selected={date_string_to_date(this.state.end_date)}
               onChange={v => this.setState({ end_date: date_to_date_string(v) })}
-              locale={ru}
+              locale={this.locale()}
               dateFormat="dd.MM.yyyy"
             />
 
@@ -108,5 +108,9 @@ export default class FormAdvertising extends React.Component {
        return playlist_item
     })
     return playlist_items
+  }
+
+  locale = () => {
+    return I18n._locale_ === 'ru' ? ru : null
   }
 }

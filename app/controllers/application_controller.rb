@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
   def add_js_data(hash = {})
     @js_data = {
-      i18n: Translations.all[:webpacker],
+      i18n: Translations.all[:webpacker].merge(_locale_: I18n.locale),
       companies: policy_scope(Company.all).pluck(:id, :title)&.map { |id, title| { id: id, title: title }.freeze },
       current_user: {
         root: current_user&.root? || false
