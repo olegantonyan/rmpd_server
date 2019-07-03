@@ -14,7 +14,8 @@ const ALL_COMPANIES_PLACEHOLDER = { id: 0, title: I18n.any_company }
 export default class MediaItems extends React.Component {
   static propTypes = {
     js_data: PropTypes.object.isRequired,
-    onAdd: PropTypes.func.isRequired
+    onAdd: PropTypes.func.isRequired,
+    can_add_advertising: PropTypes.bool.isRequired
   }
 
   state = {
@@ -82,10 +83,7 @@ export default class MediaItems extends React.Component {
                 <FormAdvertising ref={this.itemsForm} />
               }
               <hr />
-              <button className="button is-primary"
-                      onClick={() => this.props.onAdd(this.itemsForm.current.buildItems(this.state.selected_items))}>
-                      {this.state.selected_type === "background" ? I18n.playlists.add_background : I18n.playlists.add_advertising}
-              </button>
+              {this.addButtonComponent()}
             </div>
           </div>
 
@@ -157,6 +155,25 @@ export default class MediaItems extends React.Component {
       result += ` # ${item.tags.map(i => i.name).join(", ")}`
     }
     return result
+  }
+
+  addButtonComponent = () => {
+    if (this.state.selected_type === "background" || this.props.can_add_advertising) {
+      return (
+        <button className="button is-primary"
+                onClick={() => this.props.onAdd(this.itemsForm.current.buildItems(this.state.selected_items))}>
+                {this.state.selected_type === "background" ? I18n.playlists.add_background : I18n.playlists.add_advertising}
+        </button>
+    )
+    } else {
+      return (
+        <div className="message is-danger">
+          <div className="message-body">
+            {I18n.playlists.max_advertising_items}: {this.props.js_data.max_advertising_items}
+          </div>
+        </div>)
+
+    }
   }
 
   onPageChange = (page) => {

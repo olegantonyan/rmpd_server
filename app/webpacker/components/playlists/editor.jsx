@@ -54,7 +54,7 @@ export default class Editor extends React.Component {
 
         <div className="section">
           <h5 className="title is-5">{I18n.playlists.add_new_files}</h5>
-          <MediaItems js_data={this.props.js_data} onAdd={this.onAddItems}/>
+          <MediaItems js_data={this.props.js_data} onAdd={this.onAddItems} can_add_advertising={this.canAddAdvertising()}/>
         </div>
 
         <div className="section">
@@ -155,6 +155,9 @@ export default class Editor extends React.Component {
     let new_playlist_items = []
     let position_increase = 0
 
+    const max_ad = Math.max(this.props.js_data.max_advertising_items - this.advertisingCount(), 0)
+    let ad_count = 0
+
     playlist_items.forEach((item, _idx) => {
 
       if (!existing_items_ids.includes(item.media_item.id.toString())) {
@@ -162,9 +165,10 @@ export default class Editor extends React.Component {
           const playlist_item = { ...item, position: this.state.max_position + position_increase }
           new_playlist_items.push(playlist_item)
           position_increase += 1
-        } else if (item.type == "advertising") {
+        } else if (item.type == "advertising" && ad_count < max_ad) {
           const playlist_item = { ...item }
           new_playlist_items.push(playlist_item)
+          ad_count += 1
         }
       }
     })
@@ -203,6 +207,15 @@ export default class Editor extends React.Component {
     }
     this.saveRequest(data)
   }
+
+  canAddAdvertising = () => {
+    return this.advertisingCount() < this.props.js_data.max_advertising_items
+  }
+
+  advertisingCount = () => {
+    return this.state.playlist.playlist_items.filter(i => i.type === "advertising").length
+  }
+
 
   saveRequest = (data) => {
     this.setState({ saving: true })

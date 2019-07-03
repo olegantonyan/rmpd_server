@@ -26,25 +26,14 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.find(params[:id])
     authorize(@playlist)
 
-    add_js_data(
-      playlist: @playlist.serialize(with_items: true),
-      update_path: playlist_path(@playlist),
-      media_items_path: media_items_path,
-      tags: policy_scope(Tag.ordered).map(&:serialize)
-    )
+    add_js_data(editor_js_data_base.merge(update_path: playlist_path(@playlist)))
   end
 
   def new
     @playlist = Playlist.new(company: current_user.companies.first, name: '', description: '', shuffle: true)
     authorize(@playlist)
 
-    add_js_data(
-      playlist: @playlist.serialize(with_items: true),
-      create_path: playlists_path,
-      edit_path: edit_playlist_path(':id'),
-      media_items_path: media_items_path,
-      tags: policy_scope(Tag.ordered).map(&:serialize)
-    )
+    add_js_data(editor_js_data_base.merge(create_path: playlists_path, edit_path: edit_playlist_path(':id')))
   end
 
   def create
@@ -88,5 +77,14 @@ class PlaylistsController < ApplicationController
     else
       render(json: { error: service.errors.full_messages.to_sentence }, status: :unprocessable_entity)
     end
+  end
+
+  def editor_js_data_base
+    {
+      playlist: @playlist.serialize(with_items: true),
+      media_items_path: media_items_path,
+      tags: policy_scope(Tag.ordered).map(&:serialize),
+      max_advertising_items: Playlist::MAX_ADVERTISING_ITEMS
+    }
   end
 end

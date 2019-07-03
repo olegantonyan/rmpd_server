@@ -1,7 +1,6 @@
 class Playlist
   class CreateOrUpdate
     include ActiveModel::Model
-    include ActiveModel::Validations
 
     using Typerb
 

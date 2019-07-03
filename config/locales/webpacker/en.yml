@@ -74,6 +74,7 @@ en:
       add_new_files: Add new files
       add_background: Add background to playlist
       add_advertising: Add advertising to playlist
+      max_advertising_items: Max number of advertising items
 
     playlist_items:
       playbacks_per_day: Playbacks per day

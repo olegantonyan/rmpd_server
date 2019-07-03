@@ -21,6 +21,9 @@ class Playlist < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 128 }
   validates :description, length: { maximum: 512 }
+  validate :max_advertising_items
+
+  MAX_ADVERTISING_ITEMS = 20
 
   scope :search_query, ->(query) {
     q = "%#{query}%"
@@ -62,5 +65,11 @@ class Playlist < ApplicationRecord
     i['devices_count'] = devices.count
     i['playlist_items'] = playlist_items.includes(media_item: [:company, { file_attachment: :blob }, :tags]).map(&:serialize) if with_items
     i
+  end
+
+  private
+
+  def max_advertising_items
+    errors.add(:playlist_items_advertising, "cannot have more than #{MAX_ADVERTISING_ITEMS} advertising items") if playlist_items_advertising.count > MAX_ADVERTISING_ITEMS
   end
 end

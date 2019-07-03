@@ -75,6 +75,7 @@ ru:
       add_new_files: Добавить новые файлы
       add_background: Добавить фоновый в плейлист
       add_advertising: Добавить рекламный в плейлист
+      max_advertising_items: Максимальное количество рекламных треков
 
     playlist_items:
       playbacks_per_day: Воспроизведений в день
