@@ -53,7 +53,11 @@ module Deviceapi
           return [] unless item.advertising?
           return [] unless item.schedule
           item.schedule.map do |j|
-            { date_interval: j[:date_interval], schedule: j[:schedule].map { |s| s.strftime(time_format) } }
+            {
+              begin: j[:date_interval][:begin],
+              end: j[:date_interval][:end],
+              schedule: j[:schedule].map { |s| s.strftime(time_format) }
+            }
           end
         end
 
