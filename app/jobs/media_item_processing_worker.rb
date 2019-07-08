@@ -1,7 +1,7 @@
 class MediaItemProcessingWorker # becasuse I need `sidekiq_retries_exhausted`
   include Sidekiq::Worker
 
-  sidekiq_options queue: :files_processing, retry: 3
+  sidekiq_options queue: :files_processing, retry: 10
 
   sidekiq_retries_exhausted do |msg|
     media_item_params = msg['args'].first
