@@ -43,20 +43,12 @@ class Device
 
     private
 
-    def serialize_message(d) # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
+    def serialize_message(d) # rubocop: disable Metrics/MethodLength
       if %w[track_begin track_end].include?(command)
         begin
           hash_message = parse_message_to_hash
-          media_item = MediaItem.find_by(id: hash_message['id'])
-          if media_item
-            d['message'] = hash_message['filename']
-            d['media_item_id'] = hash_message['id']
-            d['media_item_type'] = media_item.type
-          elsif hash_message['filename']
-            d['message'] = hash_message['filename']
-          else
-            d['message'] = message
-          end
+          d['media_item_type'] = hash_message['type'] if hash_message['type']
+          d['message'] = hash_message['filename'].presence || message
         rescue ::StandardError
           d['message'] = message
         end
