@@ -34,10 +34,39 @@ class Device
     end
 
     def serialize
-      d = attributes.slice('id', 'command', 'message')
+      d = attributes.slice('id', 'command')
+      serialize_message(d)
       d['localtime'] = device.time_in_zone(localtime)
       d['created_at'] = device.time_in_zone(created_at)
       d
+    end
+
+    private
+
+    def serialize_message(d) # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
+      if %w[track_begin track_end].include?(command)
+        begin
+          hash_message = parse_message_to_hash
+          media_item = MediaItem.find_by(id: hash_message['id'])
+          if media_item
+            d['message'] = hash_message['filename']
+            d['media_item_id'] = hash_message['id']
+            d['media_item_type'] = media_item.type
+          elsif hash_message['filename']
+            d['message'] = hash_message['filename']
+          else
+            d['message'] = message
+          end
+        rescue ::StandardError
+          d['message'] = message
+        end
+      else
+        d['message'] = message
+      end
+    end
+
+    def parse_message_to_hash
+      JSON.parse(message.gsub(/:(\w+)/) { "\"#{$1}\"" }.gsub('=>', ':')) # rubocop: disable Style/PerlBackrefs
     end
   end
 end

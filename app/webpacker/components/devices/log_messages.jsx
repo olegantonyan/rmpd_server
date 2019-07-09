@@ -67,10 +67,19 @@ export default class LogMessages extends React.Component {
     return (
       <tr key={i.id}>
         <td>{i.command}</td>
-        <td>{i.message}</td>
+        <td>{this.logMessageItemMessage(i)}</td>
         <td>{i.localtime}</td>
         <td>{i.created_at}</td>
       </tr>
+    )
+  }
+
+  logMessageItemMessage = (i) => {
+    return (
+      <span>
+        {i.message}
+        {i.media_item_type === "advertising" && <span className="icon"><i className="fas fa-ad fa-xs"></i></span>}
+      </span>
     )
   }
 
