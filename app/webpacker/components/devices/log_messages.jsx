@@ -78,7 +78,7 @@ export default class LogMessages extends React.Component {
     return (
       <span>
         {i.message}
-        {i.media_item_type === "advertising" && <span className="icon"><i className="fas fa-ad fa-sm"></i></span>}
+        {i.media_item_type === "advertising" && <span className="icon"><i className="fas fa-ad"></i></span>}
       </span>
     )
   }
