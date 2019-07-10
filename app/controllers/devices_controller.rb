@@ -31,7 +31,8 @@ class DevicesController < ApplicationController
       device: @device.serialize,
       log_messages_path: device_device_log_messages_path(@device.id),
       playlists: policy_scope(Playlist.order(name: :asc)).map(&:serialize),
-      playlist_assign_path: device_playlist_assign_path(@device.id)
+      playlist_assign_path: device_playlist_assign_path(@device.id),
+      playlist_path: edit_playlist_path(':id:')
     )
   end
 

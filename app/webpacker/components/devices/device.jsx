@@ -66,7 +66,10 @@ export default class Device extends React.Component {
                   <td>{this.state.device.company !== null && this.state.device.company.title}</td>
                 </tr>
                 <tr>
-                  <td>{I18n.devices.playlist}</td>
+                  <td>
+                    {I18n.devices.playlist}
+                    {this.state.device.playlist && <a href={this.props.js_data.playlist_path.replace(":id:", this.state.device.playlist.id)} target="_blank"><i className="fa fa-link"></i></a>}
+                  </td>
                   <td>
                     <Playlist playlist={this.state.device.playlist} playlists={this.props.js_data.playlists} playlist_assign_path={this.props.js_data.playlist_assign_path} onAssigned={(device) => this.setState({ device: device })}/>
 
