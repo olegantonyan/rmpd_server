@@ -93,7 +93,7 @@ class Playlist
       qry = playlist_items_advertising.each_with_object({}) do |pitem, obj|
         scheduled_items = schedule.items.select { |i| i.id == pitem.id }
         intervals = scheduled_items.each_with_object([]) do |sitem, ary|
-          ary << { date_interval: { begin: sitem.begin_date, end: sitem.end_date }, schedule: sitem.schedule }
+          ary << { begin: sitem.begin_date, end: sitem.end_date, schedule: sitem.schedule }
         end
         obj[pitem.id] = { schedule: intervals }
       end

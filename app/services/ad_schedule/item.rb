@@ -1,6 +1,6 @@
 module AdSchedule
   class Item
-    attr_reader :scheduled_item, :id, :begin_date, :end_date, :overlap
+    attr_reader :scheduled_item, :id, :begin_date, :end_date, :overlap, :schedule
 
     delegate :file_name, to: :playlist_item
 
@@ -15,10 +15,6 @@ module AdSchedule
 
     def playlist_item
       @playlist_item ||= Playlist::Item::Advertising.find(id)
-    end
-
-    def schedule
-      @schedule.map { |i| Time.zone.parse(i).utc }
     end
 
     def valid?

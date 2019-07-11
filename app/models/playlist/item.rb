@@ -18,8 +18,6 @@ class Playlist
 
     delegate :file_url, :type, :description, :file_name, :background?, :advertising?, :duration, :content_type, to: :media_item
 
-    serialize :schedule
-
     def to_s
       "#{media_item} @ #{playlist}"
     end

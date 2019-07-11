@@ -52,13 +52,7 @@ module Deviceapi
         def serialized_schedule(item)
           return [] unless item.advertising?
           return [] unless item.schedule
-          item.schedule.map do |j|
-            {
-              begin: j[:date_interval][:begin],
-              end: j[:date_interval][:end],
-              schedule: j[:schedule].map { |s| s.strftime(time_format) }
-            }
-          end
+          item.schedule
         end
 
         def time_format
