@@ -1,9 +1,9 @@
 GIT
   remote: git@bitbucket.org:slon-ds/rmpd_adschedule.git
-  revision: f5afc5250be9190ab36a2808ef56161a82cacb07
+  revision: c8380995a106d4a03b5b5fa77cb2597eec790e77
   branch: master
   specs:
-    rmpd_adschedule (0.2.2)
+    rmpd_adschedule (0.2.3)
 
 GEM
   remote: https://rubygems.org/
