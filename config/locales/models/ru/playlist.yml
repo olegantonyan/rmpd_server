@@ -21,3 +21,6 @@ ru:
 
   playlist_assign:
     free_space_error: "Недостаточно свободного места на устройстве %{device}, нужно %{size_of_new_items}, доступно %{free_space}"
+
+  playlist:
+    ad_schedule_overlap_error: Не удаётся спланировать эфир. Уменьшите количество роликов/воспроизведений или увеличьте период времени

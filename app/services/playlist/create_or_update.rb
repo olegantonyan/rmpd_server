@@ -86,7 +86,7 @@ class Playlist
     end
 
     def validate_overlapped_schedule
-      raise 'advertising schedule overlap' unless schedule.valid?
+      raise I18n.t('playlist.ad_schedule_overlap_error', default: 'error: advertising schedule overlap') unless schedule.valid?
     end
 
     def update_schedule # rubocop: disable Metrics/AbcSize
