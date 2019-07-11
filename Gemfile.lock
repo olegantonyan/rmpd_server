@@ -1,9 +1,9 @@
 GIT
   remote: git@bitbucket.org:slon-ds/rmpd_adschedule.git
-  revision: 6530dae7e471f53902eb04bb4ce6942202ff0889
+  revision: f5afc5250be9190ab36a2808ef56161a82cacb07
   branch: master
   specs:
-    rmpd_adschedule (0.2.1)
+    rmpd_adschedule (0.2.2)
 
 GEM
   remote: https://rubygems.org/
@@ -70,7 +70,7 @@ GEM
     ast (2.4.0)
     awesome_print (1.8.0)
     aws-eventstream (1.0.3)
-    aws-partitions (1.186.0)
+    aws-partitions (1.187.0)
     aws-sdk-core (3.59.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1.0)
