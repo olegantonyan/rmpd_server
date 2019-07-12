@@ -51,7 +51,7 @@ class Device < ApplicationRecord
   end
 
   def client_version
-    ClientVersion.new(device_log_messages.latest&.user_agent)
+    Device::ClientVersion.new(device_log_messages.latest&.user_agent)
   end
 
   def send_to(command, options = {})
