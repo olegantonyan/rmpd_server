@@ -79,6 +79,7 @@ export default class PlaylistItemsAdvertising extends React.Component {
   }
 
   itemParameters = (item) => {
+    //console.log(item.schedule)
     return(
       <span>
         <i>

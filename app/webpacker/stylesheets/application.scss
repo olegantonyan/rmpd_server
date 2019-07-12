@@ -12,21 +12,5 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import 'react-datepicker/dist/react-datepicker.css';
 @import './react-datetime-override.scss';
 
-.multiselect-noscroll {
-  display: inline-block;
-  vertical-align: top;
-  overflow: hidden;
-  border: solid
-  grey 1px;
-}
-.multiselect-noscroll select {
-  padding: 10px;
-  margin: -5px -20px -5px -5px;
-}
-
-#fill-with-bg-image {
-  background-image: url("../images/dj.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 820px;
-}
+@import './multiselect.scss';
+@import './homepage.scss';
