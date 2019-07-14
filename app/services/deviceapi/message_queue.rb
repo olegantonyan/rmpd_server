@@ -64,6 +64,14 @@ module Deviceapi
       def message_type_for_sequence_number(sequence_number)
         find_by(id: sequence_number)&.message_type
       end
+
+      def get_all(key)
+        where(key: key).order(:created_at).map do |m|
+          result = m.attributes.slice('key', 'dequeued', 'created_at', 'updated_at', 'reenqueue_retries', 'message_type')
+          result['sequence'] = m.id
+          result
+        end
+      end
     end
   end
 end

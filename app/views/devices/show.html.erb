@@ -55,7 +55,32 @@
         <% end %>
       </div>
 
-    </div
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Command</th>
+          <th>Sequence</th>
+          <th>Created at</th>
+          <th>Updated at</th>
+          <th>Dequeued</th>
+          <th>Reenqueue retries</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @device.queued_messages.each do |qm| %>
+          <tr>
+            <td><%= qm['message_type'] %></td>
+            <td><%= qm['sequence'] %></td>
+            <td><%= qm['created_at'] %></td>
+            <td><%= qm['updated_at'] %></td>
+            <td><%= qm['dequeued'] %></td>
+            <td><%= qm['reenqueue_retries'] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
   </div>
 <% end %>
