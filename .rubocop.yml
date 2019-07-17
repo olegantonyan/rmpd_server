@@ -9,7 +9,6 @@ AllCops:
     - 'config.ru'
     - 'db/**/*'
     - 'config/**/*'
-    - 'script/**/*'
     - 'bin/**/*'
     - 'Guardfile'
     - 'Capfile'
@@ -17,19 +16,7 @@ AllCops:
 
   TargetRubyVersion: 2.6
 
-Style/ExpandPathArguments:
-  Enabled: false
-
-Rails/LexicallyScopedActionFilter:
-  Enabled: false
-
 Style/CommentedKeyword:
-  Enabled: false
-
-Rails/RedundantReceiverInWithOptions:
-  Enabled: false
-
-Style/IfUnlessModifier:
   Enabled: false
 
 Naming/UncommunicativeMethodParamName:
@@ -62,6 +49,3 @@ Layout/EmptyLineAfterGuardClause:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
-
-Rails/ActiveRecordOverride:
-  Enabled: false # https://github.com/rubocop-hq/rubocop/issues/6888

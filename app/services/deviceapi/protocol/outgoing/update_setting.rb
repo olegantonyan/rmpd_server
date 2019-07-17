@@ -10,7 +10,7 @@ module Deviceapi
 
         private
 
-        def json(options = {}) # rubocop: disable Metrics/MethodLength
+        def json(options = {})
           {}.tap do |j|
             attrs = options.fetch(:changed_attrs, [])
             if attrs.include?(:time_zone)
@@ -18,9 +18,7 @@ module Deviceapi
               j[:time_zone_name] = device.time_zone
               j[:time_zone_tzinfo] = device.time_zone_formatted_tzinfo
             end
-            if attrs.include?(:message_queue_sync_period)
-              j[:message_queue_sync_period] = device.message_queue_sync_period
-            end
+            j[:message_queue_sync_period] = device.message_queue_sync_period if attrs.include?(:message_queue_sync_period)
           end
         end
       end

@@ -54,9 +54,7 @@ class DevicesController < ApplicationController
     if @device.save
       flash[:success] = t('views.devices.update_successfull')
 
-      if time_zone_was != @device.time_zone
-        @device.send_to(:update_setting, changed_attrs: %i[time_zone])
-      end
+      @device.send_to(:update_setting, changed_attrs: %i[time_zone]) if time_zone_was != @device.time_zone
 
       redirect_to(device_path(@device))
     else
