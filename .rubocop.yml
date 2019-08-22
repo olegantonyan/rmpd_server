@@ -46,6 +46,9 @@ Style/EmptyMethod:
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 
+Rails/EnumHash:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'

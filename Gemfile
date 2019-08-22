@@ -13,7 +13,7 @@ gem 'pry-rails'
 gem 'slack-notifier'
 gem 'rollbar'
 gem 'sidekiq'
-gem 'rmpd_adschedule', git: 'git@bitbucket.org:slon-ds/rmpd_adschedule.git', branch: 'master'
+gem 'rmpd_adschedule', github: 'olegantonyan/rmpd_adschedule'
 gem 'typerb'
 gem 'webpacker'
 gem 'aws-sdk-s3', require: false
