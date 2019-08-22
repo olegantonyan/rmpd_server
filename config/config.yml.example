@@ -10,11 +10,11 @@ development: &development
     #port: 587
     #sender: cloud.slon-ds@yandex.ru
     #user_name: cloud.slon-ds@yandex.ru
-    #password: e99ee341f4453f03c4680a9e0b78b0d00959d491470d6c99f548fa23faa1404a
+    #password: a
     #authentication: login
     #enable_starttls_auto: true
   slack:
-    webhook_url: #https://hooks.slack.com/services/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
+    webhook_url: #https://hooks.slack.com/services/T
 
 test:
   <<: *development
